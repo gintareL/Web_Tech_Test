@@ -42,7 +42,7 @@
 	font: 35px Verdana, Geneva, sans-serif;  font-weight: 900;
  
 
-  -webkit-background-clip: text; font-weight: 900;}
+  -webkit-background-clip: text; }
 #tkl{ font: 25px Verdana,Geneva,sans-serif;  font-weight: 900;}
 #vn{font-size: 15px; font-family: "Verdana", serif; position:relative;}
 #wm{font-size: 15px; font-family: "Verdana", serif; position:relative;left:78px; }
@@ -161,7 +161,7 @@ moz-box-shadow: 0 0 5px #888;
 }
 
 #uebung_auswahl{
-position:relative; top: -630px; left: 1px;
+position:relative; top: -590px; left: 1px;
 	
 	
 	height: 500px;
@@ -170,11 +170,6 @@ position:relative; top: -630px; left: 1px;
 	padding: 40px;
 	padding-top : 7px;
 	padding-left : 70px;
-	
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
 	
 }
 
@@ -220,7 +215,7 @@ position:relative; left: -475px; top: 160px; width:150px; height: 100px;
 }
 
 #beine{
-position:relative; left: 302px; top: 56px; width:150px; height: 100px;
+position:relative; left: 304px; top: 56px; width:150px; height: 100px;
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
@@ -233,4 +228,45 @@ position:relative; left: -177px; top: 178px; width:150px; height: 100px;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
 	border-radius: 7px;
+}
+
+#plaene{
+position:relative; left: -167px; top: 178px; width:150px; height: 100px;
+	moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 10px #888;
+	border-radius: 7px;
+}
+
+#cooldown{
+position:relative; left: -158px; top: 178px; width:150px; height: 100px;
+	moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 10px #888;
+	border-radius: 7px;
+}
+
+#liste_ausgewaehlte_uebungen{
+	position:relative; top: -222px; left: 250px; 
+	
+	
+	height: 295px;
+    width: 150px;
+	margin: 20px auto;
+	padding: 40px;
+	padding-top : 7px;
+	padding-left : 70px;
+	
+	moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 10px #888;
+	border-radius: 7px;
+}
+
+#liste_ausgewaehlte_uebungen_text{
+width: 250px;
+position:relative; top: -215px; left: 522px;
+  color: #5A5A5A;
+	font: 15px Verdana, Geneva, sans-serif;  font-weight: 900;
+  -webkit-background-clip: text; 
 }
