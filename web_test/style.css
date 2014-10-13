@@ -1,79 +1,116 @@
 .wrapper {
 	margin-left: auto;
     margin-right: auto;
-    width: 0%;
-
+    width: 70%;
     width: 1000px;
-   
 	-moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 3px 3px 10px #888;
-
 }
 
+#b1{ 
+	position:absolute; 
+	top: 200px; 
+	width:533px; 
+	height: 629px;
+	}
+#logIn1{
+	position:relative; 
+	top:-50px; 
+	left:510px; 
+	width: 330px;
+	}
 
-#b1{ position:absolute; top: 231px; width:533px; height: 629px;}
-#logIn1{position:relative; top:-750px; left:510px; width: 330px;}
-#email{width: 130px;}
-#password{position:relative;left:190px; top: -41px; width:140px;}
-#anmelden{position:relative;left:359px; top: -82px; width:10px;}
-#em{ position:relative;left:0px; top: 10px; width:140px; padding-left: 10px; width:170px; }
-#pw{ position:absolute;left:200px; top: 10px; padding-left: 10px; width:150px; }
-#abut{position:absolute;left:380px; top: 10px; padding-left: 5px;width:80px; }
+#em{ 
+	position:relative;
+	left:0px; top: 10px; 
+	width:140px; 
+	padding-left: 10px; 
+	width:170px; 
+	}
+#pw{ 
+	position:absolute;
+	left:200px; 
+	top: 10px; 
+	padding-left: 10px; 
+	width:150px; 
+	}
+#abut{
+	position:absolute;
+	left:380px; 
+	top: 10px; 
+	padding-left: 5px;
+	width:80px; 
+	}
 
-
-
-#daten{ position:relative; top: -650px; left: 240px;
+#daten{ 
+	position:relative; 
+	top: 50px; 
+	left: 240px;
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
-	
-	
-	height: 500px;
-    width: 350px;
+    width: 378px;
 	margin: -40px auto;
-	padding: 40px;
-	padding-top : 7px;
-	padding-left : 70px;
+	padding-bottom : 30px;
+	padding-top : 6px;
+	padding-left : 80px;
 }
 #frage{ 
-  color: #5A5A5A;
-
+	color: #5A5A5A;
 	font: 35px Verdana, Geneva, sans-serif;  font-weight: 900;
- 
-
-  -webkit-background-clip: text; }
-#tkl{ font: 25px Verdana,Geneva,sans-serif;  font-weight: 900;}
-#vn{font-size: 15px; font-family: "Verdana", serif; position:relative;}
-#wm{font-size: 15px; font-family: "Verdana", serif; position:relative;left:78px; }
-#bt{font-size: 20px; font-family: "Verdana", serif; position:relative; left:105px; }
-.sende01{background-color: #A9ED26;
-cursor: pointer; font: 15px Verdana,sans-serif; color: #000000; width: 140px; padding: 5px; line-height: 130%; border-radius: 7px;
+	-webkit-background-clip: text; 
+	}
+#tkl{ 
+	font: 25px Verdana,Geneva,sans-serif;  
+	font-weight: 900;
+	}
+#vn{
+	font-size: 15px; 
+	font-family: "Verdana", serif; 
+	position:relative;
+	}
+#wm{
+	font-size: 15px; 
+	font-family: "Verdana", serif; 
+	position:relative;
+	left:60px; 
+	}
+#bt{
+	font-size: 20px; 
+	font-family: "Verdana", serif; 
+	position:relative; 
+	left:90px; 
+	margin-bottom : 5px;
+	}
+.sende01{
+		background-color: #A9ED26;
+		cursor: pointer; 
+		font: 15px Verdana,sans-serif; 
+		color: #000000; width: 140px; 
+		padding: 5px; 
+		line-height: 130%; 
+		border-radius: 7px;
 }
 span{left:190px;}
+
 input[id="eingabe"] {
-
--moz-box-shadow: 0 0 5px #888;
--webkit-box-shadow: 0 0 5px#888;
-box-shadow: 0 0 10px #888;
-height: 25px;
-width: 325px;
-padding-left: 10px;
-border-radius: 7px;
-
+		-moz-box-shadow: 0 0 5px #888;
+		-webkit-box-shadow: 0 0 5px#888;
+		box-shadow: 0 0 10px #888;
+		height: 25px;
+		width: 300px;
+		padding-left: 7px;
+		border-radius: 7px;
 }
 body {
-background-image: url(./images/b6.jpg);
-background-size: auto auto auto;
-    margin: 0;
-    padding: 0
+	background-image: url(./images/b6.jpg);
 }
 
 .header {
     height: 170px;
 	background-image: url(./images/Picture3.png);
-	background-size:100% auto;
-    background-color: grey;
+	background-size:100% auto;  
 }
 .header_stand{
 	height: 50px;
@@ -81,61 +118,41 @@ background-size: auto auto auto;
 	background-size:100% auto;
 }
 .contentwrap {
-	height: 690px;
+	position : relative; top:0px;
+	height : auto;
+	padding-bottom : 197px;
+	margin-bottom: 50px;
 	background-color: white;
 	 opacity:.90;
-  -moz-opacity:.50; 
-  filter:alpha(opacity=5);
-    
-}
-.contentwrap:after {
-    content: ".";
-    display: block;
-    clear: both;
-    visibility: hidden;
-    line-height: 0;
-    height: 0;
-}
-.navArea {
-    float: left;
-    width: 100px;
-    background-color: white;
-    margin: 0 15px 0 0;
-    padding: 0;
-}
-.contentArea {
-    float: left;
-     width: 685px;
-    background-color: silver;
-    margin: 0;
-    padding: 0;
-}
-.footer {
-    background-color: white;
-    height: 50px;
-    clear: both;
+	-moz-opacity:.50; 
+	filter:alpha(opacity=5);  
 }
 
 #home{
-position:absolute; top: 9px; width:190px; height: 30px;
+	position:relative; 
+	top: 10px; 
+	width:190px; 
+	height: 30px;
 }
 
 #gym_auswahl{
-position:relative; top: -630px; left: 1px;
-	
-	
+	position:relative; 
+	top: 50px; 
+	left: 1px;
 	height: 200px;
     width: 800px;
-	margin: 20px auto;
+	margin: 0px auto;
 	padding: 40px;
 	padding-top : 7px;
-	padding-left : 70px;
-	
-	
+	padding-left : 70px;	
 }
 
 #mygy{
-position:relative; left: 40px; top: 10px; width:300px; height: 200px;
+	position:relative; 
+	left: 40px; 
+	top: 10px; 
+	width:300px; 
+	height: 200px;
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
@@ -143,119 +160,63 @@ position:relative; left: 40px; top: 10px; width:300px; height: 200px;
 }
 
 #ourg{
-position:relative; left: 140px; top: 10px; width:300px; height: 200px;
-moz-box-shadow: 0 0 5px #888;
+	position:relative; 
+	left: 140px; 
+	top: 10px; 
+	width:300px; 
+	height: 200px;
+	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
 	border-radius: 7px;
 }
 
-
-
 #spr{
-position:relative; left: 152px; top: -600px; width:710px; height: 200px;
-moz-box-shadow: 0 0 5px #888;
+	position:relative; 
+	left: 152px; 
+	top: 50px; 
+	width:710px; 
+	height: 200px;
+	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
 	border-radius: 7px;
 }
 
 #uebung_auswahl{
-position:relative; top: -590px; left: 1px;
 	
+	top: 80px; 
+	left: 55px;
+		
+}
+
+#tabelle_innen{
+	padding : 20px;
+}
+
+#uebung_tabelle{
+	position:relative; left: 40px; top: 90px;
+	width:150px; 
+	height: 100px;
+	moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 10px #888;
+	border-radius: 7px;
+}
+
+#liste_ausgewaehlte_uebungen_alles{
+	position:absolute;  top: 120px;
+	margin-left : 700px;
 	
-	height: 500px;
-    width: 800px;
-	margin: 20px auto;
-	padding: 40px;
-	padding-top : 7px;
-	padding-left : 70px;
-	
-}
-
-
-#bauch{
-position:relative; left: -20px; top: 40px; width:150px; height: 100px;
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
-}
-
-#brust{
-position:relative; left: -12px; top: 40px; width:150px; height: 100px;
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
-}
-
-#arme{
-position:relative; left: -5px; top: 40px; width:150px; height: 100px;
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
-}
-
-#ruecken{
-position:relative; left: -485px; top: 160px; width:150px; height: 100px;
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
-}
-
-#schultern{
-position:relative; left: -475px; top: 160px; width:150px; height: 100px;
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
-}
-
-#beine{
-position:relative; left: 304px; top: 56px; width:150px; height: 100px;
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
-}
-
-#vip{
-position:relative; left: -177px; top: 178px; width:150px; height: 100px;
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
-}
-
-#plaene{
-position:relative; left: -167px; top: 178px; width:150px; height: 100px;
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
-}
-
-#cooldown{
-position:relative; left: -158px; top: 178px; width:150px; height: 100px;
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
 }
 
 #liste_ausgewaehlte_uebungen{
-	position:relative; top: -222px; left: 250px; 
+	
+	position:relative; left: 0px; top: 0px;
+	height: 365px;
+    width: 250px;
 	
 	
-	height: 295px;
-    width: 150px;
-	margin: 20px auto;
-	padding: 40px;
-	padding-top : 7px;
-	padding-left : 70px;
 	
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
@@ -263,10 +224,65 @@ position:relative; left: -158px; top: 178px; width:150px; height: 100px;
 	border-radius: 7px;
 }
 
+#liste_innere_rahmen{
+	position:relative;top:5px; left:5px;
+	overflow:hidden; overflow-y:scroll;
+	scrollbar-3d-light-color:#FFFFFF;
+	height: 355px;
+    width: 240px;
+	
+	
+	
+	moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 10px #888;
+	border-radius: 7px;
+}
+
+#liste_text{
+	position:relative; 
+	top: 0px; 
+	left: 0px;
+}
+
 #liste_ausgewaehlte_uebungen_text{
-width: 250px;
-position:relative; top: -215px; left: 522px;
-  color: #5A5A5A;
-	font: 15px Verdana, Geneva, sans-serif;  font-weight: 900;
-  -webkit-background-clip: text; 
+	position:relative; left: 0px; top: 0px;
+	width: 250px;
+	
+	color: #5A5A5A;
+	font: 15px Verdana, Geneva, sans-serif;  
+	font-weight: 900;
+	-webkit-background-clip: text; 
+}
+
+#ueberschrift_our_gym{
+	position:relative;
+	top : 70px; 
+	left : 60px;
+	color: #5A5A5A;
+	font: 25px Verdana, Geneva, sans-serif;  
+	font-weight: 900;
+	-webkit-background-clip: text;
+}
+
+#uebung_gif{
+	position:relative; 
+	width:300px; 
+	height: 185px;
+	moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 10px #888;
+	border-radius: 7px;
+}
+
+#tabelle_uebungen_gif{
+	position:relative; 
+	top: 0px; 
+	left: 0px;
+	height: 200px;
+    width: 200px;
+	
+	
+	padding-top : 7px;
+	padding-left : 0px;
 }
