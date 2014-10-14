@@ -4,59 +4,55 @@
 		<title> @GYM</title>
 		<meta charset="utf-8"></meta>
 		<style type="text/css">@import "style.css";</style>
+				<script type="text/javascript">
+			function showHideLayer(id){
+				e = document.getElementById(id);
+				if(e.style.display=="block"){
+					e.style.display = "none";
+				} else {
+					e.style.display = "block";
+				}
+			}
+		</script> 
 	</head>
 	<body>
 		<div class="wrapper">
 				<header class="header_stand">
 					<a href="TEST_home_2.html"><img id="home" src="images/home.jpg"></a>
 				</header>
+				
 				<section class="contentwrap">
-				
-					<table id="tabelle_uebungen_gif">
-						<tr>
-							<td id="tabelle_innen"><img id="uebung_gif" src="uebungen/hantel2.gif"></td>
-							<td id="tabelle_innen"></td>
-							</td>
-						</tr>
-						<tr>
-							<td id="tabelle_innen"><a title="Sehe alle Rueckenuebungen an!" href=""><img id="uebung_gif" src="uebungen/hantel1.gif"></a></td>
-							<td id="tabelle_innen"></td>
-							
-						</tr>
-						<tr>
-							<td id="tabelle_innen"><a title="Sehe VIP-Plaene an!" href=""><img id="uebung_gif" src=""></a></td>
-							<td id="tabelle_innen"></td>
-							</td>
-						</tr>
-					</table>		
+					<div id="liste_gif_beschreibung">
+			
 					
-
+						<div id="unterstrich">
+							<a href="alternativerLink" onclick="showHideLayer('beine1');return(false)">Uebung1</a>
+								<div id="beine1" style="display:none;">
+									<table>
+										<tr>
+											<th><img id="uebung_gif" src="uebungen/hantel1.gif"></th>
+											<th><p>Beschreibung</p></th>
+										</tr>
+									</table>
+									
+								</div>
+						</div>
 				
-					<div id="liste_ausgewaehlte_uebungen_alles">
-						<div id="liste_ausgewaehlte_uebungen_text">
-							<p>Ausgew&aumlhlte &Uumlbungen: </p>
+				
+						<div id="unterstrich">
+							<a href="alternativerLink" onclick="showHideLayer('beine2');return(false)">Uebung2</a>
+								<div id="beine2" style="display:none;">
+									<table>
+										<tr>
+											<th><img id="uebung_gif" src="uebungen/hantel1.gif"></th>
+											<th><p>Beschreibung_2</p></th>
+										</tr>
+									</table>
+									
+								</div>
 						</div>
-						
-						<div id="liste_ausgewaehlte_uebungen">
-							<div id="liste_innere_rahmen"> 
-							<ol id="liste_text">
-								<li>1</li>
-								<li>1</li>
-								<li>1</li>
-								<li>1</li>
-								<li>1</li>
-								<li>1</li>
-								<li>1</li>
-								<li>1</li>
-								<li>1</li>
-								<li>1</li>
-								<li>1</li>
-								<li>1</li>
-							</ol>
-							</div>
-						</div>
+				
 					</div>
-				
 				</section>	
 		
 		</div>
