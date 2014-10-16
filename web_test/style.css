@@ -10,17 +10,46 @@
 
 #b1{ 
 	position:absolute; 
-	top: 200px; 
+	top: 254px; 
 	width:533px; 
 	height: 629px;
 	}
 #logIn1{
 	position:relative; 
-	top:-50px; 
+	top:117px; 
 	left:510px; 
 	width: 330px;
 	}
+	
+#header_ref1{
+	position : relative;
+	left: -70px;
+	top: 8px;
+	color: #A9ED26;
+	font: 17px Verdana,sans-serif; 
+	font-width: bold;
+	text-decoration:none;
+}
 
+#header_ref2{
+	position : relative;
+	top: 8px;
+	color: #A9ED26;
+	font: 17px Verdana,sans-serif; 
+	margin-left: -65px;
+	text-decoration:none;
+}
+
+#logout{
+	position : relative;
+	left: 680px;
+	top:8px;
+	color: #A9ED26;
+	font: 17px Verdana,sans-serif; 
+	
+	text-decoration:none;
+}	
+	
 #em{ 
 	position:relative;
 	left:0px; top: 10px; 
@@ -42,16 +71,23 @@
 	padding-left: 5px;
 	width:80px; 
 	}
+#pw_vergessen{
+	position : relative;
+	top : -7px;
+	left : 200px;
+	text-decoration:none;
+	color:#A9ED26;
+}
 
 #daten{ 
 	position:relative; 
-	top: 50px; 
+	top: 70px; 
 	left: 240px;
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
     width: 378px;
-	margin: -40px auto;
+	margin: 0px auto;
 	padding-bottom : 30px;
 	padding-top : 6px;
 	padding-left : 80px;
@@ -137,7 +173,7 @@ body {
 
 #gym_auswahl{
 	position:relative; 
-	top: 50px; 
+	top: 60px; 
 	left: 1px;
 	height: 200px;
     width: 800px;
@@ -175,9 +211,9 @@ body {
 #spr{
 	position:relative; 
 	left: 152px; 
-	top: 50px; 
+	top: 70px; 
 	width:710px; 
-	height: 200px;
+	height: 320px;
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
