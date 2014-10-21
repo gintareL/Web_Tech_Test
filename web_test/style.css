@@ -393,7 +393,7 @@ body {
 	font: 20px Calibri, sans-serif;
 }
 
-#unterstrich{
+.unterstrich{
 	padding-left : 50px;
 	padding-top : auto;
 	padding-bottom : auto;
@@ -404,3 +404,26 @@ body {
 	box-shadow: 0 0 10px #888;
 	border-radius: 7px;
 }
+
+
+#uebung_auswaehlen{
+	position:absolute;
+	left:380px; 
+	top: 10px; 
+	padding-left: 5px;
+	width:80px; 
+	background-color: #A9ED26;
+}
+
+#saetze_U1{
+	position:absolute;
+	left:200px; 
+	top: 10px; 
+	padding-left: 10px; 
+	width:150px; 
+	}
+#position_saetze{
+	position : relative;
+	left : 160px;
+	margin-bottom: 50px;
+}	

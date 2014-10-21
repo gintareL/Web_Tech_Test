@@ -1,0 +1,51 @@
+<!DOCTYpe html>
+<html>
+	<head>
+		<title> @GYM_Home</title>
+		<meta charset="utf-8"></meta>
+		<style type="text/css">@import "style.css";</style>
+
+	</head>
+	<body>
+		<div class="wrapper">
+			<header class="header_stand">
+				<img id="home" src="images/home.jpg">
+				<a id="logout" href="TEST_anmelden_1.html">abmelden</a>
+			</header>
+				
+			<section class="contentwrap">
+
+				<div id="gym_auswahl">
+					<a title="Sehe Deine persoenliche Daten und Deine Sportplaene! / absolviere Dein Training!" 
+					href="my_gym">
+					<img id="mygy" src="images/my_gymText.jpg"></a>
+					
+					<a title="Erstelle Dein Trainigsplan! / Sehe alle Uebungen an!" 
+					href="test-our-gym.html">
+					<img id="ourg" src="images/our_gymText.jpg"></a>	
+				</div>
+				
+				
+				<div id="spruch">
+					<script language="JavaScript" type="text/javascript"> 
+						
+						var image = new Array(); 
+						var link = new Array(); 
+						
+						image[1] = 'sprueche/spruch2.jpg'; 
+						image[2] = 'sprueche/spruch.jpg'; 
+						image[3] = 'sprueche/b4.jpg'; 
+						image[4] = 'sprueche/h5.jpg';  
+
+						var num = Math.random(); 
+						var ran = Math.floor((image.length - 1) * num) + 1; 
+
+						document.write('<img id="spr" src="' + image[ran] + '" border="0" />'); 
+						
+					</script> 
+				</div>
+				
+			</section>
+		</div>	
+	</body>
+</html>

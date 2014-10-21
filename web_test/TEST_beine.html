@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title> @GYM_Beine</title>
-		<meta charset="utf-8"></meta>
+		<meta charset="iso-8859-1"></meta>
 		<style type="text/css">@import "style.css";</style>
 		
 		<script type="text/javascript">
@@ -15,6 +15,16 @@
 				}
 			}
 		</script> 
+		<script>
+			function saetze_eingeben(id, name){
+				var saetze = document.getElementById(id).value;
+				
+				var knoten = document.createElement("li");
+				var knotenInhalt = document.createTextNode(name + " " + saetze + "Sätze");
+				knoten.appendChild(knotenInhalt);
+				document.getElementById("liste_text").appendChild(knoten);
+			}
+		</script>
 	</head>
 	<body>
 		<div class="wrapper">
@@ -29,33 +39,37 @@
 					<div id="liste_gif_beschreibung">
 			
 					
-						<div id="unterstrich">
+						<div class="unterstrich">
 							<a href="alternativerLink" onclick="showHideLayer('beine1');return(false)">Uebung1</a>
 								<div id="beine1" style="display:none;">
-									<table>
+									<table id="uebung1">
 										<tr>
 											<th><img id="uebung_gif" src="uebungen/hantel1.gif"></th>
 											<th><p>Beschreibung</p></th>
 										</tr>
 									</table>
-									
+							<div id="position_saetze">
+								<input id="saetze_U1" type="numer" name="mal" placeholder="Bitte Sätze eingeben!" pattern="\d+">
+								<input id="uebung_auswaehlen" type="button" onclick="saetze_eingeben('saetze_U1','uebung1')" value="auswählen">	
+							</div>
+								
 								</div>
 						</div>
 				
 				
-						<div id="unterstrich">
+						<div class="unterstrich">
 							<a href="alternativerLink" onclick="showHideLayer('beine2');return(false)">Uebung2</a>
 								<div id="beine2" style="display:none;">
-									<table>
+									<table id="uebung2">
 										<tr>
 											<th><img id="uebung_gif" src="uebungen/hantel2.gif"></th>
 											<th><p>Beschreibung_2</p></th>
 										</tr>
 									</table>
-									
+									<input id="uebung_auswaehlen" type="button" value="auswählen">
 								</div>
 						</div>
-				
+
 					</div>
 				</section>	
 		
