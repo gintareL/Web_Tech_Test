@@ -1,11 +1,18 @@
 .wrapper {
 	margin-left: auto;
     margin-right: auto;
-    width: 70%;
+   
     width: 1000px;
 	-moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 3px 3px 10px #888;
+}
+
+.center {
+	margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+	
 }
 
 #b1{ 
@@ -17,9 +24,7 @@
 
 	
 #header_ref1{
-	position : relative;
-	left: -70px;
-	top: 8px;
+	
 	color: #A9ED26;
 	font: 17px Verdana,sans-serif; 
 	font-width: bold;
@@ -36,17 +41,11 @@
 }
 
 #logout{
-	position : relative;
+	
 	float : right;
-	padding : 1%;
-	margin-top : 0.5%;
-	color: #A9ED26;
-	font: 17px Verdana,sans-serif; 
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
-	text-decoration:none;
+	margin-top: 0%;
+	width: 5%;
+	
 }	
 	
 #em{ 
@@ -136,10 +135,10 @@ body {
 .contentwrap {
 	position : relative;
 	height : auto;
-	padding-top : 3%;
+	padding-top : 10%;
 	padding-bottom : 10%;
-	padding-left : 9%;
-	padding-right : 9%;
+	padding-left : 15%;
+	padding-right : 15%;
 	margin-bottom: 1%;
 	background-color: white;
 	 opacity:.90;
@@ -159,28 +158,16 @@ body {
 	border-radius: 7px;
 }
 
-#gym_auswahl{
-	position:relative; 
-	top: 60px; 
-	left: 1px;
-	height: 200px;
-    width: 800px;
-	margin: 0px auto;
-	padding: 40px;
-	padding-top : 7px;
-	padding-left : 70px;	
-	
-}
 
 
 #spruch{
 	height : auto;
 }
 #spr{
-	width : 83%;
-	margin-left : 9%;
+	width : 100%;
+	
 	margin-right : 9%;
-		margin-top : 5%;
+	margin-top : 5%;
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
@@ -188,55 +175,23 @@ body {
 }
 
 #uebung_auswahl{
-	width: 650px; 
-	height: 600px;
-	margin: 0px;
-	padding:15px;
-	padding-top:20px;
-	
+margin-top : 5%;
+	width :100%;
+	moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 10px #888;
+	border-radius: 7px;
 }
 
-#bauch{
-	margin-right: 20px;
-	margin-bottom:20px;
-}
-
-#brust{
-	margin-right: 20px;
-	margin-bottom:20px;
-	
-}
-
-#arme{
-	margin-right: 20px;
-	margin-bottom:20px;
-}
-
-#ruecken{
-	margin-right: 20px;
-	margin-bottom:20px;
-}
-
-#schultern{
-	margin-right: 20px;
-	margin-bottom:20px;
-}
-
-#beine{
-	margin-right: 20px;
-	margin-bottom:20px;
-}
 
 #tabelle_innen{
 	padding : 20px;
 }
 
 #uebung{
-	position:relative; left: 40px; top: 90px;
-	width:150px; 
-	height: 100px;
-	margin-left: 20px;
-	margin-bottom : 20px;
+	
+	width:28%; 
+	
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
@@ -244,35 +199,18 @@ body {
 }
 
 #uebung_gross{
-	position:relative; left: 20px; top: 90px;
-	width:540px; 
-	height: 150px;
-	margin-left : 20px;
-	margin-bottom : 20px;
-	moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 10px #888;
-	border-radius: 7px;
-}
-
-#liste_ausgewaehlte_uebungen_alles{
-	position:absolute;  top: 120px;
-	margin-left : 680px;
-	margin-bottom:50px;
 	
-}
-
-#liste_ausgewaehlte_uebungen{
-	
-	position:relative; left: 0px; top: 0px;
-	height: 545px;
-    width: 250px;
+	width:93%; 
 	
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
 	border-radius: 7px;
 }
+
+
+
+
 
 #plaene{
 	margin : 20px;
@@ -282,14 +220,13 @@ body {
 	margin : 20px;
 }
 
-#liste_innere_rahmen{
-	position:relative;top:5px; left:5px;
+.liste_rahmen{
+	
 	overflow:hidden; overflow-y:scroll;
 	scrollbar-3d-light-color:#FFFFFF;
-	height: 535px;
-    width: 240px;
 	
-	
+	width : 100%;
+	height : 100%;
 	
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
@@ -297,20 +234,16 @@ body {
 	border-radius: 7px;
 }
 
-#liste_text{
-	position:relative; 
-	
-}
+
 
 #leere_liste{
 	color:gray;
-	font: 15px Calibri, sans-serif;  
+	font: 60% Calibri, sans-serif;  
 	
 }
 
 #liste_ausgewaehlte_uebungen_text{
-	position:relative; left: 0px; top: 0px;
-	width: 250px;
+	width: 100%;
 	
 	color: #5A5A5A;
 	font: 15px Century Gothic, Sans Serif;
@@ -318,10 +251,8 @@ body {
 	-webkit-background-clip: text; 
 }
 
-#ueberschrift_our_gym{
-	position:relative;
-	top : 70px; 
-	left : 60px;
+.ueberschrift{
+	
 	color: #5A5A5A;
 	font: 25px Century Gothic, Sans Serif;
 	font-weight: 900;
