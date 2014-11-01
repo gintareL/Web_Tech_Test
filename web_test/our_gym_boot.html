@@ -1,33 +1,49 @@
 <!DOCTYpe html>
 <html>
 	<head>
-		<title> @GYM_Auswahl</title>
+		<title> @GYM Alle Kategorien</title>
 		<meta charset="iso-8859-1"></meta>
-		<style type="text/css">@import "style.css";</style>
-		</head>
+		
+		<script src="jquery-1.11.1.js"></script>
+		<style type="text/css"> @import "style.css"</style>
+		<link rel="stylesheet" href="style_anmelden.css">
+		<link rel="stylesheet" href="dist/css/bootstrap.css">
+		<script src="dist/js/bootstrap.js"></script>
+	
+	</head>
 	<body>
-		<div class="wrapper">
-			<header class="header_stand">
-			<style type="text/css">
-					ul {
-						list-style-type: none;
-						margin: 0;
-						padding: 0;
-					}
+		
+<div >
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="home_boot.html">Home</a>
+    </div>
 
-					li {
-						display: inline;
-					}
-			</style>
-				<ul>
-					<li><a href="home.html"><img class="bild_button" id="home" src="images/home.jpg"></a></li>
-					<li ><span class="menue"><a id="header_ref1" href="our-gym.html">ALLE KATEGORIEN</a></span></li>
-					<li><a  title="abmelden" href="anmelden.html"><img id="logout" src="images/Logout-01.png"></a></li>
-					
-				</ul>
-			</header>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="">Alle Kategorien</a></li>
+        
+      </ul>
+ 
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="anmelden.html">Abmelden</a></li>
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
 				
-			<div class="contentwrap">
+<div class="contentwrap">
 			
 				<div class="center">
 				
@@ -47,7 +63,8 @@
 							
 							#auswahl_30{
 								width: 30%;
-								height : 13.5cm;
+								
+								max-height: 14cm;
 							}
 						</style>
 						
@@ -81,6 +98,8 @@
 										<div class="liste_rahmen"> 
 										<ol id="liste_text">
 											<p id="leere_liste">Deine Liste ist noch leer</p>
+											
+											
 										</ol>
 										</div>
 									
@@ -90,5 +109,6 @@
 				
 			</div>
 		</div>
+		
 	</body>
 </html>
