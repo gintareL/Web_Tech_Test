@@ -15,6 +15,9 @@ body {
 }
 
 .header_anmelden {
+	opacity:.90;
+	-moz-opacity:.50; 
+	filter:alpha(opacity=5); 
     height: 3.5cm;
 	background-size:100% auto;
 	background-image: url(./images/Picture3.png);
@@ -23,53 +26,64 @@ body {
 	
 }
 
-.contentwrap {
-	
-	padding-top : 1.5cm;
-	padding-bottom : 3cm;
+.contentwrap {	
+	height : auto;
+	position : relative;
+	height : 100%;
+	padding-top : 10%;
+	padding-bottom : 0%;
 	margin-bottom: 0cm;
 	background-color: white;
-	height : 13cm;
-	 opacity:.90;
+	
+	opacity:.90;
 	-moz-opacity:.50; 
 	filter:alpha(opacity=5);  
 }
 
 #logIn1{
-	position : relative;
-	top : 3.5cm;
-	left : 12.5cm;
-	text-decoration:none;
-}
+	padding-top : 14%;
+	margin-left : 5%;
+	float: right;
+	
+	
 
+}
+.log{
+	width : 35%;
+	border-radius: 5px;
+}
+#myButton{
+border-radius: 5px;
+}
 #pw_vergessen{
 	position : relative;
 	top : -0.3cm;
-	left : 4.9cm;
+	left : 38%;
 	color:#A9ED26;
+	text-decoration:none;
 }
 #daten{
 	
-	float: right;
+	
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 0 0 10px #888;
-    width: 9.5cm;
-	height : 13.5cm;
-	padding-bottom : 3%;
-	padding-top : 2%;
-	padding-left : 5%;
-	margin-right : 5%;
+	padding-left : 5%; 
+	margin-left : 1%;
+	
+	
+	
 }
 
 #bild{
-position : absolute;
-top : 7cm;
-	float : left;
-	margin-left : 1%;	
-	width:14cm; 
-	<! height: 495px;>
+	
+	
+	padding-left : 12%;	
+	width:150%; 
+	
+	
 }
+
 
 .eingabe {
 		-moz-box-shadow: 0 0 5px #888;
@@ -81,7 +95,7 @@ top : 7cm;
 }
 
 #wm{
-	font-size: 20px; 
+	font-size: 15px; 
 	position:relative;
 	margin-left: 13%; 
 	}
@@ -93,6 +107,7 @@ top : 7cm;
 		padding: 5px; 
 		line-height: 130%; 
 		border-radius: 7px;
+		margin-bottom : 3%;
 }
 
 #frage{ 
@@ -104,3 +119,22 @@ top : 7cm;
 	font: 25px Verdana,Geneva,sans-serif;  
 	font-weight: 900;
 	}
+
+	.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.clearfix {
+    *zoom: 1;
+}
