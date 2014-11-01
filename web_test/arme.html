@@ -1,7 +1,7 @@
 <!DOCTYpe html>
 <html>
 	<head>
-		<title> @GYM_Beine</title>
+		<title> @GYM_Arme</title>
 		<meta charset="iso-8859-1"></meta>
 		
 		<script src="jquery-1.11.1.js"></script>
@@ -9,28 +9,10 @@
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="dist/css/bootstrap.css">
 		<script src="dist/js/bootstrap.js"></script>
-		<script type="text/javascript">
-			function showHideLayer(id){
-				e = document.getElementById(id);
-				if(e.style.display=="block"){
-					e.style.display = "none";
-				} else {
-					e.style.display = "block";
-				}
-			}
-		</script> 
-		<script>
-			function saetze_eingeben(id, name){
-				var saetze = document.getElementById(id).value;
-				
-				var knoten = document.createElement("li");
-				var knotenInhalt = document.createTextNode(name + " " + saetze + "Sätze");
-				knoten.appendChild(knotenInhalt);
-				document.getElementById("liste_text").appendChild(knoten);
-			}
-		</script>
+		
 	</head>
 	<body>
+		<body>
 		<div class="wrapper">
 <nav class="navbar navbar-inverse" role="navigation">
   <div class="container-fluid">
@@ -52,20 +34,20 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Alle Kategorien <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Arme</a></li>
-            <li><a href="#">Bauch</a></li>
-            <li><a href="#">Brust</a></li>
-			<li><a href="#">Rücken</a></li>
-			<li><a href="#">Schultern</a></li>
+            <li><a href="bauch.html">Bauch</a></li>
+            <li><a href="beine.html">Beine</a></li>
+            <li><a href="brust.html">Brust</a></li>
+			<li><a href="ruecken.html">Rücken</a></li>
+			<li><a href="schultern.html">Schultern</a></li>
             <li class="divider"></li>
-			<li><a href="#">V.I.P. Pläne</a></li>
-			<li><a href="#">Fertige Pläne</a></li>
+			<li><a href="vipPlaene.html">V.I.P. Pläne</a></li>
+			<li><a href="fertigePlaene.html">Fertige Pläne</a></li>
 			<li class="divider"></li>
             <li><a href="our_gym_boot.html">Alle Kategorien</a></li>
            
           </ul>
         </li>
-		<li><a href="#">Beine</a></li>
+		<li><a href="#">Arme</a></li>
       </ul>
  
       <ul class="nav navbar-nav navbar-right">
@@ -78,31 +60,14 @@
 				
 				<section class="contentwrap">
 				<div class="center">
-					<!--<div id="liste_gif_beschreibung">
-			
 					
-				
-						<div class="unterstrich">
-							<a href="alternativerLink" onclick="showHideLayer('beine2');return(false)">Uebung2</a>
-								<div id="beine2" style="display:none;">
-									<table id="uebung2">
-										<tr>
-											<th><img id="uebung_gif" src="uebungen/hantel2.gif"></th>
-											<th><p>Beschreibung_2</p></th>
-										</tr>
-									</table>
-									<input id="uebung_auswaehlen" type="button" value="auswählen">
-								</div>
-						</div>
-
-					</div>-->
 					
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Squats #1
+          Übung #1
         </a>
       </h4>
     </div>
@@ -120,7 +85,7 @@
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
 		  
-		<img class="left" id="uebung_gif" src="uebungen/hantel1.gif">
+		<img class="left" id="uebung_gif" src="#">
 		<div class="left">
 			<table>
 			<tr><th>Benötigtes Equipment: </th></tr>
@@ -168,28 +133,106 @@
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Collapsible Group Item #2
+          Übung #2
         </a>
       </h4>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+         </div>
+		<img class="left" id="uebung_gif" src="#">
+		<div class="left">
+			<table>
+			<tr><th>Benötigtes Equipment: </th></tr>
+			<tr><td>Lang- oder Kurzhantel<td></tr>
+			<tr><th>Schwierigkeitsgrad: </th></tr>
+			<tr><td>hoch<td></tr>
+			<tr><th>Zielmuskeln: </th></tr>
+			<tr><td>Vierköpfiger Oberschenkelmuskel, Beinbizeps und großer Gesäßmuskel<td></tr>
+			<tr><th>Unterstützende Muskulatur: </th></tr>
+			<tr><td>Rückenstrecker und Dreiköpfiger Adduktor<td></tr>
+			<tr><th>Weitere Bezeichnungen: </th></tr>
+			<tr><td>Back Squats, Squats, Kniebeuge<td></tr>
+			</table>
+			
+		</div>
+		
+<!--<button type="button" class="btn btn-default btn-lg btn-block">Hinzufügen</button>-->
+	<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#myModal">
+  Hinzufügen
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Geben Sie die gewünschte Anzahl von Sätzen ein: </h4>
+      </div>
+      <div class="modal-body">
+			<input class="eingabe" type="number" min="1" placeholder="Sätze">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
+  </div>
+</div>
+		</div>
   </div>
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Collapsible Group Item #3
+          Übung #3
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+		<img class="left" id="uebung_gif" src="#">
+		<div class="left">
+			<table>
+			<tr><th>Benötigtes Equipment: </th></tr>
+			<tr><td>Lang- oder Kurzhantel<td></tr>
+			<tr><th>Schwierigkeitsgrad: </th></tr>
+			<tr><td>hoch<td></tr>
+			<tr><th>Zielmuskeln: </th></tr>
+			<tr><td>Vierköpfiger Oberschenkelmuskel, Beinbizeps und großer Gesäßmuskel<td></tr>
+			<tr><th>Unterstützende Muskulatur: </th></tr>
+			<tr><td>Rückenstrecker und Dreiköpfiger Adduktor<td></tr>
+			<tr><th>Weitere Bezeichnungen: </th></tr>
+			<tr><td>Back Squats, Squats, Kniebeuge<td></tr>
+			</table>
+			
+		</div>
+		
+<!--<button type="button" class="btn btn-default btn-lg btn-block">Hinzufügen</button>-->
+	<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#myModal">
+  Hinzufügen
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Geben Sie die gewünschte Anzahl von Sätzen ein: </h4>
       </div>
+      <div class="modal-body">
+			<input class="eingabe" type="number" min="1" placeholder="Sätze">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+	  </div>
     </div>
   </div>
 </div>
@@ -197,5 +240,6 @@
 				</section>	
 		
 		</div>
+	</body>
 	</body>
 </html>
