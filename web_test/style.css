@@ -1,6 +1,10 @@
 
 body {
 	background-image: url(./images/b6.jpg);
+	font-size: 0.94em; // oder
+    font-size: 94%;
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 150%;
 }
 
 .wrapper {
@@ -115,27 +119,32 @@ margin-top : 5%;
 	margin-bottom : 10%
 	
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 12px;
+	font-size: 80%;
 	line-height: 1.42857143;
  
 	
 }
 
 #liste_ausgewaehlte_uebungen_text{
-	width: 100%;
-	
+
 	color: #5A5A5A;
-	font: 15px Century Gothic, Sans Serif;
-	font-weight: 900;
+	font-size: 0.95em; 
+	overflow: hidden;
+   <! font-size: 94%;>
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 150%;
+	
 	-webkit-background-clip: text; 
 }
 
 .ueberschrift{
-	
 	color: #5A5A5A;
-	font: 25px Century Gothic, Sans Serif;
-	font-weight: 900;
-	-webkit-background-clip: text;
+	font-size: 1.5em;
+   overflow: hidden;
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 150%;
+	
+	-webkit-background-clip: text; 
 }
 
 #uebung_gif{
