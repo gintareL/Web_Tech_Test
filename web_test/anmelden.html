@@ -1,0 +1,74 @@
+<!DOCTYpe html>
+<html>
+	<head>
+		<title> @GYM anmelden</title>
+		<meta charset="iso-8859-1"></meta>
+		<style type="text/css"> @import "style_anmelden.css"</style>
+		<script src="jquery-1.11.1.js"></script>
+		<link rel="stylesheet" href="dist/css/bootstrap.min.css">
+		<script src="dist/js/bootstrap.js"></script>
+	
+	</head>
+	<body>
+		<div class="wrapper">
+
+				<header class="header_anmelden">
+				<style type="text/css">
+					.rechts{
+						float : right;
+						width : 40%;
+						margin-right : 12%;
+						margin-top : 14%;
+						
+					}
+				</style>
+					<div class="rechts" >
+						<form>
+						
+							<input class="log" type="email" name="email" placeholder="E-Mail">
+							<input class="log" type="password" name="passwort" placeholder="Passwort">
+							
+							<button type="button" id="myButton" >Anmelden</button>
+						</form>		
+							<p ><a id="pw_vergessen" href="">Passwort vergessen?</a></p>
+					</div>
+	
+				</header>
+				
+			<section class="contentwrap">
+				<div class="clearfix">
+				<style type="text/css">
+					.left{
+						float : left;
+						width : 35%;
+						margin-right : 12%;
+						
+					}
+				</style>
+				
+				<div class = "left">
+					<img id="bild" src="images/Picture1.png">
+				</div>
+				
+				<div class = "left" id="daten"> 
+				
+					<form>
+						<p id="frage">N<span id="tkl">EU BEI UNS?</span></p>
+						<p> <input class="eingabe" type="text" name="Vorname" placeholder="Vorname" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)?"></p>
+						<p> <input class="eingabe" type="text" name="Nachname" placeholder="Nachname" pattern="[A-Z][a-z]*((\s|-)[A-Z][a-z]*)?"></p>
+						<p> <input class="eingabe" type="email" name="email" placeholder="E-Mail"></p>
+						<p> <input class="eingabe" type="password" name="passwort" placeholder="Passwort"></p>
+						<p> <input class="eingabe" type="number" name="Gewicht" placeholder="Gewicht (kg)" min="1" max="400"></p>
+						<p><input class="eingabe" type="number" name="Groesse" placeholder="Größe (cm)" min="1" ></p>
+						<p id="wm"><input type="radio" value="f" name="sex"> Weiblich   <input type="radio" value="m" name="sex"> Männlich</p>
+						<p id="bt"> <input class="sende01" type="submit" value="Registrieren"></p>
+					</form>
+				
+				</div>
+			</div>
+			
+			</section>
+		</div>
+		
+	</body>
+</html>
