@@ -3,35 +3,24 @@ body {
 	font: Calibri, sans-serif; 
 }
 
-.wrapper {
-	margin-left: auto;
-    margin-right: auto;
-   
-	width : 24cm;
-    
-	-moz-box-shadow: 0 0 5px #888;
+.wrapper{
+	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 3px 3px 10px #888;
+	box-shadow: 0 0 10px #888;
 }
-
 .header_anmelden {
-	opacity:.90;
-	-moz-opacity:.50; 
-	filter:alpha(opacity=5); 
-    height: 4.5cm;
-	background-size:100% auto;
-	background-image: url(./images/Picture3.png);
-	padding-bottom : 1.3cm;
-	padding-right : 0.5cm;
-	
-}
 
+		width:100%;
+}
+#bild_logo{
+	width:100%;
+}
 .contentwrap {	
 margin-left: auto;
     margin-right: auto;
 	height : auto;
 	position : relative;
-	height : 100%;
+<!	height : 100%;>
 	padding-top : 10%;
 	padding-bottom : 0%;
 	margin-bottom: 0cm;
@@ -43,26 +32,25 @@ margin-left: auto;
 }
 
 #logIn1{
-	padding-top : 14%;
-	margin-left : 5%;
-	float: right;
-	
-	
-
+	width : 70%;
+	position:relative;
+	left:65%;
 }
 .log{
-	width : 35%;
+	width : 15%;
 	padding-left : 2%;
 	border-radius: 5px;
 	
 }
 #myButton{
 border-radius: 5px;
+width : 10%;
+
 }
 #pw_vergessen{
 	font-size : 80%;
 	position : relative;
-	left : 36%;
+	left : 17%;
 	color:#A9ED26;
 	text-decoration:none;
 }
