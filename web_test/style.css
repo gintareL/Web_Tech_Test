@@ -101,8 +101,7 @@ margin-top : 5%;
 	
 	overflow:hidden; overflow-y:scroll;
 	scrollbar-3d-light-color:#FFFFFF;
-	
-
+	padding : 10%;
 	max-height: 14cm;
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
@@ -112,11 +111,9 @@ margin-top : 5%;
 
 
 
-#leere_liste{
+#liste{
 	color:gray;
-	margin-top : 10%;
-	margin-bottom : 10%
-	
+
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 80%;
 	line-height: 1.42857143;
