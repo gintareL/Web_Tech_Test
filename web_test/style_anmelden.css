@@ -1,6 +1,5 @@
 body {
 	background-image: url(./images/b6.jpg);
-	font: Calibri, sans-serif; 
 }
 
 .wrapper{
@@ -9,12 +8,20 @@ body {
 	box-shadow: 0 0 10px #888;
 }
 .header_anmelden {
-
+		height : 50%;
 		width:100%;
 }
 #bild_logo{
 	width:100%;
 }
+
+.rahmen{
+	moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 10px #888;
+	border-radius: 5px;
+}
+
 .contentwrap {	
 margin-left: auto;
     margin-right: auto;
@@ -32,14 +39,12 @@ margin-left: auto;
 }
 
 #logIn1{
-	width : 70%;
-	position:relative;
-	left:65%;
+	width : 50%;
+	padding : 5%;
 }
-.log{
+.logg{
 	width : 15%;
 	padding-left : 2%;
-	border-radius: 5px;
 	
 }
 #myButton{

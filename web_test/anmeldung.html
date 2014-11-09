@@ -1,0 +1,75 @@
+<!DOCTYpe html>
+<html>
+	<head>
+		<title> @GYM anmelden</title>
+		<meta charset="iso-8859-1"></meta>
+		<style type="text/css"> @import "style_log.css"</style>
+		<script src="jquery-1.11.1.js"></script>
+		<link rel="stylesheet" href="dist/css/bootstrap.css">
+		<script src="dist/js/bootstrap.js"></script>
+			
+	</head>
+	<body >
+		<div>
+			<header class="rahmen">
+				<img id="logo" src="./images/header.jpg">
+			</header>
+			
+			<section class="rahmen contentwrap">
+				<div class=" center">
+					<div class="clearfix">
+						<div class="left lseite">
+							
+							<img id="bild" src="./images/Picture1.png">
+						</div>
+						
+						<div class="left rseite">
+							<div class="tabs rahmen">
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs" role="tablist">
+								  <li role="presentation" class="schrift active" ><a href="#home" role="tab" data-toggle="tab">Anmelden</a></li>
+								  <li role="presentation"><a class="schrift" href="#profile" role="tab" data-toggle="tab">Registrieren</a></li>
+								  
+								</ul>
+
+								<!-- Tab panes -->
+								<div class="tab-content">
+								  <div role="tabpanel" class="tab-pane active" id="home">
+										<div class="log ">	
+											<form>
+												<p><input class="rahmen log_eingabe" type="email" name="email" placeholder="E-Mail"></p>
+												<p><input class="rahmen log_eingabe" type="password" name="passwort" placeholder="Passwort"></p>
+									
+												<button type="button" class="rahmen button1" >Anmelden</button>
+												<button type="button" id="abstandr" class="rahmen button2" >Passwort vergessen?</button>
+											</form>	
+										</div>			
+								  </div>
+								  <div role="tabpanel" class="tab-pane" id="profile">
+										<div class="log "> 
+				
+												<form>
+													
+													<p> <input class="rahmen log_eingabe" type="text" name="Vorname" placeholder="Vorname" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)?"></p>
+													<p> <input class="rahmen log_eingabe" type="text" name="Nachname" placeholder="Nachname" pattern="[A-Z][a-z]*((\s|-)[A-Z][a-z]*)?"></p>
+													<p> <input class="rahmen log_eingabe" type="email" name="email" placeholder="E-Mail"></p>
+													<p> <input class="rahmen log_eingabe" type="password" name="passwort" placeholder="Passwort"></p>
+													<p> <input class="rahmen log_eingabe" type="number" name="Gewicht" placeholder="Gewicht (kg)" min="1" max="400"></p>
+													<p><input class="rahmen log_eingabe" type="number" name="Groesse" placeholder="Größe (cm)" min="1" ></p>
+													<p id="wm"><input type="radio" value="f" name="sex"> Weiblich   <input type="radio" value="m" name="sex"> Männlich</p>
+													<p id="bt"> <input class="button3" type="submit" value="Registrieren"></p>
+												</form>
+										
+										</div>
+								  </div>
+								 
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>	
+			</section>
+		</div>
+	</body>
+</html>
