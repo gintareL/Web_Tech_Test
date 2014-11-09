@@ -5484,6 +5484,17 @@ a.list-group-item-danger.active:focus {
   filter: alpha(opacity=20);
   opacity: .2;
 }
+.close1 {
+  float: left;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+  
+}
 .close:hover,
 .close:focus {
   color: #000;
@@ -5499,6 +5510,14 @@ button.close {
   background: transparent;
   border: 0;
 }
+button.close1 {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
 .modal-open {
   overflow: hidden;
 }

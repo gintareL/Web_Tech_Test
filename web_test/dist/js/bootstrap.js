@@ -23,7 +23,6 @@ if (typeof jQuery === 'undefined') {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
-
 +function ($) {
   'use strict';
 
@@ -2274,3 +2273,13 @@ if (typeof jQuery === 'undefined') {
   })
 
 }(jQuery);
+
+$(document).ready(function() {
+        $('.deleteRowButton').click(DeleteRow);
+      });
+
+    function DeleteRow()
+    {
+		
+      $(this).parents('tr').first().remove();
+    }

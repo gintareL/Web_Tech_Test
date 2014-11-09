@@ -9,9 +9,10 @@
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="dist/css/bootstrap.css">
 		<script src="dist/js/bootstrap.js"></script>
+		
 	</head>
 	<body>
-		<div class="wrapper">
+		<div class="wrapper rande">
 		
 <nav class="navbar navbar-inverse" role="navigation">
   <div class="container-fluid">
@@ -32,35 +33,52 @@
  
       <ul class="nav navbar-nav navbar-right">
         <li><a href="anmelden.html">Abmelden</a></li>
-        
       </ul>
+	  
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
+			<!-- Modal -->
+					<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+						<div class="modal-content">
+						  <div class="modal-header">
+							<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
+							<h4 class="modal-title" id="myModalLabel">Deine Pläne</h4>
+						  </div>
+						  <div class="modal-body">
+							<table class="table">
+								<tr><th>Plan</th><th>Übung</th><th>Sätze</th><th></th></tr>
+								<tr id="p1u1"><td>Plan 1</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
+																										<span aria-hidden="true">&times;</span>
+																										<span class="sr-only">Close</span>
+																										</button></td></tr>
+								
+							</table>
+						  </div>
+						 
+						</div>
+					  </div>
+					</div>
+		</ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-			
-				
-			<section class="contentwrap">
+
+		<section class="contentwrap">
+	
 			
 			<div class="clearfix">
-				<style type="text/css">
-					.left{
-						float : left;
-						width : 45%;
-					}
-					#mygy{
-						margin-right : 10%;
-					}
-				</style>
+				
 			
 				<div class="center">
 				<nav >
 					<a title="Sehe Deine persoenliche Daten und Deine Sportplaene! / absolviere Dein Training!" 
 					href="my_gym">
-					<img class="bild_button left" id="mygy" src="images/my_gymText.jpg"></a>
+					<img class="bild_button rande left breite" id="mygy" src="images/my_gymText.jpg"></a>
 					
 					<a title="Erstelle Dein Trainigsplan! / Sehe alle Uebungen an!" 
 					href="our_gym_boot.html">
-					<img class="bild_button left" id="ourg" src="images/our_gymText.jpg"></a>	
+					<img class="bild_button rande left breite" id="ourg" src="images/our_gymText.jpg"></a>	
 				</nav>
 				
 				</div>
@@ -79,7 +97,7 @@
 						var num = Math.random(); 
 						var ran = Math.floor((image.length - 1) * num) + 1; 
 
-						document.write('<img id="spr" src="' + image[ran] + '" border="0" />'); 
+						document.write('<img id="spr" class="rande" src="' + image[ran] + '" border="0" />'); 
 						
 					</script> 
 				</div>
