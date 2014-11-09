@@ -6377,3 +6377,37 @@ button.close1 {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+.table1 {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.table1 > tbody > tr > th{
+padding-left : 3%;
+  padding-top : 5%;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+.table1 > tbody > tr > td{
+	padding-left : 3%;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-bottom  : 1px solid #ddd;
+}
+.table1 > thead > tr > th {
+  vertical-align: bottom;
+ 
+}
+.table1 > caption + thead > tr:first-child > th,
+.table1 > colgroup + thead > tr:first-child > th,
+.table1 > thead:first-child > tr:first-child > th,
+.table1 > caption + thead > tr:first-child > td,
+.table1 > colgroup + thead > tr:first-child > td,
+.table1 > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+.table1 > tbody + tbody {
+  border-top: 2px solid #ddd;
+}
