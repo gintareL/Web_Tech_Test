@@ -10,7 +10,8 @@ body {
 .wrapper {
 	margin-left: auto;
     margin-right: auto;
-   
+   min-width: 23em; 
+	max-width: 80em; 
 }
 
 .center {

@@ -2,6 +2,14 @@ body {
 	background-image: url(./images/b6.jpg);
 }
 
+
+.display{
+	min-width: 23em; /* 300px @ 16px */
+	max-width: 80em; /* 700px @ 16px */
+	margin: 0em auto;
+}
+
+
 .rahmen{
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
@@ -76,6 +84,7 @@ width : 55%;
 .tabs{
 	margin-top: 20%;
 	padding-bottom : 5%;
+	min-width: 24em;
 }
 
 .log{
