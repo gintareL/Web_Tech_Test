@@ -119,6 +119,14 @@ footer{
 #mygy{
 	margin-right : 10%;
 }
+.abstand1{
+margin-right : 5%;	
+}
+
+.abstand2{
+	margin-bottom : 5%;
+}
+
 .clearfix:before,
 .clearfix:after {
     content: " "; /* 1 */
@@ -147,8 +155,20 @@ img:hover {
     opacity: 1.0;
     filter: alpha(opacity=100); /* For IE8 and earlier */
 }
-
+.button1{
+		background-color: #A9ED26;
+		cursor: pointer; 
+		color: #000000; 
+		width: 50%; 
+		padding: 1%; 
+		margin-top: 1%;
+		margin-bottom : 3%;
+		
+}
 
 .abstand_innen {
 		padding: 0.5%;
+}
+.float_r{
+float: right;
 }
