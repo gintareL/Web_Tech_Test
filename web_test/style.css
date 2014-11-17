@@ -40,7 +40,7 @@ footer{
     width: 100%;
 	
 }
-.
+
 #b1{ 
 	position:absolute; 
 	top: 254px; 
@@ -116,6 +116,12 @@ footer{
 .breite{
 	width : 45%;
 }
+.breite1{
+width:20%;
+}
+.breite2{
+
+}
 #mygy{
 	margin-right : 10%;
 }
@@ -125,6 +131,16 @@ margin-right : 5%;
 
 .abstand2{
 	margin-bottom : 5%;
+}
+
+.abstand3{
+	margin:3%;
+}
+
+.abstand4{
+	padding-top:5%;
+	padding-bottom :1%;
+	padding-left:5%
 }
 
 .clearfix:before,
@@ -164,6 +180,12 @@ img:hover {
 .abstand_innen {
 		padding: 0.5%;
 }
+.abstand_innen1 {
+		padding-bottom : 0.8%;
+		padding-top : 1%;
+		
+}
 .float_r{
 float: right;
 }
+
