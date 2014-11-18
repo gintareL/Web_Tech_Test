@@ -122,6 +122,10 @@ width:20%;
 .breite2{
 
 }
+.breite3{
+	width: 40%;
+	height: 40%;
+}
 #mygy{
 	margin-right : 10%;
 }
@@ -142,6 +146,18 @@ margin-right : 5%;
 	padding-bottom :1%;
 	padding-left:5%
 }
+
+.abstand5{
+	margin:1%;
+}
+.abstand6{
+	margin-top: 12%;
+}
+
+.groessee{
+	margin-right: 40%;
+}
+
 
 .clearfix:before,
 .clearfix:after {
