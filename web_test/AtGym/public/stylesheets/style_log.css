@@ -32,7 +32,7 @@ body {
 	filter:alpha(opacity=5);  
 }
 
-.center {
+.centerLog {
 	margin-left: auto;
     margin-right: auto;
 	margin-bottom: 10%;
@@ -98,7 +98,7 @@ width : 55%;
 	margin-top: 2%;
 }
 
-.button1{
+.buttonLog1{
 		background-color: #A9ED26;
 		cursor: pointer; 
 		color: #000000; 
@@ -108,7 +108,7 @@ width : 55%;
 		
 }
 
-.button2{
+.buttonLog2{
 		background-color: #A9ED26;
 		cursor: pointer; 
 		color: #000000; 
@@ -117,7 +117,7 @@ width : 55%;
 		margin-top: 6%;
 		
 }
-.button3{
+.buttonLog3{
 		background-color: #A9ED26;
 		cursor: pointer; 
 		color: #000000; 

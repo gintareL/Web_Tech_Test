@@ -14,4 +14,8 @@ public class Application extends Controller {
 	public static Result home() {
 		return ok(home_boot.render());
 	}
+	
+	public static Result anmeldung(){
+		return ok(anmelen.render());
+	}
 }

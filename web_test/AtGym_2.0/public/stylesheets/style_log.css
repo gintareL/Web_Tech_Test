@@ -1,0 +1,139 @@
+body {
+	background-image: url(./images/b6.jpg);
+}
+
+
+.display{
+	min-width: 23em; /* 300px @ 16px */
+	max-width: 80em; /* 700px @ 16px */
+	margin: 0em auto;
+}
+
+
+.rahmen{
+	moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 10px #888;
+	border-radius: 3px;
+}
+
+.contentwrap {	
+	margin-left: auto;
+    margin-right: auto;
+	height : auto;
+	position : relative;
+	padding-top : 5%;
+	padding-bottom : 0%;
+	margin-bottom: 2%;
+	background-color: white;
+	
+	opacity:.90;
+	-moz-opacity:.50; 
+	filter:alpha(opacity=5);  
+}
+
+.centerLog {
+	margin-left: auto;
+    margin-right: auto;
+	margin-bottom: 10%;
+    width: 80%;
+	
+}
+#logo{
+	width:100%;
+}
+#bild{
+	width : 120%;
+	
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.clearfix {
+    *zoom: 1;
+}
+
+.left{
+	float : left;
+}
+.schrift{
+	font-size : 100%;
+}
+.lseite{
+width : 55%;
+}
+
+.rseite{
+	width : 45%;
+	
+}
+
+.tabs{
+	margin-top: 20%;
+	padding-bottom : 5%;
+	min-width: 24em;
+}
+
+.log{
+	margin: 10%;
+	
+}
+
+.log_eingabe{
+	padding :1%;
+	width:100%;
+	margin-top: 2%;
+}
+
+.buttonLog1{
+		background-color: #A9ED26;
+		cursor: pointer; 
+		color: #000000; 
+		width: 32%; 
+		padding: 1%; 
+		margin-top: 6%;
+		
+}
+
+.buttonLog2{
+		background-color: #A9ED26;
+		cursor: pointer; 
+		color: #000000; 
+		width: 62%; 
+		padding: 1%; 
+		margin-top: 6%;
+		
+}
+.buttonLog3{
+		background-color: #A9ED26;
+		cursor: pointer; 
+		color: #000000; 
+		width: 47%; 
+		padding: 1%; 
+		margin-top: 6%;
+		
+}
+
+#abstandr{
+	margin-left: 4.5%;
+}
+
+#wm{
+	margin-left:25%;
+}
+#bt{
+	margin-left : 33%;
+}
