@@ -1,0 +1,169 @@
+
+body {
+	background-image: URL("@routes.Assets.at("images/b6.jpg")");
+	
+    font-size: 94%;
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 150%;
+}
+footer{
+	position : relative;
+	height : auto;
+	padding-top : 3%;
+	padding-bottom : 1%;
+	padding-left : auto
+	padding-right : auto;
+	margin-bottom: 1%;
+	background-color: black;
+	 opacity:.90;
+	-moz-opacity:.50; 
+	filter:alpha(opacity=5);
+ font-size: 94%;
+    font-family: Helvetica, Arial, sans-serif;	
+}
+.wrapper {
+	margin-left: auto;
+    margin-right: auto;
+   min-width: 23em; 
+	max-width: 80em; 
+}
+.fcenter{
+	margin-left: auto;
+    margin-right: auto;
+	width: 100%;
+	padding-left: 43%;
+}
+.center {
+	margin-left: auto;
+    margin-right: auto;
+	margin-bottom: 10%;
+    width: 100%;
+	
+}
+
+#b1{ 
+	position:absolute; 
+	top: 254px; 
+	width:533px; 
+	height: 629px;
+	}
+
+
+.header_stand{
+	
+	padding-top: 0.5%;
+	padding-right : 3%;
+	height: auto;
+	background-image: url(./images/Picture5.png);
+	background-size:100% auto;
+}
+.contentwrap {
+	position : relative;
+	height : auto;
+	padding-top : 10%;
+	padding-bottom : 5%;
+	padding-left : 15%;
+	padding-right : 15%;
+	background-color: white;
+	 opacity:.90;
+	-moz-opacity:.50; 
+	filter:alpha(opacity=5);  
+}
+
+
+#spr{
+	width : 100%;
+	margin-right : 9%;
+	margin-top : 5%;
+}
+
+#uebung_auswahl{
+	margin-top : 5%;
+	width :100%;
+}
+
+
+
+#uebung{
+	width:28%; 
+}
+
+#uebung_gross{
+	width:93%; 
+}
+
+.ueberschrift{
+	color: #5A5A5A;
+	font-size: xx-lage;
+   overflow: hidden;
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 150%;
+	
+	-webkit-background-clip: text; 
+}
+
+#uebung_gif{
+	margin-right : 30px;
+}
+
+.left{
+	float : left;
+}
+.abstand{
+	margin-bottom: 5%;
+	margin-right : 5%;	
+}
+.breite{
+	width : 45%;
+}
+#mygy{
+	margin-right : 10%;
+}
+.abstand1{
+margin-right : 5%;	
+}
+
+.abstand2{
+	margin-bottom : 5%;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+.rande{
+		-moz-box-shadow: 0 0 5px #888;
+		-webkit-box-shadow: 0 0 5px#888;
+		box-shadow: 0 0 10px #888;
+		border-radius: 6px;
+}
+.bild_button {
+	
+    opacity: 0.5;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+img:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+.button1{
+		margin-right : 10%;
+		margin-bottom : 10%;
+		
+}
+
+.abstand_innen {
+		padding: 0.5%;
+}
+.float_r{
+float: right;
+}
