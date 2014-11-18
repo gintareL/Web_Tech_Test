@@ -915,12 +915,13 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #428bca;
+  color: #8BE61D;
   text-decoration: none;
+  
 }
 a:hover,
 a:focus {
-  color: #2a6496;
+  color: #8BE61D;
   text-decoration: underline;
 }
 a:focus {
@@ -3732,7 +3733,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-radius: 4px 4px 0 0;
 }
 .nav-tabs > li > a:hover {
-  border-color: #eee #eee #ddd;
+  border-color: #eee #eee #ddd ;
 }
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
@@ -3799,8 +3800,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-  color: #fff;
-  background-color: #428bca;
+  color: #A9ED26;
+  background-color: #A9ED26;
 }
 .nav-stacked > li {
   float: none;
@@ -5484,6 +5485,17 @@ a.list-group-item-danger.active:focus {
   filter: alpha(opacity=20);
   opacity: .2;
 }
+.close1 {
+  float: left;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+  
+}
 .close:hover,
 .close:focus {
   color: #000;
@@ -5499,6 +5511,14 @@ button.close {
   background: transparent;
   border: 0;
 }
+button.close1 {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
 .modal-open {
   overflow: hidden;
 }
@@ -6358,3 +6378,37 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+.table1 {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.table1 > tbody > tr > th{
+padding-left : 3%;
+  padding-top : 5%;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+.table1 > tbody > tr > td{
+	padding-left : 3%;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-bottom  : 1px solid #ddd;
+}
+.table1 > thead > tr > th {
+  vertical-align: bottom;
+ 
+}
+.table1 > caption + thead > tr:first-child > th,
+.table1 > colgroup + thead > tr:first-child > th,
+.table1 > thead:first-child > tr:first-child > th,
+.table1 > caption + thead > tr:first-child > td,
+.table1 > colgroup + thead > tr:first-child > td,
+.table1 > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+.table1 > tbody + tbody {
+  border-top: 2px solid #ddd;
+}

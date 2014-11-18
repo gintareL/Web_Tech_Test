@@ -1,7 +1,7 @@
 <!DOCTYpe html>
 <html>
 	<head>
-		<title> @GYM_Home</title>
+		<title>About Me</title>
 		<meta charset="utf-8"></meta>
 		
 		<script src="jquery-1.11.1.js"></script>
@@ -29,7 +29,14 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      
+      	<ul class="nav navbar-nav">
+			<li class="active"><a href="myGym.html">MY GYM</a></li>
+			
+		  </ul>
+			<ul class="nav navbar-nav">
+				<li class="active"><a>ABOUT ME</a></li>
+
+			  </ul>
  
       <ul class="nav navbar-nav navbar-right">
         <li><a href="anmeldung.html">Abmelden</a></li>
@@ -43,11 +50,11 @@
 						<div class="modal-content">
 						  <div class="modal-header">
 							<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
-							<h4 class="modal-title" id="myModalLabel">Deine Pl�ne</h4>
+							<h4 class="modal-title" id="myModalLabel">Deine Pläne</h4>
 						  </div>
 						  <div class="modal-body">
 							<table class="table">
-								<tr><th>Plan</th><th>�bung</th><th>S�tze</th><th></th></tr>
+								<tr><th>Plan</th><th>Übung</th><th>Sätze</th><th></th></tr>
 								<tr id="p1u1"><td>Plan 1</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
 																										<span aria-hidden="true">&times;</span>
 																										<span class="sr-only">Close</span>
@@ -71,38 +78,35 @@
 				
 			
 				<div class="center">
-				<nav >
-					<a title="Sehe Deine persoenliche Daten und Deine Sportplaene! / absolviere Dein Training!" 
-
-					href="myGym.html">
-					<img class="bild_button rande left breite" id="mygy" src="images/my_gymText.jpg"></a>
-
-					
-					<a title="Erstelle Dein Trainigsplan! / Sehe alle Uebungen an!" 
-					href="our_gym_boot.html">
-					<img class="bild_button rande left breite" id="ourg" src="images/our_gymText.jpg"></a>	
-				</nav>
+				<div >
+						<img class="rande left breite abstand" id="profilBild" src="images/default_bild_m.jpg">
+						<div class="left breite abstand">
+							<table class="table1">
+							
+							<tr><th>Vorname: </th><th></th></tr>
+							<tr><td><td><td></td></tr>
+							<tr><th>Nachname: </th></tr>
+							<tr><td><td><td></td></tr>
+							<tr><th>Größe: </th></tr>
+							<tr><td><td><td></td></tr>
+							<tr><th>Gewicht: </th></tr>
+							<tr><td><td><td>
+								
+							<button type="button" class="button1 float_r">Ändern</button>
+							
+							
+							
+							</td></tr>
+							<tr><th>Geschlecht: </th></tr>
+							<tr><td><td><td></td></tr>
+							
+							</table>
+							
+						</div>
+				</div>
 				
 				</div>
-				<div>
-					
-					<script language="JavaScript" type="text/javascript"> 
-						
-						var image = new Array(); 
-						var link = new Array(); 
-						
-						image[1] = 'sprueche/spruch2.jpg'; 
-						image[2] = 'sprueche/spruch.jpg'; 
-						image[3] = 'sprueche/b4.jpg'; 
-						image[4] = 'sprueche/h5.jpg';  
-
-						var num = Math.random(); 
-						var ran = Math.floor((image.length - 1) * num) + 1; 
-
-						document.write('<img id="spr" class="rande" src="' + image[ran] + '" border="0" />'); 
-						
-					</script> 
-				</div>
+				
 				</div>
 			</section>
 			<footer class="rande">

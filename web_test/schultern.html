@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title> @GYM_Schultern</title>
-		<meta charset="iso-8859-1"></meta>
+		<meta charset="utf-8"></meta>
 		
 		<script src="jquery-1.11.1.js"></script>
 		<style type="text/css"> @import "style.css"</style>
@@ -50,9 +50,35 @@
       </ul>
  
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="anmelden.html">Abmelden</a></li>
-        
+        <li><a href="anmeldung.html">Abmelden</a></li> 
       </ul>
+	  
+	   <ul class="nav navbar-nav navbar-right">
+						<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
+							<!-- Modal -->
+									<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
+											<h4 class="modal-title" id="myModalLabel">Deine Pläne</h4>
+										  </div>
+										  <div class="modal-body">
+											<table class="table">
+												<tr><th>Plan</th><th>Übung</th><th>Sätze</th><th></th></tr>
+												<!--<tr id="p1u1"><td>Plan 1</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
+																														<span aria-hidden="true">&times;</span>
+																														<span class="sr-only">Close</span>
+																														</button></td></tr>-->
+												
+											</table>
+										  </div>
+										 
+										</div>
+									  </div>
+									</div>
+
+					</ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -60,7 +86,11 @@
 				<section class="contentwrap">
 				
 				</section>	
-		
+			<footer class="rande">
+				<div class="fcenter">
+				&#169 2014 ALINA&GINTARE
+				</div>
+			</footer>
 		</div>
 	</body>
 </html>
