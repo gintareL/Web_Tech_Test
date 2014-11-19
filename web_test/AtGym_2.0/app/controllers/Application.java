@@ -27,5 +27,22 @@ public class Application extends Controller {
 	public static Result mygym(){
 		return ok(myGym.render());
 	}
-
+	
+	public static Result beine(){
+		return ok(beine.render());
+	}
+	public static Result bauch(){
+		return ok(bauch.render());
+	}
+	public static Result arme(){
+		return ok(arme.render());
+	}
+	
+	public static Result brust(){
+		return ok(brust.render());
+	}
+	
+	public static Result fertigePlaene(){
+		return ok(fertigePlaene.render());
+	}
 }

@@ -1,7 +1,7 @@
 
 body {
-	background-image: URL("../images/b6.jpg");
-	
+	background-image: url(../images/b6.jpg);
+	font-size: 0.94em; // oder
     font-size: 94%;
     font-family: Helvetica, Arial, sans-serif;
     line-height: 150%;
@@ -21,8 +21,6 @@ footer{
  font-size: 94%;
     font-family: Helvetica, Arial, sans-serif;	
 }
-
-
 .display{
 	min-width: 23em; /* 300px @ 16px */
 	max-width: 80em; /* 700px @ 16px */
@@ -36,7 +34,20 @@ footer{
 	box-shadow: 0 0 10px #888;
 	border-radius: 3px;
 }
-
+.contentwrapLog {	
+	margin-left: auto;
+    margin-right: auto;
+	height : auto;
+	position : relative;
+	padding-top : 5%;
+	padding-bottom : 0%;
+	margin-bottom: 2%;
+	background-color: white;
+	
+	opacity:.90;
+	-moz-opacity:.50; 
+	filter:alpha(opacity=5);  
+}
 .centerLog {
 	margin-left: auto;
     margin-right: auto;
@@ -169,19 +180,12 @@ width : 55%;
 	-moz-opacity:.50; 
 	filter:alpha(opacity=5);  
 }
-.contentwrapLog {	
-	margin-left: auto;
-    margin-right: auto;
-	height : auto;
-	position : relative;
-	padding-top : 5%;
-	padding-bottom : 0%;
-	margin-bottom: 2%;
-	background-color: white;
-	
-	opacity:.90;
-	-moz-opacity:.50; 
-	filter:alpha(opacity=5);  
+
+.rande{
+		-moz-box-shadow: 0 0 5px #888;
+		-webkit-box-shadow: 0 0 5px#888;
+		box-shadow: 0 0 10px #888;
+		border-radius: 6px;
 }
 
 #spr{
@@ -229,6 +233,20 @@ width : 55%;
 .breite{
 	width : 45%;
 }
+.breite1{
+width:20%;
+}
+.breite2{
+
+}
+.breite3{
+	width: 30%;
+	padding: 1%;
+}
+
+.breite4{
+	width: 50%;
+}
 #mygy{
 	margin-right : 10%;
 }
@@ -239,6 +257,28 @@ margin-right : 5%;
 .abstand2{
 	margin-bottom : 5%;
 }
+
+.abstand3{
+	margin:3%;
+}
+
+.abstand4{
+	padding-top:5%;
+	padding-bottom :1%;
+	padding-left:5%
+}
+
+.abstand5{
+	margin:1%;
+}
+.abstand6{
+	margin-left: 5%;
+}
+
+.groessee{
+	margin-right: 5%;
+}
+
 
 .clearfix:before,
 .clearfix:after {
@@ -253,12 +293,28 @@ margin-right : 5%;
 .clearfix {
     *zoom: 1;
 }
-.rande{
-		-moz-box-shadow: 0 0 5px #888;
-		-webkit-box-shadow: 0 0 5px#888;
-		box-shadow: 0 0 10px #888;
-		border-radius: 6px;
+
+#eingabeKasten{
+	margin-right: 20%;
+	margin-left: 20%;
+	margin-top: 3%;
 }
+
+@media (min-width: @screen-sm-min){
+	.form-control{
+		max-width: 20px;
+	}
+}
+
+#myCanvas{
+	border: 5px;
+	solid #111111;
+	
+}
+	
+
+
+
 .bild_button {
 	
     opacity: 0.5;
@@ -277,6 +333,12 @@ img:hover {
 .abstand_innen {
 		padding: 0.5%;
 }
+.abstand_innen1 {
+		padding-bottom : 0.8%;
+		padding-top : 1%;
+		
+}
 .float_r{
 float: right;
 }
+

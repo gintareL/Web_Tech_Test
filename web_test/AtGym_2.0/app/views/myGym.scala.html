@@ -1,4 +1,4 @@
-@main("Home"){
+@main("My Gym"){
 		<div class="wrapper rande">
 		
 <nav class="navbar navbar-inverse" role="navigation">
@@ -11,15 +11,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/home">Home</a>
+      <a class="navbar-brand" href="home_boot.html">Home</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      
+      	<ul class="nav navbar-nav">
+			<li class="active"><a href="">MY GYM</a></li>
+			
+		  </ul>
  
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/atGym">Abmelden</a></li>
+        <li><a href="anmeldung.html">Abmelden</a></li>
       </ul>
 	  
 		<ul class="nav navbar-nav navbar-right">
@@ -34,8 +37,8 @@
 						  </div>
 						  <div class="modal-body">
 							<table class="table">
-								<tr><th>Plan</th><th>Tag</th><th>&Uumlbung</th><th>S&aumltze</th><th></th></tr>
-								<tr id="p1u1"><td>Plan 1</td><td>Montag</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
+								<tr><th>Plan</th><th>&uumlbung</th><th>S&aumltze</th><th></th></tr>
+								<tr id="p1u1"><td>Plan 1</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
 																										<span aria-hidden="true">&times;</span>
 																										<span class="sr-only">Close</span>
 																										</button></td></tr>
@@ -59,35 +62,25 @@
 			
 				<div class="center">
 				<nav >
-					<a title="Sehe Deine persoenliche Daten und Deine Sportplaene! / absolviere Dein Training!" 
-					href="/myGym">
-					<img class="bild_button rande left breite" id="mygy" src="@routes.Assets.at("images/my_gymText.jpg")"></a>
+					<a title="Info &uumlber dich" 
+					href="aboutMe.html">
+					<img class="bild_button rande left breite abstand2 abstand1" id="about_me" src="images/about_me.jpg"></a>
 					
-					<a title="Erstelle Dein Trainigsplan! / Sehe alle Uebungen an!" 
-					href="/ourGym">
-					<img class="bild_button rande left breite" id="ourg" src="@routes.Assets.at("images/our_gymText.jpg")"></a>	
+					<a title="Deine Pl&aumlne" 
+					href="myPlans.html">
+					<img class="bild_button rande left breite abstand2" id="plans" src="images/plans.jpg"></a>	
+					
+					<a title="Statistische Analyse" 
+					href="myAnalyse.html">
+					<img class="bild_button rande left breite abstand2 abstand1" id="analyse" src="images/analyse.jpg"></a>
+					
+					<a title="Es ist Zeit zum Trainieren!" 
+					href="myRoutine.html">
+					<img class="bild_button rande left breite abstand2" id="routine" src="images/routine.jpg"></a>
 				</nav>
 				
 				</div>
-				<div>
-					
-					<script language="JavaScript" type="text/javascript"> 
-						
-						var image = new Array(); 
-						var link = new Array(); 
-						
-						image[1] = "@routes.Assets.at("images/spruch2.jpg")"; 
-						image[2] = "@routes.Assets.at("images/spruch.jpg")"; 
-						image[3] = "@routes.Assets.at("images/b4.jpg")"; 
-						image[4] = "@routes.Assets.at("images/h5.jpg")";  
-
-						var num = Math.random(); 
-						var ran = Math.floor((image.length - 1) * num) + 1; 
-
-						document.write('<img id="spr" class="rande" src="' + image[ran] + '" border="0" />'); 
-						
-					</script> 
-				</div>
+				
 				</div>
 			</section>
 			<footer class="rande">
@@ -96,4 +89,4 @@
 				</div>
 			</footer>
 		</div>	
-	}
+}

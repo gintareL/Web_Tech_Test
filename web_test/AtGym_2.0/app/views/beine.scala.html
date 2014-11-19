@@ -1,0 +1,187 @@
+﻿@main("Beine"){
+		<div class="display wrapper">
+			<nav class="navbar navbar-inverse" role="navigation">
+			  <div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="/home">Home</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				  <ul class="nav navbar-nav">
+				   
+					<li class="dropdown">
+					  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Alle Kategorien <span class="caret"></span></a>
+					  <ul class="dropdown-menu" role="menu">
+						<li><a href="/arme">Arme</a></li>
+						<li><a href="/bauch">Bauch</a></li>
+						<li><a href="/brust">Brust</a></li>
+						<li><a href="/ruecken">Rücken</a></li>
+						<li><a href="/schultern">Schultern</a></li>
+						<li class="divider"></li>
+						<li><a href="/vipPlaene">V.I.P. Pläne</a></li>
+						<li><a href="/fertigePlaene">Fertige Pläne</a></li>
+						<li class="divider"></li>
+						<li><a href="/ourGym">Alle Kategorien</a></li>
+					   
+					  </ul>
+					</li>
+					<li><a href="#">Beine</a></li>
+				  </ul>
+			 
+				  <ul class="nav navbar-nav navbar-right">
+					<li><a href="/atGym">Abmelden</a></li>
+				  </ul>
+				  
+				   <ul class="nav navbar-nav navbar-right">
+						<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
+							<!-- Modal -->
+									<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
+											<h4 class="modal-title" id="myModalLabel">Deine Pläne</h4>
+										  </div>
+										  <div class="modal-body">
+											<table class="table">
+												<tr><th>Plan</th><th>Tag</th><th>Übung</th><th>Sätze</th><th></th></tr>
+												<!--<tr id="p1u1"><td>Plan 1</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
+																														<span aria-hidden="true">&times;</span>
+																														<span class="sr-only">Close</span>
+																														</button></td></tr>-->
+												
+											</table>
+										  </div>
+										 
+										</div>
+									  </div>
+									</div>
+
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+				
+		<section class="contentwrap">
+			<div class="center">
+									
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					  <div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingOne">
+						  <h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							  Squats #1
+							</a>
+						  </h4>
+						</div>
+						
+						
+						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						  <div class="panel-body">
+							  
+								<img class="rande left breite abstand" id="uebung_gif" src="uebungen/hantel1.gif">
+								<div class="left breite abstand">
+									<table class="table1">
+									<tr><th>Benötigtes Equipment: </th></tr>
+									<tr><td>Lang- oder Kurzhantel<td></tr>
+									<tr><th>Schwierigkeitsgrad: </th></tr>
+									<tr><td>hoch<td></tr>
+									<tr><th>Zielmuskeln: </th></tr>
+									<tr><td>Vierköpfiger Oberschenkelmuskel, Beinbizeps und großer Gesäßmuskel<td></tr>
+									<tr><th>Unterstützende Muskulatur: </th></tr>
+									<tr><td>Rückenstrecker und Dreiköpfiger Adduktor<td></tr>
+									<tr><th>Weitere Bezeichnungen: </th></tr>
+									<tr><td>Back Squats, Squats, Kniebeuge<td></tr>
+									</table>
+									
+								</div>
+							
+									<!--<button type="button" class="btn btn-default btn-lg btn-block">Hinzufügen</button>-->
+										<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#myModal_beine1">
+											Hinzufügen
+										</button>
+
+									<!-- Modal -->
+									<div class="modal fade" id="myModal_beine1" tabindex="-1" role="dialog" aria-labelledby="myModal_beine1Label" aria-hidden="true">
+									  <div class="modal-dialog">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											<h4 class="modal-title" id="myModalLabel">Gib den Plan und die gewünschte Anzahl von Sätzen ein: </h4>
+										  </div>
+										  <div class="modal-body clearfix">
+										  <form role="form">
+												<input class="left rande abstand abstand_innen breite" id="beine_pn_u1" type="text" placeholder="Planname">
+												
+														  <select class="left abstand_innen1 rande breite1 abstand">
+															<option>Montag</option>
+															<option>Dienstag</option>
+															<option>Mittwoch</option>
+															<option>Donnerstag</option>
+															<option>Freitag</option>
+															<option>Samstag</option>
+															<option>Sonntag</option>
+														  </select>
+														
+													
+												<input class="left rande abstand abstand_innen breite1" id="beine_s_u1" type="number" min="1" placeholder="Sätze">
+											</form>
+										  </div>
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-primary">Save</button>
+										  </div>
+										</div>
+									  </div>
+									</div>
+							</div>	
+						</div>
+					  </div>
+					  <div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingTwo">
+						  <h4 class="panel-title">
+							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							  Collapsible Group Item #2
+							</a>
+						  </h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+						  <div class="panel-body">
+							Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+						  </div>
+						</div>
+					  </div>
+					  <div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingThree">
+						  <h4 class="panel-title">
+							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							  Collapsible Group Item #3
+							</a>
+						  </h4>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+						  <div class="panel-body">
+							Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+						  </div>
+						</div>
+					  </div>
+					</div>
+
+				</div>
+			</section>	
+			
+			<footer class="rande">
+				<div class="fcenter">
+				&#169 2014 ALINA&GINTARE
+				</div>
+			</footer>
+		</div>
+}
