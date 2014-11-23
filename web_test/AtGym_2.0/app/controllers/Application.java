@@ -20,6 +20,11 @@ public class Application extends Controller {
 		return ok(anmeldung.render());
 	}
 	
+	public static Result authenticate() {
+   
+    return ok();
+}
+	
 	public static Result ourgym(){
 		return ok(our_gym_boot.render());
 	}
@@ -45,4 +50,23 @@ public class Application extends Controller {
 	public static Result fertigePlaene(){
 		return ok(fertigePlaene.render());
 	}
+	
+	public static Result ruecken(){
+		return ok(ruecken.render());
+	}
+	
+	public static Result schultern(){
+		return ok(schultern.render());
+	}
+	
+	public static Result vipPlaene(){
+		return ok(vipPlaene.render());
+	}
+	
+	public static class LogIn {
+	public String email;
+	public String password;
+
+}
+
 }

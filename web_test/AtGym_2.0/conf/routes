@@ -5,6 +5,7 @@
 # Home page
 GET     /                           controllers.Application.index()
 GET		/atGym				controllers.Application.anmeldung()
+POST    /atGym                      controllers.Application.authenticate()
 GET		/home					controllers.Application.home()
 GET		/ourGym				controllers.Application.ourgym()
 GET 	/arme				controllers.Application.arme()
@@ -13,5 +14,8 @@ GET 	/bauch				controllers.Application.bauch()
 GET 	/brust				controllers.Application.brust()
 GET		/fertigePlaene		controllers.Application.fertigePlaene()
 GET		/myGym						controllers.Application.mygym()
+GET		/ruecken			controllers.Application.ruecken()
+GET		/schultern			controllers.Application.schultern()
+GET		/vipPlaene			controllers.Application.vipPlaene()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
