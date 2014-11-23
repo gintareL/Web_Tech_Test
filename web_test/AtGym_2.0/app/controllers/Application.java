@@ -2,7 +2,10 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
-
+import play.api.data.*;
+import play.api.data.Forms.*;
+import play.data.Form;
+import models.*;
 import views.html.*;
 
 public class Application extends Controller {
@@ -20,9 +23,10 @@ public class Application extends Controller {
 		return ok(anmeldung.render());
 	}
 	
-	public static Result authenticate() {
-   
-    return ok();
+	public static Result addUser() {
+	User user = Form.form(User.class).bindFromRequest().get();
+	user.save();
+    return ok(home_boot.render());
 }
 	
 	public static Result ourgym(){

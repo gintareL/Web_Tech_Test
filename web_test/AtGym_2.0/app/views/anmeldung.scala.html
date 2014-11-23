@@ -1,3 +1,4 @@
+
 @main("@Gym"){
 
 		<div class="display">
@@ -40,7 +41,7 @@
 								  <div role="tabpanel" class="tab-pane" id="profile">
 										<div class="log "> 
 				
-												<form>
+												<form action="@routes.Application.addUser() method="post">
 													
 													<p> <input class="rahmen log_eingabe" type="text" name="Vorname" placeholder="Vorname" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)?"></p>
 													<p> <input class="rahmen log_eingabe" type="text" name="Nachname" placeholder="Nachname" pattern="[A-Z][a-z]*((\s|-)[A-Z][a-z]*)?"></p>
