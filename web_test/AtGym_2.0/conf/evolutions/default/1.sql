@@ -4,9 +4,9 @@
 # --- !Ups
 
 create table user (
-  id                        varchar(255),
   email                     varchar(255),
-  name                      varchar(255),
+  nachname                  varchar(255),
+  vorname                   varchar(255),
   password                  varchar(255),
   groesse                   double,
   gewicht                   double,

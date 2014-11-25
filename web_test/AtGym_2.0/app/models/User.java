@@ -8,18 +8,16 @@ import javax.persistence.Entity;
 @Entity
 public class User extends Model{
   
-   
-  public String id;
   public String email;
-  public String name;
+  public String nachname;
+  public String vorname;
   public String password;
   public double groesse;
   public double gewicht;
   public Geschlecht geschlecht;
   public Map<String, Plan> plaene = new HashMap<String, Plan>();
   
- /* public User(int id, String email, String password, double groesse, double gewicht, Geschlecht geschlecht){
-	this.id=id;
+ /* public User(String email, String password, double groesse, double gewicht, Geschlecht geschlecht){
 	this.email=email;
 	this.password = password;
 	this.groesse = groesse;
