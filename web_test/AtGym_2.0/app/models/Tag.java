@@ -1,5 +1,5 @@
 package models;
 
-public class Tag {
+public enum Tag {
 	Montag, Dienstag, Mittwoch, Donnerstag, Frietag, Samstag, Sonntag
 }

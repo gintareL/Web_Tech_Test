@@ -24,8 +24,8 @@ public class Application extends Controller {
 	}
 	
 	public static Result addUser() {
-	User user = Form.form(User.class).bindFromRequest().get();
-	user.save();
+	/*User user = Form.form(User.class).bindFromRequest().get();
+	user.save();*/
     return ok(home_boot.render());
 }
 	
