@@ -29,12 +29,28 @@ public class Application extends Controller {
     return ok(home_boot.render());
 }
 	
-	public static Result ourgym(){
+	public static Result ourGym(){
 		return ok(our_gym_boot.render());
 	}
 	
-	public static Result mygym(){
+	public static Result myGym(){
 		return ok(myGym.render());
+	}
+	
+	public static Result aboutMe(){
+		return ok (aboutMe.render());
+	}
+	
+	public static Result myPlans(){
+		return ok (myPlans.render());
+	}
+	
+	public static Result myRoutine(){
+		return ok (myRoutine.render());
+	}
+	
+	public static Result myAnalyse(){
+		return ok (myAnalyse.render());
 	}
 	
 	public static Result beine(){

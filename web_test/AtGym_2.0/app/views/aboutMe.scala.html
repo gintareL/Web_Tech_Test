@@ -1,4 +1,4 @@
-@main("myGym"){
+@main("about Me"){
 		<div class="wrapper rande">
 		
 <nav class="navbar navbar-inverse" role="navigation">
@@ -17,9 +17,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       	<ul class="nav navbar-nav">
-			<li class="active"><a href="">MY GYM</a></li>
+			<li class="active"><a href="/myGym">MY GYM</a></li>
 			
 		  </ul>
+			<ul class="nav navbar-nav">
+				<li class="active"><a>ABOUT ME</a></li>
+
+			  </ul>
  
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/atGym">Abmelden</a></li>
@@ -61,23 +65,33 @@
 				
 			
 				<div class="center">
-				<nav >
-					<a title="Info &uumlber dich" 
-					href="/aboutMe">
-					<img class="bild_button rande left breite abstand2 abstand1" id="about_me" src="@routes.Assets.at("images/about_me.jpg")"></a>
-					
-					<a title="Deine Pl&aumlne" 
-					href="/myPlans">
-					<img class="bild_button rande left breite abstand2" id="plans" src="@routes.Assets.at("images/plans.jpg")"></a>	
-					
-					<a title="Statistische Analyse" 
-					href="/myAnalyse">
-					<img class="bild_button rande left breite abstand2 abstand1" id="analyse" src="@routes.Assets.at("images/analyse.jpg")"></a>
-					
-					<a title="Es ist Zeit zum Trainieren!" 
-					href="/myRoutine">
-					<img class="bild_button rande left breite abstand2" id="routine" src="@routes.Assets.at("images/routine.jpg")"></a>
-				</nav>
+				<div >
+						<img class="rande left breite abstand" id="profilBild" src="@routes.Assets.at("images/default_bild_w.jpg")">
+						<div class="left breite abstand">
+							<table class="table1">
+							
+							<tr><th>Vorname: </th><th></th></tr>
+							<tr><td><td><td></td></tr>
+							<tr><th>Nachname: </th></tr>
+							<tr><td><td><td></td></tr>
+							<tr><th>Gr&ouml&szlige: </th></tr>
+							<tr><td><td><td></td></tr>
+							<tr><th>Gewicht: </th></tr>
+							<tr><td><td><td>
+								
+							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
+							<!--<button type="button" class="float_r " aria-label="Left Align">-->
+									<a href="#" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
+							<!--</button>-->
+							
+							</td></tr>
+							<tr><th>Geschlecht: </th></tr>
+							<tr><td><td><td></td></tr>
+							
+							</table>
+							
+						</div>
+				</div>
 				
 				</div>
 				

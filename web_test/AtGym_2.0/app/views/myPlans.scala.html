@@ -1,0 +1,122 @@
+@main("my Plans"){
+		<div class="wrapper rande">
+			<nav class="navbar navbar-inverse" role="navigation">
+				<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="/home">Home</a>
+					</div>
+
+				 <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      	<ul class="nav navbar-nav">
+			<li class="active"><a href="/myGym">MY GYM</a></li>
+		  </ul>
+		  
+		  <ul class="nav navbar-nav">
+			<li class="active"><a>MY PLANS</a></li>
+		  </ul>
+ 
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/atGym">Abmelden</a></li>
+      </ul>
+					</div><!-- /.navbar-collapse -->
+				</div><!-- /.container-fluid -->
+			</nav>
+				
+		<section class="contentwrap">
+			<div class="clearfix">
+			<div class="center">
+					
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingOne">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								Plan #1
+								</a>
+							</h4>
+						</div>
+						
+						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							<div class="panel-body">
+							<div class="rande">
+							<div class="panel-title">Übung 1</div>
+								<img class="rande left breite abstand" id="uebung_gif" src="@routes.Assets.at("uebungen/hantel1.gif")">
+								<div class="left breite abstand">
+									
+									<table class="table1">
+										<tr><th>Benötigtes Equipment: </th></tr>
+										<tr><td>Lang- oder Kurzhantel<td></tr>
+										<tr><td><td><td></td></tr>
+										<tr><th>Schwierigkeitsgrad: </th></tr>
+										<tr><td>hoch<td></tr>
+										<tr><td><td><td></td></tr>
+										<tr><th>Zielmuskeln: </th></tr>
+										<tr><td>Vierköpfiger Oberschenkelmuskel, Beinbizeps und großer Gesäßmuskel<td></tr>
+										<tr><td><td><td></td></tr>
+										<tr><th>Unterstützende Muskulatur: </th></tr>
+										<tr><td>Rückenstrecker und Dreiköpfiger Adduktor<td></tr>
+										<tr><td><td><td></td></tr>
+										<tr><th>Weitere Bezeichnungen: </th></tr>
+										<tr><td>Back Squats, Squats, Kniebeuge<td></tr>
+										<tr><td><td><td></td></tr>
+										<tr><th>Angegebene Anzahl von Sätzen</th></tr>
+										<tr><td>5<td></tr>
+									</table>
+								</div>
+							</div>	
+							<div class="rande">	
+								<div class="panel-title">Übung 4</div>
+								<img class="rande left breite abstand" id="uebung_gif" src="@routes.Assets.at("uebungen/hantel2.gif")">
+								<div class="left breite abstand">
+									
+									<table class="table1">
+										<tr><th>Benötigtes Equipment: </th></tr>
+										<tr><td>Lang- oder Kurzhantel<td></tr>
+										<tr><td><td><td></td></tr>
+										<tr><th>Schwierigkeitsgrad: </th></tr>
+										<tr><td>hoch<td></tr>
+										<tr><td><td><td></td></tr>
+										<tr><th>Zielmuskeln: </th></tr>
+										<tr><td>Vierköpfiger Oberschenkelmuskel, Beinbizeps und großer Gesäßmuskel<td></tr>
+										<tr><td><td><td></td></tr>
+										<tr><th>Unterstützende Muskulatur: </th></tr>
+										<tr><td>Rückenstrecker und Dreiköpfiger Adduktor<td></tr>
+										<tr><td><td><td></td></tr>
+										<tr><th>Weitere Bezeichnungen: </th></tr>
+										<tr><td>Back Squats, Squats, Kniebeuge<td></tr>
+										<tr><td><td><td></td></tr>
+										<tr><th>Angegebene Anzahl von Sätzen</th></tr>
+										<tr><td>5<td></tr>
+									</table>
+								</div>
+							</div>
+							</div>
+						</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingTwo">
+							<h4 class="panel-title">
+								<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								Plan #2
+								</a>
+							</h4>
+						</div>
+				</div>
+			</div>
+			</div>
+		</section>	
+		<footer class="rande">
+				<div class="fcenter">
+				&#169 2014 ALINA&GINTARE
+				</div>
+			</footer>
+	</div>
+}
