@@ -3,6 +3,17 @@
 
 # --- !Ups
 
+create table test (
+  email                     varchar(255),
+  nachname                  varchar(255),
+  vorname                   varchar(255),
+  password                  varchar(255),
+  groesse                   double,
+  gewicht                   double,
+  geschlecht                integer,
+  constraint ck_test_geschlecht check (geschlecht in (0,1)))
+;
+
 create table user (
   email                     varchar(255),
   nachname                  varchar(255),
@@ -20,6 +31,8 @@ create table user (
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
+
+drop table if exists test;
 
 drop table if exists user;
 

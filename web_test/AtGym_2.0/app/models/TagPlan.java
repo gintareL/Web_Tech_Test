@@ -4,5 +4,5 @@ import java.util.*;
 
 public class TagPlan {
 	public Tag tag;
-	public Set<Uebung> uebungen = new HashSet<Uebung>();
+	public Set<AusgewaehlteUebung> uebungen = new HashSet<AusgewaehlteUebung>();
 }

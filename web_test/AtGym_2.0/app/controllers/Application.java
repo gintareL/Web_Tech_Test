@@ -1,86 +1,185 @@
 package controllers;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import play.libs.Json;
+import play.libs.F.Callback;
+import play.libs.F.Callback0;
 import play.*;
 import play.mvc.*;
 import play.api.data.*;
 import play.api.data.Forms.*;
+import play.data.*;
 import play.data.Form;
 import models.*;
 import views.html.*;
 
 public class Application extends Controller {
+	final static Form<User> loginForm = Form.form(User.class); 
+	
+	public static Result login() {
+    	session().clear();
+    	Form<User> userForm = Form.form(User.class);
+    	return ok(logIn.render(userForm));
+    }
+	
+	
 	
     public static Result index() {
         return ok(index.render("Your new application is ready."));
     }
 	
 	
-	public static Result home() {
-		return ok(home_boot.render());
+	public static Result home1() {
+		Form<User> userForm = Form.form(User.class).bindFromRequest();
+    	if(userForm.hasErrors()){
+    		System.out.println("Errors gefunden!");
+    		return badRequest(logIn.render(userForm));
+    	}else{
+    		User user = userForm.get();
+    		session().clear();
+    		session("User1", user.vorname);
+    		return ok(home_boot.render(user));
+    	}
+		
 	}
 	
-	public static Result anmeldung(){
-		return ok(anmeldung.render());
+	public static Result home(){
+	String username = session("User1");
+	if(username != null) {
+		return ok(home.render(username));
+    }else{
+		return redirect("/atGym");
+    	}	
 	}
-	
-	public static Result addUser() {
-	User user = Form.form(User.class).bindFromRequest().get();
-	user.save();
-    return ok(home_boot.render());
-}
 	
 	public static Result ourGym(){
-		return ok(our_gym_boot.render());
+	String username = session("User1");
+	if(username != null) {
+		return ok(our_gym_boot.render(username));
+    }else{
+		return redirect("/atGym");
+    	}	
 	}
 	
 	public static Result myGym(){
-		return ok(myGym.render());
+		String username = session("User1");
+		if(username != null) {
+			return ok(myGym.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	
 	public static Result aboutMe(){
-		return ok (aboutMe.render());
+	String username = session("User1");
+	if(username != null) {
+		return ok(aboutMe.render(username));
+    }else{
+		return redirect("/atGym");
+    	}
 	}
 	
 	public static Result myPlans(){
-		return ok (myPlans.render());
+	String username = session("User1");
+		if(username != null) {
+			return ok(myPlans.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	
 	public static Result myRoutine(){
-		return ok (myRoutine.render());
+		String username = session("User1");
+		if(username != null) {
+			return ok(myRoutine.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	
 	public static Result myAnalyse(){
-		return ok (myAnalyse.render());
+	String username = session("User1");
+		if(username != null) {
+			return ok(myAnalyse.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	
 	public static Result beine(){
-		return ok(beine.render());
+		String username = session("User1");
+		if(username != null) {
+			return ok(beine.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	public static Result bauch(){
-		return ok(bauch.render());
+		String username = session("User1");
+		if(username != null) {
+			return ok(bauch.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	public static Result arme(){
-		return ok(arme.render());
+	String username = session("User1");
+		if(username != null) {
+			return ok(arme.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	
 	public static Result brust(){
-		return ok(brust.render());
+	String username = session("User1");
+		if(username != null) {
+			return ok(brust.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	
 	public static Result fertigePlaene(){
-		return ok(fertigePlaene.render());
+	String username = session("User1");
+		if(username != null) {
+			return ok(fertigePlaene.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	
 	public static Result ruecken(){
-		return ok(ruecken.render());
+		String username = session("User1");
+		if(username != null) {
+			return ok(ruecken.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	
 	public static Result schultern(){
-		return ok(schultern.render());
+	String username = session("User1");
+		if(username != null) {
+			return ok(schultern.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	
 	public static Result vipPlaene(){
-		return ok(vipPlaene.render());
+	String username = session("User1");
+		if(username != null) {
+			return ok(vipPlaene.render(username));
+		}else{
+			return redirect("/atGym");
+			}
 	}
 	
 	public static class LogIn {

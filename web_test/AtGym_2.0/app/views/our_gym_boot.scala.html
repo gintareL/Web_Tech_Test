@@ -1,3 +1,4 @@
+@(user: String)
 @main("Our Gym"){
 				<div class="wrapper">
 				<nav class="navbar navbar-inverse" role="navigation">
@@ -50,7 +51,9 @@
 									  </div>
 									</div>
 					</ul>
-					
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">@user</a></li>
+					</ul>
 					</div><!-- /.navbar-collapse -->
 				  </div><!-- /.container-fluid -->
 				</nav>

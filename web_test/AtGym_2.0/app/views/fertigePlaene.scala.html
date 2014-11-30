@@ -1,4 +1,5 @@
-﻿@main("Fertige Pläne"){
+@(user : String)
+@main("Fertige Pläne"){
 		<div class="display wrapper">
 <nav class="navbar navbar-inverse" role="navigation">
   <div class="container-fluid">
@@ -67,6 +68,9 @@
 									</div>
 
 					</ul>
+					<ul class="nav navbar-nav navbar-right">
+			<li><a href="">@user</a></li>
+		  </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

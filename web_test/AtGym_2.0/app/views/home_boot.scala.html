@@ -1,3 +1,4 @@
+@(user: models.User)
 @main("Home"){
 		<div class="wrapper rande">
 		
@@ -46,6 +47,9 @@
 						</div>
 					  </div>
 					</div>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="#">@user.vorname</a></li>
 		</ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

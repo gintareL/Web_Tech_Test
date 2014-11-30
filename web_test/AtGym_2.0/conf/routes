@@ -4,9 +4,9 @@
 
 # Home page
 GET     /                   controllers.Application.index()
-GET		/atGym				controllers.Application.anmeldung()
-POST    /addUser            controllers.Application.addUser()
+GET		/atGym						controllers.Application.login()
 GET		/home				controllers.Application.home()
+POST	/home				controllers.Application.home1()
 GET		/ourGym				controllers.Application.ourGym()
 GET 	/arme				controllers.Application.arme()
 GET 	/beine				controllers.Application.beine()

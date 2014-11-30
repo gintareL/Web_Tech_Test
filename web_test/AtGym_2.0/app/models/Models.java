@@ -7,8 +7,14 @@ import javax.persistence.Entity;
 
 
 public class Models extends Model{
-  public Map<String,User> users = new HashMap<String,User>();
-  public Map<Muskel,UebungMuskel> uebungenNachKategorien = new HashMap<Muskel, UebungMuskel>();
-  
-  private Models(){}
+	private static Models instance = null;
+   private Models() {
+      // Exists only to defeat instantiation.
+   }
+   public static Models getInstance() {
+      if(instance == null) {
+         instance = new Models();
+      }
+      return instance;
+   }
 }
