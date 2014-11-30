@@ -14,24 +14,24 @@
 					</div>
 
 				 <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      	<ul class="nav navbar-nav">
-			<li class="active"><a href="/myGym">MY GYM</a></li>
-		  </ul>
-		  
-		  <ul class="nav navbar-nav">
-			<li class="active"><a>MY PLANS</a></li>
-		  </ul>
- 
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/atGym">Abmelden</a></li>
-      </ul>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="/myGym">MY GYM</a></li>
+						  </ul>
+						  
+						  <ul class="nav navbar-nav">
+							<li class="active"><a>MY PLANS</a></li>
+						  </ul>
+				 
+					  <ul class="nav navbar-nav navbar-right">
+						<li><a href="/atGym">Abmelden</a></li>
+					  </ul>
 					</div><!-- /.navbar-collapse -->
 				</div><!-- /.container-fluid -->
 			</nav>
 				
 		<section class="contentwrap">
-			<div class="clearfix">
+			
 			<div class="center">
 					
 				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -43,74 +43,112 @@
 								</a>
 							</h4>
 						</div>
-						
 						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-							<div class="panel-body">
-							<div class="rande">
-							<div class="panel-title">Übung 1</div>
-								<img class="rande left breite abstand" id="uebung_gif" src="@routes.Assets.at("uebungen/hantel1.gif")">
-								<div class="left breite abstand">
-									
-									<table class="table1">
-										<tr><th>Benötigtes Equipment: </th></tr>
-										<tr><td>Lang- oder Kurzhantel<td></tr>
-										<tr><td><td><td></td></tr>
-										<tr><th>Schwierigkeitsgrad: </th></tr>
-										<tr><td>hoch<td></tr>
-										<tr><td><td><td></td></tr>
-										<tr><th>Zielmuskeln: </th></tr>
-										<tr><td>Vierköpfiger Oberschenkelmuskel, Beinbizeps und großer Gesäßmuskel<td></tr>
-										<tr><td><td><td></td></tr>
-										<tr><th>Unterstützende Muskulatur: </th></tr>
-										<tr><td>Rückenstrecker und Dreiköpfiger Adduktor<td></tr>
-										<tr><td><td><td></td></tr>
-										<tr><th>Weitere Bezeichnungen: </th></tr>
-										<tr><td>Back Squats, Squats, Kniebeuge<td></tr>
-										<tr><td><td><td></td></tr>
-										<tr><th>Angegebene Anzahl von Sätzen</th></tr>
-										<tr><td>5<td></tr>
-									</table>
-								</div>
-							</div>	
-							<div class="rande">	
-								<div class="panel-title">Übung 4</div>
-								<img class="rande left breite abstand" id="uebung_gif" src="@routes.Assets.at("uebungen/hantel2.gif")">
-								<div class="left breite abstand">
-									
-									<table class="table1">
-										<tr><th>Benötigtes Equipment: </th></tr>
-										<tr><td>Lang- oder Kurzhantel<td></tr>
-										<tr><td><td><td></td></tr>
-										<tr><th>Schwierigkeitsgrad: </th></tr>
-										<tr><td>hoch<td></tr>
-										<tr><td><td><td></td></tr>
-										<tr><th>Zielmuskeln: </th></tr>
-										<tr><td>Vierköpfiger Oberschenkelmuskel, Beinbizeps und großer Gesäßmuskel<td></tr>
-										<tr><td><td><td></td></tr>
-										<tr><th>Unterstützende Muskulatur: </th></tr>
-										<tr><td>Rückenstrecker und Dreiköpfiger Adduktor<td></tr>
-										<tr><td><td><td></td></tr>
-										<tr><th>Weitere Bezeichnungen: </th></tr>
-										<tr><td>Back Squats, Squats, Kniebeuge<td></tr>
-										<tr><td><td><td></td></tr>
-										<tr><th>Angegebene Anzahl von Sätzen</th></tr>
-										<tr><td>5<td></tr>
-									</table>
-								</div>
-							</div>
-							</div>
-						</div>
+								  <div class="panel-body">
+						<div >
+							<div >
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs" role="tablist">
+								  <li role="presentation" class="schrift active" ><a href="#mo" role="tab" data-toggle="tab">Montag</a></li>
+								  <li role="presentation"><a class="schrift" href="#di" role="tab" data-toggle="tab">Dienstag</a></li>
+								  <li role="presentation" class="schrift" ><a href="#mi" role="tab" data-toggle="tab">Mittwoch</a></li>
+								  <li role="presentation"><a class="schrift" href="#do" role="tab" data-toggle="tab">Donnerstag</a></li>
+								  <li role="presentation" class="schrift" ><a href="#fr" role="tab" data-toggle="tab">Freitag</a></li>
+								  <li role="presentation"><a class="schrift" href="#sa" role="tab" data-toggle="tab">Samstag</a></li>
+								  <li role="presentation"><a class="schrift" href="#so" role="tab" data-toggle="tab">Sonntag</a></li>
+								  
+								</ul>
 
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingTwo">
-							<h4 class="panel-title">
-								<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-								Plan #2
-								</a>
-							</h4>
+								<!-- Tab panes -->
+								<div class="tab-content">
+								  <div role="tabpanel" class="tab-pane active" id="mo">
+										<div class="rande abstand4 abstand3 clearfix">  
+										<img class="left rande breite abstand" id="uebung_gif" src="#">
+										<div class="left breite abstand">
+											<table class="table1">
+												<tr><th>Ben&oumltigtes Equipment: </th></tr>
+												<tr><td>Lang- oder Kurzhantel<td></tr>
+												<tr><th>Schwierigkeitsgrad: </th></tr>
+												<tr><td>hoch<td></tr>
+												<tr><th>Zielmuskeln: </th></tr>
+												<tr><td>Vierk&oumlpfiger Oberschenkelmuskel, Beinbizeps und gro&szliger Ges&auml&szligmuskel<td></tr>
+												<tr><th>Unterst&uumltzende Muskulatur: </th></tr>
+												<tr><td>R&uumlckenstrecker und Dreik&oumlpfiger Adduktor<td></tr>
+												<tr><th>Weitere Bezeichnungen: </th></tr>
+												<tr><td>Back Squats, Squats, Kniebeuge<td></tr>
+											</table>
+										</div>
+									</div>	
+
+										<div class="rande abstand4 abstand3 clearfix">  
+										<img class="left rande breite abstand" id="uebung_gif" src="#">
+										<div class="left breite abstand">
+											<table class="table1">
+												<tr><th>Ben&oumltigtes Equipment: </th></tr>
+												<tr><td>Lang- oder Kurzhantel<td></tr>
+												<tr><th>Schwierigkeitsgrad: </th></tr>
+												<tr><td>hoch<td></tr>
+												<tr><th>Zielmuskeln: </th></tr>
+												<tr><td>Vierk&oumlpfiger Oberschenkelmuskel, Beinbizeps und gro&szliger Ges&auml&szligmuskel<td></tr>
+												<tr><th>Unterst&uumltzende Muskulatur: </th></tr>
+												<tr><td>R&uumlckenstrecker und Dreik&oumlpfiger Adduktor<td></tr>
+												<tr><th>Weitere Bezeichnungen: </th></tr>
+												<tr><td>Back Squats, Squats, Kniebeuge<td></tr>
+											</table>
+										</div>
+									</div>
+								  </div>
+								  <div role="tabpanel" class="tab-pane" id="di">
+										<div class="rande abstand4 abstand3 clearfix">  
+										<img class="left rande breite abstand" id="uebung_gif" src="#">
+										<div class="left breite abstand">
+											<table class="table1">
+												<tr><th>Ben&oumltigtes Equipment: </th></tr>
+												<tr><td>Lang- oder Kurzhantel<td></tr>
+												<tr><th>Schwierigkeitsgrad: </th></tr>
+												<tr><td>hoch<td></tr>
+												<tr><th>Zielmuskeln: </th></tr>
+												<tr><td>Vierk&oumlpfiger Oberschenkelmuskel, Beinbizeps und gro&szliger Ges&auml&szligmuskel<td></tr>
+												<tr><th>Unterst&uumltzende Muskulatur: </th></tr>
+												<tr><td>R&uumlckenstrecker und Dreik&oumlpfiger Adduktor<td></tr>
+												<tr><th>Weitere Bezeichnungen: </th></tr>
+												<tr><td>Back Squats, Squats, Kniebeuge<td></tr>
+											</table>
+										</div>
+									</div>
+								  </div>
+								  <div role="tabpanel" class="tab-pane" id="mi">
+									<div class="rande abstand4 abstand3 clearfix"> </div>
+								  </div>
+								  <div role="tabpanel" class="tab-pane" id="do">
+									<div class="rande abstand4 abstand3 clearfix"> </div>
+								  </div>
+								  <div role="tabpanel" class="tab-pane" id="fr">
+									<div class="rande abstand4 abstand3 clearfix"> </div>
+								  </div>
+								  <div role="tabpanel" class="tab-pane" id="sa">
+									<div class="rande abstand4 abstand3 clearfix"> </div>
+								  </div>
+								  <div role="tabpanel" class="tab-pane" id="so">
+									<div class="rande abstand4 abstand3 clearfix"> </div>
+								  </div>
+								  </div>
+								 </div>
+								</div>
+							</div>
 						</div>
+					</div>
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="headingTwo">
+								<h4 class="panel-title">
+									<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+									Plan #2
+									</a>
+								</h4>
+							</div>
+						</div>
+					
 				</div>
-			</div>
 			</div>
 		</section>	
 		<footer class="rande">
