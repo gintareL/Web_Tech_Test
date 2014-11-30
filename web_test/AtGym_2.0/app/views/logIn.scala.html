@@ -1,0 +1,103 @@
+@(loginForm: Form[models.User])
+@import helper._
+@import helper.twitterBootstrap._
+
+
+@main("Test"){
+
+
+												
+<div class="display">
+										
+			<header class="rahmen">
+				<img id="logo" src="@routes.Assets.at("images/header.jpg")">
+			</header>
+			
+			<section class="rahmen contentwrapLog">
+				<div class=" centerLog">
+					<div class="clearfix">
+						<div class="left lseite">
+							
+							<img id="bild" src="@routes.Assets.at("images/Picture1.png")">
+						</div>
+						
+						<div class="left rseite">
+							<div class="tabs rahmen">
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs" role="tablist">
+								  <li role="presentation" class="schrift active" ><a href="#home" role="tab" data-toggle="tab">Anmelden</a></li>
+								  <li role="presentation"><a class="schrift" href="#profile" role="tab" data-toggle="tab">Registrieren</a></li>
+								  
+								</ul>
+
+								<!-- Tab panes -->
+								<div class="tab-content">
+								  <div role="tabpanel" class="tab-pane active" id="home">
+										<div class="log ">	
+										
+										<!--	<form>
+												<p><input class="rahmen log_eingabe" type="email" name="email" placeholder="E-Mail"></p>
+												<p><input class="rahmen log_eingabe" type="password" name="passwort" placeholder="Passwort"></p>
+									
+												<button type="button" class="rahmen buttonLog1" >Anmelden</button>
+												<button type="button" id="abstandr" class="rahmen buttonLog2" >Passwort vergessen?</button>
+											</form>	-->
+											
+										</div>			
+								  </div>
+								  <div role="tabpanel" class="tab-pane" id="profile">
+										<div class="log "> 
+				@form(routes.Application.home1(),'class -> "form-horizontal", 'id -> "loginForm") {
+												<div class=" form-group @if(loginForm("email").hasErrors | loginForm("vorname").hasErrors) {has-error}">
+													
+														<input type="text" class="rahmen log_eingabe"
+															   name="@loginForm("email").name"
+															   placeholder="email">
+														<span class="help-block">@{loginForm("email").error.map { error => error.message }}</span>
+														<input type="password" class="rahmen log_eingabe"
+															   name="@loginForm("password").name"
+															   placeholder="Passwort">
+														<span class="help-block">@{loginForm("password").error.map { error => error.message }}</span>
+													<input type="text" class="rahmen log_eingabe"
+															   name="@loginForm("vorname").name"
+															   placeholder="vorname">
+														<span class="help-block">@{loginForm("vorname").error.map { error => error.message }}</span>
+													<input type="text" class="rahmen log_eingabe"
+															   name="@loginForm("nachname").name"
+															   placeholder="nachname">
+														<span class="help-block">@{loginForm("nachname").error.map { error => error.message }}</span>
+													<input type="text" class="rahmen log_eingabe"
+															   name="@loginForm("groesse").name"
+															   placeholder="groesse">
+														<span class="help-block">@{loginForm("groesse").error.map { error => error.message }}</span>
+													<input type="text" class="rahmen log_eingabe"
+															   name="@loginForm("gewicht").name"
+															   placeholder="gewicht">
+														<span class="help-block">@{loginForm("gewicht").error.map { error => error.message }}</span>
+													<p id="wm"><input type="radio" value="weiblich" name="@loginForm("geschlecht").name"> Weiblich   <input type="radio" value="maennlich" name="@loginForm("geschlecht").name"> Männlich</p>
+													
+														<span class="help-block">@{loginForm("geschlecht").error.map { error => error.message }}</span>
+													
+												</div>
+												<p id="bt"> <input class="buttonLog3" type="submit" value="Registrieren"></p>
+												
+										
+										</div>
+								  </div>
+								 
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>	
+			</section>
+			<footer class="rande">
+				<div class="fcenter">
+				&#169 2014 ALINA&GINTARE
+				</div>
+			</footer>
+		</div>
+											}
+
+}
