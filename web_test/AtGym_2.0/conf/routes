@@ -3,17 +3,17 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-GET	/atGym				controllers.Application.anmeldung()
-POST    /addUser                      controllers.Application.addUser()
-GET		/home					controllers.Application.home()
+GET     /                   controllers.Application.index()
+GET		/atGym				controllers.Application.anmeldung()
+POST    /addUser            controllers.Application.addUser()
+GET		/home				controllers.Application.home()
 GET		/ourGym				controllers.Application.ourgym()
 GET 	/arme				controllers.Application.arme()
 GET 	/beine				controllers.Application.beine()
 GET 	/bauch				controllers.Application.bauch()
 GET 	/brust				controllers.Application.brust()
 GET		/fertigePlaene		controllers.Application.fertigePlaene()
-GET		/myGym						controllers.Application.mygym()
+GET		/myGym				controllers.Application.myGym()
 GET		/ruecken			controllers.Application.ruecken()
 GET		/schultern			controllers.Application.schultern()
 GET		/vipPlaene			controllers.Application.vipPlaene()
