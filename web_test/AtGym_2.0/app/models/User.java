@@ -5,7 +5,8 @@ import play.db.ebean.Model;
 import play.data.validation.ValidationError;
 import play.data.validation.Constraints.*;
 import javax.persistence.Entity;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 @Entity
 public class User extends Model{
   
@@ -31,12 +32,22 @@ public class User extends Model{
   public List<ValidationError> validate() {
 		List<ValidationError> error = new ArrayList<>();
 		
-		if(email == null || email.length() == 0){
+		if(email == null || email.length() == 0 ){
 			error.add(new ValidationError("email", "This field is needed"));
 		}
+		
+		if(email != null || email.length() != 0 ){
+		String pattern = "[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
+		boolean matches = Pattern.matches(pattern, email);
+		if(matches == false )
+			error.add(new ValidationError("email", "This field is needed"));
+		}
+		
 		if(password == null || password.length() == 0){
 			error.add(new ValidationError("password", "This field is needed"));
 		}
+		
 		if(vorname == null || vorname.length() == 0){
 			error.add(new ValidationError("vorname", "This field is needed"));
 		}
@@ -55,7 +66,7 @@ public class User extends Model{
 		// Nothing in "error" return null, else return error
 		return error.isEmpty() ? null : error;
 	}
-  
+ 
  /* public void setGewicht(double gewicht){
 	this.gewicht=gewicht;
   }

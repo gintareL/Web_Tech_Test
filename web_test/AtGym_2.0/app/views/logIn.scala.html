@@ -48,7 +48,7 @@
 								  <div role="tabpanel" class="tab-pane" id="profile">
 										<div class="log "> 
 				@form(routes.Application.home1(),'class -> "form-horizontal", 'id -> "loginForm") {
-												<div class=" form-group @if(loginForm("email").hasErrors | loginForm("vorname").hasErrors) {has-error}">
+												<div class=" form-group @if(loginForm("vorname").hasErrors){has-error}">
 													
 														<input type="text" class="rahmen log_eingabe"
 															   name="@loginForm("email").name"
