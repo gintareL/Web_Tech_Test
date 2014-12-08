@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 
 public class Models extends Model{
 	private static Models instance = null;
+	private static User user;
    private Models() {
       // Exists only to defeat instantiation.
    }
@@ -16,5 +17,10 @@ public class Models extends Model{
          instance = new Models();
       }
       return instance;
+   }
+   
+   public void neuerUser(User user){
+	this.user = user;
+	
    }
 }

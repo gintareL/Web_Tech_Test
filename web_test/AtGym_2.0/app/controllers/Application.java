@@ -21,6 +21,7 @@ import views.html.*;
 
 public class Application extends Controller {
 	final static Form<User> loginForm = Form.form(User.class); 
+	final static Models model = Models.getInstance();
 	
 	public static Result login() {
     	session().clear();
@@ -41,9 +42,10 @@ public class Application extends Controller {
     		System.out.println("Errors gefunden!");
     		return badRequest(logIn.render(userForm));
     	}else{
+			model.neuerUser(userForm.get());
     		User user = userForm.get();
     		session().clear();
-    		session("User1", user.vorname);
+    		session("User1", user.getVorname());
     		return ok(home_boot.render(user));
     	}
 		

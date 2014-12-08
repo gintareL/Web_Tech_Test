@@ -10,14 +10,14 @@ import java.util.regex.Pattern;
 @Entity
 public class User extends Model{
   
-  public String email;
-  public String nachname;
-  public String vorname;
-  public String password;
-  public double groesse;
-  public double gewicht;
-  public Geschlecht geschlecht;
-  public Map<String, Plan> plaene = new HashMap<String, Plan>();
+  private String email;
+  private String nachname;
+  private String vorname;
+  private String password;
+  private double groesse;
+  private double gewicht;
+  private Geschlecht geschlecht;
+  private Map<String, Plan> plaene = new HashMap<String, Plan>();
   
   public User(String email, String nachname, String vorname, String password, double groesse, double gewicht, Geschlecht geschlecht){
 	this.email=email;
@@ -28,6 +28,50 @@ public class User extends Model{
 	this.gewicht = gewicht;
 	this.geschlecht = geschlecht;
   }
+  
+  public void setEmail(String email){
+	this.email=email;
+  }
+  public String getEmail(){
+  return email;
+  }
+  public void setVorname(String vorname){
+	this.vorname=vorname;
+  }
+  public String getVorname(){
+  return vorname;
+  }
+  public void setNachname(String nachname){
+	this.nachname=nachname;
+  }
+  public String getNachname(){
+  return nachname;
+  }
+  public void setPassword(String password){
+	this.password=password;
+  }
+   public String getPassword(){
+  return password;
+  }
+  public double getGroesse(){
+  return groesse;
+  }
+  public void setGroesse(double groesse){
+  this.groesse=groesse;
+  }
+  public double getGewicht(){
+  return gewicht;
+  }
+  public void setGewicht(double gewicht){
+  this.gewicht=gewicht;
+  }
+  public Geschlecht getGeschlecht(){
+  return geschlecht;
+  }
+  public void setGeschlecht(Geschlecht geschlecht){
+  this.geschlecht=geschlecht;
+  }
+  
   
   public List<ValidationError> validate() {
 		List<ValidationError> error = new ArrayList<>();
@@ -51,10 +95,24 @@ public class User extends Model{
 		if(vorname == null || vorname.length() == 0){
 			error.add(new ValidationError("vorname", "This field is needed"));
 		}
+		if(vorname != null || vorname.length() != 0){
+		String pattern = "[A-Za-z]+";
+		boolean matches = Pattern.matches(pattern, vorname);
+		if(matches == false )
+			error.add(new ValidationError("vorname", "This field is needed"));
+		}
+		
 		if(nachname == null || nachname.length() == 0){
 			error.add(new ValidationError("nachname", "This field is needed"));
 		}
-		if(groesse <= 0){
+		if(nachname != null || nachname.length() != 0){
+		String pattern = "[A-Za-z]+";
+		boolean matches = Pattern.matches(pattern, nachname);
+		if(matches == false )
+			error.add(new ValidationError("nachname", "This field is needed"));
+		}
+		
+		if(groesse <= 0 || groesse > 280){
 			error.add(new ValidationError("groesse", "This field is needed"));
 		}
 		if(gewicht <= 0){
