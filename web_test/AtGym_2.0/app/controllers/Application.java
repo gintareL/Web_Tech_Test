@@ -167,6 +167,7 @@ public class Application extends Controller {
 	public static Result schultern(){
 	String username = session("User1");
 		if(username != null) {
+		
 			return ok(schultern.render(username));
 		}else{
 			return redirect("/atGym");
