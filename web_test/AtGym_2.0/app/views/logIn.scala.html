@@ -39,8 +39,8 @@
 												<p><input class="rahmen log_eingabe" type="email" name="email" placeholder="E-Mail"></p>
 												<p><input class="rahmen log_eingabe" type="password" name="passwort" placeholder="Passwort"></p>
 									
-												<button type="button" class="rahmen buttonLog1" >Anmelden</button>
-												<button type="button" id="abstandr" class="rahmen buttonLog2" >Passwort vergessen?</button>
+												<button type="submit" class="bt rahmen buttonLog3" >Anmelden</button>
+											<!--	<button type="button" id="abstandr" class="rahmen buttonLog2" >Passwort vergessen?</button>-->
 											</form>	
 											
 										</div>			
@@ -48,11 +48,11 @@
 								  <div role="tabpanel" class="tab-pane" id="profile">
 										<div class="log "> 
 				@form(routes.Application.home1(),'class -> "form-horizontal", 'id -> "loginForm") {
-												<div class=" form-group @if(loginForm("vorname").hasErrors){has-error}">
+												<div class=" form-group @if(loginForm("vorname").hasErrors || loginForm("nachname").hasErrors || loginForm("email").hasErrors || loginForm("passwort").hasErrors || loginForm("groesse").hasErrors || loginForm("gewicht").hasErrors || loginForm("geschlecht").hasErrors){has-error}">
 													
 														<input type="text" class="rahmen log_eingabe"
 															   name="@loginForm("email").name"
-															   placeholder="email">
+															   placeholder="e-mail" >
 														<span class="help-block">@{loginForm("email").error.map { error => error.message }}</span>
 														<input type="password" class="rahmen log_eingabe"
 															   name="@loginForm("password").name"
@@ -66,20 +66,21 @@
 															   name="@loginForm("nachname").name"
 															   placeholder="nachname">
 														<span class="help-block">@{loginForm("nachname").error.map { error => error.message }}</span>
-													<input type="text" class="rahmen log_eingabe"
+													<input type="number" class="rahmen log_eingabe"
 															   name="@loginForm("groesse").name"
-															   placeholder="groesse">
+															   placeholder="groesse" min="0">
 														<span class="help-block">@{loginForm("groesse").error.map { error => error.message }}</span>
-													<input type="text" class="rahmen log_eingabe"
+													<input type="number" class="rahmen log_eingabe"
 															   name="@loginForm("gewicht").name"
-															   placeholder="gewicht">
+															   placeholder="gewicht" min="0">
 														<span class="help-block">@{loginForm("gewicht").error.map { error => error.message }}</span>
 													<p id="wm"><input type="radio" value="weiblich" name="@loginForm("geschlecht").name"> Weiblich   <input type="radio" value="maennlich" name="@loginForm("geschlecht").name"> Männlich</p>
 													
 														<span class="help-block">@{loginForm("geschlecht").error.map { error => error.message }}</span>
 													
 												</div>
-												<p id="bt"> <input class="buttonLog3" type="submit" value="Registrieren"></p>
+												<button type="submit" class="bt rahmen buttonLog3" >Registrieren</button>
+												
 												
 										
 										</div>

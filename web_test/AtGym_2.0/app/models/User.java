@@ -10,15 +10,16 @@ import java.util.regex.Pattern;
 @Entity
 public class User extends Model{
   
-  private String email;
-  private String nachname;
-  private String vorname;
-  private String password;
-  private double groesse;
-  private double gewicht;
+  private String email = null;
+  private String nachname = null;
+  private String vorname = null;
+  private String password = null;
+  private double groesse=0;
+  private double gewicht=0;
   private Geschlecht geschlecht;
   private Map<String, Plan> plaene = new HashMap<String, Plan>();
   
+  public User(){}
   public User(String email, String nachname, String vorname, String password, double groesse, double gewicht, Geschlecht geschlecht){
 	this.email=email;
 	this.nachname=nachname;

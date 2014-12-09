@@ -30,11 +30,11 @@ create table user (
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+PRAGMA foreign_keys = OFF;
 
-drop table if exists test;
+drop table test;
 
-drop table if exists user;
+drop table user;
 
-SET REFERENTIAL_INTEGRITY TRUE;
+PRAGMA foreign_keys = ON;
 

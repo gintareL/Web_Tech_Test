@@ -39,6 +39,7 @@ public class Application extends Controller {
 	public static Result home1() {
 		Form<User> userForm = Form.form(User.class).bindFromRequest();
     	if(userForm.hasErrors()){
+		
     		System.out.println("Errors gefunden!");
     		return badRequest(logIn.render(userForm));
     	}else{
