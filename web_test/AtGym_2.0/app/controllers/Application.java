@@ -44,9 +44,14 @@ public class Application extends Controller {
     		return badRequest(logIn.render(userForm));
     	}else{
 			model.neuerUser(userForm.get());
-    		User user = userForm.get();
+    		User user = model.aktuellUser();
     		session().clear();
+			session("User4", user.getGeschlecht());
+			session("bild", user.getBild());
     		session("User1", user.getVorname());
+			session("User2", user.getNachname());
+			session("User3", user.getEmail());
+			
     		return ok(home_boot.render(user));
     	}
 		
@@ -54,6 +59,8 @@ public class Application extends Controller {
 	
 	public static Result home(){
 	String username = session("User1");
+	String nachname = session("User2");
+	String email = session("User3");
 	if(username != null) {
 		return ok(home.render(username));
     }else{
@@ -62,27 +69,33 @@ public class Application extends Controller {
 	}
 	
 	public static Result ourGym(){
+	User user = model.aktuellUser();
 	String username = session("User1");
 	if(username != null) {
-		return ok(our_gym_boot.render(username));
+		return ok(our_gym_boot.render(user, username));
     }else{
 		return redirect("/atGym");
     	}	
 	}
 	
 	public static Result myGym(){
+		User user = model.aktuellUser();
 		String username = session("User1");
-		if(username != null) {
-			return ok(myGym.render(username));
+		String geschlecht = session("User4");
+		if(username != null && geschlecht != null) {
+			return ok(myGym.render(user, username, geschlecht));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
 	public static Result aboutMe(){
+	User user = model.aktuellUser();
 	String username = session("User1");
+	String geschlecht = session("User4");
+	String bild = session("bild");
 	if(username != null) {
-		return ok(aboutMe.render(username));
+		return ok(aboutMe.render(user, username, geschlecht, bild));
     }else{
 		return redirect("/atGym");
     	}

@@ -17,7 +17,8 @@ public class User extends Model{
   private double groesse=0;
   private double gewicht=0;
   private Geschlecht geschlecht;
-  private Map<String, Plan> plaene = new HashMap<String, Plan>();
+  private String bild =null;
+  private Map<Integer,Plan> plaene = new HashMap<Integer, Plan>();
   
   public User(){}
   public User(String email, String nachname, String vorname, String password, double groesse, double gewicht, Geschlecht geschlecht){
@@ -30,6 +31,20 @@ public class User extends Model{
 	this.geschlecht = geschlecht;
   }
   
+  public Map<Integer, Plan> getPlans(){
+  return plaene;
+  }
+  public void setPlans(Plan p){
+  this.plaene.put(p.getId(), p);
+  }
+  public String getBild(){
+	if(bild != null) return bild;
+	else if(getGeschlecht().equals("weiblich")) return "default_bild_w.jpg";
+	else return "default_bild_m.jpg";
+  }
+  public void setBild(String bild){
+	this.bild = bild;
+  }
   public void setEmail(String email){
 	this.email=email;
   }
@@ -66,8 +81,10 @@ public class User extends Model{
   public void setGewicht(double gewicht){
   this.gewicht=gewicht;
   }
-  public Geschlecht getGeschlecht(){
-  return geschlecht;
+  public String getGeschlecht(){
+  if(this.geschlecht == Geschlecht.maennlich) return "maennlich";
+  else if(this.geschlecht == Geschlecht.weiblich) return "weiblich";
+  return null;
   }
   public void setGeschlecht(Geschlecht geschlecht){
   this.geschlecht=geschlecht;
@@ -126,12 +143,12 @@ public class User extends Model{
 		return error.isEmpty() ? null : error;
 	}
  
- /* public void setGewicht(double gewicht){
-	this.gewicht=gewicht;
+	
+  public void uebungLoeschen(int p, Tag t, AusgewaehlteUebung u){
+	plaene.get(p).getUebungen().get(t).loeschen(u);
   }
-  
   public void planHinzufuegen(){
   
-  }*/
+  }
     
 }

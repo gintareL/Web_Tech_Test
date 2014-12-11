@@ -2,6 +2,25 @@ package models;
 import java.util.*;
 
 public class Plan{
-	public String name;
+	private int id;
+	public String name = "Mein Plan";
 	public Map<Tag, TagPlan> uebungen = new HashMap<Tag, TagPlan>();
+	
+	public Plan(int id, String name, Map<Tag, TagPlan> uebungen){
+	this.id=id;
+	this.name = name;
+	this.uebungen = uebungen;
+	}
+	
+	public String getName(){
+	return name;
+	}
+	
+	public Map<Tag, TagPlan> getUebungen(){
+	return uebungen;
+	}
+	
+	public int getId(){
+	return id;
+	}
 }

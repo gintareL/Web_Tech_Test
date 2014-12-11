@@ -19,8 +19,27 @@ public class Models extends Model{
       return instance;
    }
    
-   public void neuerUser(User user){
-	this.user = user;
-	
+   public void neuerUser(User u){
+	this.user = u;
+	 plan();
+   }
+   
+   public User aktuellUser(){
+   return user;
+   }
+   
+   //TEST
+   public void plan(){
+	Uebung u = new Uebung();
+	AusgewaehlteUebung a = new AusgewaehlteUebung(u, 3);
+	AusgewaehlteUebung b = new AusgewaehlteUebung(u, 2);
+	TagPlan t = new TagPlan();
+	t.tag = Tag.Mittwoch;
+	t.uebungen.add(a);
+	t.uebungen.add(b);
+	Map<Tag, TagPlan> uebungen = new HashMap<Tag, TagPlan>();
+	uebungen.put(t.tag, t);
+	Plan p = new Plan(1, "PlanTest", uebungen);
+	user.setPlans(p);
    }
 }

@@ -50,7 +50,7 @@
 				@form(routes.Application.home1(),'class -> "form-horizontal", 'id -> "loginForm") {
 												<div class=" form-group @if(loginForm("vorname").hasErrors || loginForm("nachname").hasErrors || loginForm("email").hasErrors || loginForm("passwort").hasErrors || loginForm("groesse").hasErrors || loginForm("gewicht").hasErrors || loginForm("geschlecht").hasErrors){has-error}">
 													
-														<input type="text" class="rahmen log_eingabe"
+														<input type="email" class="rahmen log_eingabe"
 															   name="@loginForm("email").name"
 															   placeholder="e-mail" >
 														<span class="help-block">@{loginForm("email").error.map { error => error.message }}</span>

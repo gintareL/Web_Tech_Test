@@ -1,4 +1,4 @@
-@(user: String)
+@(user: models.User, vorname: String)
 @main("Our Gym"){
 				<div class="wrapper">
 				<nav class="navbar navbar-inverse" role="navigation">
@@ -39,11 +39,14 @@
 										  <div class="modal-body">
 											<table class="table">
 												<tr><th>Plan</th><th>&Uumlbung</th><th>S&aumltze</th><th></th></tr>
-												<!--<tr id="p1u1"><td>Plan 1</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
+												<tr><td>Plan 1</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
 																														<span aria-hidden="true">&times;</span>
 																														<span class="sr-only">Close</span>
-																														</button></td></tr>-->
-												
+																														</button></td></tr>
+												<tr><td>Plan 1</td><td>Uebung 2</td><td>4</td><td><button type="button" class="close deleteRowButton">
+																														<span aria-hidden="true">&times;</span>
+																														<span class="sr-only">Close</span>
+																														</button></td></tr>
 											</table>
 										  </div>
 										 
@@ -52,7 +55,7 @@
 									</div>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">@user</a></li>
+						<li><a href="#">@vorname</a></li>
 					</ul>
 					</div><!-- /.navbar-collapse -->
 				  </div><!-- /.container-fluid -->

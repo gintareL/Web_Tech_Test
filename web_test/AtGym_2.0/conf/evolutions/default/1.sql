@@ -22,6 +22,7 @@ create table user (
   groesse                   double,
   gewicht                   double,
   geschlecht                integer,
+  bild                      varchar(255),
   constraint ck_user_geschlecht check (geschlecht in (0,1)))
 ;
 
