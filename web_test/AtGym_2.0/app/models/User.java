@@ -133,7 +133,7 @@ public class User extends Model{
 		if(groesse <= 0 || groesse > 280){
 			error.add(new ValidationError("groesse", "This field is needed"));
 		}
-		if(gewicht <= 0){
+		if(gewicht <= 0 || gewicht > 200){
 			error.add(new ValidationError("gewicht", "This field is needed"));
 		}
 		if(geschlecht == null){
