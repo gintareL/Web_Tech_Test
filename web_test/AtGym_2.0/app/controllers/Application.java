@@ -18,7 +18,7 @@ import play.data.*;
 import play.data.Form;
 import models.*;
 import views.html.*;
-
+import javax.swing.*;
 public class Application extends Controller {
 	final static Form<User> loginForm = Form.form(User.class); 
 	final static Models model = Models.getInstance();
@@ -26,7 +26,9 @@ public class Application extends Controller {
 	public static Result login() {
     	session().clear();
     	Form<User> userForm = Form.form(User.class);
+		
     	return ok(logIn.render(userForm));
+		
     }
 	
 	
@@ -43,9 +45,10 @@ public class Application extends Controller {
     		System.out.println("Errors gefunden!");
     		return badRequest(logIn.render(userForm));
     	}else{
-			model.neuerUser(userForm.get());
+			
+			if(model.neuerUser(userForm.get())==true){
     		User user = model.aktuellUser();
-    		session().clear();
+			session().clear();
 			session("User4", user.getGeschlecht());
 			session("bild", user.getBild());
     		session("User1", user.getVorname());
@@ -53,14 +56,17 @@ public class Application extends Controller {
 			session("User3", user.getEmail());
 			
     		return ok(home_boot.render(user));
-    	}
-		
+			}else{
+			JOptionPane.showMessageDialog(null, "Diese E-Mail ist schon registriert");
+			return badRequest(logIn.render(userForm));
+			} 
 	}
-	
+	}
 	public static Result home(){
 	String username = session("User1");
 	String nachname = session("User2");
 	String email = session("User3");
+	
 	if(username != null) {
 		return ok(home.render(username));
     }else{
