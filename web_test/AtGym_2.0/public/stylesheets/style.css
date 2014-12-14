@@ -26,8 +26,26 @@ footer{
 	max-width: 80em; /* 700px @ 16px */
 	margin: 0em auto;
 }
+@media (max-width: 35em) {
+  
+  .min{
+  display : none;
+  }
+.rseite{
+	margin-right: 6%;
+	margin-bottom : 6%;
+	}
+  }
+  
+  
+@media (min-width: 35em) {
+ 
+  .min{
+  display : block;
+  }
+	
 
-
+  }
 .rahmen{
 	moz-box-shadow: 0 0 5px #888;
 	-webkit-box-shadow: 0 0 5px#888;
@@ -78,7 +96,7 @@ width : 55%;
 .tabs{
 	margin-top: 15%;
 	padding-bottom : 3%;
-	min-width: 24em;
+	min-width: 22em;
 }
 
 .log{

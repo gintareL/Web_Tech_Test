@@ -1,17 +1,46 @@
 package models;
+import java.sql.*;
+import java.sql.Connection;  
+ import java.sql.DriverManager;  
+ import java.sql.ResultSet;  
+ import java.sql.Statement; 
 
+import java.sql.ResultSetMetaData;
+import java.sql.DatabaseMetaData;
+ 
 import java.util.*;
 import play.db.ebean.Model;
 import play.data.validation.Constraints.*;
 import javax.persistence.Entity;
-
+import java.io.IOException;
+import javax.swing.*;
 
 public class Models extends Model{
+	Connection conn = null;
+	 Statement stmt = null;
+	 ResultSet rs = null;	
+	static int index=100; 	
 	private static Models instance = null;
 	private static User user;
    private Models() {
+		conn = AtGymDatabase.dbConnector();
+		
       // Exists only to defeat instantiation.
    }
+   
+   public void select(){
+    try {
+	 stmt = conn.createStatement();
+	 rs = stmt.executeQuery( "SELECT * FROM TAG;" );
+	 while ( rs.next() ) {
+	 System.out.println(rs.getString("name"));
+	 }
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   }
+   
    public static Models getInstance() {
       if(instance == null) {
          instance = new Models();
@@ -19,9 +48,57 @@ public class Models extends Model{
       return instance;
    }
    
-   public void neuerUser(User u){
-	this.user = u;
-	 plan();
+   public boolean emailCheck(String em){
+   try {
+	 stmt = conn.createStatement();
+	 rs = stmt.executeQuery( "SELECT * FROM USER;" );
+	 while ( rs.next() ) {
+	 String email = rs.getString("email");
+	 if(email.equals(em)==true){
+	 return false;
+	 }
+	 
+	 }
+	 return true;
+	 
+	 
+	  
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  return false;
+    }
+   }
+   
+   public boolean neuerUser(User u){
+  
+   this.user = u;
+   int geschlecht;
+   if(user.getGeschlecht().equals("weiblich")==true) {
+   geschlecht = 0;
+   }  else {
+   geschlecht = 1;
+   }
+   
+   if(emailCheck(user.getEmail())==true){
+	try {
+	 stmt = conn.createStatement();
+	       String sql = "INSERT INTO USER (userid,email,password,vorname,nachname,bild,groesse,gewicht,geschlecht) " +
+                   "VALUES (null,'"+ u.getEmail() +"','"+u.getPassword()+"','"+ u.getVorname()+"','" + u.getNachname()+"','null',"+ u.getGroesse()+","+ u.getGewicht()+","+ geschlecht +");"; 
+      stmt.executeUpdate(sql);
+     stmt.close();
+	 return true;
+     
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  return false;
+    }
+	} else{
+	return false;
+	}
+	
+	
    }
    
    public User aktuellUser(){
