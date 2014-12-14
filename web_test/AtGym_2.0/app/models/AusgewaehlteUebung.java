@@ -2,7 +2,7 @@ package models;
 import java.util.*;
 
 public class AusgewaehlteUebung{
-	public Uebung uebung = new Uebung();
+	public Uebung uebung; 
 	public Satz[] saetze;
 	public String wh;
 	public AusgewaehlteUebung(Uebung u, int anzahl){

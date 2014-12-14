@@ -1,4 +1,5 @@
 package controllers;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import javax.swing.*;
 public class Application extends Controller {
 	final static Form<User> loginForm = Form.form(User.class); 
 	final static Models model = Models.getInstance();
+
 	
 	public static Result login() {
     	session().clear();
@@ -135,9 +137,10 @@ public class Application extends Controller {
 	}
 	
 	public static Result beine(){
+		List<Uebung> beineUebungen = model.beine();
 		String username = session("User1");
 		if(username != null) {
-			return ok(beine.render(username));
+			return ok(beine.render(username, beineUebungen));
 		}else{
 			return redirect("/atGym");
 			}
