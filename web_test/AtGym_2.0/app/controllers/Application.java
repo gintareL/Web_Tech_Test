@@ -137,7 +137,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result beine(){
-		List<Uebung> beineUebungen = model.beine();
+		Map<Integer, Uebung> beineUebungen = model.beine();
 		String username = session("User1");
 		if(username != null) {
 			return ok(beine.render(username, beineUebungen));
