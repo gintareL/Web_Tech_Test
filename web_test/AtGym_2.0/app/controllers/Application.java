@@ -205,10 +205,60 @@ public class Application extends Controller {
 			}
 	}
 	
-	public static class LogIn {
+	public static Result einloggen() {
+		return ok(
+			einloggen.render(form(Einloggen.class))
+		);
+	}
+	
+	public static Result authenticate() {
+		Form<Login> loginForm = form(Einloggen.class).bindFromRequest();
+		if(loginForm.hasErrors()) {
+			return badRequest(einloggen.render(loginForm));
+		} else{
+			session().clear();
+			session("email", loginForm.get().email);
+			return redirect("/home");
+		}
+	}
+	
+	public static class Einloggen {
 	public String email;
 	public String password;
+	
+		public String validate() {
+			if(User.authenticate(email, password) == null) {
+				return "Invalid user or password";
+			}
+			return null;
+		}
+	}
 
-}
-
-}
+	/*public static WebSocket<String> feedback() {
+		WebSocket<String> ws = null;
+		
+		ws = new WebSocket<String>(){
+			public void onReady(WebSocket.In<String> in, final WebSocket.Out<String> out) {
+			
+				//For each event received on the socket
+				in.onMessage(new Callback<String>() {
+					public void invoke(String event) {
+						int counter++;
+						String likes = counter.toString();
+						out.write(likes);
+					}
+				});
+				
+				in.onClose(newCallback0() {
+					public void invoke(){
+						System.out.println("Disconnected!");
+					}
+				});
+			}
+		};
+		return ws;
+	}*/
+	
+	}
+	
+	
