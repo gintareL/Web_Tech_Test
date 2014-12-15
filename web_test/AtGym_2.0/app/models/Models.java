@@ -101,12 +101,44 @@ public class Models extends Model{
 	
    }
    
+   public Map<Integer, Uebung> beine(){
+   Map<Integer, Uebung> uebungenBeine = new HashMap<Integer, Uebung>();
+   
+   try {
+	 stmt = conn.createStatement();
+	 String name;
+	 String bild;
+	 String equipment;
+	 String grad;
+	 String muskel1;
+	 String muskel2;
+	 Muskel muskelgruppe = Muskel.beine;
+	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='beine' and b.id = u.beschreibung;" );
+	 while ( rs.next() ) {
+	 name = rs.getString("name");
+	 bild = rs.getString("bild");
+	 equipment = rs.getString("equipment");
+	 grad = rs.getString("grad");
+	 muskel1 = rs.getString("muskel");
+	 muskel2 = rs.getString("muskel2");
+	 int id = rs.getInt("id");
+	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 uebungenBeine.put(id, uebung);
+	 }
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   
+   return uebungenBeine;
+   }
+   
    public User aktuellUser(){
    return user;
    }
    
    //TEST
-   public void plan(){
+ /*  public void plan(){
 	Uebung u = new Uebung();
 	AusgewaehlteUebung a = new AusgewaehlteUebung(u, 3);
 	AusgewaehlteUebung b = new AusgewaehlteUebung(u, 2);
@@ -118,5 +150,5 @@ public class Models extends Model{
 	uebungen.put(t.tag, t);
 	Plan p = new Plan(1, "PlanTest", uebungen);
 	user.setPlans(p);
-   }
+   }*/
 }

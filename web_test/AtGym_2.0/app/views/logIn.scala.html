@@ -1,5 +1,5 @@
 @(loginForm: Form[models.User])
-@(form: Form[Application.Einloggen])
+
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -36,9 +36,9 @@
 								  <div role="tabpanel" class="tab-pane active" id="home">
 										<div class="log ">	
 			
-				@form(routes.Application.authenticate){	
-										@if(form.hasGlobalErrors) {
-											@form.globalError.message
+				@form(routes.Application.authenticate,'class -> "form-horizontal", 'id -> "loginForm"){	
+										@if(form.hasErrors) {
+											
 										}
 												<p><input class="rahmen log_eingabe" type="email" name="email" placeholder="E-Mail" value="@form("email").value"></p>
 												<p><input class="rahmen log_eingabe" type="password" name="passwort" placeholder="Passwort"></p>
