@@ -51,7 +51,7 @@ public class Models extends Model{
    public boolean emailCheck(String em){
    try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT * FROM USER;" );
+	 rs = stmt.executeQuery( "SELECT email FROM user;" );
 	 while ( rs.next() ) {
 	 String email = rs.getString("email");
 	 if(email.equals(em)==true){
@@ -73,6 +73,7 @@ public class Models extends Model{
    public boolean neuerUser(User u){
   
    this.user = u;
+   
    int geschlecht;
    if(user.getGeschlecht().equals("weiblich")==true) {
    geschlecht = 0;
@@ -83,8 +84,8 @@ public class Models extends Model{
    if(emailCheck(user.getEmail())==true){
 	try {
 	 stmt = conn.createStatement();
-	       String sql = "INSERT INTO USER (userid,email,password,vorname,nachname,bild,groesse,gewicht,geschlecht) " +
-                   "VALUES (null,'"+ u.getEmail() +"','"+u.getPassword()+"','"+ u.getVorname()+"','" + u.getNachname()+"','null',"+ u.getGroesse()+","+ u.getGewicht()+","+ geschlecht +");"; 
+	       String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,gewicht,geschlecht) " +
+                   "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','null','"+ u.getEmail() +"','"+u.getPassword()+"',"+ u.getGroesse()+","+ u.getGewicht()+","+ geschlecht +");"; 
       stmt.executeUpdate(sql);
      stmt.close();
 	 return true;
@@ -117,6 +118,7 @@ public class Models extends Model{
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
+	 bild = "assets//images//"+bild+".gif";
 	 equipment = rs.getString("equipment");
 	 grad = rs.getString("grad");
 	 muskel1 = rs.getString("muskel");
@@ -125,6 +127,7 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenBeine.put(id, uebung);
 	 }
+	
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -133,6 +136,39 @@ public class Models extends Model{
    return uebungenBeine;
    }
    
+    public SortedMap<Integer, Uebung> bauch(){
+   SortedMap<Integer, Uebung> uebungenBauch = new TreeMap<Integer, Uebung>();
+   
+   try {
+	 stmt = conn.createStatement();
+	 String name;
+	 String bild;
+	 String equipment;
+	 String grad;
+	 String muskel1;
+	 String muskel2;
+	 Muskel muskelgruppe = Muskel.beine;
+	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='bauch' and b.id = u.beschreibung;" );
+	 while ( rs.next() ) {
+	 name = rs.getString("name");
+	 bild = rs.getString("bild");
+	 bild = "assets//images//"+bild+".gif";
+	 equipment = rs.getString("equipment");
+	 grad = rs.getString("grad");
+	 muskel1 = rs.getString("muskel");
+	 muskel2 = rs.getString("muskel2");
+	 int id = rs.getInt("id");
+	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 uebungenBauch.put(id, uebung);
+	 }
+	
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   
+   return uebungenBauch;
+   }
    public User aktuellUser(){
    return user;
    }

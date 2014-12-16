@@ -38,6 +38,7 @@ footer{
   }
   
   
+  
 @media (min-width: 35em) {
  
   .min{
@@ -360,3 +361,6 @@ img:hover {
 float: right;
 }
 
+.transparent{
+color : rgba(220,160,140,0);
+}

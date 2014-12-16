@@ -578,7 +578,7 @@ if (typeof jQuery === 'undefined') {
 
     if (actives && actives.length) {
       activesData = actives.data('bs.collapse')
-      if (activesData && activesData.transitioning) return
+      if (activesData && activesData.transitioning) return	
     }
 
     var startEvent = $.Event('show.bs.collapse')

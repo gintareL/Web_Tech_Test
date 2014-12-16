@@ -27,15 +27,13 @@
 			<li><a href="/brust">Brust</a></li>
 			<li><a href="/ruecken">R&uumlcken</a></li>
 			<li><a href="/schultern">Schultern</a></li>
-            <li class="divider"></li>
-			
-			<li><a href="/fertigePlaene">Fertige Pl&aumlne</a></li>
+            
 			<li class="divider"></li>
             <li><a href="/ourGym">Alle Kategorien</a></li>
            
           </ul>
         </li>
-		<li><a href="#">V.I.P. Pl&aumlne</a></li>
+		<li><a href="#">V.I.P. Pläne</a></li>
       </ul>
  
       <ul class="nav navbar-nav navbar-right">
@@ -44,25 +42,40 @@
 	  
 	   <ul class="nav navbar-nav navbar-right">
 						<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
-							<!-- Modal -->
-									<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
-									  <div class="modal-dialog">
-										<div class="modal-content">
-										  <div class="modal-header">
-											<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
-											<h4 class="modal-title" id="myModalLabel">Deine Pl&aumlne</h4>
-										  </div>
-										  <div class="modal-body">
-											<table class="table">
-												<tr><th>Plan</th><th>&uumlbung</th><th>S&aumltze</th><th></th></tr>
-												
-												
-											</table>
-										  </div>
-										 
-										</div>
-									  </div>
-									</div>
+								<!-- Modal -->
+					<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+						<div class="modal-content">
+						  <div class="modal-header">
+							<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
+							<h4 class="modal-title" id="myModalLabel">Deine Pl&aumlne</h4>
+						  </div>
+						  <div class="modal-body">
+							<table class="table">
+								<tr><th>Plan</th><th>Tag</th><th>&Uumlbung</th><th>S&aumltze</th><th></th></tr>
+								@if(user.getPlans().isEmpty() == false || user.getPlans().isEmpty() == null){
+								@for(p <- user.getPlans().values()) {
+									@for(t <- p.getUebungen.keySet()){
+										@for(u <- p.getUebungen().get(t).getUebungen()){
+										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td><td><button type="button" class="close deleteRowButton">
+																										<span aria-hidden="true">&times;</span>
+																										<span class="sr-only">Close</span>
+																										</button></td></tr>
+										}
+									}
+									
+									
+									} 
+								} else {
+								<tr><td>Du hast noch keine Pläne</td><td></td><td></td></tr>
+								}
+								
+							</table>
+						  </div>
+						 
+						</div>
+					  </div>
+					</div>
 
 					</ul>
 					<ul class="nav navbar-nav navbar-right">

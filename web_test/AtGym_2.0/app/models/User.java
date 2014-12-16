@@ -1,4 +1,7 @@
 package models;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import java.util.*;
 import play.db.ebean.Model;
@@ -7,25 +10,36 @@ import play.data.validation.Constraints.*;
 import javax.persistence.Entity;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.Object.*;
+import java.security.NoSuchAlgorithmException;
+import java.security.MessageDigestSpi;
+import java.security.MessageDigest;
+import java.security.Security;
 @Entity
 public class User extends Model{
   
   private String email = null;
   private String nachname = null;
   private String vorname = null;
-  private String password = null;
-  private double groesse=0;
+  private String password;
+  private int passwordHash = 0;
+  private int groesse=0;
   private double gewicht=0;
   private Geschlecht geschlecht;
   private String bild =null;
   private Map<Integer,Plan> plaene = new HashMap<Integer, Plan>();
   
   public User(){}
-  public User(String email, String nachname, String vorname, String password, double groesse, double gewicht, Geschlecht geschlecht){
+  public User(String vorname, String nachname, String email, String password, int groesse, double gewicht, Geschlecht geschlecht){
 	this.email=email;
 	this.nachname=nachname;
 	this.vorname = vorname;
-	this.password = password;
+	try{
+		
+	this.password = getHash(password);
+	}catch (Exception ex) {
+                   System.out.println("fehler");
+                }
 	this.groesse = groesse;
 	this.gewicht = gewicht;
 	this.geschlecht = geschlecht;
@@ -48,6 +62,10 @@ public class User extends Model{
   public void setEmail(String email){
 	this.email=email;
   }
+   public void setPassword(String password){
+	this.password=password;
+  }
+  
   public String getEmail(){
   return email;
   }
@@ -63,16 +81,16 @@ public class User extends Model{
   public String getNachname(){
   return nachname;
   }
-  public void setPassword(String password){
-	this.password=password;
+  public String getPassword(){
+	return password;
   }
-   public String getPassword(){
-  return password;
-  }
-  public double getGroesse(){
+ //  public String getPassword(){
+ // return password;
+ // }
+  public int getGroesse(){
   return groesse;
   }
-  public void setGroesse(double groesse){
+  public void setGroesse(int groesse){
   this.groesse=groesse;
   }
   public double getGewicht(){
@@ -82,7 +100,7 @@ public class User extends Model{
   this.gewicht=gewicht;
   }
   public String getGeschlecht(){
-  if(this.geschlecht == Geschlecht.maennlich) return "maennlich";
+  if(this.geschlecht == Geschlecht.maennlich) return "männlich";
   else if(this.geschlecht == Geschlecht.weiblich) return "weiblich";
   return null;
   }
@@ -106,9 +124,9 @@ public class User extends Model{
 			error.add(new ValidationError("email", "This field is needed"));
 		}
 		
-		if(password == null || password.length() == 0){
+		/*if(password == null || password.length() == 0){
 			error.add(new ValidationError("password", "This field is needed"));
-		}
+		}*/
 		
 		if(vorname == null || vorname.length() == 0){
 			error.add(new ValidationError("vorname", "This field is needed"));
@@ -143,6 +161,40 @@ public class User extends Model{
 		return error.isEmpty() ? null : error;
 	}
  
+
+ 
+ public static String getHash(String p) 
+{
+  String password = p;
+        String algorithm = "SHA";
+
+        byte[] plainText = password.getBytes();
+ 
+        MessageDigest md = null;
+ 
+        try { 
+            md = MessageDigest.getInstance(algorithm);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+ 
+        md.reset(); 
+        md.update(plainText);
+        byte[] encodedPassword = md.digest();
+ 
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < encodedPassword.length; i++) {
+			
+            if ((encodedPassword[i] & 0xff) < 0x10) {
+				
+                sb.append("0");
+            }
+ 
+            sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
+        }
+ 
+    return sb.toString();
+}
 	
   public void uebungLoeschen(int p, Tag t, AusgewaehlteUebung u){
 	plaene.get(p).getUebungen().get(t).loeschen(u);
