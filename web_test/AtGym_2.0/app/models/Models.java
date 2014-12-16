@@ -147,7 +147,7 @@ public class Models extends Model{
 	 String grad;
 	 String muskel1;
 	 String muskel2;
-	 Muskel muskelgruppe = Muskel.beine;
+	 Muskel muskelgruppe = Muskel.bauch;
 	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='bauch' and b.id = u.beschreibung;" );
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
@@ -169,6 +169,41 @@ public class Models extends Model{
    
    return uebungenBauch;
    }
+   
+     public SortedMap<Integer, Uebung> arme(){
+   SortedMap<Integer, Uebung> uebungenArme = new TreeMap<Integer, Uebung>();
+   
+   try {
+	 stmt = conn.createStatement();
+	 String name;
+	 String bild;
+	 String equipment;
+	 String grad;
+	 String muskel1;
+	 String muskel2;
+	 Muskel muskelgruppe = Muskel.arme;
+	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='arme' and b.id = u.beschreibung;" );
+	 while ( rs.next() ) {
+	 name = rs.getString("name");
+	 bild = rs.getString("bild");
+	 bild = "assets//images//"+bild+".gif";
+	 equipment = rs.getString("equipment");
+	 grad = rs.getString("grad");
+	 muskel1 = rs.getString("muskel");
+	 muskel2 = rs.getString("muskel2");
+	 int id = rs.getInt("id");
+	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 uebungenArme.put(id, uebung);
+	 }
+	
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   
+   return uebungenArme;
+   }
+   
    public User aktuellUser(){
    return user;
    }

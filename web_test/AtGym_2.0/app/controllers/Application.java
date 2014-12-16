@@ -154,14 +154,20 @@ public class Application extends Controller {
 			return redirect("/atGym");
 			}
 	}
+	
 	public static Result arme(){
-	String username = session("User1");
+		User user = model.aktuellUser();
+		SortedMap<Integer, Uebung> armeUebungen = model.arme();
+		String username = session("User1");
+		
 		if(username != null) {
-			return ok(arme.render(username));
+			return ok(arme.render(user, armeUebungen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
+	
+	
 	
 	public static Result brust(){
 	String username = session("User1");
@@ -201,9 +207,10 @@ public class Application extends Controller {
 	}
 	
 	public static Result vipPlaene(){
+		User user = model.aktuellUser();
 	String username = session("User1");
 		if(username != null) {
-			return ok(vipPlaene.render(username));
+			return ok(vipPlaene.render(user));
 		}else{
 			return redirect("/atGym");
 			}
