@@ -137,7 +137,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result beine(){
-		Map<Integer, Uebung> beineUebungen = model.beine();
+		SortedMap<Integer, Uebung> beineUebungen = model.beine();
 		String username = session("User1");
 		if(username != null) {
 			return ok(beine.render(username, beineUebungen));

@@ -101,8 +101,8 @@ public class Models extends Model{
 	
    }
    
-   public Map<Integer, Uebung> beine(){
-   Map<Integer, Uebung> uebungenBeine = new HashMap<Integer, Uebung>();
+   public SortedMap<Integer, Uebung> beine(){
+   SortedMap<Integer, Uebung> uebungenBeine = new TreeMap<Integer, Uebung>();
    
    try {
 	 stmt = conn.createStatement();
