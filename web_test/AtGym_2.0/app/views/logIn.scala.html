@@ -25,14 +25,14 @@
 							<div class="tabs rahmen">
 								<!-- Nav tabs -->
 								<ul class="nav nav-tabs" role="tablist">
-								  <li role="presentation" class="schrift active" ><a href="#home" role="tab" data-toggle="tab">Anmelden</a></li>
-								  <li role="presentation"><a class="schrift" href="#profile" role="tab" data-toggle="tab">Registrieren</a></li>
+								  <li role="presentation" class="schrift " ><a href="/atGym">Anmelden</a></li>
+								  <li role="presentation"><a class="schrift active" href="#home" role="tab" data-toggle="tab">Registrieren</a></li>
 								  
 								</ul>
 
 								<!-- Tab panes -->
 								<div class="tab-content">
-								  <div role="tabpanel" class="tab-pane active" id="home">
+								  <div role="tabpanel" class="tab-pane " id="profile">
 										<div class="log ">	
 										
 											<form>
@@ -45,7 +45,7 @@
 											
 										</div>			
 								  </div>
-								  <div role="tabpanel" class="tab-pane" id="profile">
+								  <div role="tabpanel" class="tab-pane active" id="home">
 										<div class="log "> 
 				@form(routes.Application.home1(),'class -> "form-horizontal", 'id -> "loginForm") {
 												<div class=" form-group @if(loginForm("vorname").hasErrors || loginForm("nachname").hasErrors || loginForm("email").hasErrors || loginForm("passwort").hasErrors || loginForm("groesse").hasErrors || loginForm("gewicht").hasErrors || loginForm("geschlecht").hasErrors){has-error}">
@@ -81,7 +81,7 @@
 												</div>
 												<button type="submit" class="bt rahmen buttonLog3" >Registrieren</button>
 												
-												
+											}
 										
 										</div>
 								  </div>
@@ -99,6 +99,6 @@
 				</div>
 			</footer>
 		</div>
-											}
+
 
 }

@@ -1,4 +1,4 @@
-@(user: String)
+@(user: models.User)
 @main("Home"){
 		<div class="wrapper rande">
 		
@@ -25,7 +25,7 @@
 	  
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
-			<!-- Modal -->
+					<!-- Modal -->
 					<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
 					  <div class="modal-dialog">
 						<div class="modal-content">
@@ -36,10 +36,22 @@
 						  <div class="modal-body">
 							<table class="table">
 								<tr><th>Plan</th><th>Tag</th><th>&Uumlbung</th><th>S&aumltze</th><th></th></tr>
-								<tr id="p1u1"><td>Plan 1</td><td>Montag</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
+								@if(user.getPlans().isEmpty() == false || user.getPlans().isEmpty() == null){
+								@for(p <- user.getPlans().values()) {
+									@for(t <- p.getUebungen.keySet()){
+										@for(u <- p.getUebungen().get(t).getUebungen()){
+										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td><td><button type="button" class="close deleteRowButton">
 																										<span aria-hidden="true">&times;</span>
 																										<span class="sr-only">Close</span>
 																										</button></td></tr>
+										}
+									}
+									
+									
+									} 
+								} else {
+								<tr><td>Du hast noch keine Pläne</td><td></td><td></td></tr>
+								}
 								
 							</table>
 						  </div>
@@ -49,7 +61,7 @@
 					</div>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#">@user</a></li>
+			<li><a href="#">@user.getVorname()</a></li>
 		</ul>
     </div>
   </div>

@@ -30,16 +30,30 @@ public class User extends Model{
   private Map<Integer,Plan> plaene = new HashMap<Integer, Plan>();
   
   public User(){}
+  public User(String email, String password){
+	  this.email=email;
+	  this.password = password;
+  }
+  public User(String vorname, String nachname, String email, String password, int groesse, double gewicht, int geschlecht){
+	this.email=email;
+	this.nachname=nachname;
+	this.vorname = vorname;
+	this.password = password;
+	
+	this.groesse = groesse;
+	this.gewicht = gewicht;
+	if(geschlecht == 0)
+	this.geschlecht = Geschlecht.weiblich;
+	else this.geschlecht = Geschlecht.maennlich;
+  }
+  
+  
   public User(String vorname, String nachname, String email, String password, int groesse, double gewicht, Geschlecht geschlecht){
 	this.email=email;
 	this.nachname=nachname;
 	this.vorname = vorname;
-	try{
-		
-	this.password = getHash(password);
-	}catch (Exception ex) {
-                   System.out.println("fehler");
-                }
+	this.password = password;
+	
 	this.groesse = groesse;
 	this.gewicht = gewicht;
 	this.geschlecht = geschlecht;
@@ -124,11 +138,11 @@ public class User extends Model{
 			error.add(new ValidationError("email", "This field is needed"));
 		}
 		
-		/*if(password == null || password.length() == 0){
+		if(password == null || password.length() == 0){
 			error.add(new ValidationError("password", "This field is needed"));
-		}*/
+		}
 		
-		if(vorname == null || vorname.length() == 0){
+		/*if(vorname == null || vorname.length() == 0){
 			error.add(new ValidationError("vorname", "This field is needed"));
 		}
 		if(vorname != null || vorname.length() != 0){
@@ -156,45 +170,14 @@ public class User extends Model{
 		}
 		if(geschlecht == null){
 			error.add(new ValidationError("geschlecht", "This field is needed"));
-		}
+		}*/
 		// Nothing in "error" return null, else return error
 		return error.isEmpty() ? null : error;
 	}
  
 
  
- public static String getHash(String p) 
-{
-  String password = p;
-        String algorithm = "SHA";
-
-        byte[] plainText = password.getBytes();
  
-        MessageDigest md = null;
- 
-        try { 
-            md = MessageDigest.getInstance(algorithm);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
- 
-        md.reset(); 
-        md.update(plainText);
-        byte[] encodedPassword = md.digest();
- 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < encodedPassword.length; i++) {
-			
-            if ((encodedPassword[i] & 0xff) < 0x10) {
-				
-                sb.append("0");
-            }
- 
-            sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
-        }
- 
-    return sb.toString();
-}
 	
   public void uebungLoeschen(int p, Tag t, AusgewaehlteUebung u){
 	plaene.get(p).getUebungen().get(t).loeschen(u);

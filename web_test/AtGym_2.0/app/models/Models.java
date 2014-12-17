@@ -4,7 +4,9 @@ import java.sql.Connection;
  import java.sql.DriverManager;  
  import java.sql.ResultSet;  
  import java.sql.Statement; 
-
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSetMetaData;
 import java.sql.DatabaseMetaData;
  
@@ -19,13 +21,36 @@ public class Models extends Model{
 	Connection conn = null;
 	 Statement stmt = null;
 	 ResultSet rs = null;	
-	static int index=100; 	
+	//static int index=100; 	
 	private static Models instance = null;
 	private static User user;
    private Models() {
 		conn = AtGymDatabase.dbConnector();
 		
       // Exists only to defeat instantiation.
+   }
+   
+   public boolean checkUser(String em, String password){
+	   String p = getHash(password);
+	   try {
+	 stmt = conn.createStatement();
+	 rs = stmt.executeQuery( "SELECT * FROM user where email ='" + em + "';" );
+	 while ( rs.next() ) {
+		 String email = rs.getString("email");
+		 String passwort = rs.getString("password");
+	 if(email.equals(em)==true && passwort.equals(p)==true ){
+		
+		 this.user = new User(rs.getString("vorname"), rs.getString("nachname"), email, password, rs.getInt("groesse"), rs.getDouble("gewicht"), rs.getInt("geschlecht"));
+		return true;
+	 }
+	
+	 }
+	  return false;
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	   return false;
+    }
    }
    
    public void select(){
@@ -75,17 +100,21 @@ public class Models extends Model{
    this.user = u;
    
    int geschlecht;
+   if(user.getGeschlecht() != null){
    if(user.getGeschlecht().equals("weiblich")==true) {
    geschlecht = 0;
    }  else {
    geschlecht = 1;
    }
-   
+   } else {
+	   return false;
+   }
+   String password = getHash(u.getPassword());
    if(emailCheck(user.getEmail())==true){
 	try {
 	 stmt = conn.createStatement();
 	       String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,gewicht,geschlecht) " +
-                   "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','null','"+ u.getEmail() +"','"+u.getPassword()+"',"+ u.getGroesse()+","+ u.getGewicht()+","+ geschlecht +");"; 
+                   "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','null','"+ u.getEmail() +"','"+password+"',"+ u.getGroesse()+","+ u.getGewicht()+","+ geschlecht +");"; 
       stmt.executeUpdate(sql);
      stmt.close();
 	 return true;
@@ -204,6 +233,108 @@ public class Models extends Model{
    return uebungenArme;
    }
    
+       public SortedMap<Integer, Uebung> brust(){
+   SortedMap<Integer, Uebung> uebungenbrust = new TreeMap<Integer, Uebung>();
+   
+   try {
+	 stmt = conn.createStatement();
+	 String name;
+	 String bild;
+	 String equipment;
+	 String grad;
+	 String muskel1;
+	 String muskel2;
+	 Muskel muskelgruppe = Muskel.brust;
+	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='brust' and b.id = u.beschreibung;" );
+	 while ( rs.next() ) {
+	 name = rs.getString("name");
+	 bild = rs.getString("bild");
+	 bild = "assets//images//"+bild+".gif";
+	 equipment = rs.getString("equipment");
+	 grad = rs.getString("grad");
+	 muskel1 = rs.getString("muskel");
+	 muskel2 = rs.getString("muskel2");
+	 int id = rs.getInt("id");
+	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 uebungenbrust.put(id, uebung);
+	 }
+	
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   
+   return uebungenbrust;
+   }
+   
+       public SortedMap<Integer, Uebung> ruecken(){
+   SortedMap<Integer, Uebung> uebungenruecken = new TreeMap<Integer, Uebung>();
+   
+   try {
+	 stmt = conn.createStatement();
+	 String name;
+	 String bild;
+	 String equipment;
+	 String grad;
+	 String muskel1;
+	 String muskel2;
+	 Muskel muskelgruppe = Muskel.ruecken;
+	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='ruecken' and b.id = u.beschreibung;" );
+	 while ( rs.next() ) {
+	 name = rs.getString("name");
+	 bild = rs.getString("bild");
+	 bild = "assets//images//"+bild+".gif";
+	 equipment = rs.getString("equipment");
+	 grad = rs.getString("grad");
+	 muskel1 = rs.getString("muskel");
+	 muskel2 = rs.getString("muskel2");
+	 int id = rs.getInt("id");
+	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 uebungenruecken.put(id, uebung);
+	 }
+	
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   
+   return uebungenruecken;
+   }
+   
+        public SortedMap<Integer, Uebung> schultern(){
+   SortedMap<Integer, Uebung> uebungenschultern = new TreeMap<Integer, Uebung>();
+   
+   try {
+	 stmt = conn.createStatement();
+	 String name;
+	 String bild;
+	 String equipment;
+	 String grad;
+	 String muskel1;
+	 String muskel2;
+	 Muskel muskelgruppe = Muskel.schultern;
+	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='schultern' and b.id = u.beschreibung;" );
+	 while ( rs.next() ) {
+	 name = rs.getString("name");
+	 bild = rs.getString("bild");
+	 bild = "assets//images//"+bild+".gif";
+	 equipment = rs.getString("equipment");
+	 grad = rs.getString("grad");
+	 muskel1 = rs.getString("muskel");
+	 muskel2 = rs.getString("muskel2");
+	 int id = rs.getInt("id");
+	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 uebungenschultern.put(id, uebung);
+	 }
+	
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   
+   return uebungenschultern;
+   }
+   
    public User aktuellUser(){
    return user;
    }
@@ -222,4 +353,37 @@ public class Models extends Model{
 	Plan p = new Plan(1, "PlanTest", uebungen);
 	user.setPlans(p);
    }*/
+
+   public static String getHash(String p) 
+{
+  String password = p;
+        String algorithm = "SHA";
+
+        byte[] plainText = password.getBytes();
+ 
+        MessageDigest md = null;
+ 
+        try { 
+            md = MessageDigest.getInstance(algorithm);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+ 
+        md.reset(); 
+        md.update(plainText);
+        byte[] encodedPassword = md.digest();
+ 
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < encodedPassword.length; i++) {
+			
+            if ((encodedPassword[i] & 0xff) < 0x10) {
+				
+                sb.append("0");
+            }
+ 
+            sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
+        }
+ System.out.println(sb.toString());
+    return sb.toString();
 }
+   }
