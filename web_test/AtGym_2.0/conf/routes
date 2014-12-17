@@ -4,8 +4,7 @@
 
 # Home page
 GET     /                   controllers.Application.index()
-GET		/atGym/registrieren				controllers.Application.login()
-GET		/atGym				controllers.Application.anmelden()
+GET		/atGym				controllers.Application.login()
 GET		/home				controllers.Application.home()
 POST	/home				controllers.Application.home1()
 GET		/ourGym				controllers.Application.ourGym()
@@ -13,7 +12,6 @@ GET 	/arme				controllers.Application.arme()
 GET 	/beine				controllers.Application.beine()
 GET 	/bauch				controllers.Application.bauch()
 GET 	/brust				controllers.Application.brust()
-GET		/fertigePlaene		controllers.Application.fertigePlaene()
 GET		/myGym				controllers.Application.myGym()
 GET		/ruecken			controllers.Application.ruecken()
 GET		/schultern			controllers.Application.schultern()

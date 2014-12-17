@@ -32,12 +32,7 @@ public class Application extends Controller {
     	return ok(logIn.render(userForm));
 		
     }
-	public static Result anmelden(){
-			session().clear();
-    	Form<User> userForm = Form.form(User.class);
-			return ok(anmelden.render(userForm));
-		
-	}
+	
 	
 	
     public static Result index() {
@@ -54,19 +49,14 @@ public class Application extends Controller {
     	}else{
 			
 			User u = userForm.get();
-					System.out.println("************");
-					System.out.println(u.getEmail() + " " + u.getPassword() + " " + u.getVorname());
-					System.out.println("************");
+					
 			if(u.getEmail() != null & u.getPassword() != null ){
 				User user;
 				if(u.getVorname() == null  && model.checkUser(u.getEmail(), u.getPassword()) == true){
-					System.out.println("************");
-					System.out.println(u.getEmail() + " " + u.getPassword() + " " + u.getVorname());
-					System.out.println("************");
 					user = model.aktuellUser();
 					session("User1", user.getVorname());
 					return ok(home_boot.render(user));
-				} else if(model.neuerUser(userForm.get())==true){
+				} else if(u.getVorname() != null && model.neuerUser(userForm.get())==true){
 					user = model.aktuellUser();
 					session("User1", user.getVorname());
 					return ok(home_boot.render(user));
@@ -199,14 +189,7 @@ public class Application extends Controller {
 			}
 	}
 	
-	public static Result fertigePlaene(){
-	String username = session("User1");
-		if(username != null) {
-			return ok(fertigePlaene.render(username));
-		}else{
-			return redirect("/atGym");
-			}
-	}
+	
 	
 	public static Result ruecken(){
 		User user = model.aktuellUser();
