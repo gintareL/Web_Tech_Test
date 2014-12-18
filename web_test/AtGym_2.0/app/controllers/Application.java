@@ -45,7 +45,7 @@ public class Application extends Controller {
     	if(userForm.hasErrors()){
 		
     		System.out.println("Errors gefunden!");
-    		return redirect("/atGym/registrieren");
+    		return redirect("/atGym");
     	}else{
 			
 			User u = userForm.get();
