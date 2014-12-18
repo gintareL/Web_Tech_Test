@@ -40,7 +40,7 @@ public class Models extends Model{
 		 String passwort = rs.getString("password");
 	 if(email.equals(em)==true && passwort.equals(p)==true ){
 		
-		 this.user = new User(rs.getString("vorname"), rs.getString("nachname"), email, password, rs.getInt("groesse"), rs.getDouble("gewicht"), rs.getInt("geschlecht"));
+		 this.user = new User(rs.getString("vorname"), rs.getString("nachname"), email, password, rs.getInt("groesse"), rs.getInt("geschlecht"));
 		return true;
 	 }
 	
@@ -113,8 +113,8 @@ public class Models extends Model{
    if(emailCheck(user.getEmail())==true){
 	try {
 	 stmt = conn.createStatement();
-	       String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,gewicht,geschlecht) " +
-                   "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','null','"+ u.getEmail() +"','"+password+"',"+ u.getGroesse()+","+ u.getGewicht()+","+ geschlecht +");"; 
+	       String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,geschlecht) " +
+                   "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','null','"+ u.getEmail() +"','"+password+"',"+ u.getGroesse()+","+ geschlecht +");"; 
       stmt.executeUpdate(sql);
      stmt.close();
 	 return true;

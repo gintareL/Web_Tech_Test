@@ -3,7 +3,7 @@
 
 # --- !Ups
 
-create table test (
+ create table test (
   email                     varchar(255),
   nachname                  varchar(255),
   vorname                   varchar(255),
@@ -19,7 +19,6 @@ create table user (
   nachname                  varchar(255),
   vorname                   varchar(255),
   password                  varchar(255),
-  password_hash             integer,
   groesse                   integer,
   gewicht                   double,
   geschlecht                integer,
@@ -32,7 +31,7 @@ create table user (
 
 # --- !Downs
 
-PRAGMA foreign_keys = OFF;
+ PRAGMA foreign_keys = OFF;
 
 drop table test;
 

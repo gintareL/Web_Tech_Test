@@ -22,7 +22,7 @@ public class User extends Model{
   private String nachname = null;
   private String vorname = null;
   private String password;
-  private int passwordHash = 0;
+ 
   private int groesse=0;
   private double gewicht=0;
   private Geschlecht geschlecht;
@@ -34,14 +34,13 @@ public class User extends Model{
 	  this.email=email;
 	  this.password = password;
   }
-  public User(String vorname, String nachname, String email, String password, int groesse, double gewicht, int geschlecht){
+  public User(String vorname, String nachname, String email, String password, int groesse, int geschlecht){
 	this.email=email;
 	this.nachname=nachname;
 	this.vorname = vorname;
 	this.password = password;
 	
 	this.groesse = groesse;
-	this.gewicht = gewicht;
 	if(geschlecht == 0)
 	this.geschlecht = Geschlecht.weiblich;
 	else this.geschlecht = Geschlecht.maennlich;
