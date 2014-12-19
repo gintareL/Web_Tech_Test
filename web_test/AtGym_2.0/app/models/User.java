@@ -24,10 +24,15 @@ public class User extends Model{
   private String password;
  
   private int groesse=0;
-  private double gewicht=0;
+ // private double gewicht=0;
   private Geschlecht geschlecht;
   private String bild =null;
   private Map<Integer,Plan> plaene = new HashMap<Integer, Plan>();
+  private Map<Date,Double> gewicht = new HashMap<Date, Double>();
+  private Map<Date,Double> bauchumfang = new HashMap<Date, Double>();
+  private Map<Date,Double> armumfang = new HashMap<Date, Double>();
+   private Map<Date,Double> hueften = new HashMap<Date, Double>();
+   private Map<Date,Double> brustumfang = new HashMap<Date, Double>();
   
   public User(){}
   public User(String email, String password){
@@ -47,14 +52,14 @@ public class User extends Model{
   }
   
   
-  public User(String vorname, String nachname, String email, String password, int groesse, double gewicht, Geschlecht geschlecht){
+  public User(String vorname, String nachname, String email, String password, int groesse, Geschlecht geschlecht){
 	this.email=email;
 	this.nachname=nachname;
 	this.vorname = vorname;
 	this.password = password;
 	
 	this.groesse = groesse;
-	this.gewicht = gewicht;
+	
 	this.geschlecht = geschlecht;
   }
   
@@ -106,12 +111,12 @@ public class User extends Model{
   public void setGroesse(int groesse){
   this.groesse=groesse;
   }
-  public double getGewicht(){
+  /*public double getGewicht(){
   return gewicht;
   }
   public void setGewicht(double gewicht){
   this.gewicht=gewicht;
-  }
+  }*/
   public String getGeschlecht(){
   if(this.geschlecht == Geschlecht.maennlich) return "männlich";
   else if(this.geschlecht == Geschlecht.weiblich) return "weiblich";
@@ -119,6 +124,26 @@ public class User extends Model{
   }
   public void setGeschlecht(Geschlecht geschlecht){
   this.geschlecht=geschlecht;
+  }
+  
+  public Map<Date,Double> getGewicht(){
+	  return gewicht;
+  }
+  
+  public Map<Date,Double> getBauchumfang(){
+	  return bauchumfang;
+  }
+  
+   public Map<Date,Double> getArmumfang(){
+	  return armumfang;
+  }
+  
+    public Map<Date,Double> getHueften(){
+	  return hueften;
+  }
+  
+   public Map<Date,Double> getBrustumfang(){
+	  return brustumfang;
   }
   
   

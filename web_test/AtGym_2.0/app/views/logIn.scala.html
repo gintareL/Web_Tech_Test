@@ -79,10 +79,10 @@
 															   name="@loginForm("groesse").name"
 															   placeholder="groesse" min="0">
 														<span class="help-block">@{loginForm("groesse").error.map { error => error.message }}</span>
-													<input type="number" class="rahmen log_eingabe"
+													<!--<input type="number" class="rahmen log_eingabe"
 															   name="@loginForm("gewicht").name"
 															   placeholder="gewicht" min="0">
-														<span class="help-block">@{loginForm("gewicht").error.map { error => error.message }}</span>
+														<span class="help-block">@{loginForm("gewicht").error.map { error => error.message }}</span>-->
 													<p id="wm"><input type="radio" value="weiblich" name="@loginForm("geschlecht").name"> Weiblich   <input type="radio" value="maennlich" name="@loginForm("geschlecht").name"> Männlich</p>
 													
 														<span class="help-block">@{loginForm("geschlecht").error.map { error => error.message }}</span>

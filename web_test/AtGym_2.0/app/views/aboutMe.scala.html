@@ -101,14 +101,61 @@
 							<tr><th>Gr&ouml&szlige: </th></tr>
 							<tr><td>@user.getGroesse() cm<td><td></td></tr>
 							<tr><th>Gewicht: </th></tr>
-							<tr><td>@user.getGewicht() kg<td><td>
-								
+							@if(user.getGewicht().isEmpty() == false){
+							<tr><td>kg<td><td>
+							}else{<tr><td> - <td><td>}	
 							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
 							<!--<button type="button" class="float_r " aria-label="Left Align">-->
-									<a href="#" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
+									<a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
 							<!--</button>-->
 							
 							</td></tr>
+							
+							<tr><th>Bauchumfang: </th></tr>
+							@if(user.getGewicht().isEmpty() == false){
+							<tr><td>cm<td><td>
+								}else{<tr><td> - <td><td>}	
+							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
+							<!--<button type="button" class="float_r " aria-label="Left Align">-->
+									<a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
+							<!--</button>-->
+							
+							</td></tr>
+							
+							<tr><th>Hüftenumfang: </th></tr>
+							@if(user.getHueften().isEmpty() == false){
+							
+							<tr><td>cm<td><td>
+								}else{<tr><td> - <td><td>}
+							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
+							<!--<button type="button" class="float_r " aria-label="Left Align">-->
+									<a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
+							<!--</button>-->
+							
+							</td></tr>
+							<tr><th>Armumfang: </th></tr>
+							@if(user.getArmumfang().isEmpty() == false){
+							
+							<tr><td>cm<td><td>
+								}else{<tr><td> - <td><td>}	
+							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
+							<!--<button type="button" class="float_r " aria-label="Left Align">-->
+									<a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
+							<!--</button>-->
+							
+							</td></tr>
+							
+							<tr><th>Brustumfang: </th></tr>
+							@if(user.getBrustumfang().isEmpty() == false){
+							<tr><td>cm<td><td>
+								}else{<tr><td> - <td><td>}	
+							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
+							<!--<button type="button" class="float_r " aria-label="Left Align">-->
+									<a href="#" title="ändern"  class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
+							<!--</button>-->
+							
+							</td></tr>
+							
 							<tr><th>Geschlecht: </th></tr>
 							<tr><td>@user.getGeschlecht()<td><td></td></tr>
 							

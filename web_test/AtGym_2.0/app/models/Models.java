@@ -41,6 +41,11 @@ public class Models extends Model{
 	 if(email.equals(em)==true && passwort.equals(p)==true ){
 		
 		 this.user = new User(rs.getString("vorname"), rs.getString("nachname"), email, password, rs.getInt("groesse"), rs.getInt("geschlecht"));
+		 gewichtList();
+		 bauchumfangList();
+		 armumfangList();
+		 hueftenList();
+		 brustumfangList();
 		return true;
 	 }
 	
@@ -117,6 +122,10 @@ public class Models extends Model{
                    "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','null','"+ u.getEmail() +"','"+password+"',"+ u.getGroesse()+","+ geschlecht +");"; 
       stmt.executeUpdate(sql);
      stmt.close();
+	 gewichtList();
+	 bauchumfangList();
+	 hueftenList();
+	  brustumfangList();
 	 return true;
      
 	} catch ( Exception e ) {
@@ -126,10 +135,73 @@ public class Models extends Model{
     }
 	} else{
 	return false;
-	}
-	
-	
+	}	
    }
+   
+   public void gewichtList(){
+	   try {
+	 stmt = conn.createStatement();
+	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, gewicht g where u.userid=g.user;" );
+	 while ( rs.next() ) {
+	 user.getGewicht().put(rs.getDate("datum"), rs.getDouble("umfang"));
+	 }
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   }
+   public void bauchumfangList(){
+	   try {
+	 stmt = conn.createStatement();
+	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, bauchumfang g where u.userid=g.user;" );
+	 while ( rs.next() ) {
+	 user.getBauchumfang().put(rs.getDate("datum"), rs.getDouble("umfang"));
+	 }
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   }
+   
+    public void hueftenList(){
+	   try {
+	 stmt = conn.createStatement();
+	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, huefte g where u.userid=g.user;" );
+	 while ( rs.next() ) {
+	 user.getHueften().put(rs.getDate("datum"), rs.getDouble("umfang"));
+	 }
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   }
+   
+    public void armumfangList(){
+	   try {
+	 stmt = conn.createStatement();
+	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, armumfang g where u.userid=g.user;" );
+	 while ( rs.next() ) {
+	 user.getArmumfang().put(rs.getDate("datum"), rs.getDouble("umfang"));
+	 }
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   }
+   
+    public void brustumfangList(){
+	   try {
+	 stmt = conn.createStatement();
+	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, brustumfang g where u.userid=g.user;" );
+	 while ( rs.next() ) {
+	 user.getBrustumfang().put(rs.getDate("datum"), rs.getDouble("umfang"));
+	 }
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+   }
+   
    
    public SortedMap<Integer, Uebung> beine(){
    SortedMap<Integer, Uebung> uebungenBeine = new TreeMap<Integer, Uebung>();
