@@ -23,7 +23,7 @@ import javax.swing.*;
 public class Application extends Controller {
 	final static Form<User> loginForm = Form.form(User.class); 
 	final static Models model = Models.getInstance();
-
+	final static Form<Gewicht> gewichtForm = Form.form(Gewicht.class); 
 	
 	public static Result login() {
     	session().clear();
@@ -47,7 +47,7 @@ public class Application extends Controller {
     		System.out.println("Errors gefunden!");
     		return redirect("/atGym");
     	}else{
-			
+		
 			User u = userForm.get();
 					
 			if(u.getEmail() != null & u.getPassword() != null ){
@@ -94,7 +94,7 @@ public class Application extends Controller {
 	public static Result myGym(){
 		User user = model.aktuellUser();
 		String username = session("User1");
-		System.out.println(username);
+		
 		String geschlecht = user.getGeschlecht();
 		if(username != null && geschlecht != null) {
 			return ok(myGym.render(user, username, geschlecht));
@@ -103,13 +103,41 @@ public class Application extends Controller {
 			}
 	}
 	
+/*	public static Result hello() {
+    DynamicForm requestData = Form.form().bindFromRequest();
+    double gewicht = requestData.get("gewicht");
+   
+    return ok();
+}*/
+	
+	public static Result aboutMeg(){
+		Form<Gewicht> gewichtForm = Form.form(Gewicht.class).bindFromRequest();
+		if(gewichtForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			Gewicht g = gewichtForm.get();
+			User user = model.aktuellUser();
+			user.setGewicht(g);
+			model.gewichtCheck();
+			System.out.println(g.getGewicht());
+		return redirect("/aboutMe");
+		
+		}
+	}
+	
 	public static Result aboutMe(){
+		Form<Gewicht> gewichtForm = Form.form(Gewicht.class);
 	User user = model.aktuellUser();
 	String username = session("User1");
 	String geschlecht = session("User4");
 	String bild = session("bild");
 	if(username != null) {
-		return ok(aboutMe.render(user, username, geschlecht, bild));
+		
+		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm));
     }else{
 		return redirect("/atGym");
     	}

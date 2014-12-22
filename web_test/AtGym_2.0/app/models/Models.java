@@ -9,7 +9,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSetMetaData;
 import java.sql.DatabaseMetaData;
- 
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.*;
 import play.db.ebean.Model;
 import play.data.validation.Constraints.*;
@@ -58,17 +61,19 @@ public class Models extends Model{
     }
    }
    
-   public void select(){
+   public int selectId(String email){
     try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT * FROM TAG;" );
+	 rs = stmt.executeQuery( "SELECT userid FROM user where email='" + email +"';" );
 	 while ( rs.next() ) {
-	 System.out.println(rs.getString("name"));
+	 return rs.getInt("userid");
 	 }
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
+	  return -1;
     }
+	return -1;
    }
    
    public static Models getInstance() {
@@ -137,13 +142,33 @@ public class Models extends Model{
 	return false;
 	}	
    }
+   public void gewichtCheck(){
+	   if(user.getGewicht() != null){
+		   DateFormat dateFormat = new SimpleDateFormat("dd.MM.YY");
+		   try {
+				stmt = conn.createStatement();
+				String sql = "INSERT INTO gewicht (id,umfang,datum, user) " +
+                   "VALUES (null,"+ user.getGewicht().getGewicht()+"," + dateFormat.format(user.getGewicht().getDatum())+","+ selectId(user.getEmail()) +");"; 
+      stmt.executeUpdate(sql);
+     stmt.close();
+	 
+	 
+     
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    }
+	   }
+   }
    
    public void gewichtList(){
 	   try {
 	 stmt = conn.createStatement();
 	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, gewicht g where u.userid=g.user;" );
 	 while ( rs.next() ) {
-	 user.getGewicht().put(rs.getDate("datum"), rs.getDouble("umfang"));
+		 Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getDate("datum"));
+		user.getGewichtList().add(g);
 	 }
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );

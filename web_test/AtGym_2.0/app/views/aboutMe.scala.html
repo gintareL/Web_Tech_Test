@@ -1,5 +1,6 @@
-@(user: models.User, vorname : String, geschlecht : String, bild : String)
-
+@(user: models.User, vorname : String, geschlecht : String, bild : String, gewichtForm: Form[models.Gewicht])
+@import helper._
+@import helper.twitterBootstrap._
 @main("about Me"){
 		<div class="wrapper rande">
 		
@@ -100,64 +101,126 @@
 							<tr><td>@user.getNachname()<td><td></td></tr>
 							<tr><th>Gr&ouml&szlige: </th></tr>
 							<tr><td>@user.getGroesse() cm<td><td></td></tr>
-							<tr><th>Gewicht: </th></tr>
-							@if(user.getGewicht().isEmpty() == false){
-							<tr><td>kg<td><td>
-							}else{<tr><td> - <td><td>}	
-							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
-							<!--<button type="button" class="float_r " aria-label="Left Align">-->
-									<a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
-							<!--</button>-->
 							
-							</td></tr>
+							<script language="JavaScript" type="text/javascript"> 
+								$(document).ready(function(){
+								  $("#gdown").click(function(){
+									$("#g").toggle();
+								  });
+								});
+								
+								
+							</script>
 							
-							<tr><th>Bauchumfang: </th></tr>
-							@if(user.getGewicht().isEmpty() == false){
-							<tr><td>cm<td><td>
-								}else{<tr><td> - <td><td>}	
-							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
-							<!--<button type="button" class="float_r " aria-label="Left Align">-->
-									<a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
-							<!--</button>-->
+							<tr><th><a title="anzeigen" href="#" id="gdown">Gewicht </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal_gewicht" aria-hidden="true"></a></th></tr>
 							
-							</td></tr>
+							<div class="modal fade" id="myModal_gewicht" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog1">
+									<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											<p></p>
+										  </div>
+										 
+										
+										  <div class="modal-body">
+										 
+										   @form(routes.Application.aboutMeg(),'class -> "form-horizontal", 'id -> "gewichtForm") {
+										   
+										   <div class=" form-group @if(gewichtForm("gewicht").hasErrors){has-error}">
+										    Dein aktuelles Gewicht:
+												<input  class="rande float_r abstanda abstand_innen"  name="@gewichtForm("gewicht").name" type="number" min="20" max="300"	placeholder="Gewicht">
+												
+										</div>
+										
+										  </div>
+										  <div class="modal-footer">
+											<button type="submit" class="abstanda btn1 btn-default">Save</button>
+										  </div>
+										  }
+									</div>
+								</div>
+							</div>
 							
-							<tr><th>Hüftenumfang: </th></tr>
+							<tr id="g" style="display:none;">
+							@if(user.getGewichtList().isEmpty() == false){
+							
+							@for(i <- user.getGewichtList()){
+							<td>@i.getDatum()</td><td>@i.getGewicht() kg</td>
+							}
+
+							}else{<td> - </td><td></td>}	
+							</tr>
+							
+							<script language="JavaScript" type="text/javascript"> 
+								$(document).ready(function(){
+								  $("#bdown").click(function(){
+									$("#b").toggle();
+								  });
+								});
+							</script>
+							
+							<tr><th><a title="anzeigen" href="#" id="bdown">Bauchumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a></th></tr>
+							<tr id="b" style="display:none;">
+							@if(user.getBauchumfang().isEmpty() == false){
+							<td>cm</td><td></td>
+								}else{<td> - </td><td></td>}	
+							
+							
+							</tr>
+							
+							<script language="JavaScript" type="text/javascript"> 
+								$(document).ready(function(){
+								  $("#hdown").click(function(){
+									$("#h").toggle();
+								  });
+								});
+							</script>
+							
+							
+							<tr><th><a title="anzeigen" href="#" id="hdown">Hüftenumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a></th></tr>
+							<tr id="h" style="display:none;">
 							@if(user.getHueften().isEmpty() == false){
 							
-							<tr><td>cm<td><td>
-								}else{<tr><td> - <td><td>}
-							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
-							<!--<button type="button" class="float_r " aria-label="Left Align">-->
-									<a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
-							<!--</button>-->
+							<td>cm</td><td></td>
+								}else{<td> - </td><td></td>}
+							</tr>
 							
-							</td></tr>
-							<tr><th>Armumfang: </th></tr>
+							
+							<script language="JavaScript" type="text/javascript"> 
+								$(document).ready(function(){
+								  $("#adown").click(function(){
+									$("#a").toggle();
+								  });
+								});
+							</script>
+							
+							<tr><th><a title="anzeigen" href="#" id="adown">Armumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a></th></tr>
+							<tr id="a" style="display:none;">
 							@if(user.getArmumfang().isEmpty() == false){
 							
-							<tr><td>cm<td><td>
-								}else{<tr><td> - <td><td>}	
-							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
-							<!--<button type="button" class="float_r " aria-label="Left Align">-->
-									<a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
-							<!--</button>-->
+							<td>cm</td><td></td>
+								}else{<td> - </td><td></td>}	
+							</tr>
 							
-							</td></tr>
+							<script language="JavaScript" type="text/javascript"> 
+								$(document).ready(function(){
+								  $("#brdown").click(function(){
+									$("#br").toggle();
+								  });
+								});
+							</script>
 							
-							<tr><th>Brustumfang: </th></tr>
+							<tr><th><a title="anzeigen" href="#" id="brdown">Brustumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a></th></tr>
+							<tr id="br" style="display:none;">
 							@if(user.getBrustumfang().isEmpty() == false){
-							<tr><td>cm<td><td>
-								}else{<tr><td> - <td><td>}	
-							<!--<button type="button" class="button1 float_r">&aumlndern</button>-->
-							<!--<button type="button" class="float_r " aria-label="Left Align">-->
-									<a href="#" title="ändern"  class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a>
-							<!--</button>-->
+							<td>cm</td><td></td>
+								}else{<td> - </td><td></td>}	
 							
-							</td></tr>
+							</tr>
 							
 							<tr><th>Geschlecht: </th></tr>
-							<tr><td>@user.getGeschlecht()<td><td></td></tr>
+							<tr><td>@user.getGeschlecht()</td><td></td></tr>
 							
 							</table>
 							

@@ -922,7 +922,7 @@ a {
 a:hover,
 a:focus {
   color: #8BE61D;
-  text-decoration: underline;
+ 
 }
 a:focus {
   outline: thin dotted;
@@ -1064,6 +1064,9 @@ h6,
 .h6 {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+a:hover {
+#A9ED26;
 }
 h4 small,
 .h4 small,
@@ -2295,6 +2298,12 @@ table th[class*="col-"] {
     border-bottom: 0;
   }
 }
+
+.panel-group > .panel > .panel-heading > .panel-title > a:hover{
+	color:#A9ED26;
+}
+
+
 fieldset {
   min-width: 0;
   padding: 0;
@@ -2801,6 +2810,32 @@ select[multiple].form-group-lg .form-control {
   border: 1px solid transparent;
   border-radius: 4px;
 }
+
+.btn1 {
+  display: inline-block;
+  padding-bottom: 1%;
+  padding-top:1%;
+  padding-left:3%;
+  padding-right:3%;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
 .btn:focus,
 .btn:active:focus,
 .btn.active:focus,
@@ -5047,6 +5082,11 @@ a.list-group-item-info.active:focus {
 a.list-group-item-warning {
   color: #8a6d3b;
 }
+
+a.panel-title:focus {
+	color:#A9ED26;
+}
+
 a.list-group-item-warning .list-group-item-heading {
   color: inherit;
 }
@@ -5109,6 +5149,11 @@ a.list-group-item-danger.active:focus {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
+
+.panel-heading > a:focus {
+	color:#A9ED26;
+}
+
 .panel-heading > .dropdown .dropdown-toggle {
   color: inherit;
 }
@@ -5558,6 +5603,13 @@ button.close1 {
   width: auto;
   margin: 10px;
 }
+
+
+  .modal-dialog1 {
+    width: 20em;
+    margin: 100px auto;
+  }
+
 .modal-content {
   position: relative;
   background-color: #fff;
@@ -5607,6 +5659,8 @@ button.close1 {
   text-align: right;
   border-top: 1px solid #e5e5e5;
 }
+
+
 .modal-footer .btn + .btn {
   margin-bottom: 0;
   margin-left: 5px;
@@ -5624,11 +5678,15 @@ button.close1 {
   height: 50px;
   overflow: scroll;
 }
+
+
 @media (min-width: 768px) {
   .modal-dialog {
     width: 600px;
     margin: 30px auto;
   }
+  
+  
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
             box-shadow: 0 5px 15px rgba(0, 0, 0, .5);

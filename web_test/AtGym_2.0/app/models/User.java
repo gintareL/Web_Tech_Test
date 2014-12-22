@@ -28,12 +28,12 @@ public class User extends Model{
   private Geschlecht geschlecht;
   private String bild =null;
   private Map<Integer,Plan> plaene = new HashMap<Integer, Plan>();
-  private Map<Date,Double> gewicht = new HashMap<Date, Double>();
+  private Set<Gewicht> gewichtList = new HashSet<Gewicht>();
   private Map<Date,Double> bauchumfang = new HashMap<Date, Double>();
   private Map<Date,Double> armumfang = new HashMap<Date, Double>();
    private Map<Date,Double> hueften = new HashMap<Date, Double>();
    private Map<Date,Double> brustumfang = new HashMap<Date, Double>();
-  
+  private Gewicht gewicht = null;
   public User(){}
   public User(String email, String password){
 	  this.email=email;
@@ -61,6 +61,15 @@ public class User extends Model{
 	this.groesse = groesse;
 	
 	this.geschlecht = geschlecht;
+  }
+  
+  public Gewicht getGewicht(){
+	  return gewicht;
+  }
+  
+  public void setGewicht(Gewicht g){
+		gewicht=g;
+	  gewichtList.add(g);
   }
   
   public Map<Integer, Plan> getPlans(){
@@ -126,8 +135,8 @@ public class User extends Model{
   this.geschlecht=geschlecht;
   }
   
-  public Map<Date,Double> getGewicht(){
-	  return gewicht;
+  public Set<Gewicht> getGewichtList(){
+	  return gewichtList;
   }
   
   public Map<Date,Double> getBauchumfang(){
