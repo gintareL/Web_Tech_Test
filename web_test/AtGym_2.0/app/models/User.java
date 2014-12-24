@@ -28,7 +28,7 @@ public class User extends Model{
   private Geschlecht geschlecht;
   private String bild =null;
   private Map<Integer,Plan> plaene = new HashMap<Integer, Plan>();
-  private Set<Gewicht> gewichtList = new HashSet<Gewicht>();
+  private SortedMap<Integer, Gewicht> gewichtList = new TreeMap<Integer, Gewicht>();
   private Map<Date,Double> bauchumfang = new HashMap<Date, Double>();
   private Map<Date,Double> armumfang = new HashMap<Date, Double>();
    private Map<Date,Double> hueften = new HashMap<Date, Double>();
@@ -69,7 +69,7 @@ public class User extends Model{
   
   public void setGewicht(Gewicht g){
 		gewicht=g;
-	  gewichtList.add(g);
+	  gewichtList.put(0, g);
   }
   
   public Map<Integer, Plan> getPlans(){
@@ -135,7 +135,7 @@ public class User extends Model{
   this.geschlecht=geschlecht;
   }
   
-  public Set<Gewicht> getGewichtList(){
+  public SortedMap<Integer, Gewicht> getGewichtList(){
 	  return gewichtList;
   }
   

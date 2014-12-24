@@ -28,20 +28,30 @@ public class Gewicht{
 	private int id;
 	private double gewicht;
 	private Date datum;
+	private String datumString;
+
+	public Gewicht(){}	
 	
-public Gewicht(){}	
 public Gewicht(double gewicht){
 	this.gewicht=gewicht;
-	  DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	 
 	   //get current date time with Date()
 	   this.datum = new Date();
-	  
-	   System.out.println(dateFormat.format(datum));
+	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   this.datumString=dateFormat.format(datum);
 }
 
 public Gewicht(double gewicht, Date datum){
 	this.gewicht=gewicht;
 	  this.datum = datum;
+	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   this.datumString=dateFormat.format(datum);
+}
+
+public Gewicht(double gewicht, String datum){
+	this.gewicht=gewicht;
+	this.datumString = datum;
+	
 }
 
 public void setId(int id){
@@ -55,15 +65,21 @@ public double getGewicht(){
 	return gewicht;
 }	
 
+public String getDatumString(){
+	 return datumString;
+}
+
 public Date getDatum(){
 	return datum;
 }
 
 public void setGewicht(double gewicht){
 	this.gewicht=gewicht;
-	  DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	 
 	   //get current date time with Date()
 	   this.datum = new Date();
+	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   this.datumString=dateFormat.format(datum);
 	  
 }
   public List<ValidationError> validate() {

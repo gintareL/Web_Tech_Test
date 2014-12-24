@@ -144,11 +144,11 @@ public class Models extends Model{
    }
    public void gewichtCheck(){
 	   if(user.getGewicht() != null){
-		   DateFormat dateFormat = new SimpleDateFormat("dd.MM.YY");
+		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
 				stmt = conn.createStatement();
 				String sql = "INSERT INTO gewicht (id,umfang,datum, user) " +
-                   "VALUES (null,"+ user.getGewicht().getGewicht()+"," + dateFormat.format(user.getGewicht().getDatum())+","+ selectId(user.getEmail()) +");"; 
+                   "VALUES (null,"+ user.getGewicht().getGewicht()+",'" + dateFormat.format(user.getGewicht().getDatum())+"',"+ selectId(user.getEmail()) +");"; 
       stmt.executeUpdate(sql);
      stmt.close();
 	 
@@ -165,10 +165,11 @@ public class Models extends Model{
    public void gewichtList(){
 	   try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, gewicht g where u.userid=g.user;" );
+	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, gewicht g where u.userid=g.user;" );
 	 while ( rs.next() ) {
-		 Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getDate("datum"));
-		user.getGewichtList().add(g);
+		 System.out.println(rs.getString("datum"));
+		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
+		user.getGewichtList().put(rs.getInt("id"), new Gewicht(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );

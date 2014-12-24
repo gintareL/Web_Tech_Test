@@ -105,7 +105,7 @@
 							<script language="JavaScript" type="text/javascript"> 
 								$(document).ready(function(){
 								  $("#gdown").click(function(){
-									$("#g").toggle();
+									$(".g").toggle();
 								  });
 								});
 								
@@ -142,15 +142,15 @@
 								</div>
 							</div>
 							
-							<tr id="g" style="display:none;">
+							
 							@if(user.getGewichtList().isEmpty() == false){
 							
-							@for(i <- user.getGewichtList()){
-							<td>@i.getDatum()</td><td>@i.getGewicht() kg</td>
+							@for(i <- user.getGewichtList().keySet()){
+							<tr class="g" style="display:none;"><td>@user.getGewichtList().get(i).getDatumString()</td><td>@user.getGewichtList().get(i).getGewicht() kg</td></tr>
 							}
 
-							}else{<td> - </td><td></td>}	
-							</tr>
+							}else{<tr class="g" style="display:none;"><td> - </td><td></td></tr>}	
+						
 							
 							<script language="JavaScript" type="text/javascript"> 
 								$(document).ready(function(){
