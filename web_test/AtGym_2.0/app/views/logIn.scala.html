@@ -4,7 +4,12 @@
 @import helper._
 @import helper.twitterBootstrap._
 
+<<<<<<< HEAD
 @main("Test"){
+=======
+
+@main("@Gym"){
+>>>>>>> 5c84e861e132913adf77e9d1a5b475ea61d6c37c
 
 
 												
@@ -26,8 +31,8 @@
 							<div class="tabs rahmen">
 								<!-- Nav tabs -->
 								<ul class="nav nav-tabs" role="tablist">
-								  <li role="presentation" class="schrift active" ><a href="#home" role="tab" data-toggle="tab">Anmelden</a></li>
-								  <li role="presentation"><a class="schrift" href="#profile" role="tab" data-toggle="tab">Registrieren</a></li>
+								   <li role="presentation" class="schrift active" ><a href="#home" role="tab" data-toggle="tab">Anmelden</a></li>
+								  <li role="presentation"><a class="schrift " href="#profile" role="tab" data-toggle="tab">Registrieren</a></li>
 								  
 								</ul>
 
@@ -35,18 +40,29 @@
 								<div class="tab-content">
 								  <div role="tabpanel" class="tab-pane active" id="home">
 										<div class="log ">	
-			
-				
-												<p><input class="rahmen log_eingabe" type="email" name="email" placeholder="E-Mail"></p>
-												<p><input class="rahmen log_eingabe" type="password" name="passwort" placeholder="Passwort"></p>
-									
-												<button type="submit" class="bt rahmen buttonLog3" >Anmelden</button>
-											<!--	<button type="button" id="abstandr" class="rahmen buttonLog2" >Passwort vergessen?</button>-->
+
+										
+											@form(routes.Application.home1(),'class -> "form-horizontal", 'id -> "loginForm") {
+												<div class=" form-group @if(loginForm("email").hasErrors || loginForm("passwort").hasErrors){has-error}">
+													
+														<input type="email" class="rahmen log_eingabe"
+															   name="@loginForm("email").name"
+															   placeholder="e-mail" >
+														<span class="help-block">@{loginForm("email").error.map { error => error.message }}</span>
+														<input type="password" class="rahmen log_eingabe"
+															   name="@loginForm("password").name"
+															   placeholder="Passwort">
+														<span class="help-block">@{loginForm("password").error.map { error => error.message }}</span>
+													
+												</div>
+												<button type="submit" class="bt rahmen buttonLog3" >Registrieren</button>
+												
+											}
 											
 				
 										</div>			
 								  </div>
-								  <div role="tabpanel" class="tab-pane" id="profile">
+								  <div role="tabpanel" class="tab-pane " id="profile">
 										<div class="log "> 
 				@form(routes.Application.home1(),'class -> "form-horizontal", 'id -> "loginForm") {
 												<div class=" form-group @if(loginForm("vorname").hasErrors || loginForm("nachname").hasErrors || loginForm("email").hasErrors || loginForm("passwort").hasErrors || loginForm("groesse").hasErrors || loginForm("gewicht").hasErrors || loginForm("geschlecht").hasErrors){has-error}">
@@ -71,10 +87,10 @@
 															   name="@loginForm("groesse").name"
 															   placeholder="groesse" min="0">
 														<span class="help-block">@{loginForm("groesse").error.map { error => error.message }}</span>
-													<input type="number" class="rahmen log_eingabe"
+													<!--<input type="number" class="rahmen log_eingabe"
 															   name="@loginForm("gewicht").name"
 															   placeholder="gewicht" min="0">
-														<span class="help-block">@{loginForm("gewicht").error.map { error => error.message }}</span>
+														<span class="help-block">@{loginForm("gewicht").error.map { error => error.message }}</span>-->
 													<p id="wm"><input type="radio" value="weiblich" name="@loginForm("geschlecht").name"> Weiblich   <input type="radio" value="maennlich" name="@loginForm("geschlecht").name"> Männlich</p>
 													
 														<span class="help-block">@{loginForm("geschlecht").error.map { error => error.message }}</span>
@@ -82,7 +98,7 @@
 												</div>
 												<button type="submit" class="bt rahmen buttonLog3" >Registrieren</button>
 												
-												
+											}
 										
 										</div>
 								  </div>
@@ -100,6 +116,6 @@
 				</div>
 			</footer>
 		</div>
-											}
+
 
 }

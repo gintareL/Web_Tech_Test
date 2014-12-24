@@ -1,4 +1,4 @@
-@(user : String)
+@(user: models.User, schultern : SortedMap[Integer, models.Uebung])
 @main("Schultern"){
 		<div class="wrapper">
 <nav class="navbar navbar-inverse" role="navigation">
@@ -28,7 +28,7 @@
 			<li><a href="/schultern">R&uumlcken</a></li>
             <li class="divider"></li>
 			<li><a href="/vipPlaene">V.I.P. Pl&aumlne</a></li>
-			<li><a href="/fertigePlaene">Fertige Pl&aumlne</a></li>
+			
 			<li class="divider"></li>
             <li><a href="/ourGym">Alle Kategorien</a></li>
            
@@ -45,38 +45,134 @@
 						<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
 							<!-- Modal -->
 									<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
-									  <div class="modal-dialog">
-										<div class="modal-content">
-										  <div class="modal-header">
-											<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
-											<h4 class="modal-title" id="myModalLabel">Deine Pl&aumlne</h4>
-										  </div>
-										  <div class="modal-body">
-											<table class="table">
-												<tr><th>Plan</th><th>&uumlbung</th><th>S&aumltze</th><th></th></tr>
-												<!--<tr id="p1u1"><td>Plan 1</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
-																														<span aria-hidden="true">&times;</span>
-																														<span class="sr-only">Close</span>
-																														</button></td></tr>-->
-												
-											</table>
-										  </div>
-										 
-										</div>
-									  </div>
-									</div>
-
+					  <div class="modal-dialog">
+						<div class="modal-content">
+						  <div class="modal-header">
+							<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
+							<h4 class="modal-title" id="myModalLabel">Deine Pläne</h4>
+						  </div>
+						  <div class="modal-body">
+							<table class="table">
+								<tr><th>Plan</th><th>Tag</th><th>Übung</th><th>S&aumltze</th><th></th></tr>
+								@if(user.getPlans().isEmpty() == false ){
+								@for(p <- user.getPlans().values()) {
+									@for(t <- p.getUebungen.keySet()){
+										@for(u <- p.getUebungen().get(t).getUebungen()){
+										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td><td><button title="löschen" type="button" class="close deleteRowButton">
+																										<span aria-hidden="true">&times;</span>
+																										<span class="sr-only">Close</span>
+																										</button></td></tr>
+										}
+									}
+									
+									
+									} 
+								} else {
+								<tr><td>Du hast noch keine Pläne</td><td></td><td></td></tr>
+								}
+								
+							</table>
+						  </div>
+						 
+						</div>
+					  </div>
+					</div>
 					</ul>
 					
 					<ul class="nav navbar-nav navbar-right">
-			<li><a href="">@user</a></li>
+			<li><a href="">@user.getVorname()</a></li>
 		  </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 		
 				<section class="contentwrap">
-				
+				<div class="center">
+					
+												
+							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+							@if(schultern.isEmpty()== false){
+							@for(b <- schultern.keySet()){
+					
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingOne">
+						  <h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne@b" aria-expanded="true" aria-controls="collapseOne@b">
+							  @schultern.get(b).getName()<span class=transparent> #@b </span>
+							</a>
+							<a href="#"class=" float_r glyphicon glyphicon-thumbs-up" aria-hidden="true"> 0</a>
+							  <a href="#" class=" groessee float_r glyphicon glyphicon-thumbs-down" aria-hidden="true"> 0</a>
+						  </h4>
+						</div>
+					
+					<div id="collapseOne@b" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						  <div class="panel-body">
+							  
+								<img class="rande left breite abstand" id="uebung_gif" src=@schultern.get(b).getBild()>
+								<div class="left breite abstand">
+									<table class="table1">
+										<tr><th>Benötigtes Equipment: </th></tr>
+										<tr><td>@schultern.get(b).getEquipment()<td></tr>
+										<tr><th>Schwierigkeitsgrad: </th></tr>
+										<tr><td>@schultern.get(b).getGrad()<td></tr>
+										<tr><th>Zielmuskeln: </th></tr>
+										<tr><td>@schultern.get(b).getMuskel1()<td></tr>
+										<tr><th>Unterstützende Muskulatur: </th></tr>
+										<tr><td>@schultern.get(b).getMuskel2()<td></tr>
+										
+									</table>
+									
+								</div>
+									
+										<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#myModal_@b">
+											Hinzufügen
+										</button>
+
+									<!-- Modal -->
+									<div class="modal fade" id="myModal_@b" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											<h4 class="modal-title" id="myModalLabel">Gib den Plan und die gewünschte Anzahl von Sätzen ein: </h4>
+										  </div>
+										  <div class="modal-body clearfix">
+										  <form role="form">
+												<input class="left rande abstand abstand_innen breite" name="plan" type="text" placeholder="Planname">
+												
+														  <select class="left abstand_innen1 rande breite1 abstand" name="tag">
+															<option>Montag</option>
+															<option>Dienstag</option>
+															<option>Mittwoch</option>
+															<option>Donnerstag</option>
+															<option>Freitag</option>
+															<option>Samstag</option>
+															<option>Sonntag</option>
+														  </select>
+														
+													
+												<input class="left rande abstand abstand_innen breite1" name="wh" type="number" min="1" placeholder="Sätze">
+											</form>
+										  </div>
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Save</button>
+										  </div>
+										</div>
+									  </div>
+									</div>
+									
+							</div>	
+						</div>
+					  </div>
+					
+					
+				}
+				}else{
+					<p>Es gibt momentan keine Bauchübungen</p>
+				}
+							</div>
+				</div>
 				</section>	
 			<footer class="rande">
 				<div class="fcenter">

@@ -38,6 +38,7 @@ footer{
   }
   
   
+  
 @media (min-width: 35em) {
  
   .min{
@@ -90,6 +91,11 @@ width : 55%;
 
 .rseite{
 	width : 45%;
+	
+}
+
+.rseite1{
+	width : 35%;
 	
 }
 
@@ -248,6 +254,12 @@ width : 55%;
 	margin-bottom: 5%;
 	margin-right : 5%;	
 }
+
+.abstanda{
+	margin-bottom: 10%;
+
+}
+
 .breite{
 	width : 45%;
 }
@@ -294,7 +306,7 @@ margin-right : 5%;
 }
 
 .abstand7{
-	float: right-side;
+	margin-left: 3%;
 }
 
 .groessee{
@@ -364,3 +376,6 @@ img:hover {
 float: right;
 }
 
+.transparent{
+color : rgba(220,160,140,0);
+}

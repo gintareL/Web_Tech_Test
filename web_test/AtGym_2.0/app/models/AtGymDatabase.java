@@ -18,8 +18,8 @@ public class AtGymDatabase{
 	try{
 		String sDriverName = "org.sqlite.JDBC";
 		Class.forName(sDriverName);
-		Connection conn = DriverManager.getConnection("jdbc:sqlite:.\\app\\db\\atGym");
-	//	JOptionPane.showMessageDialog(null, "gemacht");
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:.\\app\\db\\AtGym");
+		JOptionPane.showMessageDialog(null, "gemacht");
 		return conn;
 	} catch(Exception e) {
 		JOptionPane.showMessageDialog(null, e);

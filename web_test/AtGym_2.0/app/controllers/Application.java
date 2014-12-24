@@ -23,7 +23,7 @@ import javax.swing.*;
 public class Application extends Controller {
 	final static Form<User> loginForm = Form.form(User.class); 
 	final static Models model = Models.getInstance();
-
+	final static Form<Gewicht> gewichtForm = Form.form(Gewicht.class); 
 	
 	public static Result login() {
     	session().clear();
@@ -45,32 +45,37 @@ public class Application extends Controller {
     	if(userForm.hasErrors()){
 		
     		System.out.println("Errors gefunden!");
-    		return badRequest(logIn.render(userForm));
+    		return redirect("/atGym");
     	}else{
+		
+			User u = userForm.get();
+					
+			if(u.getEmail() != null & u.getPassword() != null ){
+				User user;
+				if(u.getVorname() == null  && model.checkUser(u.getEmail(), u.getPassword()) == true){
+					user = model.aktuellUser();
+					session("User1", user.getVorname());
+					return ok(home_boot.render(user));
+				} else if(u.getVorname() != null && model.neuerUser(userForm.get())==true){
+					user = model.aktuellUser();
+					session("User1", user.getVorname());
+					return ok(home_boot.render(user));
+			}
+			}
 			
-			if(model.neuerUser(userForm.get())==true){
-    		User user = model.aktuellUser();
-			session().clear();
-			session("User4", user.getGeschlecht());
-			session("bild", user.getBild());
-    		session("User1", user.getVorname());
-			session("User2", user.getNachname());
-			session("User3", user.getEmail());
-			
-    		return ok(home_boot.render(user));
-			}else{
+		else{
 			JOptionPane.showMessageDialog(null, "Diese E-Mail ist schon registriert");
-			return badRequest(logIn.render(userForm));
+			return redirect("/atGym");
 			} 
-	}
+	}return redirect("/atGym");
 	}
 	public static Result home(){
+		User user = model.aktuellUser();
 	String username = session("User1");
-	String nachname = session("User2");
-	String email = session("User3");
+	
 	
 	if(username != null) {
-		return ok(home.render(username));
+		return ok(home.render(user));
     }else{
 		return redirect("/atGym");
     	}	
@@ -89,7 +94,8 @@ public class Application extends Controller {
 	public static Result myGym(){
 		User user = model.aktuellUser();
 		String username = session("User1");
-		String geschlecht = session("User4");
+		
+		String geschlecht = user.getGeschlecht();
 		if(username != null && geschlecht != null) {
 			return ok(myGym.render(user, username, geschlecht));
 		}else{
@@ -97,13 +103,126 @@ public class Application extends Controller {
 			}
 	}
 	
+/*	public static Result hello() {
+    DynamicForm requestData = Form.form().bindFromRequest();
+    double gewicht = requestData.get("gewicht");
+   
+    return ok();
+}*/
+	
+	public static Result aboutMeg(){
+		Form<Gewicht> gewichtForm = Form.form(Gewicht.class).bindFromRequest();
+		if(gewichtForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			Gewicht g = gewichtForm.get();
+			User user = model.aktuellUser();
+			user.setGewicht(g);
+			model.gewichtCheck();
+			System.out.println(g.getGewicht());
+		return redirect("/aboutMe");
+		
+		}
+	}
+	
+	public static Result aboutMeb(){
+		Form<Bauchumfang> bauchForm = Form.form(Bauchumfang.class).bindFromRequest();
+		if(bauchForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			Bauchumfang g = bauchForm.get();
+			User user = model.aktuellUser();
+			System.out.println(g.getUmfang());
+			user.setBauchumfang(g);
+			model.bauchumfangCheck();
+			
+		return redirect("/aboutMe");
+		
+		}
+	}
+	
+	public static Result aboutMeh(){
+		Form<Hueftenumfang> hueftenForm = Form.form(Hueftenumfang.class).bindFromRequest();
+		if(hueftenForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			Hueftenumfang g = hueftenForm.get();
+			User user = model.aktuellUser();
+			
+			user.setHueftenumfang(g);
+			model.hueftenumfangCheck();
+			
+		return redirect("/aboutMe");
+		
+		}
+	}
+	
+		public static Result aboutMea(){
+		Form<Armumfang> armForm = Form.form(Armumfang.class).bindFromRequest();
+		if(armForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			Armumfang g = armForm.get();
+			User user = model.aktuellUser();
+			
+			user.setArmumfang(g);
+			model.armumfangCheck();
+			
+		return redirect("/aboutMe");
+		
+		}
+	}
+	
+		public static Result aboutMebr(){
+		Form<Brustumfang> brustForm = Form.form(Brustumfang.class).bindFromRequest();
+		if(brustForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			Brustumfang g = brustForm.get();
+			User user = model.aktuellUser();
+			
+			user.setBrustumfang(g);
+			model.brustumfangCheck();
+			
+		return redirect("/aboutMe");
+		
+		}
+	}
+	
+	
 	public static Result aboutMe(){
+		Form<Gewicht> gewichtForm = Form.form(Gewicht.class);
+		Form<Bauchumfang> bauchForm = Form.form(Bauchumfang.class);
+		Form<Hueftenumfang> hueftenForm = Form.form(Hueftenumfang.class);
+		Form<Armumfang> armForm = Form.form(Armumfang.class);
+		Form<Brustumfang> brustForm = Form.form(Brustumfang.class);
 	User user = model.aktuellUser();
 	String username = session("User1");
 	String geschlecht = session("User4");
 	String bild = session("bild");
 	if(username != null) {
-		return ok(aboutMe.render(user, username, geschlecht, bild));
+		
+		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm, bauchForm, hueftenForm, armForm, brustForm));
     }else{
 		return redirect("/atGym");
     	}
@@ -137,72 +256,84 @@ public class Application extends Controller {
 	}
 	
 	public static Result beine(){
-		Map<Integer, Uebung> beineUebungen = model.beine();
+		User user = model.aktuellUser();
+		SortedMap<Integer, Uebung> beineUebungen = model.beine();
 		String username = session("User1");
 		if(username != null) {
-			return ok(beine.render(username, beineUebungen));
+			return ok(beine.render(user, beineUebungen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	public static Result bauch(){
+		User user = model.aktuellUser();
+		SortedMap<Integer, Uebung> bauchUebungen = model.bauch();
 		String username = session("User1");
+		
 		if(username != null) {
-			return ok(bauch.render(username));
+			return ok(bauch.render(user, bauchUebungen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
+	
 	public static Result arme(){
-	String username = session("User1");
+		User user = model.aktuellUser();
+		SortedMap<Integer, Uebung> armeUebungen = model.arme();
+		String username = session("User1");
+		
 		if(username != null) {
-			return ok(arme.render(username));
+			return ok(arme.render(user, armeUebungen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
+	
+	
 	
 	public static Result brust(){
+		User user = model.aktuellUser();
+		SortedMap<Integer, Uebung> brustUebungen = model.brust();
 	String username = session("User1");
 		if(username != null) {
-			return ok(brust.render(username));
+			return ok(brust.render(user, brustUebungen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
-	public static Result fertigePlaene(){
-	String username = session("User1");
-		if(username != null) {
-			return ok(fertigePlaene.render(username));
-		}else{
-			return redirect("/atGym");
-			}
-	}
+	
 	
 	public static Result ruecken(){
+		User user = model.aktuellUser();
+		SortedMap<Integer, Uebung> rueckenUebungen = model.ruecken();
+
 		String username = session("User1");
 		if(username != null) {
-			return ok(ruecken.render(username));
+			return ok(ruecken.render(user, rueckenUebungen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
 	public static Result schultern(){
+		User user = model.aktuellUser();
+		SortedMap<Integer, Uebung> schulternUebungen = model.schultern();
+
 	String username = session("User1");
 		if(username != null) {
 		
-			return ok(schultern.render(username));
+			return ok(schultern.render(user, schulternUebungen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
 	public static Result vipPlaene(){
+		User user = model.aktuellUser();
 	String username = session("User1");
 		if(username != null) {
-			return ok(vipPlaene.render(username));
+			return ok(vipPlaene.render(user));
 		}else{
 			return redirect("/atGym");
 			}

@@ -1,4 +1,4 @@
-@(user : String, beine : Map[Integer, models.Uebung])
+@(user: models.User, beine : SortedMap[Integer, models.Uebung])
 @main("Beine"){
 		<div class="display wrapper">
 			<nav class="navbar navbar-inverse" role="navigation">
@@ -28,7 +28,7 @@
 						<li><a href="/schultern">Schultern</a></li>
 						<li class="divider"></li>
 						<li><a href="/vipPlaene">V.I.P. Pläne</a></li>
-						<li><a href="/fertigePlaene">Fertige Pläne</a></li>
+						
 						<li class="divider"></li>
 						<li><a href="/ourGym">Alle Kategorien</a></li>
 					   
@@ -41,34 +41,45 @@
 					<li><a href="/atGym">Abmelden</a></li>
 				  </ul>
 				  
-				   <ul class="nav navbar-nav navbar-right">
-						<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
-							<!-- Modal -->
-									<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
-									  <div class="modal-dialog">
-										<div class="modal-content">
-										  <div class="modal-header">
-											<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
-											<h4 class="modal-title" id="myModalLabel">Deine Pläne</h4>
-										  </div>
-										  <div class="modal-body">
-											<table class="table">
-												<tr><th>Plan</th><th>Tag</th><th>Übung</th><th>Sätze</th><th></th></tr>
-												<!--<tr id="p1u1"><td>Plan 1</td><td>Uebung 1</td><td>3</td><td><button type="button" class="close deleteRowButton">
-																														<span aria-hidden="true">&times;</span>
-																														<span class="sr-only">Close</span>
-																														</button></td></tr>-->
-												
-											</table>
-										  </div>
-										 
-										</div>
-									  </div>
-									</div>
-
-					</ul>
+				  <ul class="nav navbar-nav navbar-right">
+			<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
+			<!-- Modal -->
+					<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+						<div class="modal-content">
+						  <div class="modal-header">
+							<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
+							<h4 class="modal-title" id="myModalLabel">Deine Pl&aumlne</h4>
+						  </div>
+						  <div class="modal-body">
+							<table class="table">
+								<tr><th>Plan</th><th>Tag</th><th>&Uumlbung</th><th>S&aumltze</th><th></th></tr>
+								@if(user.getPlans().isEmpty() == false || user.getPlans().isEmpty() == null){
+								@for(p <- user.getPlans().values()) {
+									@for(t <- p.getUebungen.keySet()){
+										@for(u <- p.getUebungen().get(t).getUebungen()){
+										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td><td><button type="button" class="close deleteRowButton">
+																										<span aria-hidden="true">&times;</span>
+																										<span class="sr-only">Close</span>
+																										</button></td></tr>
+										}
+									}
+									
+									
+									} 
+								} else {
+								<tr><td>Du hast noch keine Pläne</td><td></td><td></td></tr>
+								}
+								
+							</table>
+						  </div>
+						 
+						</div>
+					  </div>
+					</div>
+		</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="">@user</a></li>
+						<li><a href="">@user.getVorname()</a></li>
 					  </ul>
 				</div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
@@ -85,9 +96,12 @@
 						<div class="panel-heading" role="tab" id="headingOne">
 						  <h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne@b" aria-expanded="true" aria-controls="collapseOne@b">
-							  @beine.get(b).getName() #@b
-							</a>
 
+							
+							  @beine.get(b).getName()<span class=transparent> #@b </span></a>
+							  <a href="#"class=" float_r glyphicon glyphicon-thumbs-up" aria-hidden="true"> 0</a>
+							  <a href="#" class=" groessee float_r glyphicon glyphicon-thumbs-down" aria-hidden="true"> 0</a>
+							
 						  </h4>
 						 <!-- <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
 							<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>-->
@@ -99,7 +113,7 @@
 
 						  <div class="panel-body">
 							  
-								<img class="rande left breite abstand" id="uebung_gif" src="@routes.Assets.at("images/@beine.get(b).getBild().gif")">
+								<img class="rande left breite abstand" id="uebung_gif" src=@beine.get(b).getBild()>
 								<div class="left breite abstand">
 									<table class="table1">
 										<tr><th>Benötigtes Equipment: </th></tr>
