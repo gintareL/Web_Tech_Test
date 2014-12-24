@@ -209,7 +209,7 @@ public class Application extends Controller {
 	}
 	
 	
-	
+	/*
 	public static Result einloggen() {
 		Form<User> userForm = Form.form(User.class);
 		return ok(logIn.render(userForm))
@@ -237,7 +237,7 @@ public class Application extends Controller {
 			}
 			return null;
 		}
-	}
+	}*/
 
 	/*public static WebSocket<String> feedback() {
 		WebSocket<String> ws = null;

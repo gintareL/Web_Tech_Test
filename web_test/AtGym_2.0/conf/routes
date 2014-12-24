@@ -21,8 +21,8 @@ GET 	/aboutMe			controllers.Application.aboutMe()
 GET 	/myPlans			controllers.Application.myPlans()
 GET 	/myRoutine			controllers.Application.myRoutine()
 GET 	/myAnalyse			controllers.Application.myAnalyse()
-GET		/atGym				controllers.Application.einloggen()
-POST	/atGym				controllers.Application.authenticate()
+#GET		/atGym				controllers.Application.einloggen()
+#POST	/atGym				controllers.Application.authenticate()
 #GET		/feedback			controllers.Application.feedback()
 
 # Map static resources from the /public folder to the /assets URL path
