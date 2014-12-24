@@ -37,18 +37,21 @@ public class Models extends Model{
 	   String p = getHash(password);
 	   try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT * FROM user where email ='" + em + "';" );
+	 rs = stmt.executeQuery( "SELECT * FROM user where email ='" + em + "' and password='"+p+"';" );
 	 while ( rs.next() ) {
 		 String email = rs.getString("email");
 		 String passwort = rs.getString("password");
 	 if(email.equals(em)==true && passwort.equals(p)==true ){
 		
 		 this.user = new User(rs.getString("vorname"), rs.getString("nachname"), email, password, rs.getInt("groesse"), rs.getInt("geschlecht"));
+		  user.setId(selectId(email));
 		 gewichtList();
 		 bauchumfangList();
 		 armumfangList();
 		 hueftenList();
 		 brustumfangList();
+		
+		
 		return true;
 	 }
 	
@@ -86,15 +89,15 @@ public class Models extends Model{
    public boolean emailCheck(String em){
    try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT email FROM user;" );
+	 rs = stmt.executeQuery( "SELECT email FROM user where email='"+em+"';" );
 	 while ( rs.next() ) {
 	 String email = rs.getString("email");
-	 if(email.equals(em)==true){
-	 return false;
+	if(email.equals(em)==true){
+	 return true;
 	 }
 	 
 	 }
-	 return true;
+	 return false;
 	 
 	 
 	  
@@ -120,17 +123,19 @@ public class Models extends Model{
 	   return false;
    }
    String password = getHash(u.getPassword());
-   if(emailCheck(user.getEmail())==true){
+   if(emailCheck(user.getEmail())==false){
 	try {
 	 stmt = conn.createStatement();
 	       String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,geschlecht) " +
                    "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','null','"+ u.getEmail() +"','"+password+"',"+ u.getGroesse()+","+ geschlecht +");"; 
       stmt.executeUpdate(sql);
      stmt.close();
+	  user.setId(selectId(user.getEmail()));
 	 gewichtList();
 	 bauchumfangList();
 	 hueftenList();
 	  brustumfangList();
+	 
 	 return true;
      
 	} catch ( Exception e ) {
@@ -148,7 +153,7 @@ public class Models extends Model{
 		   try {
 				stmt = conn.createStatement();
 				String sql = "INSERT INTO gewicht (id,umfang,datum, user) " +
-                   "VALUES (null,"+ user.getGewicht().getGewicht()+",'" + dateFormat.format(user.getGewicht().getDatum())+"',"+ selectId(user.getEmail()) +");"; 
+                   "VALUES (null,"+ user.getGewicht().getGewicht()+",'" + dateFormat.format(user.getGewicht().getDatum())+"',"+ user.getId() +");"; 
       stmt.executeUpdate(sql);
      stmt.close();
 	 
@@ -162,10 +167,11 @@ public class Models extends Model{
 	   }
    }
    
+   
    public void gewichtList(){
 	   try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, gewicht g where u.userid=g.user;" );
+	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, gewicht g where g.user=" +user.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
 		 System.out.println(rs.getString("datum"));
 		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
@@ -176,12 +182,35 @@ public class Models extends Model{
       System.exit(0);
     }
    }
+   
+   public void bauchumfangCheck(){
+	   if(user.getBauchumfang() != null){
+		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		   try {
+				stmt = conn.createStatement();
+				String sql = "INSERT INTO bauchumfang (id,umfang,datum, user) " +
+                   "VALUES (null,"+ user.getBauchumfang().getUmfang()+",'" + dateFormat.format(user.getBauchumfang().getDatum())+"',"+ user.getId() +");"; 
+      stmt.executeUpdate(sql);
+     stmt.close();
+	 
+	 
+     
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    }
+	   }
+   }
+   
    public void bauchumfangList(){
-	   try {
+	  try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, bauchumfang g where u.userid=g.user;" );
+	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, bauchumfang g where g.user=" +user.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
-	 user.getBauchumfang().put(rs.getDate("datum"), rs.getDouble("umfang"));
+		 System.out.println(rs.getString("datum"));
+		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
+		user.getBauchumfangList().put(rs.getInt("id"), new Bauchumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );

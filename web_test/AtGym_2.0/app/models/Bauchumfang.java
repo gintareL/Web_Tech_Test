@@ -24,37 +24,37 @@ import play.db.ebean.Model;
 import play.data.validation.ValidationError;
 import play.data.validation.Constraints.*;
 
-public class Gewicht{
+public class Bauchumfang{
 	
-	private double gewicht;
+	private double umfang;
 	private Date datum;
 	private String datumString;
 
-	public Gewicht(){}	
+	public Bauchumfang(){}	
 	
-public Gewicht(double gewicht){
-		this.gewicht=gewicht;
+public Bauchumfang(double umfang){
+		this.umfang=umfang;
 	   this.datum = new Date();
 	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	   this.datumString=dateFormat.format(datum);
 }
 
-public Gewicht(double gewicht, Date datum){
-	this.gewicht=gewicht;
+public Bauchumfang(double umfang, Date datum){
+	this.umfang=umfang;
 	  this.datum = datum;
 	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	   this.datumString=dateFormat.format(datum);
 }
 
-public Gewicht(double gewicht, String datum){
-	this.gewicht=gewicht;
+public Bauchumfang(double umfang, String datum){
+	this.umfang=umfang;
 	this.datumString = datum;
 	
 }
 
 
-public double getGewicht(){
-	return gewicht;
+public double getUmfang(){
+	return umfang;
 }	
 
 public String getDatumString(){
@@ -65,8 +65,8 @@ public Date getDatum(){
 	return datum;
 }
 
-public void setGewicht(double gewicht){
-	this.gewicht=gewicht;
+public void setUmfang(double umfang){
+	this.umfang=umfang;
 	 
 	   //get current date time with Date()
 	   this.datum = new Date();
@@ -78,10 +78,11 @@ public void setGewicht(double gewicht){
 		List<ValidationError> error = new ArrayList<>();
 		
 		
-		if(gewicht < 0 | gewicht > 300){
-			error.add(new ValidationError("gewicht", "This field is needed"));
+		if(umfang < 0 | umfang > 300){
+			error.add(new ValidationError("umfang", "This field is needed"));
 		} else{
-			setGewicht(gewicht);
+			System.out.println("umfang: " + umfang);
+			setUmfang(umfang);
 		}
 		
 		return error.isEmpty() ? null : error;

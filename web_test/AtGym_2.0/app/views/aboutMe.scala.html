@@ -1,4 +1,4 @@
-@(user: models.User, vorname : String, geschlecht : String, bild : String, gewichtForm: Form[models.Gewicht])
+@(user: models.User, vorname : String, geschlecht : String, bild : String, gewichtForm: Form[models.Gewicht], bauchForm: Form[models.Bauchumfang])
 @import helper._
 @import helper.twitterBootstrap._
 @main("about Me"){
@@ -129,13 +129,13 @@
 										   
 										   <div class=" form-group @if(gewichtForm("gewicht").hasErrors){has-error}">
 										    Dein aktuelles Gewicht:
-												<input  class="rande float_r abstanda abstand_innen"  name="@gewichtForm("gewicht").name" type="number" min="20" max="300"	placeholder="Gewicht">
+												<input  class="rande float_r abstanda abstand_innen rseite1"  name="@gewichtForm("gewicht").name" type="number" min="20" max="300"	placeholder="Gewicht">
 												
 										</div>
 										
 										  </div>
 										  <div class="modal-footer">
-											<button type="submit" class="abstanda btn1 btn-default">Save</button>
+											<button type="submit" class="abstanda float_r btn1 btn-default">Save</button>
 										  </div>
 										  }
 									</div>
@@ -155,19 +155,49 @@
 							<script language="JavaScript" type="text/javascript"> 
 								$(document).ready(function(){
 								  $("#bdown").click(function(){
-									$("#b").toggle();
+									$(".b").toggle();
 								  });
 								});
 							</script>
 							
-							<tr><th><a title="anzeigen" href="#" id="bdown">Bauchumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a></th></tr>
-							<tr id="b" style="display:none;">
-							@if(user.getBauchumfang().isEmpty() == false){
-							<td>cm</td><td></td>
-								}else{<td> - </td><td></td>}	
+							<tr><th><a title="anzeigen" href="#" id="bdown">Bauchumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal_bauch" aria-hidden="true"></a></th></tr>
+							
+							<div class="modal fade" id="myModal_bauch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog1">
+									<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											<p></p>
+										  </div>
+										 
+										
+										  <div class="modal-body">
+										 
+										   @form(routes.Application.aboutMeb(),'class -> "form-horizontal", 'id -> "bauchForm") {
+										   
+										   <div class=" form-group @if(bauchForm("umfang").hasErrors){has-error}">
+										    Dein aktueller Bauchumfang:
+												<input  class="rande float_r abstanda abstand_innen rseite1"  name="@bauchForm("umfang").name" type="number" min="20" max="300"	placeholder="Bauchumfang">
+												
+										</div>
+										
+										  </div>
+										  <div class="modal-footer">
+											<button type="submit" class="abstanda float_r btn1 btn-default">Save</button>
+										  </div>
+										  }
+									</div>
+								</div>
+							</div>
 							
 							
-							</tr>
+							@if(user.getBauchumfangList().isEmpty() == false){
+							
+							@for(i <- user.getBauchumfangList().keySet()){
+							<tr class="b" style="display:none;"><td>@user.getBauchumfangList().get(i).getDatumString()</td><td>@user.getBauchumfangList().get(i).getUmfang() cm</td></tr>
+							}
+
+							}else{<tr class="b" style="display:none;"><td> - </td><td></td></tr>}	
 							
 							<script language="JavaScript" type="text/javascript"> 
 								$(document).ready(function(){

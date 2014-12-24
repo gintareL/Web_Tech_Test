@@ -22,18 +22,19 @@ public class User extends Model{
   private String nachname = null;
   private String vorname = null;
   private String password;
- 
+  private int id;
   private int groesse=0;
  // private double gewicht=0;
   private Geschlecht geschlecht;
   private String bild =null;
   private Map<Integer,Plan> plaene = new HashMap<Integer, Plan>();
   private SortedMap<Integer, Gewicht> gewichtList = new TreeMap<Integer, Gewicht>();
-  private Map<Date,Double> bauchumfang = new HashMap<Date, Double>();
+  private SortedMap<Integer,Bauchumfang> bauchumfangList = new TreeMap<Integer,Bauchumfang>();
   private Map<Date,Double> armumfang = new HashMap<Date, Double>();
-   private Map<Date,Double> hueften = new HashMap<Date, Double>();
-   private Map<Date,Double> brustumfang = new HashMap<Date, Double>();
+  private Map<Date,Double> hueften = new HashMap<Date, Double>();
+  private Map<Date,Double> brustumfang = new HashMap<Date, Double>();
   private Gewicht gewicht = null;
+  private Bauchumfang bauchumfang = null;
   public User(){}
   public User(String email, String password){
 	  this.email=email;
@@ -70,6 +71,15 @@ public class User extends Model{
   public void setGewicht(Gewicht g){
 		gewicht=g;
 	  gewichtList.put(0, g);
+  }
+  
+   public Bauchumfang getBauchumfang(){
+	  return bauchumfang;
+  }
+  
+  public void setBauchumfang(Bauchumfang b){
+		bauchumfang=b;
+	  bauchumfangList.put(0, b);
   }
   
   public Map<Integer, Plan> getPlans(){
@@ -120,6 +130,13 @@ public class User extends Model{
   public void setGroesse(int groesse){
   this.groesse=groesse;
   }
+  
+  public int getId(){
+  return id;
+  }
+  public void setId(int id){
+  this.id=id;
+  }
   /*public double getGewicht(){
   return gewicht;
   }
@@ -139,8 +156,8 @@ public class User extends Model{
 	  return gewichtList;
   }
   
-  public Map<Date,Double> getBauchumfang(){
-	  return bauchumfang;
+  public SortedMap<Integer, Bauchumfang> getBauchumfangList(){
+	  return bauchumfangList;
   }
   
    public Map<Date,Double> getArmumfang(){

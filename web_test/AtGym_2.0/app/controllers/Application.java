@@ -129,15 +129,36 @@ public class Application extends Controller {
 		}
 	}
 	
+	public static Result aboutMeb(){
+		Form<Bauchumfang> bauchForm = Form.form(Bauchumfang.class).bindFromRequest();
+		if(bauchForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			Bauchumfang g = bauchForm.get();
+			User user = model.aktuellUser();
+			System.out.println(g.getUmfang());
+			user.setBauchumfang(g);
+			model.bauchumfangCheck();
+			
+		return redirect("/aboutMe");
+		
+		}
+	}
+	
 	public static Result aboutMe(){
 		Form<Gewicht> gewichtForm = Form.form(Gewicht.class);
+		Form<Bauchumfang> bauchForm = Form.form(Bauchumfang.class);
 	User user = model.aktuellUser();
 	String username = session("User1");
 	String geschlecht = session("User4");
 	String bild = session("bild");
 	if(username != null) {
 		
-		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm));
+		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm, bauchForm));
     }else{
 		return redirect("/atGym");
     	}
