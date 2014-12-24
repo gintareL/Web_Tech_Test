@@ -265,27 +265,73 @@ public class Models extends Model{
     public void armumfangList(){
 	   try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, armumfang g where u.userid=g.user;" );
+	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, armumfang g where g.user=" +user.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
-	 user.getArmumfang().put(rs.getDate("datum"), rs.getDouble("umfang"));
+		 System.out.println(rs.getString("datum"));
+		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
+		user.getArmumfangList().put(rs.getInt("id"), new Armumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
+	  stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
     }
    }
    
+   public void armumfangCheck(){
+	   if(user.getArmumfang() != null){
+		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		   try {
+				stmt = conn.createStatement();
+				String sql = "INSERT INTO armumfang (id,umfang,datum, user) " +
+                   "VALUES (null,"+ user.getArmumfang().getUmfang()+",'" + dateFormat.format(user.getArmumfang().getDatum())+"',"+ user.getId() +");"; 
+      stmt.executeUpdate(sql);
+     stmt.close();
+	 
+	 
+     
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    }
+	   }
+   }
+   
     public void brustumfangList(){
 	   try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, brustumfang g where u.userid=g.user;" );
+	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, brustumfang g where g.user=" +user.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
-	 user.getBrustumfang().put(rs.getDate("datum"), rs.getDouble("umfang"));
+		 System.out.println(rs.getString("datum"));
+		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
+		user.getBrustumfangList().put(rs.getInt("id"), new Brustumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
+	  stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
     }
+   }
+   
+   public void brustumfangCheck(){
+	   if(user.getBrustumfang() != null){
+		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		   try {
+				stmt = conn.createStatement();
+				String sql = "INSERT INTO brustumfang (id,umfang,datum, user) " +
+                   "VALUES (null,"+ user.getBrustumfang().getUmfang()+",'" + dateFormat.format(user.getBrustumfang().getDatum())+"',"+ user.getId() +");"; 
+      stmt.executeUpdate(sql);
+     stmt.close();
+	 
+	 
+     
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    }
+	   }
    }
    
    

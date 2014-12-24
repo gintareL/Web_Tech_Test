@@ -169,17 +169,60 @@ public class Application extends Controller {
 		}
 	}
 	
+		public static Result aboutMea(){
+		Form<Armumfang> armForm = Form.form(Armumfang.class).bindFromRequest();
+		if(armForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			Armumfang g = armForm.get();
+			User user = model.aktuellUser();
+			
+			user.setArmumfang(g);
+			model.armumfangCheck();
+			
+		return redirect("/aboutMe");
+		
+		}
+	}
+	
+		public static Result aboutMebr(){
+		Form<Brustumfang> brustForm = Form.form(Brustumfang.class).bindFromRequest();
+		if(brustForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			Brustumfang g = brustForm.get();
+			User user = model.aktuellUser();
+			
+			user.setBrustumfang(g);
+			model.brustumfangCheck();
+			
+		return redirect("/aboutMe");
+		
+		}
+	}
+	
+	
 	public static Result aboutMe(){
 		Form<Gewicht> gewichtForm = Form.form(Gewicht.class);
 		Form<Bauchumfang> bauchForm = Form.form(Bauchumfang.class);
 		Form<Hueftenumfang> hueftenForm = Form.form(Hueftenumfang.class);
+		Form<Armumfang> armForm = Form.form(Armumfang.class);
+		Form<Brustumfang> brustForm = Form.form(Brustumfang.class);
 	User user = model.aktuellUser();
 	String username = session("User1");
 	String geschlecht = session("User4");
 	String bild = session("bild");
 	if(username != null) {
 		
-		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm, bauchForm, hueftenForm));
+		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm, bauchForm, hueftenForm, armForm, brustForm));
     }else{
 		return redirect("/atGym");
     	}

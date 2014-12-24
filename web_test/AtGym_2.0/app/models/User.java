@@ -27,15 +27,20 @@ public class User extends Model{
  // private double gewicht=0;
   private Geschlecht geschlecht;
   private String bild =null;
+  
   private Map<Integer,Plan> plaene = new HashMap<Integer, Plan>();
   private SortedMap<Integer, Gewicht> gewichtList = new TreeMap<Integer, Gewicht>();
   private SortedMap<Integer,Bauchumfang> bauchumfangList = new TreeMap<Integer,Bauchumfang>();
-  private Map<Date,Double> armumfang = new HashMap<Date, Double>();
+  private SortedMap<Integer,Armumfang> armumfangList = new TreeMap<Integer,Armumfang>();
   private SortedMap<Integer,Hueftenumfang> hueftenumfangList = new TreeMap<Integer,Hueftenumfang>();
-  private Map<Date,Double> brustumfang = new HashMap<Date, Double>();
+ private SortedMap<Integer,Brustumfang> brustumfangList = new TreeMap<Integer,Brustumfang>();
   private Gewicht gewicht = null;
   private Bauchumfang bauchumfang = null;
   private Hueftenumfang hueftenumfang = null;
+  private Armumfang armumfang = null;
+  private Brustumfang brustumfang = null;
+  
+  
   public User(){}
   public User(String email, String password){
 	  this.email=email;
@@ -81,6 +86,24 @@ public class User extends Model{
   public void setBauchumfang(Bauchumfang b){
 		bauchumfang=b;
 	  bauchumfangList.put(0, b);
+  }
+  
+  public Armumfang getArmumfang(){
+	  return armumfang;
+  }
+  
+  public void setArmumfang(Armumfang b){
+		armumfang=b;
+	  armumfangList.put(0, b);
+  }
+  
+  public Brustumfang getBrustumfang(){
+	  return brustumfang;
+  }
+  
+  public void setBrustumfang(Brustumfang b){
+		brustumfang=b;
+	  brustumfangList.put(0, b);
   }
   
    public Hueftenumfang getHueftenumfang(){
@@ -165,16 +188,16 @@ public class User extends Model{
 	  return bauchumfangList;
   }
   
-   public Map<Date,Double> getArmumfang(){
-	  return armumfang;
+  public SortedMap<Integer, Armumfang> getArmumfangList(){
+	  return armumfangList;
   }
   
    public SortedMap<Integer, Hueftenumfang> getHueftenumfangList(){
 	  return hueftenumfangList;
   }
   
-   public Map<Date,Double> getBrustumfang(){
-	  return brustumfang;
+   public SortedMap<Integer, Brustumfang> getBrustumfangList(){
+	  return brustumfangList;
   }
   
   

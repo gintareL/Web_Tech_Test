@@ -1,4 +1,4 @@
-@(user: models.User, vorname : String, geschlecht : String, bild : String, gewichtForm: Form[models.Gewicht], bauchForm: Form[models.Bauchumfang], hueftenForm:Form[models.Hueftenumfang])
+@(user: models.User, vorname : String, geschlecht : String, bild : String, gewichtForm: Form[models.Gewicht], bauchForm: Form[models.Bauchumfang], hueftenForm:Form[models.Hueftenumfang], armForm:Form[models.Armumfang], brustForm:Form[models.Brustumfang])
 @import helper._
 @import helper.twitterBootstrap._
 @main("about Me"){
@@ -224,7 +224,7 @@
 										   @form(routes.Application.aboutMeh(),'class -> "form-horizontal", 'id -> "hueftenForm") {
 										   
 										   <div class=" form-group @if(hueftenForm("umfang").hasErrors){has-error}">
-										    Dein aktueller Bauchumfang:
+										    Dein aktueller Hüftenumfang:
 												<input  class="rande float_r abstanda abstand_innen rseite1"  name="@hueftenForm("umfang").name" type="number" min="20" max="300"	placeholder="Hüftenumfang">
 												
 										</div>
@@ -250,34 +250,95 @@
 							<script language="JavaScript" type="text/javascript"> 
 								$(document).ready(function(){
 								  $("#adown").click(function(){
-									$("#a").toggle();
+									$(".a").toggle();
 								  });
 								});
 							</script>
 							
-							<tr><th><a title="anzeigen" href="#" id="adown">Armumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a></th></tr>
-							<tr id="a" style="display:none;">
-							@if(user.getArmumfang().isEmpty() == false){
+							<tr><th><a title="anzeigen" href="#" id="adown">Armumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal_arm"  aria-hidden="true"></a></th></tr>
+						
+						<div class="modal fade" id="myModal_arm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog1">
+									<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											<p></p>
+										  </div>
+										 
+										
+										  <div class="modal-body">
+										 
+										   @form(routes.Application.aboutMea(),'class -> "form-horizontal", 'id -> "armForm") {
+										   
+										   <div class=" form-group @if(armForm("umfang").hasErrors){has-error}">
+										    Dein aktueller Armumfang:
+												<input  class="rande float_r abstanda abstand_innen rseite1"  name="@armForm("umfang").name" type="number" min="20" max="300"	placeholder="Armumfang">
+												
+										</div>
+										
+										  </div>
+										  <div class="modal-footer">
+											<button type="submit" class="abstanda float_r btn1 btn-default">Save</button>
+										  </div>
+										  }
+									</div>
+								</div>
+							</div>
+						
+							@if(user.getArmumfangList().isEmpty() == false){
 							
-							<td>cm</td><td></td>
-								}else{<td> - </td><td></td>}	
-							</tr>
+							@for(i <- user.getArmumfangList().keySet()){
+							<tr class="a" style="display:none;"><td>@user.getArmumfangList().get(i).getDatumString()</td><td>@user.getArmumfangList().get(i).getUmfang() cm</td></tr>
+							}
+
+							}else{<tr class="a" style="display:none;"><td> - </td><td></td></tr>}
+							
 							
 							<script language="JavaScript" type="text/javascript"> 
 								$(document).ready(function(){
 								  $("#brdown").click(function(){
-									$("#br").toggle();
+									$(".br").toggle();
 								  });
 								});
 							</script>
 							
-							<tr><th><a title="anzeigen" href="#" id="brdown">Brustumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a></th></tr>
-							<tr id="br" style="display:none;">
-							@if(user.getBrustumfang().isEmpty() == false){
-							<td>cm</td><td></td>
-								}else{<td> - </td><td></td>}	
+							<tr><th><a title="anzeigen" href="#" id="brdown">Brustumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal_brust"  aria-hidden="true"></a></th></tr>
 							
-							</tr>
+							<div class="modal fade" id="myModal_brust" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog1">
+									<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											<p></p>
+										  </div>
+										 
+										
+										  <div class="modal-body">
+										 
+										   @form(routes.Application.aboutMebr(),'class -> "form-horizontal", 'id -> "brustForm") {
+										   
+										   <div class=" form-group @if(brustForm("umfang").hasErrors){has-error}">
+										    Dein aktueller Brustumfang:
+												<input  class="rande float_r abstanda abstand_innen rseite1"  name="@brustForm("umfang").name" type="number" min="20" max="300"	placeholder="Brustumfang">
+												
+										</div>
+										
+										  </div>
+										  <div class="modal-footer">
+											<button type="submit" class="abstanda float_r btn1 btn-default">Save</button>
+										  </div>
+										  }
+									</div>
+								</div>
+							</div>
+							
+							@if(user.getBrustumfangList().isEmpty() == false){
+							@for(i <- user.getBrustumfangList().keySet()){
+							<tr class="br" style="display:none;"><td>@user.getBrustumfangList().get(i).getDatumString()</td><td>@user.getBrustumfangList().get(i).getUmfang() cm</td></tr>
+							}
+
+							}else{<tr class="br" style="display:none;"><td> - </td><td></td></tr>}
+							
 							
 							<tr><th>Geschlecht: </th></tr>
 							<tr><td>@user.getGeschlecht()</td><td></td></tr>
