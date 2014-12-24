@@ -31,10 +31,11 @@ public class User extends Model{
   private SortedMap<Integer, Gewicht> gewichtList = new TreeMap<Integer, Gewicht>();
   private SortedMap<Integer,Bauchumfang> bauchumfangList = new TreeMap<Integer,Bauchumfang>();
   private Map<Date,Double> armumfang = new HashMap<Date, Double>();
-  private Map<Date,Double> hueften = new HashMap<Date, Double>();
+  private SortedMap<Integer,Hueftenumfang> hueftenumfangList = new TreeMap<Integer,Hueftenumfang>();
   private Map<Date,Double> brustumfang = new HashMap<Date, Double>();
   private Gewicht gewicht = null;
   private Bauchumfang bauchumfang = null;
+  private Hueftenumfang hueftenumfang = null;
   public User(){}
   public User(String email, String password){
 	  this.email=email;
@@ -80,6 +81,15 @@ public class User extends Model{
   public void setBauchumfang(Bauchumfang b){
 		bauchumfang=b;
 	  bauchumfangList.put(0, b);
+  }
+  
+   public Hueftenumfang getHueftenumfang(){
+	  return hueftenumfang;
+  }
+  
+  public void setHueftenumfang(Hueftenumfang b){
+		hueftenumfang=b;
+	  hueftenumfangList.put(0, b);
   }
   
   public Map<Integer, Plan> getPlans(){
@@ -137,12 +147,7 @@ public class User extends Model{
   public void setId(int id){
   this.id=id;
   }
-  /*public double getGewicht(){
-  return gewicht;
-  }
-  public void setGewicht(double gewicht){
-  this.gewicht=gewicht;
-  }*/
+  
   public String getGeschlecht(){
   if(this.geschlecht == Geschlecht.maennlich) return "männlich";
   else if(this.geschlecht == Geschlecht.weiblich) return "weiblich";
@@ -164,8 +169,8 @@ public class User extends Model{
 	  return armumfang;
   }
   
-    public Map<Date,Double> getHueften(){
-	  return hueften;
+   public SortedMap<Integer, Hueftenumfang> getHueftenumfangList(){
+	  return hueftenumfangList;
   }
   
    public Map<Date,Double> getBrustumfang(){

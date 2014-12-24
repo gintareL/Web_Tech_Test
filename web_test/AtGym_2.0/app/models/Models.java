@@ -51,7 +51,7 @@ public class Models extends Model{
 		 hueftenList();
 		 brustumfangList();
 		
-		
+		 stmt.close();
 		return true;
 	 }
 	
@@ -71,6 +71,7 @@ public class Models extends Model{
 	 while ( rs.next() ) {
 	 return rs.getInt("userid");
 	 }
+	  stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -93,10 +94,12 @@ public class Models extends Model{
 	 while ( rs.next() ) {
 	 String email = rs.getString("email");
 	if(email.equals(em)==true){
+	 stmt.close();	
 	 return true;
 	 }
 	 
 	 }
+	  stmt.close();
 	 return false;
 	 
 	 
@@ -129,7 +132,8 @@ public class Models extends Model{
 	       String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,geschlecht) " +
                    "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','null','"+ u.getEmail() +"','"+password+"',"+ u.getGroesse()+","+ geschlecht +");"; 
       stmt.executeUpdate(sql);
-     stmt.close();
+	  stmt.close();
+	  
 	  user.setId(selectId(user.getEmail()));
 	 gewichtList();
 	 bauchumfangList();
@@ -177,6 +181,8 @@ public class Models extends Model{
 		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
 		user.getGewichtList().put(rs.getInt("id"), new Gewicht(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
+	 
+     stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -212,19 +218,44 @@ public class Models extends Model{
 		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
 		user.getBauchumfangList().put(rs.getInt("id"), new Bauchumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
+	  stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
     }
    }
    
+   
+    public void hueftenumfangCheck(){
+	   if(user.getHueftenumfang() != null){
+		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		   try {
+				stmt = conn.createStatement();
+				String sql = "INSERT INTO hueftenumfang (id,umfang,datum, user) " +
+                   "VALUES (null,"+ user.getHueftenumfang().getUmfang()+",'" + dateFormat.format(user.getHueftenumfang().getDatum())+"',"+ user.getId() +");"; 
+      stmt.executeUpdate(sql);
+     stmt.close();
+	 
+	 
+     
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    }
+	   }
+   }
+   
     public void hueftenList(){
-	   try {
+	    try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.datum, g.umfang FROM user u, huefte g where u.userid=g.user;" );
+	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, hueftenumfang g where g.user=" +user.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
-	 user.getHueften().put(rs.getDate("datum"), rs.getDouble("umfang"));
+		 System.out.println(rs.getString("datum"));
+		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
+		user.getHueftenumfangList().put(rs.getInt("id"), new Hueftenumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
+	  stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -283,6 +314,7 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenBeine.put(id, uebung);
 	 }
+	  stmt.close();
 	
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -317,7 +349,7 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenBauch.put(id, uebung);
 	 }
-	
+	 stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -351,7 +383,7 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenArme.put(id, uebung);
 	 }
-	
+	 stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -385,7 +417,7 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenbrust.put(id, uebung);
 	 }
-	
+	 stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -419,7 +451,7 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenruecken.put(id, uebung);
 	 }
-	
+	 stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -453,7 +485,7 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenschultern.put(id, uebung);
 	 }
-	
+	 stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);

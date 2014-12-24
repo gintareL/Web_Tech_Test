@@ -19,7 +19,7 @@ GET		/vipPlaene			controllers.Application.vipPlaene()
 GET 	/aboutMe			controllers.Application.aboutMe()
 POST	/aboutMe/Gewicht			controllers.Application.aboutMeg()
 POST	/aboutMe/Bauchumfang		controllers.Application.aboutMeb()
-
+POST	/aboutMe/Hueftenumfang		controllers.Application.aboutMeh()
 GET 	/myPlans			controllers.Application.myPlans()
 GET 	/myRoutine			controllers.Application.myRoutine()
 GET 	/myAnalyse			controllers.Application.myAnalyse()

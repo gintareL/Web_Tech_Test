@@ -149,16 +149,37 @@ public class Application extends Controller {
 		}
 	}
 	
+	public static Result aboutMeh(){
+		Form<Hueftenumfang> hueftenForm = Form.form(Hueftenumfang.class).bindFromRequest();
+		if(hueftenForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			Hueftenumfang g = hueftenForm.get();
+			User user = model.aktuellUser();
+			
+			user.setHueftenumfang(g);
+			model.hueftenumfangCheck();
+			
+		return redirect("/aboutMe");
+		
+		}
+	}
+	
 	public static Result aboutMe(){
 		Form<Gewicht> gewichtForm = Form.form(Gewicht.class);
 		Form<Bauchumfang> bauchForm = Form.form(Bauchumfang.class);
+		Form<Hueftenumfang> hueftenForm = Form.form(Hueftenumfang.class);
 	User user = model.aktuellUser();
 	String username = session("User1");
 	String geschlecht = session("User4");
 	String bild = session("bild");
 	if(username != null) {
 		
-		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm, bauchForm));
+		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm, bauchForm, hueftenForm));
     }else{
 		return redirect("/atGym");
     	}

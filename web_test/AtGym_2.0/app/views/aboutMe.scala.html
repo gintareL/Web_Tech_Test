@@ -1,4 +1,4 @@
-@(user: models.User, vorname : String, geschlecht : String, bild : String, gewichtForm: Form[models.Gewicht], bauchForm: Form[models.Bauchumfang])
+@(user: models.User, vorname : String, geschlecht : String, bild : String, gewichtForm: Form[models.Gewicht], bauchForm: Form[models.Bauchumfang], hueftenForm:Form[models.Hueftenumfang])
 @import helper._
 @import helper.twitterBootstrap._
 @main("about Me"){
@@ -202,19 +202,49 @@
 							<script language="JavaScript" type="text/javascript"> 
 								$(document).ready(function(){
 								  $("#hdown").click(function(){
-									$("#h").toggle();
+									$(".h").toggle();
 								  });
 								});
 							</script>
 							
 							
-							<tr><th><a title="anzeigen" href="#" id="hdown">Hüftenumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" aria-hidden="true"></a></th></tr>
-							<tr id="h" style="display:none;">
-							@if(user.getHueften().isEmpty() == false){
+							<tr><th><a title="anzeigen" href="#" id="hdown">Hüftenumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal_hueften" aria-hidden="true"></a></th></tr>
 							
-							<td>cm</td><td></td>
-								}else{<td> - </td><td></td>}
-							</tr>
+							<div class="modal fade" id="myModal_hueften" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog1">
+									<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											<p></p>
+										  </div>
+										 
+										
+										  <div class="modal-body">
+										 
+										   @form(routes.Application.aboutMeh(),'class -> "form-horizontal", 'id -> "hueftenForm") {
+										   
+										   <div class=" form-group @if(hueftenForm("umfang").hasErrors){has-error}">
+										    Dein aktueller Bauchumfang:
+												<input  class="rande float_r abstanda abstand_innen rseite1"  name="@hueftenForm("umfang").name" type="number" min="20" max="300"	placeholder="Hüftenumfang">
+												
+										</div>
+										
+										  </div>
+										  <div class="modal-footer">
+											<button type="submit" class="abstanda float_r btn1 btn-default">Save</button>
+										  </div>
+										  }
+									</div>
+								</div>
+							</div>
+							
+							@if(user.getHueftenumfangList().isEmpty() == false){
+							
+							@for(i <- user.getHueftenumfangList().keySet()){
+							<tr class="h" style="display:none;"><td>@user.getHueftenumfangList().get(i).getDatumString()</td><td>@user.getHueftenumfangList().get(i).getUmfang() cm</td></tr>
+							}
+
+							}else{<tr class="h" style="display:none;"><td> - </td><td></td></tr>}
 							
 							
 							<script language="JavaScript" type="text/javascript"> 
