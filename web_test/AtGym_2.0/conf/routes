@@ -22,6 +22,8 @@ POST	/aboutMe/Bauchumfang		controllers.Application.aboutMeb()
 POST	/aboutMe/Hueftenumfang		controllers.Application.aboutMeh()
 POST	/aboutMe/Armumfang			controllers.Application.aboutMea()
 POST	/aboutMe/Brustumfang		controllers.Application.aboutMebr()
+POST	/aboutMe/Uebung/Auswaehlen		controllers.Application.auswaehlenBeine()
+
 GET 	/myPlans			controllers.Application.myPlans()
 GET 	/myRoutine			controllers.Application.myRoutine()
 GET 	/myAnalyse			controllers.Application.myAnalyse()

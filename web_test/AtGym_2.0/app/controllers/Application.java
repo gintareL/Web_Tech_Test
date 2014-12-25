@@ -255,12 +255,32 @@ public class Application extends Controller {
 			}
 	}
 	
+	public static Result auswaehlenBeine(){
+		Form<Auswaehlen> uebungForm = Form.form(Auswaehlen.class).bindFromRequest();
+		if(uebungForm.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/beine");
+    	}else{
+			
+			Auswaehlen g = uebungForm.get();
+			User user = model.aktuellUser();
+			model.planHinzufuegen(g.getId(), g.getSatz(), g.getTag(), g.getPlan());
+			
+			
+			
+		return redirect("/beine");
+		
+		}
+	}
+	
 	public static Result beine(){
+		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
 		SortedMap<Integer, Uebung> beineUebungen = model.beine();
 		String username = session("User1");
 		if(username != null) {
-			return ok(beine.render(user, beineUebungen));
+			return ok(beine.render(user, beineUebungen, uebungenForm));
 		}else{
 			return redirect("/atGym");
 			}

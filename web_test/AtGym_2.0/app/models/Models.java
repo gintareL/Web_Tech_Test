@@ -350,7 +350,7 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenBeine.put(id, uebung);
 	 }
 	  stmt.close();
@@ -385,7 +385,7 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenBauch.put(id, uebung);
 	 }
 	 stmt.close();
@@ -419,7 +419,7 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenArme.put(id, uebung);
 	 }
 	 stmt.close();
@@ -453,7 +453,7 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenbrust.put(id, uebung);
 	 }
 	 stmt.close();
@@ -487,7 +487,7 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenruecken.put(id, uebung);
 	 }
 	 stmt.close();
@@ -521,7 +521,7 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenschultern.put(id, uebung);
 	 }
 	 stmt.close();
@@ -537,20 +537,152 @@ public class Models extends Model{
    return user;
    }
    
-   //TEST
- /*  public void plan(){
-	Uebung u = new Uebung();
-	AusgewaehlteUebung a = new AusgewaehlteUebung(u, 3);
-	AusgewaehlteUebung b = new AusgewaehlteUebung(u, 2);
-	TagPlan t = new TagPlan();
-	t.tag = Tag.Mittwoch;
-	t.uebungen.add(a);
-	t.uebungen.add(b);
-	Map<Tag, TagPlan> uebungen = new HashMap<Tag, TagPlan>();
-	uebungen.put(t.tag, t);
-	Plan p = new Plan(1, "PlanTest", uebungen);
-	user.setPlans(p);
-   }*/
+   public void plaene(){
+	   
+   }
+   
+ public void planHinzufuegen(int id, int satz, String tag, String plan){
+			
+	 String name;
+	 String bild;
+	 String equipment;
+	 String grad;
+	 String muskel1;
+	 String muskel2;
+	 String muskel;
+	 Muskel muskelgruppe;
+	  try {
+	 stmt = conn.createStatement();
+	 rs = stmt.executeQuery( "SELECT u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2, u.muskel as muskelgruppe FROM uebung u, beschreibung b  where b.id = u.beschreibung and u.id="+id+";" );
+	 while ( rs.next() ) {
+	 name = rs.getString("name");
+	 bild = rs.getString("bild");
+	 bild = "assets//images//"+bild+".gif";
+	 
+	 equipment = rs.getString("equipment");
+	 grad = rs.getString("grad");
+	 muskel1 = rs.getString("muskel");
+	 muskel2 = rs.getString("muskel2");
+	 muskelgruppe=Muskel.valueOf(rs.getString("muskelgruppe"));
+	
+	
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 AusgewaehlteUebung ausgewaehlt = new AusgewaehlteUebung(uebung, satz);
+	
+	
+	if(user.getPlans().containsKey(plan) == true){
+		
+		if(user.getPlans().get(plan).getUebungen().containsKey(Tag.valueOf(tag)) == true){
+			user.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().add(ausgewaehlt);
+			 stmt = conn.createStatement();
+				 rs = stmt.executeQuery( "SELECT p.id FROM plan p where p.name='"+plan+"' and p.user="+user.getId()+" ;" );
+				 int planId = -1;
+				 while ( rs.next() ){
+					 planId = rs.getInt("id");
+				 }
+				 if(planId != -1){
+				 for(int i = 0; i < satz; i++){
+					String sql = "INSERT INTO satz (id) " +
+					   "VALUES (null);"; 
+					stmt.executeUpdate(sql);
+					int satzId=-1;
+					rs = stmt.executeQuery( "select max(id) as id from satz;" );
+						 while ( rs.next() ) {
+							 satzId = rs.getInt("id");
+						 }
+				if(satzId != -1){
+					sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+					   "VALUES ("+planId+","+id+",'"+tag+"',"+satzId+");"; 
+					stmt.executeUpdate(sql);
+					}
+				}
+			}
+		} else{
+			TagPlan tagPlan = new TagPlan();
+			tagPlan.tag = Tag.valueOf(tag);
+			tagPlan.getUebungen().add(ausgewaehlt);
+			user.getPlans().get(plan).getUebungen().put(Tag.valueOf(tag), tagPlan);
+			stmt = conn.createStatement();
+				 rs = stmt.executeQuery( "SELECT p.id FROM plan p where p.name='"+plan+"' and p.user="+user.getId()+" ;" );
+				 int planId = -1;
+				 while ( rs.next() ){
+					 planId = rs.getInt("id");
+				 }
+				 if(planId != -1){
+				 for(int i = 0; i < satz; i++){
+					String sql = "INSERT INTO satz (id) " +
+					   "VALUES (null);"; 
+					stmt.executeUpdate(sql);
+					int satzId=-1;
+					rs = stmt.executeQuery( "select max(id) as id from satz;" );
+						 while ( rs.next() ) {
+							 satzId = rs.getInt("id");
+						 }
+				if(satzId != -1){
+					sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+					   "VALUES ("+planId+","+id+",'"+tag+"',"+satzId+");"; 
+					stmt.executeUpdate(sql);
+					}
+				}
+				}
+			
+			
+			
+		}
+	} else{
+		System.out.println("Bild " + bild);
+		
+		TagPlan tagPlan = new TagPlan();
+		tagPlan.tag = Tag.valueOf(tag);
+		tagPlan.getUebungen().add(ausgewaehlt);
+		Map<Tag, TagPlan> uebungen = new HashMap<Tag, TagPlan>();
+		uebungen.put(tagPlan.tag, tagPlan);
+		Plan p = new Plan(plan, uebungen);
+		user.setPlans(p);
+		 
+		String sql = "INSERT INTO plan(id,name,user) " +
+                   "VALUES (null,'"+ plan+"'," + user.getId()+");"; 
+				   
+		stmt.executeUpdate(sql);
+		
+		int planId=-1;
+		rs = stmt.executeQuery("select max(id) as id from plan;" );
+			 while ( rs.next() ) {
+				 
+				 planId = rs.getInt("id");
+			 }
+			 
+		if(planId != -1){
+				for(int i = 0; i < satz; i++){
+					sql = "INSERT INTO satz (id) " +
+					   "VALUES (null);"; 
+					stmt.executeUpdate(sql);
+					int satzId=-1;
+					rs = stmt.executeQuery( "select max(id) as id from satz;" );
+						 while ( rs.next() ) {
+							 satzId = rs.getInt("id");
+						 }
+				if(satzId != -1){
+					sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+					   "VALUES ("+planId+","+id+",'"+tag+"',"+satzId+");"; 
+					stmt.executeUpdate(sql);
+					}
+				}
+		}
+		
+	}
+	 }
+	 stmt.close();
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    } 
+	
+  }
+ 
+ 
+ 
+ 
 
    public static String getHash(String p) 
 {

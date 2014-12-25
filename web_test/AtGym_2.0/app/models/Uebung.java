@@ -2,6 +2,7 @@ package models;
 import java.util.*;
 
 public class Uebung {
+	private int id;
 	private String name = "name";
 	private String equipment;
 	private String grad;
@@ -11,7 +12,8 @@ public class Uebung {
 	private Muskel muskelgruppe;
 	
 	
-	public Uebung(String n, String e, String g, String m1, String m2, String b, Muskel m){
+	public Uebung( int id, String n, String e, String g, String m1, String m2, String b, Muskel m){
+		this.id=id;
 		name = n;
 		equipment = e;
 		grad = g;
@@ -38,7 +40,10 @@ public class Uebung {
 	return muskel2;
 	}
 	
-
+	public int getId(){
+	return id;
+	}
+	
 	
 	public String getBild(){
 	return bild;
