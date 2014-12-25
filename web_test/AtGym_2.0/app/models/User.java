@@ -24,7 +24,6 @@ public class User extends Model{
   private String password;
   private int id;
   private int groesse=0;
- // private double gewicht=0;
   private Geschlecht geschlecht;
   private String bild =null;
   
@@ -33,7 +32,8 @@ public class User extends Model{
   private SortedMap<Integer,Bauchumfang> bauchumfangList = new TreeMap<Integer,Bauchumfang>();
   private SortedMap<Integer,Armumfang> armumfangList = new TreeMap<Integer,Armumfang>();
   private SortedMap<Integer,Hueftenumfang> hueftenumfangList = new TreeMap<Integer,Hueftenumfang>();
- private SortedMap<Integer,Brustumfang> brustumfangList = new TreeMap<Integer,Brustumfang>();
+  private SortedMap<Integer,Brustumfang> brustumfangList = new TreeMap<Integer,Brustumfang>();
+  
   private Gewicht gewicht = null;
   private Bauchumfang bauchumfang = null;
   private Hueftenumfang hueftenumfang = null;
@@ -46,6 +46,7 @@ public class User extends Model{
 	  this.email=email;
 	  this.password = password;
   }
+  
   public User(String vorname, String nachname, String email, String password, int groesse, int geschlecht){
 	this.email=email;
 	this.nachname=nachname;
@@ -154,9 +155,7 @@ public class User extends Model{
   public String getPassword(){
 	return password;
   }
- //  public String getPassword(){
- // return password;
- // }
+
   public int getGroesse(){
   return groesse;
   }
