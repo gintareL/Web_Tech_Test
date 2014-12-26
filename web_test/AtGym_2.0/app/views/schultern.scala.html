@@ -1,4 +1,6 @@
-@(user: models.User, schultern : SortedMap[Integer, models.Uebung])
+@(user: models.User, schultern : SortedMap[Integer, models.Uebung], uebungForm: Form[models.Auswaehlen])
+@import helper._
+@import helper.twitterBootstrap._
 @main("Schultern"){
 		<div class="wrapper">
 <nav class="navbar navbar-inverse" role="navigation">
@@ -137,10 +139,14 @@
 											<h4 class="modal-title" id="myModalLabel">Gib den Plan und die gewünschte Anzahl von Sätzen ein: </h4>
 										  </div>
 										  <div class="modal-body clearfix">
-										  <form role="form">
-												<input class="left rande abstand abstand_innen breite" name="plan" type="text" placeholder="Planname">
+									 @form(routes.Application.auswaehlenSchultern(),'class -> "form-horizontal", 'id -> "uebungForm") {
+										   
+										   <div class=" form-group @if(uebungForm("satz").hasErrors || uebungForm("tag").hasErrors || uebungForm("plan").hasErrors){has-error}">
 												
-														  <select class="left abstand_innen1 rande breite1 abstand" name="tag">
+												<input style="display:none;" name="@uebungForm("id").name" value="@schultern.get(b).getId()" >
+												<input class="left rande abstand7 abstand abstand_innen breite2" name="@uebungForm("plan").name" type="text" placeholder="Planname">
+												
+														  <select class="left abstand_innen1 rande breite1 abstand" name="@uebungForm("tag").name">
 															<option>Montag</option>
 															<option>Dienstag</option>
 															<option>Mittwoch</option>
@@ -151,13 +157,16 @@
 														  </select>
 														
 													
-												<input class="left rande abstand abstand_innen breite1" name="wh" type="number" min="1" placeholder="Sätze">
-											</form>
+												<input class="left rande abstand abstand_innen breite1" name="@uebungForm("satz").name" type="number" min="1" placeholder="Sätze">
+												</div>
+											
 										  </div>
 										  <div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											
 											<button type="submit" class="btn btn-primary">Save</button>
+											
 										  </div>
+										  }
 										</div>
 									  </div>
 									</div>

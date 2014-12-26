@@ -274,6 +274,11 @@ width:20%;
 	padding: 1%;
 }
 
+.scroll{
+	height : 25em;
+	overflow: scroll;
+}
+
 .breite4{
 	width: 50%;
 }

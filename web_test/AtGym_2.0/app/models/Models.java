@@ -50,8 +50,8 @@ public class Models extends Model{
 		 armumfangList();
 		 hueftenList();
 		 brustumfangList();
-		
-		 stmt.close();
+		 plaene();
+		// stmt.close();
 		return true;
 	 }
 	
@@ -61,23 +61,32 @@ public class Models extends Model{
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
 	   return false;
-    }
+    }finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {};
+    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+    //try { if (conn != null) conn.close(); } catch (Exception e) {};
+}
    }
    
    public int selectId(String email){
+	   int id = -1;
     try {
 	 stmt = conn.createStatement();
 	 rs = stmt.executeQuery( "SELECT userid FROM user where email='" + email +"';" );
 	 while ( rs.next() ) {
-	 return rs.getInt("userid");
+		id = rs.getInt("userid");
 	 }
-	  stmt.close();
+	 // stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-	  return -1;
-    }
-	return -1;
+	 
+    }finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {};
+    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+   // try { if (conn != null) conn.close(); } catch (Exception e) {};
+}
+	return id;
    }
    
    public static Models getInstance() {
@@ -91,24 +100,25 @@ public class Models extends Model{
    try {
 	 stmt = conn.createStatement();
 	 rs = stmt.executeQuery( "SELECT email FROM user where email='"+em+"';" );
-	 while ( rs.next() ) {
-	 String email = rs.getString("email");
-	if(email.equals(em)==true){
-	 stmt.close();	
-	 return true;
-	 }
-	 
-	 }
-	  stmt.close();
-	 return false;
-	 
-	 
-	  
+		 while ( rs.next() ) {
+		 String email = rs.getString("email");
+			if(email.equals(em)==true){
+			// stmt.close();	
+			 return true;
+			 }
+		 
+		 }
+	//  stmt.close();
+	 return false;  
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
 	  return false;
-    }
+    }finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {};
+    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+   // try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
    }
    
    public boolean neuerUser(User u){
@@ -132,25 +142,30 @@ public class Models extends Model{
 	       String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,geschlecht) " +
                    "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','null','"+ u.getEmail() +"','"+password+"',"+ u.getGroesse()+","+ geschlecht +");"; 
       stmt.executeUpdate(sql);
-	  stmt.close();
+	//  stmt.close();
 	  
-	  user.setId(selectId(user.getEmail()));
-	 gewichtList();
-	 bauchumfangList();
-	 hueftenList();
-	  brustumfangList();
-	 
+		 user.setId(selectId(user.getEmail()));
+		 gewichtList();
+		 bauchumfangList();
+		 hueftenList();
+		 brustumfangList();
+		 plaene();
 	 return true;
      
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
 	  return false;
-    }
+    }finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
 	} else{
 	return false;
 	}	
    }
+   
    public void gewichtCheck(){
 	   if(user.getGewicht() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
@@ -158,8 +173,8 @@ public class Models extends Model{
 				stmt = conn.createStatement();
 				String sql = "INSERT INTO gewicht (id,umfang,datum, user) " +
                    "VALUES (null,"+ user.getGewicht().getGewicht()+",'" + dateFormat.format(user.getGewicht().getDatum())+"',"+ user.getId() +");"; 
-      stmt.executeUpdate(sql);
-     stmt.close();
+				stmt.executeUpdate(sql);
+  //   stmt.close();
 	 
 	 
      
@@ -167,24 +182,32 @@ public class Models extends Model{
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
 	  
-    }
-	   }
-   }
+	   }finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+	}
+ }
    
    
    public void gewichtList(){
 	   try {
-	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, gewicht g where g.user=" +user.getId()+" and u.userid=g.user;" );
-	 while ( rs.next() ) {
-		user.getGewichtList().put(rs.getInt("id"), new Gewicht(rs.getDouble("umfang"), rs.getString("datum")));
-	 }
+			 stmt = conn.createStatement();
+			 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, gewicht g where g.user=" +user.getId()+" and u.userid=g.user;" );
+			 while ( rs.next() ) {
+				user.getGewichtList().put(rs.getInt("id"), new Gewicht(rs.getDouble("umfang"), rs.getString("datum")));
+			 }
 	 
-     stmt.close();
+    // stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    }finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
    }
    
    public void bauchumfangCheck(){
@@ -195,15 +218,16 @@ public class Models extends Model{
 				String sql = "INSERT INTO bauchumfang (id,umfang,datum, user) " +
                    "VALUES (null,"+ user.getBauchumfang().getUmfang()+",'" + dateFormat.format(user.getBauchumfang().getDatum())+"',"+ user.getId() +");"; 
       stmt.executeUpdate(sql);
-     stmt.close();
-	 
-	 
-     
+     //stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
 	  
-    }
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+			//try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
 	   }
    }
    
@@ -214,11 +238,15 @@ public class Models extends Model{
 	 while ( rs.next() ) {
 		user.getBauchumfangList().put(rs.getInt("id"), new Bauchumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
-	  stmt.close();
+	 // stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    }finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
    }
    
    
@@ -230,15 +258,16 @@ public class Models extends Model{
 				String sql = "INSERT INTO hueftenumfang (id,umfang,datum, user) " +
                    "VALUES (null,"+ user.getHueftenumfang().getUmfang()+",'" + dateFormat.format(user.getHueftenumfang().getDatum())+"',"+ user.getId() +");"; 
       stmt.executeUpdate(sql);
-     stmt.close();
-	 
-	 
-     
+    // stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
 	  
-    }
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
 	   }
    }
    
@@ -249,11 +278,15 @@ public class Models extends Model{
 	 while ( rs.next() ) {
 		user.getHueftenumfangList().put(rs.getInt("id"), new Hueftenumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
-	  stmt.close();
+	 // stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    }finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
    }
    
     public void armumfangList(){
@@ -264,11 +297,15 @@ public class Models extends Model{
 		
 		user.getArmumfangList().put(rs.getInt("id"), new Armumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
-	  stmt.close();
+	 // stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    } finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
    }
    
    public void armumfangCheck(){
@@ -279,15 +316,16 @@ public class Models extends Model{
 				String sql = "INSERT INTO armumfang (id,umfang,datum, user) " +
                    "VALUES (null,"+ user.getArmumfang().getUmfang()+",'" + dateFormat.format(user.getArmumfang().getDatum())+"',"+ user.getId() +");"; 
       stmt.executeUpdate(sql);
-     stmt.close();
-	 
-	 
-     
+   //  stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
 	  
-    }
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
 	   }
    }
    
@@ -300,11 +338,15 @@ public class Models extends Model{
 		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
 		user.getBrustumfangList().put(rs.getInt("id"), new Brustumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
-	  stmt.close();
+	 // stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
    }
    
    public void brustumfangCheck(){
@@ -315,15 +357,16 @@ public class Models extends Model{
 				String sql = "INSERT INTO brustumfang (id,umfang,datum, user) " +
                    "VALUES (null,"+ user.getBrustumfang().getUmfang()+",'" + dateFormat.format(user.getBrustumfang().getDatum())+"',"+ user.getId() +");"; 
       stmt.executeUpdate(sql);
-     stmt.close();
-	 
-	 
-     
+   //  stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
 	  
-    }
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
 	   }
    }
    
@@ -353,12 +396,16 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenBeine.put(id, uebung);
 	 }
-	  stmt.close();
+	//  stmt.close();
 	
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    } finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
    
    return uebungenBeine;
    }
@@ -388,11 +435,15 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenBauch.put(id, uebung);
 	 }
-	 stmt.close();
+	// stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    } finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
    
    return uebungenBauch;
    }
@@ -422,11 +473,15 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenArme.put(id, uebung);
 	 }
-	 stmt.close();
+	// stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    } finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
    
    return uebungenArme;
    }
@@ -456,17 +511,21 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenbrust.put(id, uebung);
 	 }
-	 stmt.close();
+	// stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    }finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
    
    return uebungenbrust;
    }
    
        public SortedMap<Integer, Uebung> ruecken(){
-   SortedMap<Integer, Uebung> uebungenruecken = new TreeMap<Integer, Uebung>();
+		SortedMap<Integer, Uebung> uebungenruecken = new TreeMap<Integer, Uebung>();
    
    try {
 	 stmt = conn.createStatement();
@@ -490,11 +549,15 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenruecken.put(id, uebung);
 	 }
-	 stmt.close();
+	// stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    } finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
    
    return uebungenruecken;
    }
@@ -524,11 +587,15 @@ public class Models extends Model{
 	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 	 uebungenschultern.put(id, uebung);
 	 }
-	 stmt.close();
+	// stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    }
+    }finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
    
    return uebungenschultern;
    }
@@ -538,7 +605,73 @@ public class Models extends Model{
    }
    
    public void plaene(){
-	   
+	  try {
+	 stmt = conn.createStatement();
+	 String name;
+	 String bild;
+	 String equipment;
+	 String grad;
+	 String muskel1;
+	 String muskel2;
+	 int id; 
+	 Muskel muskelgruppe;
+	 rs = stmt.executeQuery( "SELECT u.id as uid, u.name as uname, u.bild as bild, u.muskel as muskelgruppe, b.equipment as bequi, b.grad as grad, b.muskel as bm1, b.muskel2 as bm2, p.name as pname, p.id as pid, t.name as tag, count() as saetze FROM uebung u, beschreibung b, ausgewaehlteuebung a, plan p, Tag t where b.id=u.beschreibung and a.plan=p.id and u.id=a.uebung and a.tag=t.name and p.user="+user.getId()+" group by p.id, u.id, t.name;" );
+	 while ( rs.next() ) {
+	 name = rs.getString("uname");
+	 bild = rs.getString("bild");
+	 bild = "assets//images//"+bild+".gif";
+	 equipment = rs.getString("bequi");
+	 grad = rs.getString("grad");
+	 muskel1 = rs.getString("bm1");
+	 muskel2 = rs.getString("bm2");
+	 id = rs.getInt("uid");
+	 String m = rs.getString("muskelgruppe");
+	 muskelgruppe=Muskel.valueOf(m);
+	 
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+		
+		int saetze = rs.getInt("saetze");
+	 AusgewaehlteUebung ausgewaehlt = new AusgewaehlteUebung(uebung, saetze);
+		int planId = rs.getInt("pid");
+			String planName = rs.getString("pname");
+     String t = rs.getString("tag");
+	 Tag tag=Tag.valueOf(t);
+	 
+	 if(user.getPlans().containsKey(planName) == true){
+		 if(user.getPlans().get(planName).getUebungen().containsKey(tag) == true){
+			 user.getPlans().get(planName).getUebungen().get(tag).getUebungen().add(ausgewaehlt);
+		 } else{
+			 TagPlan tagPlan = new TagPlan();
+			tagPlan.tag = tag;
+			tagPlan.getUebungen().add(ausgewaehlt);
+			
+			user.getPlans().get(planName).getUebungen().put(tag, tagPlan);
+		 }
+		 
+	 } else{
+		 TagPlan tagPlan = new TagPlan();
+		tagPlan.tag = tag;
+		tagPlan.getUebungen().add(ausgewaehlt);
+			
+		Map<Tag, TagPlan> uebungen = new HashMap<Tag, TagPlan>();
+		uebungen.put(tagPlan.tag, tagPlan);
+		Plan p = new Plan(planId, planName, uebungen);
+		user.setPlans(p);
+	 }
+	 
+	 
+	  
+	 }
+	// stmt.close();
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
+	    
    }
    
  public void planHinzufuegen(int id, int satz, String tag, String plan){
@@ -573,14 +706,10 @@ public class Models extends Model{
 	if(user.getPlans().containsKey(plan) == true){
 		
 		if(user.getPlans().get(plan).getUebungen().containsKey(Tag.valueOf(tag)) == true){
+			int planId = user.getPlans().get(plan).getId();
 			user.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().add(ausgewaehlt);
-			 stmt = conn.createStatement();
-				 rs = stmt.executeQuery( "SELECT p.id FROM plan p where p.name='"+plan+"' and p.user="+user.getId()+" ;" );
-				 int planId = -1;
-				 while ( rs.next() ){
-					 planId = rs.getInt("id");
-				 }
-				 if(planId != -1){
+			 
+				
 				 for(int i = 0; i < satz; i++){
 					String sql = "INSERT INTO satz (id) " +
 					   "VALUES (null);"; 
@@ -596,19 +725,14 @@ public class Models extends Model{
 					stmt.executeUpdate(sql);
 					}
 				}
-			}
+			
 		} else{
 			TagPlan tagPlan = new TagPlan();
 			tagPlan.tag = Tag.valueOf(tag);
 			tagPlan.getUebungen().add(ausgewaehlt);
 			user.getPlans().get(plan).getUebungen().put(Tag.valueOf(tag), tagPlan);
-			stmt = conn.createStatement();
-				 rs = stmt.executeQuery( "SELECT p.id FROM plan p where p.name='"+plan+"' and p.user="+user.getId()+" ;" );
-				 int planId = -1;
-				 while ( rs.next() ){
-					 planId = rs.getInt("id");
-				 }
-				 if(planId != -1){
+			 int planId = user.getPlans().get(plan).getId();
+			
 				 for(int i = 0; i < satz; i++){
 					String sql = "INSERT INTO satz (id) " +
 					   "VALUES (null);"; 
@@ -624,13 +748,8 @@ public class Models extends Model{
 					stmt.executeUpdate(sql);
 					}
 				}
-				}
-			
-			
-			
 		}
 	} else{
-		System.out.println("Bild " + bild);
 		
 		TagPlan tagPlan = new TagPlan();
 		tagPlan.tag = Tag.valueOf(tag);
@@ -653,6 +772,7 @@ public class Models extends Model{
 			 }
 			 
 		if(planId != -1){
+			p.setId(planId);
 				for(int i = 0; i < satz; i++){
 					sql = "INSERT INTO satz (id) " +
 					   "VALUES (null);"; 
@@ -672,11 +792,15 @@ public class Models extends Model{
 		
 	}
 	 }
-	 stmt.close();
+	// stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
-    } 
+    } finally {
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
 	
   }
  
