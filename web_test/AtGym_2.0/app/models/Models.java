@@ -28,6 +28,7 @@ public class Models extends Model{
 	private static Models instance = null;
 	private static User user;
    private Models() {
+	 
 		conn = AtGymDatabase.dbConnector();
 		
       // Exists only to defeat instantiation.
@@ -51,6 +52,10 @@ public class Models extends Model{
 		 hueftenList();
 		 brustumfangList();
 		 plaene();
+		  System.out.println("Plaene: " + user.getPlans().isEmpty());
+		 for(String s : user.getPlans().keySet()){
+			 System.out.println(s);
+		 }
 		// stmt.close();
 		return true;
 	 }
@@ -638,15 +643,17 @@ public class Models extends Model{
 	 Tag tag=Tag.valueOf(t);
 	 
 	 if(user.getPlans().containsKey(planName) == true){
+		 
 		 if(user.getPlans().get(planName).getUebungen().containsKey(tag) == true){
 			 user.getPlans().get(planName).getUebungen().get(tag).getUebungen().add(ausgewaehlt);
 		 } else{
-			 TagPlan tagPlan = new TagPlan();
+			 TagPlan tagPlan = new TagPlan(); 
 			tagPlan.tag = tag;
 			tagPlan.getUebungen().add(ausgewaehlt);
 			
 			user.getPlans().get(planName).getUebungen().put(tag, tagPlan);
 		 }
+		 
 		 
 	 } else{
 		 TagPlan tagPlan = new TagPlan();
@@ -802,6 +809,60 @@ public class Models extends Model{
 	//	try { if (conn != null) conn.close(); } catch (Exception e) {};
 	}
 	
+  }
+  
+  public void planLoeschen(){
+		try {
+				stmt = conn.createStatement();
+				
+				
+				
+				 
+				String sql = "delete from plan where id=(select p.id as id from plan p where p.user="+user.getId()+" except select pl.id from ausgewaehlteuebung a, plan pl where a.plan=pl.id and pl.user="+user.getId()+");"; 
+				stmt.executeUpdate(sql);
+			 
+				
+   //  stmt.close();
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+	}
+  
+  public void uebungLoeschen(int plan, int uebung, String t){
+	  String planName;
+	  Tag tag = Tag.valueOf(t);
+		
+		   try {
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select name from plan where id="+plan+";");
+				 while ( rs.next() ) {
+				 
+				 planName = rs.getString("name");
+				 user.uebungLoeschen(planName, tag, uebung);
+			 }
+				String sql = "delete from ausgewaehlteuebung where plan="+plan+" and uebung="+uebung+" and tag='"+tag +"';"; 
+				stmt.executeUpdate(sql);
+				
+				planLoeschen();
+				
+   //  stmt.close();
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+	   
+	  
   }
  
  

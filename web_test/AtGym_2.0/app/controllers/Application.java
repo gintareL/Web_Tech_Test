@@ -41,6 +41,7 @@ public class Application extends Controller {
 	
 	
 	public static Result home1() {
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<User> userForm = Form.form(User.class).bindFromRequest();
     	if(userForm.hasErrors()){
 		
@@ -55,11 +56,11 @@ public class Application extends Controller {
 				if(u.getVorname() == null  && model.checkUser(u.getEmail(), u.getPassword()) == true){
 					user = model.aktuellUser();
 					session("User1", user.getVorname());
-					return ok(home_boot.render(user));
+					return ok(home_boot.render(user, uebungLoeschen));
 				} else if(u.getVorname() != null && model.neuerUser(userForm.get())==true){
 					user = model.aktuellUser();
 					session("User1", user.getVorname());
-					return ok(home_boot.render(user));
+					return ok(home_boot.render(user, uebungLoeschen));
 			}
 			}
 			
@@ -70,34 +71,37 @@ public class Application extends Controller {
 	}return redirect("/atGym");
 	}
 	public static Result home(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		User user = model.aktuellUser();
 	String username = session("User1");
 	
 	
 	if(username != null) {
-		return ok(home.render(user));
+		return ok(home.render(user, uebungLoeschen));
     }else{
 		return redirect("/atGym");
     	}	
 	}
 	
 	public static Result ourGym(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 	User user = model.aktuellUser();
 	String username = session("User1");
 	if(username != null) {
-		return ok(our_gym_boot.render(user, username));
+		return ok(our_gym_boot.render(user, username, uebungLoeschen));
     }else{
 		return redirect("/atGym");
     	}	
 	}
 	
 	public static Result myGym(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		User user = model.aktuellUser();
 		String username = session("User1");
 		
 		String geschlecht = user.getGeschlecht();
 		if(username != null && geschlecht != null) {
-			return ok(myGym.render(user, username, geschlecht));
+			return ok(myGym.render(user, username, geschlecht, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
@@ -211,6 +215,7 @@ public class Application extends Controller {
 	
 	
 	public static Result aboutMe(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Gewicht> gewichtForm = Form.form(Gewicht.class);
 		Form<Bauchumfang> bauchForm = Form.form(Bauchumfang.class);
 		Form<Hueftenumfang> hueftenForm = Form.form(Hueftenumfang.class);
@@ -222,35 +227,40 @@ public class Application extends Controller {
 	String bild = session("bild");
 	if(username != null) {
 		
-		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm, bauchForm, hueftenForm, armForm, brustForm));
+		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm, bauchForm, hueftenForm, armForm, brustForm, uebungLoeschen));
     }else{
 		return redirect("/atGym");
     	}
 	}
 	
 	public static Result myPlans(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		User user = model.aktuellUser();
 	String username = session("User1");
 		if(username != null) {
-			return ok(myPlans.render(user));
+			return ok(myPlans.render(user, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
 	public static Result myRoutine(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
+		User user = model.aktuellUser();
 		String username = session("User1");
 		if(username != null) {
-			return ok(myRoutine.render(username));
+			return ok(myRoutine.render(user, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
 	public static Result myAnalyse(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
+		User user = model.aktuellUser();
 	String username = session("User1");
 		if(username != null) {
-			return ok(myAnalyse.render(username));
+			return ok(myAnalyse.render(user, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
@@ -369,37 +379,40 @@ public class Application extends Controller {
 	
 	
 	public static Result beine(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
 		SortedMap<Integer, Uebung> beineUebungen = model.beine();
 		String username = session("User1");
 		if(username != null) {
-			return ok(beine.render(user, beineUebungen, uebungenForm));
+			return ok(beine.render(user, beineUebungen, uebungenForm, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	public static Result bauch(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
 		SortedMap<Integer, Uebung> bauchUebungen = model.bauch();
 		String username = session("User1");
 		
 		if(username != null) {
-			return ok(bauch.render(user, bauchUebungen, uebungenForm));
+			return ok(bauch.render(user, bauchUebungen, uebungenForm, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
 	public static Result arme(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
 		SortedMap<Integer, Uebung> armeUebungen = model.arme();
 		String username = session("User1");
 		
 		if(username != null) {
-			return ok(arme.render(user, armeUebungen, uebungenForm));
+			return ok(arme.render(user, armeUebungen, uebungenForm, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
@@ -408,12 +421,13 @@ public class Application extends Controller {
 	
 	
 	public static Result brust(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
 		SortedMap<Integer, Uebung> brustUebungen = model.brust();
 	String username = session("User1");
 		if(username != null) {
-			return ok(brust.render(user, brustUebungen, uebungenForm));
+			return ok(brust.render(user, brustUebungen, uebungenForm, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
@@ -422,19 +436,21 @@ public class Application extends Controller {
 	
 	
 	public static Result ruecken(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
 		SortedMap<Integer, Uebung> rueckenUebungen = model.ruecken();
 
 		String username = session("User1");
 		if(username != null) {
-			return ok(ruecken.render(user, rueckenUebungen, uebungenForm));
+			return ok(ruecken.render(user, rueckenUebungen, uebungenForm, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
 	public static Result schultern(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
 		SortedMap<Integer, Uebung> schulternUebungen = model.schultern();
@@ -442,17 +458,343 @@ public class Application extends Controller {
 	String username = session("User1");
 		if(username != null) {
 		
-			return ok(schultern.render(user, schulternUebungen, uebungenForm));
+			return ok(schultern.render(user, schulternUebungen, uebungenForm, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
+	
+	public static Result uebungLoeschenBrust(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/brust");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/brust");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenBeine(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/beine");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/beine");
+		
+		}
+		
+	}
+	
+	
+	public static Result uebungLoeschenBauch(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/bauch");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/bauch");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenArme(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/arme");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/arme");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenSchultern(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/schultern");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/schultern");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenRuecken(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/ruecken");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/ruecken");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenMyGym(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/myGym");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/myGym");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenAboutMe(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/aboutMe");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/aboutMe");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenMyPlans(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/myPlans");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/myPlans");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenMyRoutine(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/myRoutine");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/myRoutine");
+		
+		}
+		
+	}
+	public static Result uebungLoeschenAnalyse(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/myAnalyse");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/myAnalyse");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenHome(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		System.out.println("Home");
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/home");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			System.out.println(g.getUebung());
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/home");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenOurGym(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/ourGym");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/ourGym");
+		
+		}
+		
+	}
+	
+	public static Result uebungLoeschenVIP(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
+		if(uebungLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/vipPlaene");
+    	}else{
+		
+		
+			uebungLoeschen g = uebungLoeschen.get();
+			User user = model.aktuellUser();
+			model.uebungLoeschen(g.getPlan(),g.getUebung(),g.getTag() );
+			System.out.println(g.getPlan());
+			System.out.println(g.getUebung());
+			System.out.println(g.getTag());
+			
+			
+		return redirect("/vipPlaene");
+		
+		}
+		
+	}
+	
 	public static Result vipPlaene(){
+		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
 		User user = model.aktuellUser();
 	String username = session("User1");
 		if(username != null) {
-			return ok(vipPlaene.render(user));
+			return ok(vipPlaene.render(user, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 			}

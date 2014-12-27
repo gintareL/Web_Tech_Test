@@ -7,8 +7,17 @@ public class TagPlan {
 	private Set<AusgewaehlteUebung> uebungen = new HashSet<AusgewaehlteUebung>();
 	
 	
-	public void loeschen(AusgewaehlteUebung u){
-	uebungen.remove(u);
+	public void loeschen(int u){
+		AusgewaehlteUebung zuLoeschen=null;
+		for(AusgewaehlteUebung a : uebungen){
+			if(a.getUebung().getId()==u){
+				zuLoeschen = a;
+			}
+		}
+		if(zuLoeschen!=null){
+			uebungen.remove(zuLoeschen);
+		}
+	
 	}
 	public Set<AusgewaehlteUebung> getUebungen(){
 		return uebungen;

@@ -256,7 +256,7 @@ public class User extends Model{
  
  
 	
-  public void uebungLoeschen(int p, Tag t, AusgewaehlteUebung u){
+  public void uebungLoeschen(String p, Tag t, int u){
 	plaene.get(p).getUebungen().get(t).loeschen(u);
   }
   
