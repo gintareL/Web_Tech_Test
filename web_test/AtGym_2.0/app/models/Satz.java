@@ -28,6 +28,12 @@ public class Satz{
 	private int id;
 	private int wh;
 	private int gewicht;
+	int plan;
+	int uebung;
+	String tag;
+	int satz;
+	
+	public Satz(){}
 	
 	public Satz(int id, int wh, int gewicht){
 		this.id=id;
@@ -61,20 +67,50 @@ public class Satz{
 		this.wh=wh;
 	}
 	
+	public void setSatz(int satz){
+		this.satz=satz;
+	}
+	
+	public int getSatz(){
+		return satz;
+	}
+	
+	public int getPlan(){
+		return plan;
+	}
+	public int getUebung(){
+		return uebung;
+	}
+	public String getTag(){
+		return tag;
+	}
+	public void setPlan(int plan){
+		this.plan=plan;
+	}
+	public void setUebung(int uebung){
+		this.uebung=uebung;
+	}
+	public void setTag(String tag){
+		this.tag=tag;
+	}
+	
 	public void setGewicht(int gewicht){
 		this.gewicht=gewicht;
 	}
 	
 	 public List<ValidationError> validate() {
 		List<ValidationError> error = new ArrayList<>();
+		setPlan(plan);
+		setTag(tag);
+		setUebung(uebung);
+		setSatz(satz);
 		
-		
-		if(wh < 0){
+		if(wh <= 0){
 			error.add(new ValidationError("umfang", "This field is needed"));
 		} else{
 			setWh(wh);
 		}
-		if(gewicht <= 0){
+		if(gewicht < 0){
 			error.add(new ValidationError("umfang", "This field is needed"));
 		} else{
 			setGewicht(gewicht);

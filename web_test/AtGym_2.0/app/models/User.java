@@ -229,41 +229,14 @@ public class User extends Model{
 		if(password == null || password.length() == 0){
 			error.add(new ValidationError("password", "This field is needed"));
 		}
-		
-		/*if(vorname == null || vorname.length() == 0){
-			error.add(new ValidationError("vorname", "This field is needed"));
-		}
-		if(vorname != null || vorname.length() != 0){
-		String pattern = "[A-Za-z]+";
-		boolean matches = Pattern.matches(pattern, vorname);
-		if(matches == false )
-			error.add(new ValidationError("vorname", "This field is needed"));
-		}
-		
-		if(nachname == null || nachname.length() == 0){
-			error.add(new ValidationError("nachname", "This field is needed"));
-		}
-		if(nachname != null || nachname.length() != 0){
-		String pattern = "[A-Za-z]+";
-		boolean matches = Pattern.matches(pattern, nachname);
-		if(matches == false )
-			error.add(new ValidationError("nachname", "This field is needed"));
-		}
-		
-		if(groesse <= 0 || groesse > 280){
-			error.add(new ValidationError("groesse", "This field is needed"));
-		}
-		if(gewicht <= 0 || gewicht > 200){
-			error.add(new ValidationError("gewicht", "This field is needed"));
-		}
-		if(geschlecht == null){
-			error.add(new ValidationError("geschlecht", "This field is needed"));
-		}*/
-		// Nothing in "error" return null, else return error
+
 		return error.isEmpty() ? null : error;
 	}
  
 
+
+ 
+	 
  
  
 	

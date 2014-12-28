@@ -53,6 +53,7 @@ public class Models extends Model{
 		 hueftenList();
 		 brustumfangList();
 		 plaene();
+		// routineAuslesen();
 		 
 		// stmt.close();
 		return true;
@@ -153,6 +154,7 @@ public class Models extends Model{
 		 hueftenList();
 		 brustumfangList();
 		 plaene();
+		 routineAuslesen();
 	 return true;
      
 	} catch ( Exception e ) {
@@ -716,6 +718,44 @@ public class Models extends Model{
 	   
    }
    
+   public void routineStep1(int plan, int uebung, String tag, int wh, int gewicht, int satz){
+	  if( saetzeSpeichern(plan, uebung, tag, wh, gewicht, satz) == true){
+		 
+		 routineNew(plan, uebung, tag, satzFeld);
+	  } else{
+		  
+	  }
+	   
+   }
+  private Satz[] satzFeld;
+  
+   
+
+   public boolean saetzeSpeichern(int plan, int uebung, String tag, int wh, int gewicht, int satz){
+	 System.out.println(plan + " " + uebung + " " + tag + " " + wh + " " + gewicht + " " + satz);
+	 for(Plan p : user.getPlans().values()){
+		 if(p.getId() == plan){
+			 for(AusgewaehlteUebung a : p.getUebungen().get(Tag.valueOf(tag)).getUebungen()){
+				 if(a.getUebung().getId() == uebung){
+					 
+							
+							 a.setSaetze(satz,wh, gewicht);
+						  if(satz < (a.getWh()-1)){
+							  return false;
+						  } else{
+							
+							 satzFeld=a.getSaetze();
+							  return true;
+						  }
+					 }
+				 }
+			 }
+		 }
+		 return false;
+		 
+		
+	 }
+   
    public void routineNew(int plan, int uebung, String tag, Satz[] satz){
 	   
 	  
@@ -725,23 +765,24 @@ public class Models extends Model{
 				stmt = conn.createStatement();
 				
 				 for(int i = 0; i < satz.length; i++){
-					String sql = "INSERT INTO satz (id) " +
-					   "VALUES (null);"; 
+					String sql = "INSERT INTO satz (id, wh, gewicht) " +
+					   "VALUES (null,"+satz[i].getWh()+","+satz[i].getGewicht()+");"; 
 					stmt.executeUpdate(sql);
 					
 					rs = stmt.executeQuery( "select max(id) as id from satz;" );
 						 while ( rs.next() ) {
 							 int id = rs.getInt("id");  
+							 System.out.println(id);
 							 String sql1 = "INSERT INTO routine (datum, plan, uebung, tag, satz) " +
-								"VALUES ('"+datum+"',"+plan+","+uebung+",'"+tag+"',"+id+");"; 
+								"VALUES ('"+dateFormat.format(datum)+"',"+plan+","+uebung+",'"+tag+"',"+id+");"; 
 								Satz s = new Satz(id, satz[i].getWh(), satz[i].getGewicht());
 								
 							stmt.executeUpdate(sql1);	
 							 
 						 }
-						 user.setRoutine(plan, tag, uebung, satz, datum);
+						
 				 }
-				
+				 user.setRoutine(plan, tag, uebung, satz, datum);
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);

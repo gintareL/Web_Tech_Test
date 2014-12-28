@@ -247,7 +247,7 @@ public class Application extends Controller {
 	
 	public static Result myRoutine(){
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
-		Form<Routine> satzSave = Form.form(Routine.class);
+		Form<Satz> satzSave = Form.form(Satz.class);
 		User user = model.aktuellUser();
 		String username = session("User1");
 		if(username != null) {
@@ -719,7 +719,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result satzSave(){
-		Form<Routine> satzSave = Form.form(Routine.class).bindFromRequest();
+		Form<Satz> satzSave = Form.form(Satz.class).bindFromRequest();
 		if(satzSave.hasErrors()){
 		
     		System.out.println("Errors gefunden!");
@@ -727,16 +727,12 @@ public class Application extends Controller {
     	}else{
 		
 		
-			Routine g = satzSave.get();
+			Satz g = satzSave.get();
 			
 			User user = model.aktuellUser();
-			System.out.println(g.getPlan());
+			System.out.println(g.getSatz());
+			model.routineStep1(g.getPlan(), g.getUebung(), g.getTag(), g.getWh(), g.getGewicht(), g.getSatz());
 			
-			
-			
-			
-		
-		
 		}
 		return redirect("/myRoutine");
 	}

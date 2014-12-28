@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Uebung {
 	private int id;
-	private String name = "name";
+	private String name;
 	private String equipment;
 	private String grad;
 	private String muskel1;

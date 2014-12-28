@@ -27,16 +27,30 @@ import play.data.validation.Constraints.*;
 public class AusgewaehlteUebung{
 	private Uebung uebung; 
 	private int wh;
+	private Satz[] satz;
 	
 	public AusgewaehlteUebung(Uebung u, int anzahl){
 		uebung = u;
 		wh=anzahl;
+		satz = new Satz[wh];
 	}
 	
 	public AusgewaehlteUebung(){
 		
 	}
 
+	public void setSaetze(int i, int wh, int gewicht){
+		
+		if(i < satz.length){
+			
+			this.satz[i] = new Satz(wh, gewicht);
+		}
+		
+	}
+	
+	public Satz[] getSaetze(){
+		return satz;
+	}
 	
 	public Uebung getUebung(){
 		return uebung;
