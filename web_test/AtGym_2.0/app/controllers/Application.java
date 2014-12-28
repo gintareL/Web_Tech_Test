@@ -234,11 +234,12 @@ public class Application extends Controller {
 	}
 	
 	public static Result myPlans(){
+		Form<PlanLoeschen> planLoeschen = Form.form(PlanLoeschen.class);
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		User user = model.aktuellUser();
 	String username = session("User1");
 		if(username != null) {
-			return ok(myPlans.render(user, uebungLoeschen));
+			return ok(myPlans.render(user, uebungLoeschen, planLoeschen));
 		}else{
 			return redirect("/atGym");
 			}
@@ -246,10 +247,11 @@ public class Application extends Controller {
 	
 	public static Result myRoutine(){
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
+		Form<Routine> satzSave = Form.form(Routine.class);
 		User user = model.aktuellUser();
 		String username = session("User1");
 		if(username != null) {
-			return ok(myRoutine.render(user, uebungLoeschen));
+			return ok(myRoutine.render(user, uebungLoeschen, satzSave));
 		}else{
 			return redirect("/atGym");
 			}
@@ -673,6 +675,26 @@ public class Application extends Controller {
 		
 	}
 	
+	public static Result planLoeschen(){
+		Form<PlanLoeschen> planLoeschen = Form.form(PlanLoeschen.class).bindFromRequest();
+		if(planLoeschen.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/myPlans");
+    	}else{
+		
+		
+			PlanLoeschen g = planLoeschen.get();
+			User user = model.aktuellUser();
+			model.planLoeschenKomplett(g.getPlan());
+			
+			
+		return redirect("/myPlans");
+		
+		}
+		
+	}
+	
 	public static Result uebungLoeschenMyRoutine(){
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
 		if(uebungLoeschen.hasErrors()){
@@ -695,6 +717,31 @@ public class Application extends Controller {
 		}
 		
 	}
+	
+	public static Result satzSave(){
+		Form<Routine> satzSave = Form.form(Routine.class).bindFromRequest();
+		if(satzSave.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/myRoutine");
+    	}else{
+		
+		
+			Routine g = satzSave.get();
+			
+			User user = model.aktuellUser();
+			System.out.println(g.getPlan());
+			
+			
+			
+			
+		
+		
+		}
+		return redirect("/myRoutine");
+	}
+	
+	
 	public static Result uebungLoeschenAnalyse(){
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
 		if(uebungLoeschen.hasErrors()){

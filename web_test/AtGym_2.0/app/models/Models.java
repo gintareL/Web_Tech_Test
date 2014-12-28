@@ -24,6 +24,7 @@ public class Models extends Model{
 	Connection conn = null;
 	 Statement stmt = null;
 	 ResultSet rs = null;	
+	 ResultSet rs1 = null;	
 	//static int index=100; 	
 	private static Models instance = null;
 	private static User user;
@@ -52,10 +53,7 @@ public class Models extends Model{
 		 hueftenList();
 		 brustumfangList();
 		 plaene();
-		  System.out.println("Plaene: " + user.getPlans().isEmpty());
-		 for(String s : user.getPlans().keySet()){
-			 System.out.println(s);
-		 }
+		 
 		// stmt.close();
 		return true;
 	 }
@@ -620,7 +618,7 @@ public class Models extends Model{
 	 String muskel2;
 	 int id; 
 	 Muskel muskelgruppe;
-	 rs = stmt.executeQuery( "SELECT u.id as uid, u.name as uname, u.bild as bild, u.muskel as muskelgruppe, b.equipment as bequi, b.grad as grad, b.muskel as bm1, b.muskel2 as bm2, p.name as pname, p.id as pid, t.name as tag, count() as saetze FROM uebung u, beschreibung b, ausgewaehlteuebung a, plan p, Tag t where b.id=u.beschreibung and a.plan=p.id and u.id=a.uebung and a.tag=t.name and p.user="+user.getId()+" group by p.id, u.id, t.name;" );
+	 rs = stmt.executeQuery( "SELECT u.id as uid, u.name as uname, u.bild as bild, u.muskel as muskelgruppe, b.equipment as bequi, b.grad as grad, b.muskel as bm1, b.muskel2 as bm2, p.name as pname, p.id as pid, t.name as tag, a.satz as saetze FROM uebung u, beschreibung b, ausgewaehlteuebung a, plan p, Tag t where b.id=u.beschreibung and a.plan=p.id and u.id=a.uebung and a.tag=t.name and p.user="+user.getId()+";" );
 	 while ( rs.next() ) {
 	 name = rs.getString("uname");
 	 bild = rs.getString("bild");
@@ -680,7 +678,84 @@ public class Models extends Model{
 	}
 	    
    }
+   public void routineAuslesen(){
+	   try {
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery( "select r.datum as datum, r.plan as plan, r.uebung as uebung, r.tag as tag, count() as anzahl from routine r, plan p where p.user="+user.getId()+" and p.id=r.plan group by r.plan, r.uebung, r.tag, r.datum;" );
+						 while ( rs.next() ) {
+							int plan = rs.getInt("plan");
+							int uebung = rs.getInt("uebung");
+							String datum = rs.getString("datum");
+							String tag = rs.getString("tag");
+							Satz[] satz = new Satz[rs.getInt("anzahl")];
+							int i = 0;
+							rs1 = stmt.executeQuery("select s.id, s.wh, s.gewicht from routine r, satz s where s.id=r.satz and r.plan="+plan+" and r.uebung="+uebung+" and r.datum="+datum+" and r.tag="+tag+";");
+							while ( rs.next() ) {
+								int id = rs1.getInt("id");
+								int wh = rs1.getInt("wh");
+								int gewicht = rs1.getInt("gewicht");
+								satz[i] = new Satz(id, wh, gewicht); 
+								i++;
+							}
+							 user.setRoutineString(plan, tag, uebung, satz, datum);
+							
+							 
+						 }
+						
+				 
+				
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+	   }finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+	   
+   }
    
+   public void routineNew(int plan, int uebung, String tag, Satz[] satz){
+	   
+	  
+		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		   Date datum = new Date();
+		   try {
+				stmt = conn.createStatement();
+				
+				 for(int i = 0; i < satz.length; i++){
+					String sql = "INSERT INTO satz (id) " +
+					   "VALUES (null);"; 
+					stmt.executeUpdate(sql);
+					
+					rs = stmt.executeQuery( "select max(id) as id from satz;" );
+						 while ( rs.next() ) {
+							 int id = rs.getInt("id");  
+							 String sql1 = "INSERT INTO routine (datum, plan, uebung, tag, satz) " +
+								"VALUES ('"+datum+"',"+plan+","+uebung+",'"+tag+"',"+id+");"; 
+								Satz s = new Satz(id, satz[i].getWh(), satz[i].getGewicht());
+								
+							stmt.executeUpdate(sql1);	
+							 
+						 }
+						 user.setRoutine(plan, tag, uebung, satz, datum);
+				 }
+				
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+	   }finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+	
+	   
+	   
+	  
+   }
  public void planHinzufuegen(int id, int satz, String tag, String plan){
 			
 	 String name;
@@ -716,22 +791,11 @@ public class Models extends Model{
 			int planId = user.getPlans().get(plan).getId();
 			user.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().add(ausgewaehlt);
 			 
+					String sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+					   "VALUES ("+planId+","+id+",'"+tag+"',"+satz+");"; 
+					stmt.executeUpdate(sql);
+					
 				
-				 for(int i = 0; i < satz; i++){
-					String sql = "INSERT INTO satz (id) " +
-					   "VALUES (null);"; 
-					stmt.executeUpdate(sql);
-					int satzId=-1;
-					rs = stmt.executeQuery( "select max(id) as id from satz;" );
-						 while ( rs.next() ) {
-							 satzId = rs.getInt("id");
-						 }
-				if(satzId != -1){
-					sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
-					   "VALUES ("+planId+","+id+",'"+tag+"',"+satzId+");"; 
-					stmt.executeUpdate(sql);
-					}
-				}
 			
 		} else{
 			TagPlan tagPlan = new TagPlan();
@@ -740,21 +804,12 @@ public class Models extends Model{
 			user.getPlans().get(plan).getUebungen().put(Tag.valueOf(tag), tagPlan);
 			 int planId = user.getPlans().get(plan).getId();
 			
-				 for(int i = 0; i < satz; i++){
-					String sql = "INSERT INTO satz (id) " +
-					   "VALUES (null);"; 
+				
+				 String	sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+					   "VALUES ("+planId+","+id+",'"+tag+"',"+satz+");"; 
 					stmt.executeUpdate(sql);
-					int satzId=-1;
-					rs = stmt.executeQuery( "select max(id) as id from satz;" );
-						 while ( rs.next() ) {
-							 satzId = rs.getInt("id");
-						 }
-				if(satzId != -1){
-					sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
-					   "VALUES ("+planId+","+id+",'"+tag+"',"+satzId+");"; 
-					stmt.executeUpdate(sql);
-					}
-				}
+					
+				
 		}
 	} else{
 		
@@ -780,21 +835,13 @@ public class Models extends Model{
 			 
 		if(planId != -1){
 			p.setId(planId);
-				for(int i = 0; i < satz; i++){
-					sql = "INSERT INTO satz (id) " +
-					   "VALUES (null);"; 
-					stmt.executeUpdate(sql);
-					int satzId=-1;
-					rs = stmt.executeQuery( "select max(id) as id from satz;" );
-						 while ( rs.next() ) {
-							 satzId = rs.getInt("id");
-						 }
-				if(satzId != -1){
+				
+				
 					sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
-					   "VALUES ("+planId+","+id+",'"+tag+"',"+satzId+");"; 
+					   "VALUES ("+planId+","+id+",'"+tag+"',"+satz+");"; 
 					stmt.executeUpdate(sql);
-					}
-				}
+					
+				
 		}
 		
 	}
@@ -815,10 +862,34 @@ public class Models extends Model{
 		try {
 				stmt = conn.createStatement();
 				
-				
-				
-				 
 				String sql = "delete from plan where id=(select p.id as id from plan p where p.user="+user.getId()+" except select pl.id from ausgewaehlteuebung a, plan pl where a.plan=pl.id and pl.user="+user.getId()+");"; 
+				stmt.executeUpdate(sql);
+			 
+				
+   //  stmt.close();
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+	}
+	
+	public void planLoeschenKomplett(int plan){
+		try {
+				stmt = conn.createStatement();
+				
+				rs = stmt.executeQuery("select name from plan where id="+plan+";");
+				 while ( rs.next() ) {
+				 
+				 String planName = rs.getString("name");
+				 user.getPlans().remove(planName);
+			 }
+				
+				String sql = "delete from plan where id="+plan+";"; 
 				stmt.executeUpdate(sql);
 			 
 				

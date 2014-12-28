@@ -33,6 +33,7 @@ public class User extends Model{
   private SortedMap<Integer,Armumfang> armumfangList = new TreeMap<Integer,Armumfang>();
   private SortedMap<Integer,Hueftenumfang> hueftenumfangList = new TreeMap<Integer,Hueftenumfang>();
   private SortedMap<Integer,Brustumfang> brustumfangList = new TreeMap<Integer,Brustumfang>();
+  private Set<Routine> ruotine = new HashSet<Routine>();
   
   private Gewicht gewicht = null;
   private Bauchumfang bauchumfang = null;
@@ -114,6 +115,16 @@ public class User extends Model{
   public void setHueftenumfang(Hueftenumfang b){
 		hueftenumfang=b;
 	  hueftenumfangList.put(0, b);
+  }
+  
+  public void setRoutine(int plan, String tag, int uebung, Satz[] satz, Date datum){
+	  Routine r = new Routine(plan, tag, uebung, satz, datum);
+	  ruotine.add(r);
+  }
+  
+  public void setRoutineString(int plan, String tag, int uebung, Satz[] satz, String datum){
+	  Routine r = new Routine(plan, tag, uebung, satz, datum);
+	  ruotine.add(r);
   }
   
   public Map<String, Plan> getPlans(){

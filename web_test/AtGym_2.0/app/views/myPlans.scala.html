@@ -1,4 +1,4 @@
-@(user: models.User, loeschen: Form[models.uebungLoeschen])
+@(user: models.User, loeschen: Form[models.uebungLoeschen], loeschenPlan: Form[models.PlanLoeschen])
 @import helper._
 @import helper.twitterBootstrap._
 @main("my Plans"){
@@ -67,7 +67,7 @@
 									
 									} 
 								} else {
-								<tr><td>Du hast noch keine Pläne</td><td></td><td></td></tr>
+								<tr><td>Du hast keine Pläne</td><td></td><td></td></tr>
 								}
 								
 							</table>
@@ -96,9 +96,23 @@
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingOne">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@p.getId()" aria-expanded="true" aria-controls="collapseOne_@p.getId()">
-								@p.getName() <span class=transparent>#@p.getId()</span>
+							<div class="clearfix">
+								<a class="left" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@p.getId()" aria-expanded="true" aria-controls="collapseOne_@p.getId()">
+								@p.getName() <span class=" transparent" >#@p.getId()</span>
 								</a>
+								@form(routes.Application.planLoeschen(),'class -> "form-horizontal", 'id -> "loeschenPlan") {
+										  
+										  
+											 <span><input  style="display:none;" class="left breite1" name="@loeschenPlan("plan").name" value="@p.getId()" ></span>
+											
+											
+												<button type="submit" class="float_r close button2">löschen</button>
+											
+											}
+								
+								
+								
+								</div>
 							</h4>
 						</div>
 						
@@ -142,7 +156,7 @@
 																<tr><th>Name: </th></tr>
 																<tr><td>@u.getUebung.getName()<td></tr>
 																<tr><th>Sätze: </th></tr>
-																<tr><td>@u.saetze.length<td></tr>
+																<tr><td>@u.getWh()<td></tr>
 																<tr><th>Ben&oumltigtes Equipment: </th></tr>
 																<tr><td>@u.getUebung.getEquipment()<td></tr>
 																<tr><th>Schwierigkeitsgrad: </th></tr>
@@ -176,7 +190,7 @@
 														<tr><th>Name: </th></tr>
 														<tr><td>@u.getUebung().getName()<td></tr>
 														<tr><th>Sätze: </th></tr>
-														<tr><td>@u.saetze.length<td></tr>
+														<tr><td>@u.getWh()<td></tr>
 														<tr><th>Ben&oumltigtes Equipment: </th></tr>
 														<tr><td>@u.getUebung().getEquipment()<td></tr>
 														<tr><th>Schwierigkeitsgrad: </th></tr>
@@ -215,7 +229,7 @@
 														<tr><th>Name: </th></tr>
 														<tr><td>@u.getUebung().getName()<td></tr>
 														<tr><th>Sätze: </th></tr>
-														<tr><td>@u.saetze.length<td></tr>
+														<tr><td>@u.getWh()<td></tr>
 														<tr><th>Ben&oumltigtes Equipment: </th></tr>
 														<tr><td>@u.getUebung().getEquipment()<td></tr>
 														<tr><th>Schwierigkeitsgrad: </th></tr>
@@ -251,7 +265,7 @@
 														<tr><th>Name: </th></tr>
 														<tr><td>@u.getUebung().getName()<td></tr>
 														<tr><th>Sätze: </th></tr>
-														<tr><td>@u.saetze.length<td></tr>
+														<tr><td>@u.getWh()<td></tr>
 														<tr><th>Ben&oumltigtes Equipment: </th></tr>
 														<tr><td>@u.getUebung().getEquipment()<td></tr>
 														<tr><th>Schwierigkeitsgrad: </th></tr>
@@ -287,7 +301,7 @@
 														<tr><th>Name: </th></tr>
 														<tr><td>@u.getUebung().getName()<td></tr>
 														<tr><th>Sätze: </th></tr>
-														<tr><td>@u.saetze.length<td></tr>
+														<tr><td>@u.getWh()td></tr>
 														<tr><th>Ben&oumltigtes Equipment: </th></tr>
 														<tr><td>@u.getUebung().getEquipment()<td></tr>
 														<tr><th>Schwierigkeitsgrad: </th></tr>
@@ -323,7 +337,7 @@
 														<tr><th>Name: </th></tr>
 														<tr><td>@u.getUebung().getName()<td></tr>
 														<tr><th>Sätze: </th></tr>
-														<tr><td>@u.saetze.length<td></tr>
+														<tr><td>@u.getWh()<td></tr>
 														<tr><th>Ben&oumltigtes Equipment: </th></tr>
 														<tr><td>@u.getUebung().getEquipment()<td></tr>
 														<tr><th>Schwierigkeitsgrad: </th></tr>
@@ -360,7 +374,7 @@
 														<tr><th>Name: </th></tr>
 														<tr><td>@u.getUebung().getName()<td></tr>
 														<tr><th>Sätze: </th></tr>
-														<tr><td>@u.saetze.length<td></tr>
+														<tr><td>@u.getWh()<td></tr>
 														<tr><th>Ben&oumltigtes Equipment: </th></tr>
 														<tr><td>@u.getUebung().getEquipment()<td></tr>
 														<tr><th>Schwierigkeitsgrad: </th></tr>
@@ -390,7 +404,7 @@
 						} 
 				</div>		
 				} else {
-					Du hast noch keine Pläne
+					Du hast keine Pläne
 				}
 			</div>
 		</section>

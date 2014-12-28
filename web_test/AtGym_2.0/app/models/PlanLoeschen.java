@@ -24,27 +24,46 @@ import play.db.ebean.Model;
 import play.data.validation.ValidationError;
 import play.data.validation.Constraints.*;
 
-public class AusgewaehlteUebung{
-	private Uebung uebung; 
-	private int wh;
+public class PlanLoeschen{
 	
-	public AusgewaehlteUebung(Uebung u, int anzahl){
-		uebung = u;
-		wh=anzahl;
-	}
+	private int plan;
 	
-	public AusgewaehlteUebung(){
+
+	public PlanLoeschen(){}	
+	
+public PlanLoeschen(int plan){
+		this.plan=plan;
 		
+}
+
+
+
+
+public int getPlan(){
+	return plan;
+}	
+
+
+public void setPlan(int plan){
+	this.plan=plan;	 
+}
+
+
+
+  public List<ValidationError> validate() {
+		List<ValidationError> error = new ArrayList<>();
+		System.out.println("validierung");
+		if(plan < 0){
+			error.add(new ValidationError("umfang", "This field is needed"));
+		} else{
+			
+			setPlan(plan);
+		}
+		
+		
+		
+		return error.isEmpty() ? null : error;
 	}
 
-	
-	public Uebung getUebung(){
-		return uebung;
-	}
-	
-	
-	public int getWh(){
-		return wh;
-	}
 
 }

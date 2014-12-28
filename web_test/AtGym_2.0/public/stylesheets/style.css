@@ -368,7 +368,10 @@ img:hover {
 		margin-bottom : 10%;
 		
 }
-
+.button2{
+margin:0%;
+padding: 0%;
+}
 .abstand_innen {
 		padding: 0.5%;
 }
