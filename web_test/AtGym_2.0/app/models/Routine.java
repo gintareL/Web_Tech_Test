@@ -104,6 +104,13 @@ public Routine(int plan, String tag, int uebung, Satz[] satz, Date datum){
 		this.plan=plan;
 	}
 	
+	public String getDatumString(){
+	 return datumString;
+}
+
+public Date getDatum(){
+	return datum;
+}
 	
 	public void setUebung(int uebung){
 		this.uebung=uebung;
@@ -128,7 +135,7 @@ public Routine(int plan, String tag, int uebung, Satz[] satz, Date datum){
 			int gewicht1=0;
 			int wh2=0;
 			int gewicht2=0;
-			System.out.println();
+			
 		if(wh0 <= 0 ){
 			error.add(new ValidationError("umfang", "This field is needed"));
 		} else{

@@ -730,7 +730,6 @@ public class Application extends Controller {
 			Satz g = satzSave.get();
 			
 			User user = model.aktuellUser();
-			System.out.println(g.getSatz());
 			model.routineStep1(g.getPlan(), g.getUebung(), g.getTag(), g.getWh(), g.getGewicht(), g.getSatz());
 			
 		}

@@ -23,6 +23,7 @@ import javax.swing.*;
 public class Models extends Model{
 	Connection conn = null;
 	 Statement stmt = null;
+	 Statement stmt1 = null;
 	 ResultSet rs = null;	
 	 ResultSet rs1 = null;	
 	//static int index=100; 	
@@ -53,7 +54,14 @@ public class Models extends Model{
 		 hueftenList();
 		 brustumfangList();
 		 plaene();
-		// routineAuslesen();
+		routineAuslesen();
+		for(Routine r : user.getRoutine()){
+			System.out.println(r.getDatumString() + " " + r.getPlan() + " " + r.getUebung());
+			for(Satz sa : r.getSatz()){
+				System.out.println(sa.getWh() + " " + sa.getGewicht());
+			}
+		}
+	
 		 
 		// stmt.close();
 		return true;
@@ -683,20 +691,27 @@ public class Models extends Model{
    public void routineAuslesen(){
 	   try {
 				stmt = conn.createStatement();
+				stmt1 = conn.createStatement();
 				rs = stmt.executeQuery( "select r.datum as datum, r.plan as plan, r.uebung as uebung, r.tag as tag, count() as anzahl from routine r, plan p where p.user="+user.getId()+" and p.id=r.plan group by r.plan, r.uebung, r.tag, r.datum;" );
 						 while ( rs.next() ) {
 							int plan = rs.getInt("plan");
 							int uebung = rs.getInt("uebung");
 							String datum = rs.getString("datum");
 							String tag = rs.getString("tag");
-							Satz[] satz = new Satz[rs.getInt("anzahl")];
+							int laenge = rs.getInt("anzahl");
+							System.out.println("plan: " + plan + " uebung: " + uebung + " tag: " + tag + " datum: " + datum);
+							Satz[] satz = new Satz[laenge];
 							int i = 0;
-							rs1 = stmt.executeQuery("select s.id, s.wh, s.gewicht from routine r, satz s where s.id=r.satz and r.plan="+plan+" and r.uebung="+uebung+" and r.datum="+datum+" and r.tag="+tag+";");
-							while ( rs.next() ) {
+							rs1 = stmt1.executeQuery("select s.id, s.wh, s.gewicht from routine r, satz s where s.id=r.satz and r.plan="+plan+" and r.uebung="+uebung+" and r.datum='"+datum+"' and r.tag='"+tag+"';");
+							
+							while ( rs1.next() ) {
+								
 								int id = rs1.getInt("id");
 								int wh = rs1.getInt("wh");
 								int gewicht = rs1.getInt("gewicht");
+								
 								satz[i] = new Satz(id, wh, gewicht); 
+								
 								i++;
 							}
 							 user.setRoutineString(plan, tag, uebung, satz, datum);
@@ -713,6 +728,8 @@ public class Models extends Model{
 	   }finally {
 			try { if (rs != null) rs.close(); } catch (Exception e) {};
 			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+			try { if (rs1 != null) rs1.close(); } catch (Exception e) {};
+			try { if (stmt1 != null) stmt1.close(); } catch (Exception e) {};
 		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
 		}
 	   
@@ -732,7 +749,7 @@ public class Models extends Model{
    
 
    public boolean saetzeSpeichern(int plan, int uebung, String tag, int wh, int gewicht, int satz){
-	 System.out.println(plan + " " + uebung + " " + tag + " " + wh + " " + gewicht + " " + satz);
+	
 	 for(Plan p : user.getPlans().values()){
 		 if(p.getId() == plan){
 			 for(AusgewaehlteUebung a : p.getUebungen().get(Tag.valueOf(tag)).getUebungen()){
@@ -772,7 +789,7 @@ public class Models extends Model{
 					rs = stmt.executeQuery( "select max(id) as id from satz;" );
 						 while ( rs.next() ) {
 							 int id = rs.getInt("id");  
-							 System.out.println(id);
+							
 							 String sql1 = "INSERT INTO routine (datum, plan, uebung, tag, satz) " +
 								"VALUES ('"+dateFormat.format(datum)+"',"+plan+","+uebung+",'"+tag+"',"+id+");"; 
 								Satz s = new Satz(id, satz[i].getWh(), satz[i].getGewicht());
