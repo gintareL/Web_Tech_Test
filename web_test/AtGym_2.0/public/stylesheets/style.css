@@ -389,3 +389,12 @@ float: right;
 .transparent{
 color : rgba(220,160,140,0);
 }
+
+.pfeilUp {
+		font-size : 30%;
+		display:none;
+	}
+.pfeilDown{
+font-size : 80%;
+	
+}

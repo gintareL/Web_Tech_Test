@@ -33,7 +33,7 @@ public class User extends Model{
   private SortedMap<Integer,Armumfang> armumfangList = new TreeMap<Integer,Armumfang>();
   private SortedMap<Integer,Hueftenumfang> hueftenumfangList = new TreeMap<Integer,Hueftenumfang>();
   private SortedMap<Integer,Brustumfang> brustumfangList = new TreeMap<Integer,Brustumfang>();
-  private Set<Routine> routine = new HashSet<Routine>();
+  private Set<Routine> routine = new HashSet<Routine>(); // für Analyse kann man die Liste iterieren und die Daten auslesen.
   
   private Gewicht gewicht = null;
   private Bauchumfang bauchumfang = null;

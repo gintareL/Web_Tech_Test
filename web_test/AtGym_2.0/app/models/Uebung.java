@@ -10,6 +10,8 @@ public class Uebung {
 	private String muskel2;
 	private String bild;
 	private Muskel muskelgruppe;
+	private int like;
+	private int dislike;
 	
 	
 	public Uebung( int id, String n, String e, String g, String m1, String m2, String b, Muskel m){
@@ -21,6 +23,19 @@ public class Uebung {
 		muskel2 = m2;
 		bild = b;
 		muskelgruppe = m;
+	}
+	
+	public Uebung( int id, String n, String e, String g, String m1, String m2, String b, Muskel m, int like, int dislike){
+		this.id=id;
+		name = n;
+		equipment = e;
+		grad = g;
+		muskel1 = m1;
+		muskel2 = m2;
+		bild = b;
+		muskelgruppe = m;
+		this.like=like;
+		this.dislike = dislike;
 	}
 	public String getName(){
 	return name;
@@ -44,6 +59,12 @@ public class Uebung {
 	return id;
 	}
 	
+	public int getLike(){
+	return like;
+	}
+	public int getDislike(){
+	return dislike;
+	}
 	
 	public String getBild(){
 	return bild;

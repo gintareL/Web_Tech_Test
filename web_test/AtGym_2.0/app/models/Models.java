@@ -396,7 +396,7 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.beine;
-	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='beine' and b.id = u.beschreibung;" );
+	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='beine' and b.id = u.beschreibung;" );
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -406,7 +406,9 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 int like = rs.getInt("like");
+	 int dislike = rs.getInt("dislike");
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe, like, dislike);
 	 uebungenBeine.put(id, uebung);
 	 }
 	//  stmt.close();
@@ -435,7 +437,7 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.bauch;
-	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='bauch' and b.id = u.beschreibung;" );
+	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='bauch' and b.id = u.beschreibung;" );
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -444,8 +446,10 @@ public class Models extends Model{
 	 grad = rs.getString("grad");
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
+	  int like = rs.getInt("like");
+	 int dislike = rs.getInt("dislike");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe, like, dislike);
 	 uebungenBauch.put(id, uebung);
 	 }
 	// stmt.close();
@@ -473,7 +477,7 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.arme;
-	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='arme' and b.id = u.beschreibung;" );
+	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='arme' and b.id = u.beschreibung;" );
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -483,7 +487,9 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	  int like = rs.getInt("like");
+	 int dislike = rs.getInt("dislike");
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe, like, dislike);
 	 uebungenArme.put(id, uebung);
 	 }
 	// stmt.close();
@@ -511,7 +517,7 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.brust;
-	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='brust' and b.id = u.beschreibung;" );
+	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='brust' and b.id = u.beschreibung;" );
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -521,7 +527,9 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	  int like = rs.getInt("like");
+	 int dislike = rs.getInt("dislike");
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe, like, dislike);
 	 uebungenbrust.put(id, uebung);
 	 }
 	// stmt.close();
@@ -549,7 +557,7 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.ruecken;
-	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='ruecken' and b.id = u.beschreibung;" );
+	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='ruecken' and b.id = u.beschreibung;" );
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -559,7 +567,9 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	  int like = rs.getInt("like");
+	 int dislike = rs.getInt("dislike");
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe, like, dislike);
 	 uebungenruecken.put(id, uebung);
 	 }
 	// stmt.close();
@@ -587,7 +597,7 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.schultern;
-	 rs = stmt.executeQuery( "SELECT u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='schultern' and b.id = u.beschreibung;" );
+	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='schultern' and b.id = u.beschreibung;" );
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -597,7 +607,9 @@ public class Models extends Model{
 	 muskel1 = rs.getString("muskel");
 	 muskel2 = rs.getString("muskel2");
 	 int id = rs.getInt("id");
-	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
+	  int like = rs.getInt("like");
+	 int dislike = rs.getInt("dislike");
+	 Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe, like, dislike);
 	 uebungenschultern.put(id, uebung);
 	 }
 	// stmt.close();

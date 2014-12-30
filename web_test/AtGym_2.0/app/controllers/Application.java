@@ -24,6 +24,7 @@ public class Application extends Controller {
 	final static Form<User> loginForm = Form.form(User.class); 
 	final static Models model = Models.getInstance();
 	final static Form<Gewicht> gewichtForm = Form.form(Gewicht.class); 
+	private static List<WebSocket.Out<JsonNode>> lobbyConnection = new ArrayList<WebSocket.Out<JsonNode>>();
 	
 	public static Result login() {
     	session().clear();

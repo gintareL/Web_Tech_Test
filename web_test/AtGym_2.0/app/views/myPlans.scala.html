@@ -97,7 +97,7 @@
 						<div class="panel-heading" role="tab" id="headingOne">
 							<h4 class="panel-title">
 							<div class="clearfix">
-								<a class="left" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@p.getId()" aria-expanded="true" aria-controls="collapseOne_@p.getId()">
+								<a class="left" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@p.getId()" aria-expanded="false" aria-controls="collapseOne_@p.getId()">
 								@p.getName() <span class=" transparent" >#@p.getId()</span>
 								</a>
 								@form(routes.Application.planLoeschen(),'class -> "form-horizontal", 'id -> "loeschenPlan") {
@@ -406,6 +406,11 @@
 				} else {
 					Du hast keine Pläne
 				}
+				
+				
+			
+				
+				
 			</div>
 		</section>
 		
