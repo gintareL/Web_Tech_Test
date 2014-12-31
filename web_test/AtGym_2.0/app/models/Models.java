@@ -1006,7 +1006,61 @@ public class Models extends Model{
 	  
   }
  
- 
+	public void like(int uebung){
+		try {	
+				int likes=0;
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select like from uebung where id="+uebung+";");
+				 while ( rs.next() ) {
+				 
+				 likes = rs.getInt("like");
+				 likes = likes+1;
+				
+			 }
+				String sql = "update uebung set like="+likes+" where id="+uebung+";"; 
+				stmt.executeUpdate(sql);
+				
+				
+   //  stmt.close();
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+	}
+	
+	public void dislike(int uebung){
+		
+		try {	
+				int dislikes=0;
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select dislike from uebung where id="+uebung+";");
+				 while ( rs.next() ) {
+				 
+				 dislikes = rs.getInt("dislike");
+				 dislikes = dislikes+1;
+				 
+			 }
+				
+				String sql = "update uebung set dislike="+dislikes+" where id="+uebung+";"; 
+				stmt.executeUpdate(sql);
+				
+				
+   //  stmt.close();
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+	}
  
  
 

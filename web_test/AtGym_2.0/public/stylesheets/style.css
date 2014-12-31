@@ -275,7 +275,12 @@ width:20%;
 	width: 30%;
 	padding: 1%;
 }
-
+.breite8{
+	width: 80%;
+}
+.breite9{
+	width: 10%;
+}
 .scroll{
 	height : 25em;
 	overflow: scroll;

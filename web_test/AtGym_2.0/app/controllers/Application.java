@@ -382,18 +382,20 @@ public class Application extends Controller {
 	
 	
 	public static Result beine(){
+		Form<Like> likes = Form.form(Like.class);
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
 		SortedMap<Integer, Uebung> beineUebungen = model.beine();
 		String username = session("User1");
 		if(username != null) {
-			return ok(beine.render(user, beineUebungen, uebungenForm, uebungLoeschen));
+			return ok(beine.render(user, beineUebungen, uebungenForm, uebungLoeschen, likes));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	public static Result bauch(){
+		Form<Like> likes = Form.form(Like.class);
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
@@ -401,13 +403,14 @@ public class Application extends Controller {
 		String username = session("User1");
 		
 		if(username != null) {
-			return ok(bauch.render(user, bauchUebungen, uebungenForm, uebungLoeschen));
+			return ok(bauch.render(user, bauchUebungen, uebungenForm, uebungLoeschen, likes));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
 	public static Result arme(){
+		Form<Like> likes = Form.form(Like.class);
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
@@ -415,7 +418,7 @@ public class Application extends Controller {
 		String username = session("User1");
 		
 		if(username != null) {
-			return ok(arme.render(user, armeUebungen, uebungenForm, uebungLoeschen));
+			return ok(arme.render(user, armeUebungen, uebungenForm, uebungLoeschen, likes));
 		}else{
 			return redirect("/atGym");
 			}
@@ -424,21 +427,75 @@ public class Application extends Controller {
 	
 	
 	public static Result brust(){
+		Form<Like> likes = Form.form(Like.class);
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
 		SortedMap<Integer, Uebung> brustUebungen = model.brust();
 	String username = session("User1");
 		if(username != null) {
-			return ok(brust.render(user, brustUebungen, uebungenForm, uebungLoeschen));
+			return ok(brust.render(user, brustUebungen, uebungenForm, uebungLoeschen, likes));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
-	
+	public static Result like(){
+		Form<Like> likes = Form.form(Like.class).bindFromRequest();
+		if(likes.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/arme");
+    	}else{
+		
+		
+			Like l = likes.get();
+			User user = model.aktuellUser();
+			model.like(l.getId());
+			String muskelgruppe = l.getMuskelgruppe();
+			System.out.println(muskelgruppe + " " + l.getId());
+			
+			
+			if(muskelgruppe.equals("Arme")){
+				return redirect("/arme");
+			} else if(muskelgruppe.equals("Bauch")){
+				return redirect("/bauch");
+			} else if(muskelgruppe.equals("Beine")){
+				return redirect("/beine");
+			} else if(muskelgruppe.equals("Brust")){
+				return redirect("/brust");
+			}else if(muskelgruppe.equals("Schultern")){
+				return redirect("/schultern");
+			} else {
+				return redirect("/ruecken");
+			}
+			
+		
+		
+		}
+	}
+	public static Result dislike(){
+		Form<Like> dislikes = Form.form(Like.class).bindFromRequest();
+		if(dislikes.hasErrors()){
+		
+    		System.out.println("Errors gefunden!");
+    		return redirect("/arme");
+    	}else{
+		
+		
+			Like l = dislikes.get();
+			User user = model.aktuellUser();
+			model.dislike(l.getId());
+			
+			
+			
+		return redirect("/arme");
+		
+		}
+	}
 	
 	public static Result ruecken(){
+		Form<Like> likes = Form.form(Like.class);
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
@@ -446,13 +503,14 @@ public class Application extends Controller {
 
 		String username = session("User1");
 		if(username != null) {
-			return ok(ruecken.render(user, rueckenUebungen, uebungenForm, uebungLoeschen));
+			return ok(ruecken.render(user, rueckenUebungen, uebungenForm, uebungLoeschen, likes));
 		}else{
 			return redirect("/atGym");
 			}
 	}
 	
 	public static Result schultern(){
+		Form<Like> likes = Form.form(Like.class);
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 		User user = model.aktuellUser();
@@ -461,7 +519,7 @@ public class Application extends Controller {
 	String username = session("User1");
 		if(username != null) {
 		
-			return ok(schultern.render(user, schulternUebungen, uebungenForm, uebungLoeschen));
+			return ok(schultern.render(user, schulternUebungen, uebungenForm, uebungLoeschen, likes));
 		}else{
 			return redirect("/atGym");
 			}

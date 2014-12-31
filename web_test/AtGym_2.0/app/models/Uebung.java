@@ -40,6 +40,26 @@ public class Uebung {
 	public String getName(){
 	return name;
 	}
+	public String getMuskelgruppe(){
+		if(Muskel.arme == muskelgruppe){
+			return "Arme";
+		}
+		if(Muskel.beine == muskelgruppe){
+			return "Beine";
+		}
+		if(Muskel.brust == muskelgruppe){
+			return "Brust";
+		}
+		if(Muskel.beine == muskelgruppe){
+			return "Beine";
+		}
+		if(Muskel.schultern == muskelgruppe){
+			return "Schultern";
+		}
+		else{
+			return "Ruecken";
+		}
+	}
 	public String getEquipment(){
 	return equipment;
 	}
@@ -62,8 +82,14 @@ public class Uebung {
 	public int getLike(){
 	return like;
 	}
+	public void setLike(int like){
+		this.like=like;
+	}
 	public int getDislike(){
 	return dislike;
+	}
+	public void setDisike(int dislike){
+		this.dislike=dislike;
 	}
 	
 	public String getBild(){

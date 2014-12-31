@@ -1,4 +1,4 @@
-@(user: models.User, brust : SortedMap[Integer, models.Uebung], uebungForm: Form[models.Auswaehlen], loeschen: Form[models.uebungLoeschen])
+@(user: models.User, brust : SortedMap[Integer, models.Uebung], uebungForm: Form[models.Auswaehlen], loeschen: Form[models.uebungLoeschen], likes: Form[models.Like])
 @import helper._
 @import helper.twitterBootstrap._
 @main("Brust"){
@@ -110,15 +110,24 @@
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingOne">
 						  <h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne@b" aria-expanded="true" aria-controls="collapseOne@b">
-							  @brust.get(b).getName()<span class=transparent> #@b </span>
-							</a>
-							<a href="#"class=" float_r glyphicon glyphicon-thumbs-up" aria-hidden="true"> @brust.get(b).getLike()</a>
-							  <a href="#" class=" groessee float_r glyphicon glyphicon-thumbs-down" aria-hidden="true"> @brust.get(b).getDislike()</a>
+							<div class="clearfix">
+							<a data-toggle="collapse" class="left breite8" data-parent="#accordion" href="#collapseOne@b" aria-expanded="true" aria-controls="collapseTwo">
+							  @brust.get(b).getName()<span class=transparent> #@b </span></a>
+							  @form(routes.Application.like(),'class -> "form-horizontal", 'id -> "likes") {
+							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@brust.get(b).getMuskelgruppe()" >
+							  <input style="display:none;" name="@likes("id").name" value="@b" >
+							  <button type="submit" class="close button2 left breite9 glyphicon glyphicon-thumbs-up"  aria-hidden="true"> @brust.get(b).getLike()</button>
+							  }
+							  @form(routes.Application.dislike(),'class -> "form-horizontal", 'id -> "likes") {
+							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@brust.get(b).getMuskelgruppe()" >
+							  <input style="display:none;" name="@likes("id").name" value="@b" >
+							  <button  type="submit" class="close button2 left breite9 glyphicon glyphicon-thumbs-down" aria-hidden="true"> @brust.get(b).getDislike()</button>
+							}
+							</div>
 						  </h4>
 						</div>
 					
-					<div id="collapseOne@b" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+					<div id="collapseOne@b" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 						  <div class="panel-body">
 							  
 								<img class="rande left breite abstand" id="uebung_gif" src=@brust.get(b).getBild()>
