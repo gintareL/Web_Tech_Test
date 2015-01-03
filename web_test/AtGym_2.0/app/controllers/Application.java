@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.File;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -17,6 +18,8 @@ import play.api.data.*;
 import play.api.data.Forms.*;
 import play.data.*;
 import play.data.Form;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
 import models.*;
 import views.html.*;
 import javax.swing.*;
@@ -340,60 +343,24 @@ public class Application extends Controller {
 	}
 	
 	
-	/*
-	public static Result einloggen() {
-		Form<User> userForm = Form.form(User.class);
-		return ok(logIn.render(userForm))
-		);
-	}
-	
-	public static Result authenticate() {
-		Form<Login> loginForm = form(Einloggen.class).bindFromRequest();
-		if(loginForm.hasErrors()) {
-			return badRequest(einloggen.render(loginForm));
-		} else{
-			session().clear();
-			session("email", loginForm.get().email);
-			return redirect("/home");
-		}
-	}
-	
-	public static class Einloggen {
-	public String email;
-	public String password;
-	
-		public String validate() {
-			if(User.authenticate(email, password) == null) {
-				return "Invalid user or password";
-			}
-			return null;
-		}
+	/*public static Result upload(){
+		  MultipartFormData body = request().body().asMultipartFormData();
+		  for(MultipartFormData.FilePart picture : body.getFiles()){
+			  if (picture != null) {
+			    String fileName = picture.getFilename();
+			    String contentType = picture.getContentType(); 
+			    File file = picture.getFile();
+			    file.renameTo(new File("/path/to/folder", fileName));
+			  } else {
+			    flash("error", "Missing file");
+			    return redirect("/aboutMe");    
+			  }
+		  }
+		  return ok(aboutMe.render(file));
 	}*/
+	
+	
 
-	/*public static WebSocket<String> feedback() {
-		WebSocket<String> ws = null;
-		
-		ws = new WebSocket<String>(){
-			public void onReady(WebSocket.In<String> in, final WebSocket.Out<String> out) {
-			
-				//For each event received on the socket
-				in.onMessage(new Callback<String>() {
-					public void invoke(String event) {
-						int counter++;
-						String likes = counter.toString();
-						out.write(likes);
-					}
-				});
-				
-				in.onClose(newCallback0() {
-					public void invoke(){
-						System.out.println("Disconnected!");
-					}
-				});
-			}
-		};
-		return ws;
-	}*/
 	
 	}
 	
