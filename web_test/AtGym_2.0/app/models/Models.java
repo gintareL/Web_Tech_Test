@@ -19,6 +19,9 @@ import play.data.validation.Constraints.*;
 import javax.persistence.Entity;
 import java.io.IOException;
 import javax.swing.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class Models extends Model{
 	Connection conn = null;
@@ -46,7 +49,7 @@ public class Models extends Model{
 		 String passwort = rs.getString("password");
 	 if(email.equals(em)==true && passwort.equals(p)==true ){
 		
-		 this.user = new User(rs.getString("vorname"), rs.getString("nachname"), email, password, rs.getInt("groesse"), rs.getInt("geschlecht"));
+		 this.user = new User(rs.getString("vorname"), rs.getString("nachname"), email, p, rs.getInt("groesse"), rs.getInt("geschlecht"),rs.getString("bild"));
 		  user.setId(selectId(email));
 		 gewichtList();
 		 bauchumfangList();
@@ -141,8 +144,10 @@ public class Models extends Model{
    if(user.getGeschlecht() != null){
    if(user.getGeschlecht().equals("weiblich")==true) {
    geschlecht = 0;
-   }  else {
+   u.setBild("assets//images//default_bild_w.jpg");
+    }  else {
    geschlecht = 1;
+     u.setBild("assets//images//default_bild_m.jpg");
    }
    } else {
 	   return false;
@@ -152,7 +157,7 @@ public class Models extends Model{
 	try {
 	 stmt = conn.createStatement();
 	       String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,geschlecht) " +
-                   "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','null','"+ u.getEmail() +"','"+password+"',"+ u.getGroesse()+","+ geschlecht +");"; 
+                   "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','"+u.getBild()+"','"+ u.getEmail() +"','"+password+"',"+ u.getGroesse()+","+ geschlecht +");"; 
       stmt.executeUpdate(sql);
 	//  stmt.close();
 	  
@@ -177,6 +182,48 @@ public class Models extends Model{
 	} else{
 	return false;
 	}	
+   }
+   
+   public void imageSave(String file){
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd-hh-mm-ss");
+		String datum = dateFormat.format(date);
+		String bild = null;
+		String bildname = null; 
+	   try {
+			File quellDatei = new File(file);
+			bildname = "bild"+user.getPassword()+datum+".jpg";
+			String bildfile = ".\\public\\images\\"+bildname;
+			
+			bild = "assets//images//"+bildname;
+			File zielDatei = new File(bildfile);
+			quellDatei.renameTo(zielDatei);
+			user.setBild(bild);
+			
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+	
+			try {	
+				
+				stmt = conn.createStatement();
+				System.out.println(user.getId());
+				String sql = "update user set bild='"+bild+"' where userid="+user.getId()+";"; 
+				stmt.executeUpdate(sql);
+				
+				
+   //  stmt.close();
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	  
+    } finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+			 
+			
    }
    
    public void gewichtCheck(){

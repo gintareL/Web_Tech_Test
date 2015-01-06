@@ -59,14 +59,33 @@ public class User extends Model{
 	this.geschlecht = Geschlecht.weiblich;
 	else this.geschlecht = Geschlecht.maennlich;
   }
-  
+   public User(String vorname, String nachname, String email, String password, int groesse, int geschlecht, String bild){
+	this.email=email;
+	this.nachname=nachname;
+	this.vorname = vorname;
+	this.password = password;
+	this.bild=bild;
+	this.groesse = groesse;
+	if(geschlecht == 0)
+	this.geschlecht = Geschlecht.weiblich;
+	else this.geschlecht = Geschlecht.maennlich;
+  }
   
   public User(String vorname, String nachname, String email, String password, int groesse, Geschlecht geschlecht){
 	this.email=email;
 	this.nachname=nachname;
 	this.vorname = vorname;
+	this.password = password;	
+	this.groesse = groesse;	
+	this.geschlecht = geschlecht;
+  }
+  
+    public User(String vorname, String nachname, String email, String password, int groesse, Geschlecht geschlecht, String bild){
+	this.email=email;
+	this.nachname=nachname;
+	this.vorname = vorname;
 	this.password = password;
-	
+	this.bild=bild;
 	this.groesse = groesse;
 	
 	this.geschlecht = geschlecht;
@@ -135,9 +154,8 @@ public class User extends Model{
   this.plaene.put(p.getName(), p);
   }
   public String getBild(){
-	if(bild != null) return bild;
-	else if(getGeschlecht().equals("weiblich")) return "default_bild_w.jpg";
-	else return "default_bild_m.jpg";
+	
+	return bild;
   }
   public void setBild(String bild){
 	this.bild = bild;

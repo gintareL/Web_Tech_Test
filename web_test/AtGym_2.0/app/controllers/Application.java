@@ -8,11 +8,14 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.libs.Json;
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
 import play.*;
 import play.mvc.*;
+import play.mvc.Http.*;
+import play.mvc.Http.RequestBody;
 import play.api.data.*;
 import play.api.data.Forms.*;
 import play.data.*;
@@ -20,6 +23,9 @@ import play.data.Form;
 import models.*;
 import views.html.*;
 import javax.swing.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 public class Application extends Controller {
 	final static Form<User> loginForm = Form.form(User.class); 
 	final static Models model = Models.getInstance();
@@ -214,6 +220,22 @@ public class Application extends Controller {
 		}
 	}
 	
+	public static Result upload() {
+	  MultipartFormData body = request().body().asMultipartFormData();
+	  FilePart picture = body.getFile("picture");
+	  if (picture != null) {
+		String fileName = picture.getFilename();
+		
+		String contentType = picture.getContentType(); 
+		File file = picture.getFile();
+		model.imageSave(file.getPath());
+	
+		return redirect("/aboutMe");
+	  } else {
+		flash("error", "Missing file");
+		return redirect("/aboutMe"); 
+	  }
+	}
 	
 	public static Result aboutMe(){
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
@@ -224,11 +246,10 @@ public class Application extends Controller {
 		Form<Brustumfang> brustForm = Form.form(Brustumfang.class);
 	User user = model.aktuellUser();
 	String username = session("User1");
-	String geschlecht = session("User4");
-	String bild = session("bild");
+	
 	if(username != null) {
 		
-		return ok(aboutMe.render(user, username, geschlecht, bild, gewichtForm, bauchForm, hueftenForm, armForm, brustForm, uebungLoeschen));
+		return ok(aboutMe.render(user, gewichtForm, bauchForm, hueftenForm, armForm, brustForm, uebungLoeschen));
     }else{
 		return redirect("/atGym");
     	}
@@ -379,6 +400,29 @@ public class Application extends Controller {
 		
 		}
 	}
+		public static WebSocket<String> guess() {
+		 WebSocket<String> ws = null;
+			// final int r = Integer.parseInt(session("random"));
+		/*		 ws = new WebSocket<String>() {
+					 public void onReady(WebSocket.In<String> in, final WebSocket.Out<String> out) {
+							in.onMessage(new Callback<String>() {
+								 public void invoke(String g) {
+								 int guess = Integer.parseInt(g);
+								 String res = "< secret number!";
+								 if (guess > r) res = "> secret number!";
+								 else if (guess == r) res = "correct!";
+								 out.write(res);
+								 }
+							});
+					in.onClose(new Callback0() {
+						 public void invoke() {
+						 System.out.println("Disconnected!");
+						 }
+					});
+				 }
+			 };*/
+		 return ws;
+		 }
 	
 	
 	public static Result beine(){

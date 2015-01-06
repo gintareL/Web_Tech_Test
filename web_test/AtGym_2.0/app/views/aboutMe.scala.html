@@ -1,4 +1,4 @@
-@(user: models.User, vorname : String, geschlecht : String, bild : String, gewichtForm: Form[models.Gewicht], bauchForm: Form[models.Bauchumfang], hueftenForm:Form[models.Hueftenumfang], armForm:Form[models.Armumfang], brustForm:Form[models.Brustumfang], loeschen: Form[models.uebungLoeschen])
+@(user: models.User, gewichtForm: Form[models.Gewicht], bauchForm: Form[models.Bauchumfang], hueftenForm:Form[models.Hueftenumfang], armForm:Form[models.Armumfang], brustForm:Form[models.Brustumfang], loeschen: Form[models.uebungLoeschen])
 @import helper._
 @import helper.twitterBootstrap._
 @main("about Me"){
@@ -95,14 +95,15 @@
 				
 			
 				<div class="center">
-				<div > @if(user.getBild().equals("default_bild_w.jpg") == true){
-						<img class="rande left breite abstand" src="@routes.Assets.at("images/default_bild_w.jpg")">
-						}
-						@if(user.getBild().equals("default_bild_m.jpg") == true){
-						<img class="rande left breite abstand" src="@routes.Assets.at("images/default_bild_m.jpg")">
-						}
-						@if(user.getBild().equals("null") == true){
-						<img class="rande left breite abstand" src="@routes.Assets.at("images/@bild")">
+				<div > 
+						
+						@form(action = routes.Application.upload, 'enctype -> "multipart/form-data") {
+							<img class="rande left breite abstand" src=@user.getBild()>
+							<input type="file" name="picture">
+							
+							<input type="submit">
+							
+							
 						}
 						<div class="left breite abstand">
 							<table class="table">
