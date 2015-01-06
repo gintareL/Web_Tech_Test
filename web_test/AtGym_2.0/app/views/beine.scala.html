@@ -28,8 +28,6 @@
 						<li><a href="/brust">Brust</a></li>
 						<li><a href="/ruecken">Rücken</a></li>
 						<li><a href="/schultern">Schultern</a></li>
-						<li class="divider"></li>
-						<li><a href="/vipPlaene">V.I.P. Pläne</a></li>
 						
 						<li class="divider"></li>
 						<li><a href="/ourGym">Alle Kategorien</a></li>
@@ -93,7 +91,7 @@
 
 		</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="">@user.getVorname()</a></li>
+						<li><a href="/aboutMe">@user.getVorname()</a></li>
 					  </ul>
 				</div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
@@ -113,9 +111,9 @@
 							<a data-toggle="collapse" class="left breite8" data-parent="#accordion" href="#collapseOne@b" aria-expanded="true" aria-controls="collapseTwo">
 							  @beine.get(b).getName()<span class=transparent> #@b </span></a>
 							  @form(routes.Application.like(),'class -> "form-horizontal", 'id -> "likes") {
-							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@beine.get(b).getMuskelgruppe()" >
+							  <input style="display:none;" name="@likes("muskelgruppe").name" id="like@b" value="@beine.get(b).getMuskelgruppe()" >
 							  <input style="display:none;" name="@likes("id").name" value="@b" >
-							  <button type="submit"  onclick="sendLike()"  class="close button2 left breite9 glyphicon glyphicon-thumbs-up"  aria-hidden="true"> @beine.get(b).getLike()</button>
+							  <button type="submit"  onclick="sendLike()"  class="close button2 left breite9 glyphicon glyphicon-thumbs-up" id="likeNeu@b" aria-hidden="true"> @beine.get(b).getLike()</button>
 							  }
 							  @form(routes.Application.dislike(),'class -> "form-horizontal", 'id -> "likes") {
 							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@beine.get(b).getMuskelgruppe()" >
@@ -125,6 +123,9 @@
 							</div>
 						  </h4>
 						</div>
+					
+			
+					
 					
 					<div id="collapseOne@b" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 						  <div class="panel-body">
