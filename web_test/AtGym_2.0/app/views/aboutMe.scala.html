@@ -95,16 +95,17 @@
 				
 			
 				<div class="center">
-				<div > 
-						
+				<div class="clearfix"> 
+					<div class="left breite abstand">
+						<img id="logo" class="rande" src=@user.getBild()>
 						@form(action = routes.Application.upload, 'enctype -> "multipart/form-data") {
-							<img class="rande left breite abstand" src=@user.getBild()>
-							<input type="file" name="picture">
-							
-							<input type="submit">
-							
+						<div class="clearfix">	
+							<input class="left breite11 btn" type="file" name="picture">
+							<input class="left btn" type="submit" value="Foto ändern">
+						</div>	
 							
 						}
+					</div>	
 						<div class="left breite abstand">
 							<table class="table">
 							
