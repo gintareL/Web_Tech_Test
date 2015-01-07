@@ -23,7 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Models extends Model{
+public class Models_fehler extends Model{
 	Connection conn = null;
 	 Statement stmt = null;
 	 Statement stmt1 = null;
@@ -32,8 +32,8 @@ public class Models extends Model{
 	//static int index=100; 	
 	private static Models instance = null;
 	//private static User user;
-	private static Map<String, User>alleUser = new HashMap<String, User>();
-   private Models() {
+	private static Map<Integer,User>alleUser = new HashMap<Integer,User>();
+   private Models_fehler() {
 	 
 		conn = AtGymDatabase.dbConnector();
 		
@@ -49,28 +49,24 @@ public class Models extends Model{
 		 String email = rs.getString("email");
 		 String passwort = rs.getString("password");
 	 if(email.equals(em)==true && passwort.equals(p)==true ){
-			
-		 // this.user = new User(rs.getString("vorname"), rs.getString("nachname"), email, p, rs.getInt("groesse"), rs.getInt("geschlecht"),rs.getString("bild"));
-		 // user.setId(selectId(email));
-		  User userToList = new User(rs.getString("vorname"), rs.getString("nachname"), email, p, rs.getInt("groesse"), rs.getInt("geschlecht"),rs.getString("bild"));
-		  userToList.setId(selectId(email));
+		
+		 User user = new User(rs.getString("vorname"), rs.getString("nachname"), email, p, rs.getInt("groesse"), rs.getInt("geschlecht"),rs.getString("bild"));
+		 user.setId(selectId(email));
+		  alleUser.put(user.getId(),user);
 		  
-		 
-		 gewichtList(userToList);
-		 bauchumfangList(userToList);
-		 armumfangList(userToList);
-		 hueftenList(userToList);
-		 brustumfangList(userToList); 
-		 routineAuslesen(userToList);
-		 plaene(userToList);
-		 alleUser.put(em, userToList);
-	
+		 gewichtList(user);
+		 bauchumfangList(user);
+		 armumfangList(user);
+		 hueftenList(user);
+		 brustumfangList(user);
+		 plaene(user);
+		routineAuslesen(user);
+		
+		}
 		return true;
 	 }
 	
-	 }
-	  return false;
-	} catch ( Exception e ) {
+	 }catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
 	   return false;
@@ -79,27 +75,28 @@ public class Models extends Model{
     try { if (stmt != null) stmt.close(); } catch (Exception e) {};
     //try { if (conn != null) conn.close(); } catch (Exception e) {};
 }
+return false;
    }
    
    public int selectId(String email){
-		   int id = -1;
-		try {
-			 stmt = conn.createStatement();
-			 rs = stmt.executeQuery( "SELECT userid FROM user where email='" + email +"';" );
-			 while ( rs.next() ) {
-				id = rs.getInt("userid");
-			 }
-			 // stmt.close();
-			} catch ( Exception e ) {
-			  System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-			  System.exit(0);
-			 
-			}finally {
-			try { if (rs != null) rs.close(); } catch (Exception e) {};
-			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
-		   // try { if (conn != null) conn.close(); } catch (Exception e) {};
-		}
-		return id;
+	   int id = -1;
+    try {
+	 stmt = conn.createStatement();
+	 rs = stmt.executeQuery( "SELECT userid FROM user where email='" + email +"';" );
+	 while ( rs.next() ) {
+		id = rs.getInt("userid");
+	 }
+	 // stmt.close();
+	} catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+	 
+    }finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {};
+    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+   // try { if (conn != null) conn.close(); } catch (Exception e) {};
+}
+	return id;
    }
    
    public static Models getInstance() {
@@ -134,39 +131,38 @@ public class Models extends Model{
 		}
    }
    
-   public boolean neuerUser(User userNeu){
-  // User userNeu = u;
- // this.user = u;
-   
+   public boolean neuerUser(User u){
+	User user = u;
+ 
    int geschlecht;
-   if(userNeu.getGeschlecht() != null){
-   if(userNeu.getGeschlecht().equals("weiblich")==true) {
+   if(user.getGeschlecht() != null){
+   if(user.getGeschlecht().equals("weiblich")==true) {
    geschlecht = 0;
-   userNeu.setBild("assets//images//default_bild_w.jpg");
+   u.setBild("assets//images//default_bild_w.jpg");
     }  else {
    geschlecht = 1;
-     userNeu.setBild("assets//images//default_bild_m.jpg");
+     u.setBild("assets//images//default_bild_m.jpg");
    }
    } else {
 	   return false;
    }
-   String password = getHash(userNeu.getPassword());
-   if(emailCheck(userNeu.getEmail())==false){
+   String password = getHash(u.getPassword());
+   if(emailCheck(user.getEmail())==false){
 	try {
 	 stmt = conn.createStatement();
 	       String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,geschlecht) " +
-                   "VALUES (null,'"+ userNeu.getVorname()+"','" + userNeu.getNachname()+"','"+userNeu.getBild()+"','"+ userNeu.getEmail() +"','"+password+"',"+ userNeu.getGroesse()+","+ geschlecht +");"; 
+                   "VALUES (null,'"+ u.getVorname()+"','" + u.getNachname()+"','"+u.getBild()+"','"+ u.getEmail() +"','"+password+"',"+ u.getGroesse()+","+ geschlecht +");"; 
       stmt.executeUpdate(sql);
 	//  stmt.close();
 	  
-		 userNeu.setId(selectId(userNeu.getEmail()));
-		 gewichtList(userNeu);
-		 bauchumfangList(userNeu);
-		 hueftenList(userNeu);
-		 brustumfangList(userNeu);
-		 plaene(userNeu);
-		 routineAuslesen(userNeu);
-	alleUser.put(userNeu.getEmail(), userNeu);
+		 user.setId(selectId(user.getEmail()));
+		 alleUser.put(user.getId(), user);
+		 gewichtList(user);
+		 bauchumfangList(user);
+		 hueftenList(user);
+		 brustumfangList(user);
+		 plaene(user);
+		 routineAuslesen(user);
 	 return true;
      
 	} catch ( Exception e ) {
@@ -183,7 +179,8 @@ public class Models extends Model{
 	}	
    }
    
-   public void imageSave(User userp, String file){
+   public void imageSave(User user, String file){
+	   
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd-hh-mm-ss");
 		String datum = dateFormat.format(date);
@@ -191,13 +188,13 @@ public class Models extends Model{
 		String bildname = null; 
 	   try {
 			File quellDatei = new File(file);
-			bildname = "bild"+userp.getPassword()+datum+".jpg";
+			bildname = "bild"+user.getPassword()+datum+".jpg";
 			String bildfile = ".\\public\\images\\"+bildname;
 			
 			bild = "assets//images//"+bildname;
 			File zielDatei = new File(bildfile);
 			quellDatei.renameTo(zielDatei);
-			userp.setBild(bild);
+			user.setBild(bild);
 			
 			} catch (Exception e) {
 			e.printStackTrace();
@@ -206,8 +203,8 @@ public class Models extends Model{
 			try {	
 				
 				stmt = conn.createStatement();
-				System.out.println(userp.getId());
-				String sql = "update user set bild='"+bild+"' where userid="+userp.getId()+";"; 
+				System.out.println(user.getId());
+				String sql = "update user set bild='"+bild+"' where userid="+user.getId()+";"; 
 				stmt.executeUpdate(sql);
 				
 				
@@ -225,13 +222,13 @@ public class Models extends Model{
 			
    }
    
-   public void gewichtCheck(User userp){
-	   if(userp.getGewicht() != null){
+   public void gewichtCheck(User user){
+	   if(user.getGewicht() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
 				stmt = conn.createStatement();
 				String sql = "INSERT INTO gewicht (id,umfang,datum, user) " +
-                   "VALUES (null,"+ userp.getGewicht().getGewicht()+",'" + dateFormat.format(userp.getGewicht().getDatum())+"',"+ userp.getId() +");"; 
+                   "VALUES (null,"+ user.getGewicht().getGewicht()+",'" + dateFormat.format(user.getGewicht().getDatum())+"',"+ user.getId() +");"; 
 				stmt.executeUpdate(sql);
   //   stmt.close();
 	 
@@ -250,12 +247,12 @@ public class Models extends Model{
  }
    
    
-   public void gewichtList(User u){
+   public void gewichtList(User user){
 	   try {
 			 stmt = conn.createStatement();
-			 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, gewicht g where g.user=" +u.getId()+" and u.userid=g.user;" );
+			 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, gewicht g where g.user=" +user.getId()+" and u.userid=g.user;" );
 			 while ( rs.next() ) {
-				u.getGewichtList().put(rs.getInt("id"), new Gewicht(rs.getDouble("umfang"), rs.getString("datum")));
+				user.getGewichtList().put(rs.getInt("id"), new Gewicht(rs.getDouble("umfang"), rs.getString("datum")));
 			 }
 	 
     // stmt.close();
@@ -269,13 +266,13 @@ public class Models extends Model{
 		}
    }
    
-   public void bauchumfangCheck(User userp){
-	   if(userp.getBauchumfang() != null){
+   public void bauchumfangCheck(User user){
+	   if(user.getBauchumfang() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
 				stmt = conn.createStatement();
 				String sql = "INSERT INTO bauchumfang (id,umfang,datum, user) " +
-                   "VALUES (null,"+ userp.getBauchumfang().getUmfang()+",'" + dateFormat.format(userp.getBauchumfang().getDatum())+"',"+ userp.getId() +");"; 
+                   "VALUES (null,"+ user.getBauchumfang().getUmfang()+",'" + dateFormat.format(user.getBauchumfang().getDatum())+"',"+ user.getId() +");"; 
       stmt.executeUpdate(sql);
      //stmt.close();
 	} catch ( Exception e ) {
@@ -290,12 +287,12 @@ public class Models extends Model{
 	   }
    }
    
-   public void bauchumfangList(User u){
+   public void bauchumfangList(User user){
 	  try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, bauchumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
+	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, bauchumfang g where g.user=" +user.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
-		u.getBauchumfangList().put(rs.getInt("id"), new Bauchumfang(rs.getDouble("umfang"), rs.getString("datum")));
+		user.getBauchumfangList().put(rs.getInt("id"), new Bauchumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
 	 // stmt.close();
 	} catch ( Exception e ) {
@@ -309,13 +306,13 @@ public class Models extends Model{
    }
    
    
-    public void hueftenumfangCheck(User userp){
-	   if(userp.getHueftenumfang() != null){
+    public void hueftenumfangCheck(User user){
+	   if(user.getHueftenumfang() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
 				stmt = conn.createStatement();
 				String sql = "INSERT INTO hueftenumfang (id,umfang,datum, user) " +
-                   "VALUES (null,"+ userp.getHueftenumfang().getUmfang()+",'" + dateFormat.format(userp.getHueftenumfang().getDatum())+"',"+ userp.getId() +");"; 
+                   "VALUES (null,"+ user.getHueftenumfang().getUmfang()+",'" + dateFormat.format(user.getHueftenumfang().getDatum())+"',"+ user.getId() +");"; 
       stmt.executeUpdate(sql);
     // stmt.close();
 	} catch ( Exception e ) {
@@ -330,12 +327,12 @@ public class Models extends Model{
 	   }
    }
    
-    public void hueftenList(User u){
+    public void hueftenList(User user){
 	    try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, hueftenumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
+	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, hueftenumfang g where g.user=" +user.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
-		u.getHueftenumfangList().put(rs.getInt("id"), new Hueftenumfang(rs.getDouble("umfang"), rs.getString("datum")));
+		user.getHueftenumfangList().put(rs.getInt("id"), new Hueftenumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
 	 // stmt.close();
 	} catch ( Exception e ) {
@@ -348,13 +345,13 @@ public class Models extends Model{
 	}
    }
    
-    public void armumfangList(User u){
+    public void armumfangList(User user){
 	   try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, armumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
+	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, armumfang g where g.user=" +user.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
 		
-		u.getArmumfangList().put(rs.getInt("id"), new Armumfang(rs.getDouble("umfang"), rs.getString("datum")));
+		user.getArmumfangList().put(rs.getInt("id"), new Armumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
 	 // stmt.close();
 	} catch ( Exception e ) {
@@ -367,13 +364,13 @@ public class Models extends Model{
 	}
    }
    
-   public void armumfangCheck(User userp){
-	   if(userp.getArmumfang() != null){
+   public void armumfangCheck(User user){
+	   if(user.getArmumfang() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
 				stmt = conn.createStatement();
 				String sql = "INSERT INTO armumfang (id,umfang,datum, user) " +
-                   "VALUES (null,"+ userp.getArmumfang().getUmfang()+",'" + dateFormat.format(userp.getArmumfang().getDatum())+"',"+ userp.getId() +");"; 
+                   "VALUES (null,"+ user.getArmumfang().getUmfang()+",'" + dateFormat.format(user.getArmumfang().getDatum())+"',"+ user.getId() +");"; 
       stmt.executeUpdate(sql);
    //  stmt.close();
 	} catch ( Exception e ) {
@@ -388,14 +385,14 @@ public class Models extends Model{
 	   }
    }
    
-    public void brustumfangList(User u){
+    public void brustumfangList(User user){
 	   try {
 	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, brustumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
+	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, brustumfang g where g.user=" +user.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
 		
 		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
-		u.getBrustumfangList().put(rs.getInt("id"), new Brustumfang(rs.getDouble("umfang"), rs.getString("datum")));
+		user.getBrustumfangList().put(rs.getInt("id"), new Brustumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
 	 // stmt.close();
 	} catch ( Exception e ) {
@@ -408,13 +405,13 @@ public class Models extends Model{
 		}
    }
    
-   public void brustumfangCheck(User userp){
-	   if(userp.getBrustumfang() != null){
+   public void brustumfangCheck(User user){
+	   if(user.getBrustumfang() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
 				stmt = conn.createStatement();
 				String sql = "INSERT INTO brustumfang (id,umfang,datum, user) " +
-                   "VALUES (null,"+ userp.getBrustumfang().getUmfang()+",'" + dateFormat.format(userp.getBrustumfang().getDatum())+"',"+ userp.getId() +");"; 
+                   "VALUES (null,"+ user.getBrustumfang().getUmfang()+",'" + dateFormat.format(user.getBrustumfang().getDatum())+"',"+ user.getId() +");"; 
       stmt.executeUpdate(sql);
    //  stmt.close();
 	} catch ( Exception e ) {
@@ -671,18 +668,18 @@ public class Models extends Model{
    return uebungenschultern;
    }
    
-  /* public User aktuellUser(){
+   public User aktuellUser(String email){
+	   User user=null;
+	   for(User u : alleUser.values()){
+		   if(u.getEmail().equals(email)){
+			   return user;
+			   
+		   }
+	   }
    return user;
-   }*/
-   
-    public User aktuellUserList(String email){
-		
-		
-   return alleUser.get(email);
    }
    
-   public void plaene(User u){
-	 
+   public void plaene(User user){
 	  try {
 	 stmt = conn.createStatement();
 	 String name;
@@ -693,7 +690,7 @@ public class Models extends Model{
 	 String muskel2;
 	 int id; 
 	 Muskel muskelgruppe;
-	 rs = stmt.executeQuery( "SELECT u.id as uid, u.name as uname, u.bild as bild, u.muskel as muskelgruppe, b.equipment as bequi, b.grad as grad, b.muskel as bm1, b.muskel2 as bm2, p.name as pname, p.id as pid, t.name as tag, a.satz as saetze FROM uebung u, beschreibung b, ausgewaehlteuebung a, plan p, Tag t where b.id=u.beschreibung and a.plan=p.id and u.id=a.uebung and a.tag=t.name and p.user="+u.getId()+";" );
+	 rs = stmt.executeQuery( "SELECT u.id as uid, u.name as uname, u.bild as bild, u.muskel as muskelgruppe, b.equipment as bequi, b.grad as grad, b.muskel as bm1, b.muskel2 as bm2, p.name as pname, p.id as pid, t.name as tag, a.satz as saetze FROM uebung u, beschreibung b, ausgewaehlteuebung a, plan p, Tag t where b.id=u.beschreibung and a.plan=p.id and u.id=a.uebung and a.tag=t.name and p.user="+user.getId()+";" );
 	 while ( rs.next() ) {
 	 name = rs.getString("uname");
 	 bild = rs.getString("bild");
@@ -715,16 +712,16 @@ public class Models extends Model{
      String t = rs.getString("tag");
 	 Tag tag=Tag.valueOf(t);
 	 
-	 if(u.getPlans().containsKey(planName) == true){
+	 if(user.getPlans().containsKey(planName) == true){
 		 
-		 if(u.getPlans().get(planName).getUebungen().containsKey(tag) == true){
-			 u.getPlans().get(planName).getUebungen().get(tag).getUebungen().add(ausgewaehlt);
+		 if(user.getPlans().get(planName).getUebungen().containsKey(tag) == true){
+			 user.getPlans().get(planName).getUebungen().get(tag).getUebungen().add(ausgewaehlt);
 		 } else{
 			 TagPlan tagPlan = new TagPlan(); 
 			tagPlan.tag = tag;
 			tagPlan.getUebungen().add(ausgewaehlt);
 			
-			u.getPlans().get(planName).getUebungen().put(tag, tagPlan);
+			user.getPlans().get(planName).getUebungen().put(tag, tagPlan);
 		 }
 		 
 		 
@@ -736,7 +733,7 @@ public class Models extends Model{
 		Map<Tag, TagPlan> uebungen = new HashMap<Tag, TagPlan>();
 		uebungen.put(tagPlan.tag, tagPlan);
 		Plan p = new Plan(planId, planName, uebungen);
-		u.setPlans(p);
+		user.setPlans(p);
 	 }
 	 
 	 
@@ -753,11 +750,11 @@ public class Models extends Model{
 	}
 	    
    }
-   public void routineAuslesen(User u){
+   public void routineAuslesen(User user){
 	   try {
 				stmt = conn.createStatement();
 				stmt1 = conn.createStatement();
-				rs = stmt.executeQuery( "select r.datum as datum, r.plan as plan, r.uebung as uebung, r.tag as tag, count() as anzahl from routine r, plan p where p.user="+u.getId()+" and p.id=r.plan group by r.plan, r.uebung, r.tag, r.datum;" );
+				rs = stmt.executeQuery( "select r.datum as datum, r.plan as plan, r.uebung as uebung, r.tag as tag, count() as anzahl from routine r, plan p where p.user="+user.getId()+" and p.id=r.plan group by r.plan, r.uebung, r.tag, r.datum;" );
 						 while ( rs.next() ) {
 							int plan = rs.getInt("plan");
 							int uebung = rs.getInt("uebung");
@@ -779,7 +776,7 @@ public class Models extends Model{
 								
 								i++;
 							}
-							 u.setRoutineString(plan, tag, uebung, satz, datum);
+							 user.setRoutineString(plan, tag, uebung, satz, datum);
 							
 							 
 						 }
@@ -800,10 +797,10 @@ public class Models extends Model{
 	   
    }
    
-   public void routineStep1(User userp, int plan, int uebung, String tag, int wh, int gewicht, int satz){
-	  if( saetzeSpeichern(userp, plan, uebung, tag, wh, gewicht, satz) == true){
+   public void routineStep1(User user, int plan, int uebung, String tag, int wh, int gewicht, int satz){
+	  if( saetzeSpeichern(user, plan, uebung, tag, wh, gewicht, satz) == true){
 		 
-		 routineNew(userp, plan, uebung, tag, satzFeld);
+		 routineNew(user, plan, uebung, tag, satzFeld);
 	  } else{
 		  
 	  }
@@ -813,9 +810,9 @@ public class Models extends Model{
   
    
 
-   public boolean saetzeSpeichern(User userp, int plan, int uebung, String tag, int wh, int gewicht, int satz){
+   public boolean saetzeSpeichern(User user, int plan, int uebung, String tag, int wh, int gewicht, int satz){
 	
-	 for(Plan p : userp.getPlans().values()){
+	 for(Plan p : user.getPlans().values()){
 		 if(p.getId() == plan){
 			 for(AusgewaehlteUebung a : p.getUebungen().get(Tag.valueOf(tag)).getUebungen()){
 				 if(a.getUebung().getId() == uebung){
@@ -838,7 +835,7 @@ public class Models extends Model{
 		
 	 }
    
-   public void routineNew(User userp, int plan, int uebung, String tag, Satz[] satz){
+   public void routineNew(User user, int plan, int uebung, String tag, Satz[] satz){
 	   
 	  
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
@@ -864,7 +861,7 @@ public class Models extends Model{
 						 }
 						
 				 }
-				 userp.setRoutine(plan, tag, uebung, satz, datum);
+				 user.setRoutine(plan, tag, uebung, satz, datum);
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -879,7 +876,7 @@ public class Models extends Model{
 	   
 	  
    }
- public void planHinzufuegen(User userp, int id, int satz, String tag, String plan){
+ public void planHinzufuegen(User user, int id, int satz, String tag, String plan){
 			
 	 String name;
 	 String bild;
@@ -908,11 +905,11 @@ public class Models extends Model{
 	 AusgewaehlteUebung ausgewaehlt = new AusgewaehlteUebung(uebung, satz);
 	
 	
-	if(userp.getPlans().containsKey(plan) == true){
+	if(user.getPlans().containsKey(plan) == true){
 		
-		if(userp.getPlans().get(plan).getUebungen().containsKey(Tag.valueOf(tag)) == true){
-			int planId = userp.getPlans().get(plan).getId();
-			userp.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().add(ausgewaehlt);
+		if(user.getPlans().get(plan).getUebungen().containsKey(Tag.valueOf(tag)) == true){
+			int planId = user.getPlans().get(plan).getId();
+			user.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().add(ausgewaehlt);
 			 
 					String sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
 					   "VALUES ("+planId+","+id+",'"+tag+"',"+satz+");"; 
@@ -924,8 +921,8 @@ public class Models extends Model{
 			TagPlan tagPlan = new TagPlan();
 			tagPlan.tag = Tag.valueOf(tag);
 			tagPlan.getUebungen().add(ausgewaehlt);
-			userp.getPlans().get(plan).getUebungen().put(Tag.valueOf(tag), tagPlan);
-			 int planId = userp.getPlans().get(plan).getId();
+			user.getPlans().get(plan).getUebungen().put(Tag.valueOf(tag), tagPlan);
+			 int planId = user.getPlans().get(plan).getId();
 			
 				
 				 String	sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
@@ -942,10 +939,10 @@ public class Models extends Model{
 		Map<Tag, TagPlan> uebungen = new HashMap<Tag, TagPlan>();
 		uebungen.put(tagPlan.tag, tagPlan);
 		Plan p = new Plan(plan, uebungen);
-		userp.setPlans(p);
+		user.setPlans(p);
 		 
 		String sql = "INSERT INTO plan(id,name,user) " +
-                   "VALUES (null,'"+ plan+"'," + userp.getId()+");"; 
+                   "VALUES (null,'"+ plan+"'," + user.getId()+");"; 
 				   
 		stmt.executeUpdate(sql);
 		
@@ -980,12 +977,12 @@ public class Models extends Model{
 	}
 	
   }
-  
-  public void planLoeschen(User userp){
+  //wenn plan ohne uebungen geblieben ist
+  public void planLoeschen(User user){
 		try {
 				stmt = conn.createStatement();
 				
-				String sql = "delete from plan where id=(select p.id as id from plan p where p.user="+userp.getId()+" except select pl.id from ausgewaehlteuebung a, plan pl where a.plan=pl.id and pl.user="+userp.getId()+");"; 
+				String sql = "delete from plan where id=(select p.id as id from plan p where p.user="+user.getId()+" except select pl.id from ausgewaehlteuebung a, plan pl where a.plan=pl.id and pl.user="+user.getId()+");"; 
 				stmt.executeUpdate(sql);
 			 
 				
@@ -1001,7 +998,7 @@ public class Models extends Model{
 		}
 	}
 	
-	public void planLoeschenKomplett(User userp, int plan){
+	public void planLoeschenKomplett(User user, int plan){
 		try {
 				stmt = conn.createStatement();
 				
@@ -1009,7 +1006,7 @@ public class Models extends Model{
 				 while ( rs.next() ) {
 				 
 				 String planName = rs.getString("name");
-				 userp.getPlans().remove(planName);
+				 user.getPlans().remove(planName);
 			 }
 				
 				String sql = "delete from plan where id="+plan+";"; 
@@ -1028,7 +1025,7 @@ public class Models extends Model{
 		}
 	}
   
-  public void uebungLoeschen(User userp, int plan, int uebung, String t){
+  public void uebungLoeschen(User user, int plan, int uebung, String t){
 	  String planName;
 	  Tag tag = Tag.valueOf(t);
 		
@@ -1038,12 +1035,12 @@ public class Models extends Model{
 				 while ( rs.next() ) {
 				 
 				 planName = rs.getString("name");
-				 userp.uebungLoeschen(planName, tag, uebung);
+				 user.uebungLoeschen(planName, tag, uebung);
 			 }
 				String sql = "delete from ausgewaehlteuebung where plan="+plan+" and uebung="+uebung+" and tag='"+tag +"';"; 
 				stmt.executeUpdate(sql);
 				
-				planLoeschen(userp);
+				planLoeschen(user);
 				
    //  stmt.close();
 	} catch ( Exception e ) {
