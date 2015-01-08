@@ -1,0 +1,3 @@
+#Application dependencies
+require:
+-play 2.3.6
