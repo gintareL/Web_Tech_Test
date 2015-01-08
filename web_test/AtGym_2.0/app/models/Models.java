@@ -43,8 +43,13 @@ public class Models extends Model{
    public boolean checkUser(String em, String password){
 	   String p = getHash(password);
 	   try {
-	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT * FROM user where email ='" + em + "' and password='"+p+"';" );
+		   String sql = "SELECT * FROM user where email =? and password=?;";
+		   PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			preparedStatement.setString(1, em);
+			preparedStatement.setString(2, p);
+			rs = preparedStatement.executeQuery();
+	 //stmt = conn.createStatement();
+	 //rs = stmt.executeQuery(  );
 	 while ( rs.next() ) {
 		 String email = rs.getString("email");
 		 String passwort = rs.getString("password");
@@ -84,8 +89,14 @@ public class Models extends Model{
    public int selectId(String email){
 		   int id = -1;
 		try {
-			 stmt = conn.createStatement();
-			 rs = stmt.executeQuery( "SELECT userid FROM user where email='" + email +"';" );
+			String sql = "SELECT userid FROM user where email=?;";
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+			
+			rs = preparedStatement.executeQuery();
+			
+			 //stmt = conn.createStatement();
+			 //rs = stmt.executeQuery( "SELECT userid FROM user where email='" + email +"';" );
 			 while ( rs.next() ) {
 				id = rs.getInt("userid");
 			 }
@@ -111,8 +122,13 @@ public class Models extends Model{
    
    public boolean emailCheck(String em){
    try {
-	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT email FROM user where email='"+em+"';" );
+			String sql = "SELECT email FROM user where email=?;" ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			preparedStatement.setString(1, em);
+			
+			rs = preparedStatement.executeQuery();
+	// stmt = conn.createStatement();
+	// rs = stmt.executeQuery( "SELECT email FROM user where email='"+em+"';" );
 		 while ( rs.next() ) {
 		 String email = rs.getString("email");
 			if(email.equals(em)==true){
@@ -153,11 +169,25 @@ public class Models extends Model{
    String password = getHash(userNeu.getPassword());
    if(emailCheck(userNeu.getEmail())==false){
 	try {
-	 stmt = conn.createStatement();
-	       String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,geschlecht) " +
-                   "VALUES (null,'"+ userNeu.getVorname()+"','" + userNeu.getNachname()+"','"+userNeu.getBild()+"','"+ userNeu.getEmail() +"','"+password+"',"+ userNeu.getGroesse()+","+ geschlecht +");"; 
-      stmt.executeUpdate(sql);
+	// stmt = conn.createStatement();
+	      // String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,geschlecht) " +
+           //        "VALUES (null,'"+ userNeu.getVorname()+"','" + userNeu.getNachname()+"','"+userNeu.getBild()+"','"+ userNeu.getEmail() +"','"+password+"',"+ userNeu.getGroesse()+","+ geschlecht +");"; 
+     // stmt.executeUpdate(sql);
 	//  stmt.close();
+				String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,geschlecht) " +
+                   "VALUES (null,?,?,?,?,?,?,?);";
+
+				PreparedStatement preparedStatement1 =conn.prepareStatement(sql);
+
+				preparedStatement1.setString(1, userNeu.getVorname());
+				preparedStatement1.setString(2, userNeu.getNachname());
+				preparedStatement1.setString(3, userNeu.getBild());
+				preparedStatement1.setString(4, userNeu.getEmail());
+				preparedStatement1.setString(5, password);
+				preparedStatement1.setInt(6, userNeu.getGroesse());
+				preparedStatement1.setInt(7, geschlecht);
+				preparedStatement1.executeUpdate();
+		
 	  
 		 userNeu.setId(selectId(userNeu.getEmail()));
 		 gewichtList(userNeu);
@@ -205,11 +235,18 @@ public class Models extends Model{
 	
 			try {	
 				
-				stmt = conn.createStatement();
-				System.out.println(userp.getId());
-				String sql = "update user set bild='"+bild+"' where userid="+userp.getId()+";"; 
-				stmt.executeUpdate(sql);
+				//stmt = conn.createStatement();
+				//System.out.println(userp.getId());
+				//String sql = "update user set bild='"+bild+"' where userid="+userp.getId()+";"; 
+				//stmt.executeUpdate(sql);
 				
+				String sql = "update user set bild=? where userid=?;";
+
+				PreparedStatement preparedStatement =conn.prepareStatement(sql);
+
+				preparedStatement.setString(1, bild);
+				preparedStatement.setInt(2, userp.getId());
+				preparedStatement.executeUpdate();
 				
    //  stmt.close();
 	} catch ( Exception e ) {
@@ -229,10 +266,22 @@ public class Models extends Model{
 	   if(userp.getGewicht() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
-				stmt = conn.createStatement();
+				//stmt = conn.createStatement();
+				//String sql = "INSERT INTO gewicht (id,umfang,datum, user) " +
+                 //  "VALUES (null,"+ userp.getGewicht().getGewicht()+",'" + dateFormat.format(userp.getGewicht().getDatum())+"',"+ userp.getId() +");"; 
+				//stmt.executeUpdate(sql);
+				
 				String sql = "INSERT INTO gewicht (id,umfang,datum, user) " +
-                   "VALUES (null,"+ userp.getGewicht().getGewicht()+",'" + dateFormat.format(userp.getGewicht().getDatum())+"',"+ userp.getId() +");"; 
-				stmt.executeUpdate(sql);
+                   "VALUES (null,?,?,?);"; 
+				
+				PreparedStatement preparedStatement1 =conn.prepareStatement(sql);
+
+				preparedStatement1.setDouble(1, userp.getGewicht().getGewicht());
+				preparedStatement1.setString(2, dateFormat.format(userp.getGewicht().getDatum()));
+				preparedStatement1.setInt(3, userp.getId());
+				
+				preparedStatement1.executeUpdate();
+				
   //   stmt.close();
 	 
 	 
@@ -252,8 +301,13 @@ public class Models extends Model{
    
    public void gewichtList(User u){
 	   try {
-			 stmt = conn.createStatement();
-			 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, gewicht g where g.user=" +u.getId()+" and u.userid=g.user;" );
+			String sql = "SELECT g.id, g.datum, g.umfang FROM user u, gewicht g where g.user=? and u.userid=g.user;" ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();
+			// stmt = conn.createStatement();
+			// rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, gewicht g where g.user=" +u.getId()+" and u.userid=g.user;" );
 			 while ( rs.next() ) {
 				u.getGewichtList().put(rs.getInt("id"), new Gewicht(rs.getDouble("umfang"), rs.getString("datum")));
 			 }
@@ -273,11 +327,22 @@ public class Models extends Model{
 	   if(userp.getBauchumfang() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
-				stmt = conn.createStatement();
+				//stmt = conn.createStatement();
+				//String sql = "INSERT INTO bauchumfang (id,umfang,datum, user) " +
+                 //  "VALUES (null,"+ userp.getBauchumfang().getUmfang()+",'" + dateFormat.format(userp.getBauchumfang().getDatum())+"',"+ userp.getId() +");"; 
+				//stmt.executeUpdate(sql);
+   
 				String sql = "INSERT INTO bauchumfang (id,umfang,datum, user) " +
-                   "VALUES (null,"+ userp.getBauchumfang().getUmfang()+",'" + dateFormat.format(userp.getBauchumfang().getDatum())+"',"+ userp.getId() +");"; 
-      stmt.executeUpdate(sql);
-     //stmt.close();
+                   "VALUES (null,?,?,?);";
+				
+				PreparedStatement preparedStatement1 =conn.prepareStatement(sql);
+
+				preparedStatement1.setDouble(1, userp.getBauchumfang().getUmfang());
+				preparedStatement1.setString(2, dateFormat.format(userp.getBauchumfang().getDatum()));
+				preparedStatement1.setInt(3, userp.getId());
+				
+				preparedStatement1.executeUpdate();
+   
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -292,8 +357,13 @@ public class Models extends Model{
    
    public void bauchumfangList(User u){
 	  try {
-	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, bauchumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
+			String sql = "SELECT g.id, g.datum, g.umfang FROM user u, bauchumfang g where g.user=? and u.userid=g.user;"  ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();
+	// stmt = conn.createStatement();
+	// rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, bauchumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
 		u.getBauchumfangList().put(rs.getInt("id"), new Bauchumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
@@ -313,10 +383,21 @@ public class Models extends Model{
 	   if(userp.getHueftenumfang() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
-				stmt = conn.createStatement();
-				String sql = "INSERT INTO hueftenumfang (id,umfang,datum, user) " +
-                   "VALUES (null,"+ userp.getHueftenumfang().getUmfang()+",'" + dateFormat.format(userp.getHueftenumfang().getDatum())+"',"+ userp.getId() +");"; 
-      stmt.executeUpdate(sql);
+			   String sql = "INSERT INTO hueftenumfang (id,umfang,datum, user) " +
+                  "VALUES (null,?,?,?);";
+				
+				PreparedStatement preparedStatement1 =conn.prepareStatement(sql);
+
+				preparedStatement1.setDouble(1, userp.getHueftenumfang().getUmfang());
+				preparedStatement1.setString(2, dateFormat.format(userp.getHueftenumfang().getDatum()));
+				preparedStatement1.setInt(3, userp.getId());
+				
+				preparedStatement1.executeUpdate();
+			   
+		//		stmt = conn.createStatement();
+		//		String sql = "INSERT INTO hueftenumfang (id,umfang,datum, user) " +
+        //           "VALUES (null,"+ userp.getHueftenumfang().getUmfang()+",'" + dateFormat.format(userp.getHueftenumfang().getDatum())+"',"+ userp.getId() +");"; 
+		//stmt.executeUpdate(sql);
     // stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -332,8 +413,15 @@ public class Models extends Model{
    
     public void hueftenList(User u){
 	    try {
-	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, hueftenumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
+			String sql = "SELECT g.id, g.datum, g.umfang FROM user u, hueftenumfang g where g.user=? and u.userid=g.user;"  ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();
+	
+			
+	 //stmt = conn.createStatement();
+	 //rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, hueftenumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
 		u.getHueftenumfangList().put(rs.getInt("id"), new Hueftenumfang(rs.getDouble("umfang"), rs.getString("datum")));
 	 }
@@ -350,8 +438,15 @@ public class Models extends Model{
    
     public void armumfangList(User u){
 	   try {
-	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, armumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
+		   
+		   String sql = "SELECT g.id, g.datum, g.umfang FROM user u, armumfang g where g.user=? and u.userid=g.user;" ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();
+	
+	// stmt = conn.createStatement();
+	// rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, armumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
 		
 		u.getArmumfangList().put(rs.getInt("id"), new Armumfang(rs.getDouble("umfang"), rs.getString("datum")));
@@ -371,11 +466,22 @@ public class Models extends Model{
 	   if(userp.getArmumfang() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
-				stmt = conn.createStatement();
-				String sql = "INSERT INTO armumfang (id,umfang,datum, user) " +
-                   "VALUES (null,"+ userp.getArmumfang().getUmfang()+",'" + dateFormat.format(userp.getArmumfang().getDatum())+"',"+ userp.getId() +");"; 
-      stmt.executeUpdate(sql);
-   //  stmt.close();
+				//stmt = conn.createStatement();
+				//String sql = "INSERT INTO armumfang (id,umfang,datum, user) " +
+                 //  "VALUES (null,"+ userp.getArmumfang().getUmfang()+",'" + dateFormat.format(userp.getArmumfang().getDatum())+"',"+ userp.getId() +");"; 
+				 // stmt.executeUpdate(sql);
+			   //  stmt.close();
+			   
+			   String sql = "INSERT INTO armumfang (id,umfang,datum, user) " +
+                  "VALUES (null,?,?,?);";
+				
+				PreparedStatement preparedStatement1 =conn.prepareStatement(sql);
+
+				preparedStatement1.setDouble(1, userp.getArmumfang().getUmfang());
+				preparedStatement1.setString(2, dateFormat.format(userp.getArmumfang().getDatum()));
+				preparedStatement1.setInt(3, userp.getId());
+				
+				preparedStatement1.executeUpdate();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -390,8 +496,14 @@ public class Models extends Model{
    
     public void brustumfangList(User u){
 	   try {
-	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, brustumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
+		     String sql = "SELECT g.id, g.datum, g.umfang FROM user u, brustumfang g where g.user=? and u.userid=g.user;" ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();
+	
+	// stmt = conn.createStatement();
+	// rs = stmt.executeQuery( "SELECT g.id, g.datum, g.umfang FROM user u, brustumfang g where g.user=" +u.getId()+" and u.userid=g.user;" );
 	 while ( rs.next() ) {
 		
 		// Gewicht g = new Gewicht(rs.getDouble("umfang"), rs.getString("datum"));
@@ -412,10 +524,22 @@ public class Models extends Model{
 	   if(userp.getBrustumfang() != null){
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   try {
-				stmt = conn.createStatement();
-				String sql = "INSERT INTO brustumfang (id,umfang,datum, user) " +
-                   "VALUES (null,"+ userp.getBrustumfang().getUmfang()+",'" + dateFormat.format(userp.getBrustumfang().getDatum())+"',"+ userp.getId() +");"; 
-      stmt.executeUpdate(sql);
+			   
+			    String sql = "INSERT INTO brustumfang (id,umfang,datum, user) " +
+                  "VALUES (null,?,?,?);";
+				
+				PreparedStatement preparedStatement1 =conn.prepareStatement(sql);
+
+				preparedStatement1.setDouble(1, userp.getBrustumfang().getUmfang());
+				preparedStatement1.setString(2, dateFormat.format(userp.getBrustumfang().getDatum()));
+				preparedStatement1.setInt(3, userp.getId());
+				
+				preparedStatement1.executeUpdate();
+			   
+				//stmt = conn.createStatement();
+				//String sql = "INSERT INTO brustumfang (id,umfang,datum, user) " +
+                 //  "VALUES (null,"+ userp.getBrustumfang().getUmfang()+",'" + dateFormat.format(userp.getBrustumfang().getDatum())+"',"+ userp.getId() +");"; 
+      //stmt.executeUpdate(sql);
    //  stmt.close();
 	} catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -434,7 +558,7 @@ public class Models extends Model{
    SortedMap<Integer, Uebung> uebungenBeine = new TreeMap<Integer, Uebung>();
    
    try {
-	 stmt = conn.createStatement();
+	// stmt = conn.createStatement();
 	 String name;
 	 String bild;
 	 String equipment;
@@ -442,7 +566,13 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.beine;
-	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='beine' and b.id = u.beschreibung;" );
+			String sql = "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='beine' and b.id = u.beschreibung;"  ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			//preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();
+	 
+	 //rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='beine' and b.id = u.beschreibung;" );
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -467,9 +597,7 @@ public class Models extends Model{
 		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
 	//	try { if (conn != null) conn.close(); } catch (Exception e) {};
 	}
-   for(int i : uebungenBeine.keySet()){
-	   System.out.println("id:" + i + "Übung: " + uebungenBeine.get(i).getName());
-   }
+   
    return uebungenBeine;
    }
    
@@ -477,7 +605,7 @@ public class Models extends Model{
    SortedMap<Integer, Uebung> uebungenBauch = new TreeMap<Integer, Uebung>();
    
    try {
-	 stmt = conn.createStatement();
+	// stmt = conn.createStatement();
 	 String name;
 	 String bild;
 	 String equipment;
@@ -485,7 +613,13 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.bauch;
-	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='bauch' and b.id = u.beschreibung;" );
+			String sql = "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='bauch' and b.id = u.beschreibung;" ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			//preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();
+	 
+	// rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='bauch' and b.id = u.beschreibung;" );
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -517,7 +651,7 @@ public class Models extends Model{
    SortedMap<Integer, Uebung> uebungenArme = new TreeMap<Integer, Uebung>();
    
    try {
-	 stmt = conn.createStatement();
+	 //stmt = conn.createStatement();
 	 String name;
 	 String bild;
 	 String equipment;
@@ -525,8 +659,13 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.arme;
-	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='arme' and b.id = u.beschreibung;" );
-	 while ( rs.next() ) {
+	 //rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='arme' and b.id = u.beschreibung;" );
+			String sql = "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='arme' and b.id = u.beschreibung;" ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			//preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();	
+	while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
 	 bild = "assets//images//"+bild+".gif";
@@ -557,7 +696,7 @@ public class Models extends Model{
    SortedMap<Integer, Uebung> uebungenbrust = new TreeMap<Integer, Uebung>();
    
    try {
-	 stmt = conn.createStatement();
+	// stmt = conn.createStatement();
 	 String name;
 	 String bild;
 	 String equipment;
@@ -565,7 +704,13 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.brust;
-	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='brust' and b.id = u.beschreibung;" );
+	// rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='brust' and b.id = u.beschreibung;" );
+	 
+			String sql = "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='brust' and b.id = u.beschreibung;"  ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			//preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();	
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -597,7 +742,7 @@ public class Models extends Model{
 		SortedMap<Integer, Uebung> uebungenruecken = new TreeMap<Integer, Uebung>();
    
    try {
-	 stmt = conn.createStatement();
+	 //stmt = conn.createStatement();
 	 String name;
 	 String bild;
 	 String equipment;
@@ -605,7 +750,12 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.ruecken;
-	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='ruecken' and b.id = u.beschreibung;" );
+	// rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='ruecken' and b.id = u.beschreibung;" );
+			String sql = "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='ruecken' and b.id = u.beschreibung;";
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			//preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();	
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -637,7 +787,7 @@ public class Models extends Model{
    SortedMap<Integer, Uebung> uebungenschultern = new TreeMap<Integer, Uebung>();
    
    try {
-	 stmt = conn.createStatement();
+	// stmt = conn.createStatement();
 	 String name;
 	 String bild;
 	 String equipment;
@@ -645,7 +795,12 @@ public class Models extends Model{
 	 String muskel1;
 	 String muskel2;
 	 Muskel muskelgruppe = Muskel.schultern;
-	 rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='schultern' and b.id = u.beschreibung;" );
+	// rs = stmt.executeQuery( "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='schultern' and b.id = u.beschreibung;" );
+			String sql = "SELECT u.like, u.dislike, u.id, u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2 FROM uebung u, beschreibung b  where u.muskel='schultern' and b.id = u.beschreibung;";
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			//preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();	
 	 while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
@@ -686,7 +841,7 @@ public class Models extends Model{
    public void plaene(User u){
 	 
 	  try {
-	 stmt = conn.createStatement();
+	 //stmt = conn.createStatement();
 	 String name;
 	 String bild;
 	 String equipment;
@@ -695,7 +850,13 @@ public class Models extends Model{
 	 String muskel2;
 	 int id; 
 	 Muskel muskelgruppe;
-	 rs = stmt.executeQuery( "SELECT u.id as uid, u.name as uname, u.bild as bild, u.muskel as muskelgruppe, b.equipment as bequi, b.grad as grad, b.muskel as bm1, b.muskel2 as bm2, p.name as pname, p.id as pid, t.name as tag, a.satz as saetze FROM uebung u, beschreibung b, ausgewaehlteuebung a, plan p, Tag t where b.id=u.beschreibung and a.plan=p.id and u.id=a.uebung and a.tag=t.name and p.user="+u.getId()+";" );
+	 //rs = stmt.executeQuery( "SELECT u.id as uid, u.name as uname, u.bild as bild, u.muskel as muskelgruppe, b.equipment as bequi, b.grad as grad, b.muskel as bm1, b.muskel2 as bm2, p.name as pname, p.id as pid, t.name as tag, a.satz as saetze FROM uebung u, beschreibung b, ausgewaehlteuebung a, plan p, Tag t where b.id=u.beschreibung and a.plan=p.id and u.id=a.uebung and a.tag=t.name and p.user="+u.getId()+";" );
+			String sql = "SELECT u.id as uid, u.name as uname, u.bild as bild, u.muskel as muskelgruppe, b.equipment as bequi, b.grad as grad, b.muskel as bm1, b.muskel2 as bm2, p.name as pname, p.id as pid, t.name as tag, a.satz as saetze FROM uebung u, beschreibung b, ausgewaehlteuebung a, plan p, Tag t where b.id=u.beschreibung and a.plan=p.id and u.id=a.uebung and a.tag=t.name and p.user=?;" ;
+		    PreparedStatement preparedStatement =conn.prepareStatement(sql);
+			preparedStatement.setInt(1, u.getId());
+			
+			rs = preparedStatement.executeQuery();	
+	 
 	 while ( rs.next() ) {
 	 name = rs.getString("uname");
 	 bild = rs.getString("bild");
@@ -757,10 +918,17 @@ public class Models extends Model{
    }
    public void routineAuslesen(User u){
 	   try {
-				stmt = conn.createStatement();
+				//stmt = conn.createStatement();
 				stmt1 = conn.createStatement();
-				rs = stmt.executeQuery( "select r.datum as datum, r.plan as plan, r.uebung as uebung, r.tag as tag, count() as anzahl from routine r, plan p where p.user="+u.getId()+" and p.id=r.plan group by r.plan, r.uebung, r.tag, r.datum;" );
-						 while ( rs.next() ) {
+				//rs = stmt.executeQuery( "select r.datum as datum, r.plan as plan, r.uebung as uebung, r.tag as tag, count() as anzahl from routine r, plan p where p.user="+u.getId()+" and p.id=r.plan group by r.plan, r.uebung, r.tag, r.datum;" );
+					String sql = "select r.datum as datum, r.plan as plan, r.uebung as uebung, r.tag as tag, count() as anzahl from routine r, plan p where p.user=? and p.id=r.plan group by r.plan, r.uebung, r.tag, r.datum;" ;
+					PreparedStatement preparedStatement =conn.prepareStatement(sql);
+					preparedStatement.setInt(1, u.getId());
+					
+					rs = preparedStatement.executeQuery();	
+
+
+						while ( rs.next() ) {
 							int plan = rs.getInt("plan");
 							int uebung = rs.getInt("uebung");
 							String datum = rs.getString("datum");
@@ -846,22 +1014,53 @@ public class Models extends Model{
 		   DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   Date datum = new Date();
 		   try {
-				stmt = conn.createStatement();
+				//stmt = conn.createStatement();
 				
 				 for(int i = 0; i < satz.length; i++){
-					String sql = "INSERT INTO satz (id, wh, gewicht) " +
-					   "VALUES (null,"+satz[i].getWh()+","+satz[i].getGewicht()+");"; 
-					stmt.executeUpdate(sql);
+					 String sql = "INSERT INTO satz (id, wh, gewicht) " +
+					   "VALUES (null,?,?);"; 
+				
+						PreparedStatement preparedStatement =conn.prepareStatement(sql);
+
+						preparedStatement.setInt(1, satz[i].getWh());
+						preparedStatement.setDouble(2, satz[i].getGewicht());
+						
+						preparedStatement.executeUpdate();
+					 
+					 
+					 
+					//String sql = "INSERT INTO satz (id, wh, gewicht) " +
+					//   "VALUES (null,"+satz[i].getWh()+","+satz[i].getGewicht()+");"; 
+					//stmt.executeUpdate(sql);
 					
-					rs = stmt.executeQuery( "select max(id) as id from satz;" );
+					String sql2 =  "select max(id) as id from satz;"  ;
+					PreparedStatement preparedStatement2 =conn.prepareStatement(sql2);
+					//preparedStatement.setInt(1, u.getId());
+					
+					rs = preparedStatement2.executeQuery();	
+				//	rs = stmt.executeQuery( "select max(id) as id from satz;" );
 						 while ( rs.next() ) {
 							 int id = rs.getInt("id");  
 							
-							 String sql1 = "INSERT INTO routine (datum, plan, uebung, tag, satz) " +
-								"VALUES ('"+dateFormat.format(datum)+"',"+plan+","+uebung+",'"+tag+"',"+id+");"; 
-								Satz s = new Satz(id, satz[i].getWh(), satz[i].getGewicht());
+						//	 String sql1 = "INSERT INTO routine (datum, plan, uebung, tag, satz) " +
+						//		"VALUES ('"+dateFormat.format(datum)+"',"+plan+","+uebung+",'"+tag+"',"+id+");"; 
+						//		Satz s = new Satz(id, satz[i].getWh(), satz[i].getGewicht());
 								
-							stmt.executeUpdate(sql1);	
+						//	stmt.executeUpdate(sql1);	
+							
+							
+							String sql1 = "INSERT INTO routine (datum, plan, uebung, tag, satz) " +
+								"VALUES (?,?,?,?,?);"; 
+				
+						PreparedStatement preparedStatement1 =conn.prepareStatement(sql1);
+
+						preparedStatement1.setString(1, dateFormat.format(datum));
+						preparedStatement1.setInt(2, plan);
+						preparedStatement1.setInt(3, uebung);
+						preparedStatement1.setString(4, tag);
+						preparedStatement1.setInt(5, id);
+						
+						preparedStatement1.executeUpdate();
 							 
 						 }
 						
@@ -892,9 +1091,15 @@ public class Models extends Model{
 	 String muskel;
 	 Muskel muskelgruppe;
 	  try {
-	 stmt = conn.createStatement();
-	 rs = stmt.executeQuery( "SELECT u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2, u.muskel as muskelgruppe FROM uebung u, beschreibung b  where b.id = u.beschreibung and u.id="+id+";" );
-	 while ( rs.next() ) {
+	 //stmt = conn.createStatement();
+	// rs = stmt.executeQuery( "SELECT u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2, u.muskel as muskelgruppe FROM uebung u, beschreibung b  where b.id = u.beschreibung and u.id="+id+";" );
+		String sql2 =  "SELECT u.name, u.bild, b.equipment, b.grad, b.muskel, b.muskel2, u.muskel as muskelgruppe FROM uebung u, beschreibung b  where b.id = u.beschreibung and u.id=?;"  ;
+		PreparedStatement preparedStatement =conn.prepareStatement(sql2);
+		preparedStatement.setInt(1, id);
+					
+		rs = preparedStatement.executeQuery();	
+
+	while ( rs.next() ) {
 	 name = rs.getString("name");
 	 bild = rs.getString("bild");
 	 bild = "assets//images//"+bild+".gif";
@@ -916,10 +1121,21 @@ public class Models extends Model{
 			int planId = userp.getPlans().get(plan).getId();
 			userp.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().add(ausgewaehlt);
 			 
-					String sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
-					   "VALUES ("+planId+","+id+",'"+tag+"',"+satz+");"; 
-					stmt.executeUpdate(sql);
-					
+				//	String sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+				//	   "VALUES ("+planId+","+id+",'"+tag+"',"+satz+");"; 
+				//	stmt.executeUpdate(sql);
+				 String sql3 = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+					   "VALUES (?,?,?,?);";
+				
+				PreparedStatement preparedStatement3 =conn.prepareStatement(sql3);
+
+				preparedStatement3.setInt(1, planId);
+				preparedStatement3.setInt(2, id);
+				preparedStatement3.setString(3, tag);
+				preparedStatement3.setInt(4, satz);
+				
+				
+				preparedStatement3.executeUpdate();	
 				
 			
 		} else{
@@ -930,9 +1146,21 @@ public class Models extends Model{
 			 int planId = userp.getPlans().get(plan).getId();
 			
 				
-				 String	sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
-					   "VALUES ("+planId+","+id+",'"+tag+"',"+satz+");"; 
-					stmt.executeUpdate(sql);
+				// String	sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+				//	   "VALUES ("+planId+","+id+",'"+tag+"',"+satz+");"; 
+				//	stmt.executeUpdate(sql);
+				String sql3 = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+					   "VALUES (?,?,?,?);";
+				
+				PreparedStatement preparedStatement3 =conn.prepareStatement(sql3);
+
+				preparedStatement3.setInt(1, planId);
+				preparedStatement3.setInt(2, id);
+				preparedStatement3.setString(3, tag);
+				preparedStatement3.setInt(4, satz);
+				
+				
+				preparedStatement3.executeUpdate();	
 					
 				
 		}
@@ -946,13 +1174,31 @@ public class Models extends Model{
 		Plan p = new Plan(plan, uebungen);
 		userp.setPlans(p);
 		 
-		String sql = "INSERT INTO plan(id,name,user) " +
-                   "VALUES (null,'"+ plan+"'," + userp.getId()+");"; 
+		//String sql = "INSERT INTO plan(id,name,user) " +
+        //           "VALUES (null,'"+ plan+"'," + userp.getId()+");"; 
 				   
-		stmt.executeUpdate(sql);
+		//stmt.executeUpdate(sql);
+		
+				String sql3 =  "INSERT INTO plan(id,name,user) " +
+					"VALUES (null,?,?);"; 
+				
+				PreparedStatement preparedStatement3 =conn.prepareStatement(sql3);
+
+				preparedStatement3.setString(1, plan);
+				preparedStatement3.setInt(2, userp.getId());
+				
+				
+				preparedStatement3.executeUpdate();	
 		
 		int planId=-1;
-		rs = stmt.executeQuery("select max(id) as id from plan;" );
+		//rs = stmt.executeQuery("select max(id) as id from plan;" );
+		String sql1 = "select max(id) as id from plan;"   ;
+		PreparedStatement preparedStatement1 =conn.prepareStatement(sql1);
+		//preparedStatement.setInt(1, id);
+					
+		rs = preparedStatement1.executeQuery();
+		
+		
 			 while ( rs.next() ) {
 				 
 				 planId = rs.getInt("id");
@@ -962,10 +1208,21 @@ public class Models extends Model{
 			p.setId(planId);
 				
 				
-					sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
-					   "VALUES ("+planId+","+id+",'"+tag+"',"+satz+");"; 
-					stmt.executeUpdate(sql);
-					
+				//	sql = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+				//	   "VALUES ("+planId+","+id+",'"+tag+"',"+satz+");"; 
+				//	stmt.executeUpdate(sql);
+				String sql4 = "INSERT INTO ausgewaehlteuebung (plan, uebung, tag, satz ) " +
+					   "VALUES (?,?,?,?);";
+				
+				PreparedStatement preparedStatement4 =conn.prepareStatement(sql4);
+
+				preparedStatement4.setInt(1, planId);
+				preparedStatement4.setInt(2, id);
+				preparedStatement4.setString(3, tag);
+				preparedStatement4.setInt(4, satz);
+				
+				
+				preparedStatement4.executeUpdate();		
 				
 		}
 		
@@ -985,11 +1242,17 @@ public class Models extends Model{
   
   public void planLoeschen(User userp){
 		try {
-				stmt = conn.createStatement();
+				//stmt = conn.createStatement();
 				
-				String sql = "delete from plan where id=(select p.id as id from plan p where p.user="+userp.getId()+" except select pl.id from ausgewaehlteuebung a, plan pl where a.plan=pl.id and pl.user="+userp.getId()+");"; 
-				stmt.executeUpdate(sql);
-			 
+				String sql = "delete from plan where id=(select p.id as id from plan p where p.user=? except select pl.id from ausgewaehlteuebung a, plan pl where a.plan=pl.id and pl.user=?);"; 
+				//stmt.executeUpdate(sql);
+				PreparedStatement preparedStatement4 =conn.prepareStatement(sql);
+
+				preparedStatement4.setInt(1, userp.getId());
+				preparedStatement4.setInt(2, userp.getId());
+				
+				
+				preparedStatement4.executeUpdate();		
 				
    //  stmt.close();
 	} catch ( Exception e ) {
@@ -1005,18 +1268,30 @@ public class Models extends Model{
 	
 	public void planLoeschenKomplett(User userp, int plan){
 		try {
-				stmt = conn.createStatement();
+				//stmt = conn.createStatement();
 				
-				rs = stmt.executeQuery("select name from plan where id="+plan+";");
+				//rs = stmt.executeQuery("select name from plan where id="+plan+";");
+				String sql = "select name from plan where id=?;"  ;
+				PreparedStatement preparedStatement =conn.prepareStatement(sql);
+				preparedStatement.setInt(1, plan);
+					
+				rs = preparedStatement.executeQuery();
+		
+				
 				 while ( rs.next() ) {
 				 
 				 String planName = rs.getString("name");
 				 userp.getPlans().remove(planName);
 			 }
 				
-				String sql = "delete from plan where id="+plan+";"; 
-				stmt.executeUpdate(sql);
-			 
+				//String sql1 = "delete from plan where id="+plan+";"; 
+				//stmt.executeUpdate(sql1);
+				String sql4 = "delete from plan where id=?;";
+				PreparedStatement preparedStatement4 =conn.prepareStatement(sql4);
+
+				preparedStatement4.setInt(1, plan);
+				
+				preparedStatement4.executeUpdate();	
 				
    //  stmt.close();
 	} catch ( Exception e ) {
@@ -1035,15 +1310,29 @@ public class Models extends Model{
 	  Tag tag = Tag.valueOf(t);
 		
 		   try {
-				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select name from plan where id="+plan+";");
-				 while ( rs.next() ) {
+				//stmt = conn.createStatement();
+				//rs = stmt.executeQuery("select name from plan where id="+plan+";");
+				String sql = "select name from plan where id=?;"  ;
+				PreparedStatement preparedStatement =conn.prepareStatement(sql);
+				preparedStatement.setInt(1, plan);
+					
+				rs = preparedStatement.executeQuery();
+
+				while ( rs.next() ) {
 				 
 				 planName = rs.getString("name");
 				 userp.uebungLoeschen(planName, tag, uebung);
 			 }
-				String sql = "delete from ausgewaehlteuebung where plan="+plan+" and uebung="+uebung+" and tag='"+tag +"';"; 
-				stmt.executeUpdate(sql);
+				//String sql1 = "delete from ausgewaehlteuebung where plan="+plan+" and uebung="+uebung+" and tag='"+tag +"';"; 
+				//stmt.executeUpdate(sql1);
+				String sql4 = "delete from ausgewaehlteuebung where plan=? and uebung=? and tag=?;"; 
+				PreparedStatement preparedStatement4 =conn.prepareStatement(sql4);
+
+				preparedStatement4.setInt(1, plan);
+				preparedStatement4.setInt(2, uebung);
+				preparedStatement4.setString(3, t);
+				
+				preparedStatement4.executeUpdate();	
 				
 				planLoeschen(userp);
 				
@@ -1065,15 +1354,29 @@ public class Models extends Model{
 		try {	
 				int likes=0;
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select like from uebung where id="+uebung+";");
+				//rs = stmt.executeQuery("select like from uebung where id="+uebung+";");
+				String sql1 = "select like from uebung where id=?;"  ;
+				PreparedStatement preparedStatement =conn.prepareStatement(sql1);
+				preparedStatement.setInt(1, uebung);
+					
+				rs = preparedStatement.executeQuery();
+				
 				 while ( rs.next() ) {
 				 
 				 likes = rs.getInt("like");
 				 likes = likes+1;
 				
 			 }
-				String sql = "update uebung set like="+likes+" where id="+uebung+";"; 
-				stmt.executeUpdate(sql);
+			 
+				String sql = "update uebung set like=? where id=?;";
+
+				PreparedStatement preparedStatement1 =conn.prepareStatement(sql);
+
+				preparedStatement1.setInt(1, likes);
+				preparedStatement1.setInt(2, uebung);
+				preparedStatement1.executeUpdate();
+				//String sql = "update uebung set like="+likes+" where id="+uebung+";"; 
+				//stmt.executeUpdate(sql);
 				
 				
    //  stmt.close();
@@ -1093,16 +1396,27 @@ public class Models extends Model{
 		try {	
 				int dislikes=0;
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select dislike from uebung where id="+uebung+";");
+				//rs = stmt.executeQuery("select dislike from uebung where id="+uebung+";");
+				String sql1 = "select dislike from uebung where id=?;"  ;
+				PreparedStatement preparedStatement =conn.prepareStatement(sql1);
+				preparedStatement.setInt(1, uebung);
+					
+				rs = preparedStatement.executeQuery();
 				 while ( rs.next() ) {
 				 
 				 dislikes = rs.getInt("dislike");
 				 dislikes = dislikes+1;
 				 
 			 }
-				
-				String sql = "update uebung set dislike="+dislikes+" where id="+uebung+";"; 
-				stmt.executeUpdate(sql);
+				String sql = "update uebung set dislike=? where id=?;";
+
+				PreparedStatement preparedStatement1 =conn.prepareStatement(sql);
+
+				preparedStatement1.setInt(1, dislikes);
+				preparedStatement1.setInt(2, uebung);
+				preparedStatement1.executeUpdate();
+				//String sql = "update uebung set dislike="+dislikes+" where id="+uebung+";"; 
+				//stmt.executeUpdate(sql);
 				
 				
    //  stmt.close();

@@ -251,7 +251,9 @@ width : 55%;
 #uebung_gif{
 	margin-right : 30px;
 }
-
+.uebung_gif{
+	margin-right : 30px;
+}
 .left{
 	float : left;
 }
