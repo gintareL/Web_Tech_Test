@@ -596,11 +596,21 @@ public class Application extends Controller {
 			Like l = dislikes.get();
 			//User user = model.aktuellUser();
 			model.dislike(l.getId());
-			
-			
-			
-		return redirect("/arme");
-		
+			String muskelgruppe = l.getMuskelgruppe();
+				if(muskelgruppe.equals("Arme")){
+				return redirect("/arme");
+			} else if(muskelgruppe.equals("Bauch")){
+				return redirect("/bauch");
+			} else if(muskelgruppe.equals("Beine")){
+				return redirect("/beine");
+			} else if(muskelgruppe.equals("Brust")){
+				return redirect("/brust");
+			}else if(muskelgruppe.equals("Schultern")){
+				return redirect("/schultern");
+			} else {
+				return redirect("/ruecken");
+			}
+			//return redirect("/ruecken");
 		}
 	}
 	

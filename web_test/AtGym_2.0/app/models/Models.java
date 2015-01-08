@@ -467,7 +467,9 @@ public class Models extends Model{
 		try { if (stmt != null) stmt.close(); } catch (Exception e) {};
 	//	try { if (conn != null) conn.close(); } catch (Exception e) {};
 	}
-   
+   for(int i : uebungenBeine.keySet()){
+	   System.out.println("id:" + i + "Übung: " + uebungenBeine.get(i).getName());
+   }
    return uebungenBeine;
    }
    
