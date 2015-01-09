@@ -24,16 +24,17 @@ public class User extends Model{
   private String password;
   private int id;
   private int groesse=0;
- // private double gewicht=0;
   private Geschlecht geschlecht;
   private String bild =null;
   
-  private Map<Integer,Plan> plaene = new HashMap<Integer, Plan>();
+  private Map<String,Plan> plaene = new HashMap<String, Plan>();
   private SortedMap<Integer, Gewicht> gewichtList = new TreeMap<Integer, Gewicht>();
   private SortedMap<Integer,Bauchumfang> bauchumfangList = new TreeMap<Integer,Bauchumfang>();
   private SortedMap<Integer,Armumfang> armumfangList = new TreeMap<Integer,Armumfang>();
   private SortedMap<Integer,Hueftenumfang> hueftenumfangList = new TreeMap<Integer,Hueftenumfang>();
- private SortedMap<Integer,Brustumfang> brustumfangList = new TreeMap<Integer,Brustumfang>();
+  private SortedMap<Integer,Brustumfang> brustumfangList = new TreeMap<Integer,Brustumfang>();
+  private Set<Routine> routine = new HashSet<Routine>(); // für Analyse kann man die Liste iterieren und die Daten auslesen.
+  
   private Gewicht gewicht = null;
   private Bauchumfang bauchumfang = null;
   private Hueftenumfang hueftenumfang = null;
@@ -46,6 +47,7 @@ public class User extends Model{
 	  this.email=email;
 	  this.password = password;
   }
+  
   public User(String vorname, String nachname, String email, String password, int groesse, int geschlecht){
 	this.email=email;
 	this.nachname=nachname;
@@ -57,14 +59,33 @@ public class User extends Model{
 	this.geschlecht = Geschlecht.weiblich;
 	else this.geschlecht = Geschlecht.maennlich;
   }
-  
+   public User(String vorname, String nachname, String email, String password, int groesse, int geschlecht, String bild){
+	this.email=email;
+	this.nachname=nachname;
+	this.vorname = vorname;
+	this.password = password;
+	this.bild=bild;
+	this.groesse = groesse;
+	if(geschlecht == 0)
+	this.geschlecht = Geschlecht.weiblich;
+	else this.geschlecht = Geschlecht.maennlich;
+  }
   
   public User(String vorname, String nachname, String email, String password, int groesse, Geschlecht geschlecht){
 	this.email=email;
 	this.nachname=nachname;
 	this.vorname = vorname;
+	this.password = password;	
+	this.groesse = groesse;	
+	this.geschlecht = geschlecht;
+  }
+  
+    public User(String vorname, String nachname, String email, String password, int groesse, Geschlecht geschlecht, String bild){
+	this.email=email;
+	this.nachname=nachname;
+	this.vorname = vorname;
 	this.password = password;
-	
+	this.bild=bild;
 	this.groesse = groesse;
 	
 	this.geschlecht = geschlecht;
@@ -115,16 +136,26 @@ public class User extends Model{
 	  hueftenumfangList.put(0, b);
   }
   
-  public Map<Integer, Plan> getPlans(){
+  public void setRoutine(int plan, String tag, int uebung, Satz[] satz, Date datum){
+	  Routine r = new Routine(plan, tag, uebung, satz, datum);
+	  routine.add(r);
+  }
+  
+  public void setRoutineString(int plan, String tag, int uebung, Satz[] satz, String datum){
+	  Routine r = new Routine(plan, tag, uebung, satz, datum);
+	  
+	  routine.add(r);
+  }
+  
+  public Map<String, Plan> getPlans(){
   return plaene;
   }
   public void setPlans(Plan p){
-  this.plaene.put(p.getId(), p);
+  this.plaene.put(p.getName(), p);
   }
   public String getBild(){
-	if(bild != null) return bild;
-	else if(getGeschlecht().equals("weiblich")) return "default_bild_w.jpg";
-	else return "default_bild_m.jpg";
+	
+	return bild;
   }
   public void setBild(String bild){
 	this.bild = bild;
@@ -154,9 +185,7 @@ public class User extends Model{
   public String getPassword(){
 	return password;
   }
- //  public String getPassword(){
- // return password;
- // }
+
   public int getGroesse(){
   return groesse;
   }
@@ -178,6 +207,9 @@ public class User extends Model{
   }
   public void setGeschlecht(Geschlecht geschlecht){
   this.geschlecht=geschlecht;
+  }
+   public Set<Routine> getRoutine(){
+	  return routine;
   }
   
   public SortedMap<Integer, Gewicht> getGewichtList(){
@@ -219,49 +251,19 @@ public class User extends Model{
 		if(password == null || password.length() == 0){
 			error.add(new ValidationError("password", "This field is needed"));
 		}
-		
-		/*if(vorname == null || vorname.length() == 0){
-			error.add(new ValidationError("vorname", "This field is needed"));
-		}
-		if(vorname != null || vorname.length() != 0){
-		String pattern = "[A-Za-z]+";
-		boolean matches = Pattern.matches(pattern, vorname);
-		if(matches == false )
-			error.add(new ValidationError("vorname", "This field is needed"));
-		}
-		
-		if(nachname == null || nachname.length() == 0){
-			error.add(new ValidationError("nachname", "This field is needed"));
-		}
-		if(nachname != null || nachname.length() != 0){
-		String pattern = "[A-Za-z]+";
-		boolean matches = Pattern.matches(pattern, nachname);
-		if(matches == false )
-			error.add(new ValidationError("nachname", "This field is needed"));
-		}
-		
-		if(groesse <= 0 || groesse > 280){
-			error.add(new ValidationError("groesse", "This field is needed"));
-		}
-		if(gewicht <= 0 || gewicht > 200){
-			error.add(new ValidationError("gewicht", "This field is needed"));
-		}
-		if(geschlecht == null){
-			error.add(new ValidationError("geschlecht", "This field is needed"));
-		}*/
-		// Nothing in "error" return null, else return error
+
 		return error.isEmpty() ? null : error;
 	}
  
 
+
+ 
+	 
  
  
 	
-  public void uebungLoeschen(int p, Tag t, AusgewaehlteUebung u){
+  public void uebungLoeschen(String p, Tag t, int u){
 	plaene.get(p).getUebungen().get(t).loeschen(u);
   }
-  public void planHinzufuegen(){
   
-  }
-    
 }

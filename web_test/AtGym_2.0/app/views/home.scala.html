@@ -1,4 +1,6 @@
-@(user: models.User)
+@(user: models.User, loeschen: Form[models.uebungLoeschen])
+@import helper._
+@import helper.twitterBootstrap._
 @main("Home"){
 		<div class="wrapper rande">
 		
@@ -24,44 +26,56 @@
       </ul>
 	  
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
-					<!-- Modal -->
-					<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
+						<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
+													<!-- Modal -->
+									<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
 					  <div class="modal-dialog">
 						<div class="modal-content">
 						  <div class="modal-header">
 							<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
-							<h4 class="modal-title" id="myModalLabel">Deine Pl&aumlne</h4>
+							<h4 class="modal-title" id="myModalLabel">Deine Pläne</h4>
 						  </div>
-						  <div class="modal-body">
+						  <div class="modal-body scroll">
 							<table class="table">
-								<tr><th>Plan</th><th>Tag</th><th>&Uumlbung</th><th>S&aumltze</th><th></th></tr>
-								@if(user.getPlans().isEmpty() == false || user.getPlans().isEmpty() == null){
+								<tr><th>Plan</th><th>Tag</th><th>Übung</th><th>S&aumltze</th><th></th></tr>
+								@if(user.getPlans().isEmpty() == false ){
 								@for(p <- user.getPlans().values()) {
 									@for(t <- p.getUebungen.keySet()){
 										@for(u <- p.getUebungen().get(t).getUebungen()){
-										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td><td><button type="button" class="close deleteRowButton">
-																										<span aria-hidden="true">&times;</span>
-																										<span class="sr-only">Close</span>
-																										</button></td></tr>
+										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td>
+										
+										 <td>									
+										@form(routes.Application.uebungLoeschenHome(),'class -> "form-horizontal", 'id -> "loeschen") {
+										  
+										   <div style="display:none;" class=" form-group @if(loeschen("plan").hasErrors || loeschen("uebung").hasErrors || loeschen("tag").hasErrors){has-error}">
+											<input style="display:none;" name="@loeschen("plan").name" value="@p.getId()" >
+											<input style="display:none;" name="@loeschen("uebung").name" value="@u.getUebung().getId()" >
+											<input style="display:none;" name="@loeschen("tag").name" value="@p.getUebungen().get(t).getTag()" >
+											</div>
+												
+												<button type="submit" class="close">löschen</button>
+																			
+											}
+											</td></tr>
 										}
 									}
 									
 									
 									} 
 								} else {
-								<tr><td>Du hast noch keine Pläne</td><td></td><td></td></tr>
+								<tr><td>Du hast keine Pläne</td><td></td><td></td></tr>
 								}
 								
 							</table>
 						  </div>
-						 
+						 <div class="modal-footer"></div>
 						</div>
 					  </div>
 					</div>
+
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#">@user.getVorname()</a></li>
+			<li><a href="/aboutMe">@user.getVorname()</a></li>
 		</ul>
     </div>
   </div>

@@ -4,16 +4,20 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 
 public class Uebung {
-	private String name = "name";
+	private int id;
+	private String name;
 	private String equipment;
 	private String grad;
 	private String muskel1;
 	private String muskel2;
 	private String bild;
 	private Muskel muskelgruppe;
+	private int like;
+	private int dislike;
 	
 	
-	public Uebung(String n, String e, String g, String m1, String m2, String b, Muskel m){
+	public Uebung( int id, String n, String e, String g, String m1, String m2, String b, Muskel m){
+		this.id=id;
 		name = n;
 		equipment = e;
 		grad = g;
@@ -22,8 +26,41 @@ public class Uebung {
 		bild = b;
 		muskelgruppe = m;
 	}
+	
+	public Uebung( int id, String n, String e, String g, String m1, String m2, String b, Muskel m, int like, int dislike){
+		this.id=id;
+		name = n;
+		equipment = e;
+		grad = g;
+		muskel1 = m1;
+		muskel2 = m2;
+		bild = b;
+		muskelgruppe = m;
+		this.like=like;
+		this.dislike = dislike;
+	}
 	public String getName(){
 	return name;
+	}
+	public String getMuskelgruppe(){
+		if(Muskel.arme == muskelgruppe){
+			return "Arme";
+		}
+		if(Muskel.beine == muskelgruppe){
+			return "Beine";
+		}
+		if(Muskel.brust == muskelgruppe){
+			return "Brust";
+		}
+		if(Muskel.beine == muskelgruppe){
+			return "Beine";
+		}
+		if(Muskel.schultern == muskelgruppe){
+			return "Schultern";
+		}
+		else{
+			return "Ruecken";
+		}
 	}
 	public String getEquipment(){
 	return equipment;
@@ -40,7 +77,22 @@ public class Uebung {
 	return muskel2;
 	}
 	
-
+	public int getId(){
+	return id;
+	}
+	
+	public int getLike(){
+	return like;
+	}
+	public void setLike(int like){
+		this.like=like;
+	}
+	public int getDislike(){
+	return dislike;
+	}
+	public void setDisike(int dislike){
+		this.dislike=dislike;
+	}
 	
 	public String getBild(){
 	return bild;

@@ -81,7 +81,12 @@ footer{
 	width : 120%;
 	
 }
-
+.breite11{
+	width : 65%;
+}
+.breite7{
+	width : 100%;
+}
 .schrift{
 	font-size : 100%;
 }
@@ -246,7 +251,9 @@ width : 55%;
 #uebung_gif{
 	margin-right : 30px;
 }
-
+.uebung_gif{
+	margin-right : 30px;
+}
 .left{
 	float : left;
 }
@@ -267,11 +274,21 @@ width : 55%;
 width:20%;
 }
 .breite2{
-
+	width:40%;
 }
 .breite3{
 	width: 30%;
 	padding: 1%;
+}
+.breite8{
+	width: 80%;
+}
+.breite9{
+	width: 10%;
+}
+.scroll{
+	height : 25em;
+	overflow: scroll;
 }
 
 .breite4{
@@ -355,7 +372,10 @@ img:hover {
 		margin-bottom : 10%;
 		
 }
-
+.button2{
+margin:0%;
+padding: 0%;
+}
 .abstand_innen {
 		padding: 0.5%;
 }
@@ -1236,4 +1256,13 @@ table {
 }
 
 
+
+.pfeilUp {
+		font-size : 30%;
+		display:none;
+	}
+.pfeilDown{
+font-size : 80%;
+	
+}
 

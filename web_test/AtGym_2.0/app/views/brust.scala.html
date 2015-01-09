@@ -1,4 +1,6 @@
-@(user: models.User, brust : SortedMap[Integer, models.Uebung])
+@(user: models.User, brust : SortedMap[Integer, models.Uebung], uebungForm: Form[models.Auswaehlen], loeschen: Form[models.uebungLoeschen], likes: Form[models.Like])
+@import helper._
+@import helper.twitterBootstrap._
 @main("Brust"){
 		<div class="display wrapper">
 <nav class="navbar navbar-inverse" role="navigation">
@@ -26,8 +28,7 @@
             <li><a href="/beine">Beine</a></li>
 			<li><a href="/ruecken">Rücken</a></li>
 			<li><a href="/schultern">Schultern</a></li>
-            <li class="divider"></li>
-			<li><a href="/vipPlaene">V.I.P. Pläne</a></li>
+           
 			
 			<li class="divider"></li>
             <li><a href="/ourGym">Alle Kategorien</a></li>
@@ -51,36 +52,47 @@
 							<button type="button" class="close " data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only ">Close</span></button>
 							<h4 class="modal-title" id="myModalLabel">Deine Pläne</h4>
 						  </div>
-						  <div class="modal-body">
+						  <div class="modal-body scroll">
 							<table class="table">
 								<tr><th>Plan</th><th>Tag</th><th>Übung</th><th>S&aumltze</th><th></th></tr>
 								@if(user.getPlans().isEmpty() == false ){
 								@for(p <- user.getPlans().values()) {
 									@for(t <- p.getUebungen.keySet()){
 										@for(u <- p.getUebungen().get(t).getUebungen()){
-										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td><td><button type="button" class="close deleteRowButton">
-																										<span aria-hidden="true">&times;</span>
-																										<span class="sr-only">Close</span>
-																										</button></td></tr>
+										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td>
+										
+										 <td>									
+										@form(routes.Application.uebungLoeschenBrust(),'class -> "form-horizontal", 'id -> "loeschen") {
+										  
+										   <div style="display:none;" class=" form-group @if(loeschen("plan").hasErrors || loeschen("uebung").hasErrors || loeschen("tag").hasErrors){has-error}">
+											<input style="display:none;" name="@loeschen("plan").name" value="@p.getId()" >
+											<input style="display:none;" name="@loeschen("uebung").name" value="@u.getUebung().getId()" >
+											<input style="display:none;" name="@loeschen("tag").name" value="@p.getUebungen().get(t).getTag()" >
+											</div>
+												
+												<button type="submit" class=" close ">löschen</button>
+																			
+											}
+											</td></tr>
 										}
 									}
 									
 									
 									} 
 								} else {
-								<tr><td>Du hast noch keine Pläne</td><td></td><td></td></tr>
+								<tr><td>Du hast keine Pläne</td><td></td><td></td></tr>
 								}
 								
 							</table>
 						  </div>
-						 
+						 <div class="modal-footer"></div>
 						</div>
 					  </div>
 					</div>
 
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="">@user.getVorname()</a></li>
+			<li><a href="/aboutMe">@user.getVorname()</a></li>
 		  </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -97,15 +109,24 @@
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingOne">
 						  <h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne@b" aria-expanded="true" aria-controls="collapseOne@b">
-							  @brust.get(b).getName()<span class=transparent> #@b </span>
-							</a>
-							<a href="#"class=" float_r glyphicon glyphicon-thumbs-up" aria-hidden="true"> 0</a>
-							  <a href="#" class=" groessee float_r glyphicon glyphicon-thumbs-down" aria-hidden="true"> 0</a>
+							<div class="clearfix">
+							<a data-toggle="collapse" class="left breite8" data-parent="#accordion" href="#collapseOne@b" aria-expanded="true" aria-controls="collapseTwo">
+							  @brust.get(b).getName()<span class=transparent> #@b </span></a>
+							  @form(routes.Application.like(),'class -> "form-horizontal", 'id -> "likes") {
+							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@brust.get(b).getMuskelgruppe()" >
+							  <input style="display:none;" name="@likes("id").name" value="@b" >
+							  <button type="submit" class="close button2 left breite9 glyphicon glyphicon-thumbs-up"  aria-hidden="true"> @brust.get(b).getLike()</button>
+							  }
+							  @form(routes.Application.dislike(),'class -> "form-horizontal", 'id -> "likes") {
+							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@brust.get(b).getMuskelgruppe()" >
+							  <input style="display:none;" name="@likes("id").name" value="@b" >
+							  <button  type="submit" class="close button2 left breite9 glyphicon glyphicon-thumbs-down" aria-hidden="true"> @brust.get(b).getDislike()</button>
+							}
+							</div>
 						  </h4>
 						</div>
 					
-					<div id="collapseOne@b" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+					<div id="collapseOne@b" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 						  <div class="panel-body">
 							  
 								<img class="rande left breite abstand" id="uebung_gif" src=@brust.get(b).getBild()>
@@ -137,10 +158,14 @@
 											<h4 class="modal-title" id="myModalLabel">Gib den Plan und die gewünschte Anzahl von Sätzen ein: </h4>
 										  </div>
 										  <div class="modal-body clearfix">
-										  <form role="form">
-												<input class="left rande abstand abstand_innen breite" name="plan" type="text" placeholder="Planname">
+										   @form(routes.Application.auswaehlenBrust(),'class -> "form-horizontal", 'id -> "uebungForm") {
+										   
+										   <div class=" form-group @if(uebungForm("satz").hasErrors || uebungForm("tag").hasErrors || uebungForm("plan").hasErrors){has-error}">
 												
-														  <select class="left abstand_innen1 rande breite1 abstand" name="tag">
+												<input style="display:none;" name="@uebungForm("id").name" value="@brust.get(b).getId()" >
+												<input class="left rande abstand7 abstand abstand_innen breite2" name="@uebungForm("plan").name" type="text" placeholder="Planname">
+												
+														  <select class="left abstand_innen1 rande breite1 abstand" name="@uebungForm("tag").name">
 															<option>Montag</option>
 															<option>Dienstag</option>
 															<option>Mittwoch</option>
@@ -151,13 +176,16 @@
 														  </select>
 														
 													
-												<input class="left rande abstand abstand_innen breite1" name="wh" type="number" min="1" placeholder="Sätze">
-											</form>
+												<input class="left rande abstand abstand_innen breite1" name="@uebungForm("satz").name" type="number" min="1" placeholder="Sätze">
+												</div>
+											
 										  </div>
 										  <div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											
 											<button type="submit" class="btn btn-primary">Save</button>
+											
 										  </div>
+										  }
 										</div>
 									  </div>
 									</div>

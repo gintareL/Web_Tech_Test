@@ -81,7 +81,7 @@ public void setUmfang(double umfang){
 		if(umfang < 0 | umfang > 300){
 			error.add(new ValidationError("umfang", "This field is needed"));
 		} else{
-			System.out.println("umfang: " + umfang);
+		
 			setUmfang(umfang);
 		}
 		
