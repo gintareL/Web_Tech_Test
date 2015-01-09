@@ -106,10 +106,10 @@
 							@for(b <- bauch.keySet()){
 					
 					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
+						<div class="panel-heading" role="tab" id="heading@b">
 						  <h4 class="panel-title">
 							<div class="clearfix">
-							<a data-toggle="collapse" class="left breite8" data-parent="#accordion" href="#collapseOne@b" aria-expanded="true" aria-controls="collapseTwo">
+							<a data-toggle="collapse" class="left breite8" data-parent="#accordion" href="#collapse@b" aria-expanded="false" aria-controls="collapse@b">
 							  @bauch.get(b).getName()<span class=transparent> #@b </span></a>
 							  @form(routes.Application.like(),'class -> "form-horizontal", 'id -> "likes") {
 							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@bauch.get(b).getMuskelgruppe()" >
@@ -125,7 +125,7 @@
 						  </h4>
 						</div>
 					
-					<div id="collapseOne@b" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+					<div id="collapse@b" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading@b">
 						  <div class="panel-body">
 							  
 								<img class="rande left breite abstand uebung_gif" id="" src=@bauch.get(b).getBild()>

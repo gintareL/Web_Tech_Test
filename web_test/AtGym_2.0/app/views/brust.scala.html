@@ -107,10 +107,10 @@
 							@for(b <- brust.keySet()){
 					
 					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
+						<div class="panel-heading" role="tab" id="heading@b">
 						  <h4 class="panel-title">
 							<div class="clearfix">
-							<a data-toggle="collapse" class="left breite8" data-parent="#accordion" href="#collapseOne@b" aria-expanded="true" aria-controls="collapseTwo">
+							<a data-toggle="collapse" class="left breite8" data-parent="#accordion" href="#collapse@b" aria-expanded="false" aria-controls="collapse@b">
 							  @brust.get(b).getName()<span class=transparent> #@b </span></a>
 							  @form(routes.Application.like(),'class -> "form-horizontal", 'id -> "likes") {
 							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@brust.get(b).getMuskelgruppe()" >
@@ -126,10 +126,10 @@
 						  </h4>
 						</div>
 					
-					<div id="collapseOne@b" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+					<div id="collapse@b" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading@b">
 						  <div class="panel-body">
 							  
-								<img class="rande left breite abstand" id="uebung_gif" src=@brust.get(b).getBild()>
+								<img class="rande left breite abstand uebung_gif" id="" src=@brust.get(b).getBild()>
 								<div class="left breite abstand">
 									<table class="table1">
 										<tr><th>Benötigtes Equipment: </th></tr>
