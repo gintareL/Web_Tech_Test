@@ -920,7 +920,7 @@ public class Models extends Model{
    public void routineAuslesen(User u){
 	   try {
 				//stmt = conn.createStatement();
-				stmt1 = conn.createStatement();
+				//	stmt1 = conn.createStatement();
 				//rs = stmt.executeQuery( "select r.datum as datum, r.plan as plan, r.uebung as uebung, r.tag as tag, count() as anzahl from routine r, plan p where p.user="+u.getId()+" and p.id=r.plan group by r.plan, r.uebung, r.tag, r.datum;" );
 					String sql = "select r.datum as datum, r.plan as plan, r.uebung as uebung, r.tag as tag, count() as anzahl from routine r, plan p where p.user=? and p.id=r.plan group by r.plan, r.uebung, r.tag, r.datum;" ;
 					PreparedStatement preparedStatement =conn.prepareStatement(sql);
@@ -938,8 +938,15 @@ public class Models extends Model{
 							System.out.println("plan: " + plan + " uebung: " + uebung + " tag: " + tag + " datum: " + datum);
 							Satz[] satz = new Satz[laenge];
 							int i = 0;
-							rs1 = stmt1.executeQuery("select s.id, s.wh, s.gewicht from routine r, satz s where s.id=r.satz and r.plan="+plan+" and r.uebung="+uebung+" and r.datum='"+datum+"' and r.tag='"+tag+"';");
+							//rs1 = stmt1.executeQuery("select s.id, s.wh, s.gewicht from routine r, satz s where s.id=r.satz and r.plan="+plan+" and r.uebung="+uebung+" and r.datum='"+datum+"' and r.tag='"+tag+"';");
+							String sql2 = "select s.id, s.wh, s.gewicht from routine r, satz s where s.id=r.satz and r.plan=? and r.uebung=? and r.datum=? and r.tag=?;";
+							PreparedStatement preparedStatement2 =conn.prepareStatement(sql2);
+							preparedStatement2.setInt(1,plan);
+							preparedStatement2.setInt(2,uebung);
+							preparedStatement2.setString(3,datum);
+							preparedStatement2.setString(4,tag);
 							
+							rs1 = preparedStatement2.executeQuery();	
 							while ( rs1.next() ) {
 								
 								int id = rs1.getInt("id");
