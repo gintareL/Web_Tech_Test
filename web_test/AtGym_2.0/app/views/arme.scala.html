@@ -2,6 +2,43 @@
 @import helper._
 @import helper.twitterBootstrap._
 @main("Arme"){
+<script type="text/javascript" src=@routes.Assets.at("javascripts/jquery-1.11.1.js")></script>
+<script>
+
+		var ersetzen = " ";
+		var uebungid = " ";
+	
+		 var webSocket;
+		 $(function() {
+		 var WS = window["MozWebSocket"] ? MozWebSocket : WebSocket;
+		 webSocket = new WS("@routes.Application.uebungWebSocket().webSocketURL(request)");
+		 webSocket.onmessage = receiveEvent;
+		 })
+		 
+		 function idSenden(idErsetzen, idUbung){
+			ersetzen = idErsetzen;
+			uebungid = idUbung;
+			//	$("#"+ersetzen).html("Super");
+		// alert(ersetzen +" "+uebungid);
+		// var g = $("#guess").val();
+		 //webSocket.send(uebungid);
+		
+			var JsonString = {
+					uebung:uebungid,
+					};
+					var JsonObj = JSON.stringify (JsonString);
+					webSocket.send(JsonObj);
+		};
+			
+		
+		function receiveEvent(event) {
+		var obj = JSON.parse(event.data);
+		 $("#likes"+obj.uebung).html(obj.likes);
+		// $("#"+ersetzen).html(event.data);
+		 };
+
+	</script>
+
 		<div class="display wrapper">
 				<nav class="navbar navbar-inverse" role="navigation">
 				  <div class="container-fluid">
@@ -111,16 +148,18 @@
 							<div class="clearfix">
 							<a data-toggle="collapse" class="left breite8" data-parent="#accordion" href="#collapse@b" aria-expanded="false" aria-controls="collapse@b">
 							  @arme.get(b).getName()<span class=transparent> #@b </span></a>
-							  @form(routes.Application.like(),'class -> "form-horizontal", 'id -> "likes") {
+						<!--		  <button type="submit" onclick="idSenden('likes@b', '@b')" class="close button2 left breite9 glyphicon glyphicon-thumbs-up" aria-hidden="true"> <span  id="likes@b" >@arme.get(b).getLike()</span></button>-->
+							 
+						  @form(routes.Application.like(),'class -> "form-horizontal", 'id -> "likes") {
 							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@arme.get(b).getMuskelgruppe()" >
 							  <input style="display:none;" name="@likes("id").name" value="@b" >
-							  <button type="submit" class="close button2 left breite9 glyphicon glyphicon-thumbs-up"  aria-hidden="true"> @arme.get(b).getLike()</button>
+							  <button type="submit" onclick="idSenden('likes@b', '@b')" class="close button2 left breite9 glyphicon glyphicon-thumbs-up" aria-hidden="true"> <span  id="likes@b" >@arme.get(b).getLike()</span></button>
 							  }
-							  @form(routes.Application.dislike(),'class -> "form-horizontal", 'id -> "likes") {
-							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@arme.get(b).getMuskelgruppe()" >
-							  <input style="display:none;" name="@likes("id").name" value="@b" >
-							  <button  type="submit" class="close button2 left breite9 glyphicon glyphicon-thumbs-down" aria-hidden="true"> @arme.get(b).getDislike()</button>
-							}
+						<!--	  @form(routes.Application.dislike(),'class -> "form-horizontal", 'id -> "likes") {-->
+						<!--	  <input style="display:none;" name="@likes("muskelgruppe").name" value="@arme.get(b).getMuskelgruppe()" >-->
+						<!--	  <input style="display:none;" name="@likes("id").name" value="@b" >-->
+						<!--	  <button  type="submit" onclick="idSenden('dislikes@b', '@b') " class="close button2 left breite9 glyphicon glyphicon-thumbs-down" aria-hidden="true"><span  id="dislikes@b"> @arme.get(b).getDislike()</span></button>-->
+						<!--	}-->
 							</div>
 							</h4>
 						</div>

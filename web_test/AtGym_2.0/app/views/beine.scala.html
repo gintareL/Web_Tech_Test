@@ -2,6 +2,35 @@
 @import helper._
 @import helper.twitterBootstrap._
 @main("Beine"){
+<script type="text/javascript" src=@routes.Assets.at("javascripts/jquery-1.11.1.js")></script>
+<script>
+
+		
+		 var webSocket;
+		 $(function() {
+		 var WS = window["MozWebSocket"] ? MozWebSocket : WebSocket;
+		 webSocket = new WS("@routes.Application.uebungWebSocket().webSocketURL(request)");
+		 webSocket.onmessage = receiveEvent;
+		 })
+		 
+		 function sendLike(uebung){
+		var uebungid = uebung;
+			var JsonString = {
+					uebung:uebungid,
+					};
+					var JsonObj = JSON.stringify (JsonString);
+					webSocket.send(JsonObj);
+		};
+			
+		
+		function receiveEvent(event) {
+		var obj = JSON.parse(event.data);
+		 $("#likes"+obj.uebung).html(obj.likes);
+		// $("#"+ersetzen).html(event.data);
+		 };
+
+	</script>
+
 		<div class="display wrapper">
 			<nav class="navbar navbar-inverse" role="navigation">
 			  <div class="container-fluid">
@@ -115,13 +144,13 @@
 							  @form(routes.Application.like(),'class -> "form-horizontal", 'id -> "likes") {
 							  <input style="display:none;" name="@likes("muskelgruppe").name" id="like@b" value="@beine.get(b).getMuskelgruppe()" >
 							  <input style="display:none;" name="@likes("id").name" value="@b" >
-							  <button type="submit"  onclick="sendLike()"  class="close button2 left breite9 glyphicon glyphicon-thumbs-up" id="likeNeu@b" aria-hidden="true"> @beine.get(b).getLike()</button>
+							  <button type="submit"  onclick="sendLike('@b')"  class="close button2 left breite9 glyphicon glyphicon-thumbs-up" id="likeNeu@b" aria-hidden="true"><span id="likes@b">@beine.get(b).getLike()</span></button>
 							  }
-							  @form(routes.Application.dislike(),'class -> "form-horizontal", 'id -> "likes") {
-							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@beine.get(b).getMuskelgruppe()" >
-							  <input style="display:none;" name="@likes("id").name" value="@b" >
-							  <button  type="submit" onclick="sendDislike()" class="close button2 left breite9 glyphicon glyphicon-thumbs-down" aria-hidden="true"> @beine.get(b).getDislike()</button>
-							}
+						<!--	  @form(routes.Application.dislike(),'class -> "form-horizontal", 'id -> "likes") { -->
+						<!--	  <input style="display:none;" name="@likes("muskelgruppe").name" value="@beine.get(b).getMuskelgruppe()" > -->
+						<!--	  <input style="display:none;" name="@likes("id").name" value="@b" > -->
+						<!--	  <button  type="submit" onclick="sendDislike()" class="close button2 left breite9 glyphicon glyphicon-thumbs-down" aria-hidden="true"> @beine.get(b).getDislike()</button> -->
+						<!--	} -->
 							</div>
 						  </h4>
 						 <!-- <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
