@@ -33,6 +33,7 @@ public class AusgewaehlteUebung{
 		uebung = u;
 		wh=anzahl;
 		satz = new Satz[wh];
+		
 	}
 	
 	public AusgewaehlteUebung(){
@@ -41,7 +42,7 @@ public class AusgewaehlteUebung{
 
 	public void setSaetze(int i, int wh, int gewicht){
 		
-		if(i < satz.length){
+		if(i <= satz.length){
 			
 			this.satz[i] = new Satz(wh, gewicht);
 		}

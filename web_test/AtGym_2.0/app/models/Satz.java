@@ -105,7 +105,7 @@ public class Satz{
 		setUebung(uebung);
 		setSatz(satz);
 		
-		if(wh <= 0){
+		if(wh < 0){
 			error.add(new ValidationError("umfang", "This field is needed"));
 		} else{
 			setWh(wh);

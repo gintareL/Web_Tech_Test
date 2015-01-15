@@ -17,7 +17,7 @@ import java.security.MessageDigest;
 import java.security.Security;
 @Entity
 public class User extends Model{
-
+	public Models model;
 	private String email = null;
 	private String nachname = null;
 	private String vorname = null;
@@ -167,6 +167,28 @@ public class User extends Model{
 		Routine r = new Routine(plan, tag, uebung, satz, datum);
 		routine.add(r);
 	}
+	public void setRoutineOhneSaetze(int plan, String tag, int uebung, int saetze, Date datum){
+		Satz[] satz = new Satz[saetze];
+		Routine r = new Routine(plan, tag, uebung, satz, datum);
+		routine.add(r);
+	}
+	
+	public void setSaetze(int plan, String tag, int uebung, int satz, int wh, int gewicht){
+		for(Routine r : routine){
+			if(r.getPlan() == plan && r.getUebung()==uebung && r.getTag().equals(tag)){
+				if(satz <= r.getSatz().length){
+					r.getSatz()[(satz-1)].setWh(wh);
+					r.getSatz()[(satz-1)].setGewicht(gewicht);
+				}
+				/*if(satz == r.getSatz().length){
+					model.routineSpeichern(r);
+				}*/
+			}
+		}
+		System.out.println("as ueseris");
+	}
+	
+	
 
 	public void setRoutineString(int plan, String tag, int uebung, Satz[] satz, String datum){
 		Routine r = new Routine(plan, tag, uebung, satz, datum);
@@ -237,6 +259,7 @@ public class User extends Model{
 		this.geschlecht=geschlecht;
 	}
 	public Set<Routine> getRoutine(){
+		routine= model.routineAuslesen(this);
 		return routine;
 	}
 

@@ -28,9 +28,10 @@
 		}
 		routineDurchgefuehrt.routinen.push(routine);
 		alert(routineDurchgefuehrt.routinen[0].tag);
+		
 	};
 	
-	function arrayHinzufuegen(objekt){
+	function routinAbschliessen(){
 		
 	};
 </script>
@@ -76,7 +77,7 @@
 						  </div>
 						  <div class="modal-body scroll">
 							<table class="table">
-								<tr><th>Plan</th><th>Tag</th><th>Übung</th><th>S&aumltze</th><th></th></tr>
+								<tr><th>Plan</th><th>Tag</th><th>Übung</th><th>S&aumltze </th><th></th></tr>
 								@if(user.getPlans().isEmpty() == false ){
 								@for(p <- user.getPlans().values()) {
 									@for(t <- p.getUebungen.keySet()){
@@ -102,7 +103,7 @@
 									
 									} 
 								} else {
-								<tr><td>Du hast keine Pläne</td><td></td><td></td></tr>
+								<tr><td>Du hast keine Pläne</td><td></td><td></td><td></td><td></td></tr>
 								}
 								
 							</table>
@@ -237,7 +238,7 @@
 																				<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																				<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																				<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																				<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="1" max="99" placeholder="Sätze">
+																				<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="0" max="99" placeholder="Sätze">
 																				<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
 																				<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
 																				}
@@ -247,7 +248,7 @@
 																	
 																		@if(z != 0){
 																			<div role="tabpanel" class="tab-pane breite7" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
-																			TEST
+																			<!--TEST
 																				<input style="display:none;" value="@p.getId()" >
 																					<input style="display:none;" value="@u.getUebung().getId()" >
 																					<input style="display:none;"  value="@t.getTag()" >
@@ -256,6 +257,7 @@
 																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()"  class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
 																					<button class="buttonLog2 abstand6" onclick="uebungDurchführen('@p.getId()','@u.getUebung().getId()','@t.getTag()','@(z+1)','wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()','g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()' )" type="submit">save</button>
 																					
+																					<button onclick="routinAbschliessen()">-->
 																			
 																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
 																				
@@ -265,7 +267,7 @@
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
 																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
 																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
-																					<button class="buttonLog2 abstand6" onclick="uebungDurchführen('@p.getId()','@u.getUebung().getId()','@t.getTag()','(@z+1)','wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()','g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()' )" type="submit">save</button>
+																					<button class="buttonLog2 abstand6"  type="submit">save</button>
 																					}
 																				
 																			</div>

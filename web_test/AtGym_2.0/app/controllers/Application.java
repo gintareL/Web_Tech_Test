@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.File;
-
+import play.api.libs.json.*; 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -36,6 +36,7 @@ public class Application extends Controller {
 	final static Form<User> loginForm = Form.form(User.class); 
 	final static Models model = Models.getInstance();
 	final static Form<Gewicht> gewichtForm = Form.form(Gewicht.class); 
+	
 	
 	private static HashMap<Integer, UebungObserver> uebungObservers = new HashMap<Integer, UebungObserver>();
 	
@@ -312,11 +313,14 @@ public class Application extends Controller {
 		String email = session("email");
 		if(username != null && email != null) {
 			User user = model.aktuellUserList(email);
+				
 			return ok(myRoutine.render(user, uebungLoeschen, satzSave));
 		}else{
 			return redirect("/atGym");
 		}
 	}
+	
+
 	
 	public static Result myAnalyse(){
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
