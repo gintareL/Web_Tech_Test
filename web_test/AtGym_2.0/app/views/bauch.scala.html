@@ -146,7 +146,8 @@
 							  @form(routes.Application.like(),'class -> "form-horizontal", 'id -> "likes") {
 							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@bauch.get(b).getMuskelgruppe()" >
 							  <input style="display:none;" name="@likes("id").name" value="@b" >
-							  <button type="submit" onclick="sendLike('@b')" lass="close button2 left breite9 glyphicon glyphicon-thumbs-up"  aria-hidden="true"><span id="likes@b"> @bauch.get(b).getLike()</span></button>
+							  <button type="submit"  onclick="sendLike('@b')"  class="close button2 left breite9 glyphicon glyphicon-thumbs-up" id="likeNeu@b" aria-hidden="true"><span id="likes@b">@bauch.get(b).getLike()</span></button>
+							 
 							  }
 							<!--  @form(routes.Application.dislike(),'class -> "form-horizontal", 'id -> "likes") { -->
 							<!--  <input style="display:none;" name="@likes("muskelgruppe").name" value="@bauch.get(b).getMuskelgruppe()" >-->

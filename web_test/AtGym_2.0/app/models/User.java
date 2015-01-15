@@ -25,7 +25,8 @@ public class User extends Model{
 	private int id;
 	private int groesse=0;
 	private Geschlecht geschlecht;
-	private String bild =null;
+	private SortedMap<Integer, String> bild =new TreeMap<Integer, String>();
+	public String defaultBild=null;
 
 	private Map<String,Plan> plaene = new HashMap<String, Plan>();
 	private SortedMap<Integer, Gewicht> gewichtList = new TreeMap<Integer, Gewicht>();
@@ -64,7 +65,8 @@ public class User extends Model{
 		this.nachname=nachname;
 		this.vorname = vorname;
 		this.password = password;
-		this.bild=bild;
+		int anzahl = (this.bild.size()+1);
+		this.bild.put(anzahl,bild);
 		this.groesse = groesse;
 		if(geschlecht == 0)
 		this.geschlecht = Geschlecht.weiblich;
@@ -85,10 +87,35 @@ public class User extends Model{
 		this.nachname=nachname;
 		this.vorname = vorname;
 		this.password = password;
-		this.bild=bild;
+		int anzahl = (this.bild.size()+1);
+		this.bild.put(anzahl,bild);
 		this.groesse = groesse;
 		
 		this.geschlecht = geschlecht;
+	}
+	public User(int id, String vorname, String nachname, String email, String password, int groesse, int geschlecht, SortedMap<Integer, String> bild){
+		this.id=id;
+		this.email=email;
+		this.nachname=nachname;
+		this.vorname = vorname;
+		this.password = password;
+		this.bild=bild;
+		this.groesse = groesse;
+		if(geschlecht == 0)
+		this.geschlecht = Geschlecht.weiblich;
+		else this.geschlecht = Geschlecht.maennlich;
+	}
+	public User(int id, String vorname, String nachname, String email, String password, int groesse, int geschlecht){
+		this.id=id;
+		this.email=email;
+		this.nachname=nachname;
+		this.vorname = vorname;
+		this.password = password;
+		
+		this.groesse = groesse;
+		if(geschlecht == 0)
+		this.geschlecht = Geschlecht.weiblich;
+		else this.geschlecht = Geschlecht.maennlich;
 	}
 
 	public Gewicht getGewicht(){
@@ -153,12 +180,13 @@ public class User extends Model{
 	public void setPlans(Plan p){
 		this.plaene.put(p.getName(), p);
 	}
-	public String getBild(){
+	public SortedMap<Integer, String> getBild(){
 		
 		return bild;
 	}
 	public void setBild(String bild){
-		this.bild = bild;
+		int anzahl = this.bild.size()+1;
+		this.bild.put(anzahl, bild);
 	}
 	public void setEmail(String email){
 		this.email=email;

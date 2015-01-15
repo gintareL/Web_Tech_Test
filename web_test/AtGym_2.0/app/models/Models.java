@@ -67,18 +67,30 @@ public class Models extends Observable{
 			preparedStatement.setString(1, em);
 			preparedStatement.setString(2, p);
 			rs = preparedStatement.executeQuery();
-			//stmt = conn.createStatement();
-			//rs = stmt.executeQuery(  );
+			Set<String>bilder = new HashSet<String>();
 			while ( rs.next() ) {
 				String email = rs.getString("email");
 				String passwort = rs.getString("password");
+				int userid = rs.getInt("userid");
+				
+				
 				if(email.equals(em)==true && passwort.equals(p)==true ){
 					
-					// this.user = new User(rs.getString("vorname"), rs.getString("nachname"), email, p, rs.getInt("groesse"), rs.getInt("geschlecht"),rs.getString("bild"));
-					// user.setId(selectId(email));
-					User userToList = new User(rs.getString("vorname"), rs.getString("nachname"), email, p, rs.getInt("groesse"), rs.getInt("geschlecht"),rs.getString("bild"));
-					userToList.setId(selectId(email));
 					
+					
+					User userToList = new User(userid, rs.getString("vorname"), rs.getString("nachname"), email, p, rs.getInt("groesse"), rs.getInt("geschlecht"));
+					//userToList.setId(selectId(email));
+					//userToList.setId(userid);
+					bilderList(userToList);
+					if(bilder.isEmpty() == true){
+						if(userToList.getGeschlecht().equals("weiblich")==true) {
+							//geschlecht = 0;
+							userToList.defaultBild="assets//images//default_bild_w.jpg";
+						}  else {
+							//geschlecht = 1;
+							userToList.defaultBild="assets//images//default_bild_m.jpg";
+						}
+					}
 					
 					gewichtList(userToList);
 					bauchumfangList(userToList);
@@ -88,7 +100,7 @@ public class Models extends Observable{
 					routineAuslesen(userToList);
 					plaene(userToList);
 					alleUser.put(em, userToList);
-					
+					System.out.println(userid);
 					return true;
 				}
 				
@@ -104,6 +116,30 @@ public class Models extends Observable{
 
 			//try { if (conn != null) conn.close(); } catch (Exception e) {};
 		}
+	}
+	
+	public void bilderList(User userp){
+		//Set<String>bilder = new HashSet<String>();
+			try {
+					String sql = "SELECT * FROM bild where user=?;";
+					PreparedStatement preparedStatement =conn.prepareStatement(sql);
+					preparedStatement.setInt(1, userp.getId());
+					ResultSet resultSet = preparedStatement.executeQuery();
+					while(resultSet.next()){
+						userp.setBild(resultSet.getString("bild"));
+						//bilder.add(resultSet.getString("bild"));
+					}
+				} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+			
+		}finally {
+			
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+
+			//try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+		//return bilder;
 	}
 
 	public int selectId(String email){
@@ -178,10 +214,10 @@ public class Models extends Observable{
 		if(userNeu.getGeschlecht() != null){
 			if(userNeu.getGeschlecht().equals("weiblich")==true) {
 				geschlecht = 0;
-				userNeu.setBild("assets//images//default_bild_w.jpg");
+				userNeu.defaultBild="assets//images//default_bild_w.jpg";
 			}  else {
 				geschlecht = 1;
-				userNeu.setBild("assets//images//default_bild_m.jpg");
+				userNeu.defaultBild="assets//images//default_bild_m.jpg";
 			}
 		} else {
 			return false;
@@ -194,18 +230,18 @@ public class Models extends Observable{
 				//        "VALUES (null,'"+ userNeu.getVorname()+"','" + userNeu.getNachname()+"','"+userNeu.getBild()+"','"+ userNeu.getEmail() +"','"+password+"',"+ userNeu.getGroesse()+","+ geschlecht +");"; 
 				// stmt.executeUpdate(sql);
 				//  stmt.close();
-				String sql = "INSERT INTO USER (userid,vorname,nachname,bild,email,password,groesse,geschlecht) " +
-				"VALUES (null,?,?,?,?,?,?,?);";
+				String sql = "INSERT INTO USER (userid,vorname,nachname,email,password,groesse,geschlecht) " +
+				"VALUES (null,?,?,?,?,?,?);";
 
 				PreparedStatement preparedStatement1 =conn.prepareStatement(sql);
 
 				preparedStatement1.setString(1, userNeu.getVorname());
 				preparedStatement1.setString(2, userNeu.getNachname());
-				preparedStatement1.setString(3, userNeu.getBild());
-				preparedStatement1.setString(4, userNeu.getEmail());
-				preparedStatement1.setString(5, password);
-				preparedStatement1.setInt(6, userNeu.getGroesse());
-				preparedStatement1.setInt(7, geschlecht);
+				//preparedStatement1.setString(3, userNeu.getBild());
+				preparedStatement1.setString(3, userNeu.getEmail());
+				preparedStatement1.setString(4, password);
+				preparedStatement1.setInt(5, userNeu.getGroesse());
+				preparedStatement1.setInt(6, geschlecht);
 				preparedStatement1.executeUpdate();
 				
 				
@@ -260,7 +296,8 @@ public class Models extends Observable{
 			//String sql = "update user set bild='"+bild+"' where userid="+userp.getId()+";"; 
 			//stmt.executeUpdate(sql);
 			
-			String sql = "update user set bild=? where userid=?;";
+			//String sql = "update user set bild=? where userid=?;";
+			String sql = "insert into bild(bildid, bild, user) values (null,?,?);";
 
 			PreparedStatement preparedStatement =conn.prepareStatement(sql);
 

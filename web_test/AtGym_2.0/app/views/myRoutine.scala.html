@@ -2,6 +2,41 @@
 @import helper._
 @import helper.twitterBootstrap._
 @main("my Routine"){
+<script type="text/javascript" src=@routes.Assets.at("javascripts/jquery-1.11.1.js")></script>
+<script>
+	var routineDurchgefuehrt = {
+				"routinen" : [
+				
+				]
+	};
+
+	function uebungDurchführen(plan, uebung, tag, satz, wh, gwicht){
+	
+		var planid = plan;
+		var uebungid = uebung;
+		var tagU = tag;
+		var satzU = satz;
+		var whU = document.getElementById(wh).value;
+		var gewicht = document.getElementById(gwicht).value;
+		var routine = {
+				"plan" : plan,
+				"uebung" : uebung,
+				"tag" : tag,
+				"satz" : satz,
+				"wh" : gewicht,
+				"gewicht" : gewicht
+		}
+		routineDurchgefuehrt.routinen.push(routine);
+		alert(routineDurchgefuehrt.routinen[0].tag);
+	};
+	
+	function arrayHinzufuegen(objekt){
+		
+	};
+</script>
+
+
+
 		<div class="wrapper rande">
 			<nav class="navbar navbar-inverse" role="navigation">
 				<div class="container-fluid">
@@ -212,7 +247,15 @@
 																	
 																		@if(z != 0){
 																			<div role="tabpanel" class="tab-pane breite7" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
-																				
+																			TEST
+																				<input style="display:none;" value="@p.getId()" >
+																					<input style="display:none;" value="@u.getUebung().getId()" >
+																					<input style="display:none;"  value="@t.getTag()" >
+																					<input style="display:none;"  value="@z" >
+																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
+																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()"  class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<button class="buttonLog2 abstand6" onclick="uebungDurchführen('@p.getId()','@u.getUebung().getId()','@t.getTag()','@(z+1)','wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()','g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()' )" type="submit">save</button>
+																					
 																			
 																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
 																				
@@ -220,9 +263,9 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
-																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
-																					<button class="buttonLog2 abstand6" type="submit">save</button>
+																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
+																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<button class="buttonLog2 abstand6" onclick="uebungDurchführen('@p.getId()','@u.getUebung().getId()','@t.getTag()','(@z+1)','wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()','g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()' )" type="submit">save</button>
 																					}
 																				
 																			</div>
