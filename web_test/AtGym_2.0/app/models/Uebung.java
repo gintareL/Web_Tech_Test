@@ -43,19 +43,19 @@ public class Uebung extends Observable{
 	return name;
 	}
 	public String getMuskelgruppe(){
-		if(Muskel.arme == muskelgruppe){
+		if(Muskel.arme == this.muskelgruppe){
 			return "Arme";
 		}
-		if(Muskel.beine == muskelgruppe){
+		if(Muskel.beine == this.muskelgruppe){
 			return "Beine";
 		}
-		if(Muskel.brust == muskelgruppe){
+		if(Muskel.brust == this.muskelgruppe){
 			return "Brust";
 		}
-		if(Muskel.beine == muskelgruppe){
+		if(Muskel.beine == this.muskelgruppe){
 			return "Beine";
 		}
-		if(Muskel.schultern == muskelgruppe){
+		if(Muskel.schultern == this.muskelgruppe){
 			return "Schultern";
 		}
 		else{

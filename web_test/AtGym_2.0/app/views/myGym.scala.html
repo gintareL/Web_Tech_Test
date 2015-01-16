@@ -48,7 +48,7 @@
 										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td>
 										
 										 <td>									
-										@form(routes.Application.uebungLoeschenMyGym(),'class -> "form-horizontal", 'id -> "loeschen") {
+										@form(routes.Application.uebungLoeschen(),'class -> "form-horizontal", 'id -> "loeschen") {
 										  
 										   <div style="display:none;" class=" form-group @if(loeschen("plan").hasErrors || loeschen("uebung").hasErrors || loeschen("tag").hasErrors){has-error}">
 											<input style="display:none;" name="@loeschen("plan").name" value="@p.getId()" >

@@ -90,7 +90,7 @@
 										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td>
 										
 										 <td>									
-										@form(routes.Application.uebungLoeschenBeine(),'class -> "form-horizontal", 'id -> "loeschen") {
+										@form(routes.Application.uebungLoeschen(),'class -> "form-horizontal", 'id -> "loeschen") {
 										  
 										   <div style="display:none;" class=" form-group @if(loeschen("plan").hasErrors || loeschen("uebung").hasErrors || loeschen("tag").hasErrors){has-error}">
 											<input style="display:none;" name="@loeschen("plan").name" value="@p.getId()" >
@@ -146,11 +146,7 @@
 							  <input style="display:none;" name="@likes("id").name" value="@b" >
 							  <button type="submit"  onclick="sendLike('@b')"  class="close button2 left breite9 glyphicon glyphicon-thumbs-up" id="likeNeu@b" aria-hidden="true"><span id="likes@b">@beine.get(b).getLike()</span></button>
 							  }
-						<!--	  @form(routes.Application.dislike(),'class -> "form-horizontal", 'id -> "likes") { -->
-						<!--	  <input style="display:none;" name="@likes("muskelgruppe").name" value="@beine.get(b).getMuskelgruppe()" > -->
-						<!--	  <input style="display:none;" name="@likes("id").name" value="@b" > -->
-						<!--	  <button  type="submit" onclick="sendDislike()" class="close button2 left breite9 glyphicon glyphicon-thumbs-down" aria-hidden="true"> @beine.get(b).getDislike()</button> -->
-						<!--	} -->
+						
 							</div>
 						  </h4>
 						 <!-- <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
@@ -196,7 +192,7 @@
 										  </div>
 										  <div class="modal-body clearfix">
 										
-										  @form(routes.Application.auswaehlenBeine(),'class -> "form-horizontal", 'id -> "uebungForm") {
+										  @form(routes.Application.uebungAuswaehlen(),'class -> "form-horizontal", 'id -> "uebungForm") {
 										   
 										   <div class=" form-group @if(uebungForm("satz").hasErrors || uebungForm("tag").hasErrors || uebungForm("plan").hasErrors){has-error}">
 												

@@ -8,7 +8,6 @@ import java.io.File;
 import play.api.libs.json.*; 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.libs.Json;
 import play.libs.F.Callback;
@@ -37,9 +36,7 @@ public class Application extends Controller {
 	final static Models model = Models.getInstance();
 	final static Form<Gewicht> gewichtForm = Form.form(Gewicht.class); 
 	
-	
-	private static HashMap<Integer, UebungObserver> uebungObservers = new HashMap<Integer, UebungObserver>();
-	
+
 	public static Result login() {
 		String email = session("email");
 		if(email != null){
@@ -63,6 +60,7 @@ public class Application extends Controller {
 	
 	
 	public static Result home1() {
+		session("seite", "home");
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<User> userForm = Form.form(User.class).bindFromRequest();
 		if(userForm.hasErrors()){
@@ -98,6 +96,7 @@ public class Application extends Controller {
 		}return redirect("/atGym");
 	}
 	public static Result home(){
+		session("seite", "home");
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		// User user = model.aktuellUser();
 		String username = session("User1");
@@ -112,6 +111,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result ourGym(){
+		session("seite", "ourGym");
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		//User user = model.aktuellUser();
 		String username = session("User1");
@@ -126,6 +126,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result myGym(){
+		session("seite", "myGym");
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		//User user = model.aktuellUser();
 		String username = session("User1");
@@ -141,14 +142,6 @@ public class Application extends Controller {
 			return redirect("/atGym");
 		}
 	}
-	
-	/*	public static Result hello() {
-	DynamicForm requestData = Form.form().bindFromRequest();
-	double gewicht = requestData.get("gewicht");
-
-	return ok();
-}*/
-	
 	public static Result aboutMeg(){
 		Form<Gewicht> gewichtForm = Form.form(Gewicht.class).bindFromRequest();
 		if(gewichtForm.hasErrors()){
@@ -274,6 +267,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result aboutMe(){
+		session("seite", "aboutMe");
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Gewicht> gewichtForm = Form.form(Gewicht.class);
 		Form<Bauchumfang> bauchForm = Form.form(Bauchumfang.class);
@@ -292,6 +286,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result myPlans(){
+		session("seite", "myPlans");
 		Form<PlanLoeschen> planLoeschen = Form.form(PlanLoeschen.class);
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		//User user = model.aktuellUser();
@@ -306,6 +301,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result myRoutine(){
+		session("seite", "myRoutine");
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		Form<Satz> satzSave = Form.form(Satz.class);
 		//User user = model.aktuellUser();
@@ -313,7 +309,7 @@ public class Application extends Controller {
 		String email = session("email");
 		if(username != null && email != null) {
 			User user = model.aktuellUserList(email);
-				
+			
 			return ok(myRoutine.render(user, uebungLoeschen, satzSave));
 		}else{
 			return redirect("/atGym");
@@ -323,6 +319,7 @@ public class Application extends Controller {
 
 	
 	public static Result myAnalyse(){
+		session("seite", "myAnalyse");
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		//User user = model.aktuellUser();
 		String username = session("User1");
@@ -334,147 +331,51 @@ public class Application extends Controller {
 			return redirect("/atGym");
 		}
 	}
-	
-	public static Result auswaehlenBeine(){
+
+	public static Result uebungAuswaehlen(){
+		String muskelgruppe = session("muskelgruppe");
 		String email = session("email");
 		if(email != null){
 			Form<Auswaehlen> uebungForm = Form.form(Auswaehlen.class).bindFromRequest();
 			if(uebungForm.hasErrors()){
 				
 				System.out.println("Errors gefunden!");
-				return redirect("/beine");
+				switch(muskelgruppe){
+				case "beine" : redirect("/beine");
+				case "bauch" : redirect("/bauch");
+				case "brust" : redirect("/brust");
+				case "arme" : redirect("/arme");
+				case "schultern" : redirect("/schultern");
+				case "ruecken" : redirect("/ruecken");
+					default : redirect("/atGym");
+				}
+				//return redirect("/schultern");
 			}else{
 				
 				Auswaehlen g = uebungForm.get();
 				//User user = model.aktuellUser();
 				User user = model.aktuellUserList(email);
 				model.planHinzufuegen(user, g.getId(), g.getSatz(), g.getTag(), g.getPlan());
-				
-				
-				
-				return redirect("/beine");
-			}
-		}else{
-			return redirect("/atGym");
-		}
-	}
-	public static Result auswaehlenBauch(){
-		
-		String email = session("email");
-		if(email != null){
-			Form<Auswaehlen> uebungForm = Form.form(Auswaehlen.class).bindFromRequest();
-			if(uebungForm.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/bauch");
-			}else{
-				
-				Auswaehlen g = uebungForm.get();
-				//User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.planHinzufuegen(user, g.getId(), g.getSatz(), g.getTag(), g.getPlan());
-				
-				
-				
-				return redirect("/bauch");
+				switch(muskelgruppe){
+				case "beine" : return redirect("/beine");
+				case "bauch" : return redirect("/bauch");
+				case "brust" : return redirect("/brust");
+				case "arme" : return redirect("/arme");
+				case "schultern" : return redirect("/schultern");
+				case "ruecken" : return redirect("/ruecken");
+					default : return redirect("/atGym");
+				}
+				//return redirect("/schultern");
 				
 			}
 		}else{
 			return redirect("/atGym");
 		}
-	}
-	public static Result auswaehlenBrust(){
-		String email = session("email");
-		if(email != null){
-			Form<Auswaehlen> uebungForm = Form.form(Auswaehlen.class).bindFromRequest();
-			if(uebungForm.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/brust");
-			}else{
-				
-				Auswaehlen g = uebungForm.get();
-				//User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.planHinzufuegen(user, g.getId(), g.getSatz(), g.getTag(), g.getPlan());
-				
-				
-				
-				return redirect("/brust");
-				
-			}
-		}else{
-			return redirect("/atGym");
-		}
-	}
-	
-	public static Result auswaehlenArme(){
-		String email = session("email");
-		if(email != null){
-			Form<Auswaehlen> uebungForm = Form.form(Auswaehlen.class).bindFromRequest();
-			if(uebungForm.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/arme");
-			}else{
-				
-				Auswaehlen g = uebungForm.get();
-				//User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.planHinzufuegen(user, g.getId(), g.getSatz(), g.getTag(), g.getPlan());
-				
-				return redirect("/arme");
-			}
-		}else{
-			return redirect("/atGym");
-		}
-	}
-	public static Result auswaehlenRuecken(){
-		String email = session("email");
-		if(email != null){
-			Form<Auswaehlen> uebungForm = Form.form(Auswaehlen.class).bindFromRequest();
-			if(uebungForm.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/ruecken");
-			}else{
-				
-				Auswaehlen g = uebungForm.get();
-				//User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.planHinzufuegen(user, g.getId(), g.getSatz(), g.getTag(), g.getPlan());
-				return redirect("/ruecken");
-				
-			}
-		}else{
-			return redirect("/atGym");
-		}
-	}
-	
-	public static Result auswaehlenSchultern(){
-		String email = session("email");
-		if(email != null){
-			Form<Auswaehlen> uebungForm = Form.form(Auswaehlen.class).bindFromRequest();
-			if(uebungForm.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/schultern");
-			}else{
-				
-				Auswaehlen g = uebungForm.get();
-				//User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.planHinzufuegen(user, g.getId(), g.getSatz(), g.getTag(), g.getPlan());	
-				return redirect("/schultern");
-				
-			}
-		}else{
-			return redirect("/atGym");
-		}
+		return redirect("/atGym");
 	}
 	
 	public static Result beine(){
-		
+		session("seite","beine");
 		session("muskelgruppe", "beine");
 		String muskelgruppe = session("muskelgruppe");
 		System.out.println("Seite: " + muskelgruppe);
@@ -494,7 +395,7 @@ public class Application extends Controller {
 		}
 	}
 	public static Result bauch(){
-		
+		session("seite","bauch");
 		session("muskelgruppe", "bauch");
 		String muskelgruppe = session("muskelgruppe");
 		System.out.println("Seite: " + muskelgruppe);
@@ -516,6 +417,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result arme(){
+		session("seite","arme");
 		session("muskelgruppe", "arme");
 		String muskelgruppe = session("muskelgruppe");
 		System.out.println("Seite: " + muskelgruppe);
@@ -540,7 +442,7 @@ public class Application extends Controller {
 	
 	
 	public static Result brust(){
-		
+		session("seite","brust");
 		session("muskelgruppe", "brust");
 		String muskelgruppe = session("muskelgruppe");
 		System.out.println("Seite: " + muskelgruppe);
@@ -574,17 +476,18 @@ public class Application extends Controller {
 			//User user = model.aktuellUser();
 			model.like(l.getId());
 			session("uebungId", Integer.toString(l.getId()));
-			String muskelgruppe = l.getMuskelgruppe();
-			
-			if(muskelgruppe.equals("Arme")){
+			//String muskelgruppe = l.getMuskelgruppe();
+			String muskelgruppe = session("muskelgruppe");
+			System.out.println("Zurueck in " + muskelgruppe);
+			if(muskelgruppe.equals("arme")){
 				return redirect("/arme");
-			} else if(muskelgruppe.equals("Bauch")){
+			} else if(muskelgruppe.equals("bauch")){
 				return redirect("/bauch");
-			} else if(muskelgruppe.equals("Beine")){
+			} else if(muskelgruppe.equals("beine")){
 				return redirect("/beine");
-			} else if(muskelgruppe.equals("Brust")){
+			} else if(muskelgruppe.equals("brust")){
 				return redirect("/brust");
-			}else if(muskelgruppe.equals("Schultern")){
+			}else if(muskelgruppe.equals("schultern")){
 				return redirect("/schultern");
 			} else {
 				return redirect("/ruecken");
@@ -592,41 +495,12 @@ public class Application extends Controller {
 			
 			
 			
-		}
-	}
-	public static Result dislike(){
-		Form<Like> dislikes = Form.form(Like.class).bindFromRequest();
-		if(dislikes.hasErrors()){
-			
-			System.out.println("Errors gefunden!");
-			return redirect("/arme");
-		}else{
-			
-			
-			Like l = dislikes.get();
-			//User user = model.aktuellUser();
-			model.dislike(l.getId());
-			session("uebungId", Integer.toString(l.getId()));
-			String muskelgruppe = l.getMuskelgruppe();
-			if(muskelgruppe.equals("Arme")){
-				return redirect("/arme");
-			} else if(muskelgruppe.equals("Bauch")){
-				return redirect("/bauch");
-			} else if(muskelgruppe.equals("Beine")){
-				return redirect("/beine");
-			} else if(muskelgruppe.equals("Brust")){
-				return redirect("/brust");
-			}else if(muskelgruppe.equals("Schultern")){
-				return redirect("/schultern");
-			} else {
-				return redirect("/ruecken");
-			}
-			//return redirect("/ruecken");
 		}
 	}
 	
+	
 	public static Result ruecken(){
-		
+		session("seite","ruecken");
 		session("muskelgruppe", "ruecken");
 		String muskelgruppe = session("muskelgruppe");
 		System.out.println("Seite: " + muskelgruppe);
@@ -648,7 +522,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result schultern(){
-		
+		session("seite","schultern");
 		session("muskelgruppe", "schultern");
 		String muskelgruppe = session("muskelgruppe");
 		System.out.println("Seite: " + muskelgruppe);
@@ -669,226 +543,58 @@ public class Application extends Controller {
 			return redirect("/atGym");
 		}
 	}
-	
-	
-	public static Result uebungLoeschenBrust(){
+	public static Result uebungLoeschen(){
+		String seite = session("seite");
 		String email = session("email");
 		if(email != null){
 			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
 			if(uebungLoeschen.hasErrors()){
 				
 				System.out.println("Errors gefunden!");
-				return redirect("/brust");
+				switch(seite){
+				case "home" : return redirect("/home");
+				case "myGym" : return redirect("/myGym");
+				case "ourGym" : return redirect("/ourGym");
+				case "beine" : return redirect("/beine");
+				case "arme" : return redirect("/arme");
+				case "brust" : return redirect("/brust");
+				case "bauch" : return redirect("/bauch");
+				case "schultern" : return redirect("/schultern");
+				case "ruecken" : return redirect("/ruecken");
+				case "myAnalyse" : return redirect("/myAnalyse");
+				case "myPlans" : return redirect("/myPlans");
+				case "aboutMe" : return redirect("/aboutMe");
+					
+				}
+				
 			}else{
 				
 				
 				uebungLoeschen g = uebungLoeschen.get();
-				//	User user = model.aktuellUser();
 				User user = model.aktuellUserList(email);
 				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				//	System.out.println(g.getPlan());
-				//	System.out.println(g.getUebung());
-				//	System.out.println(g.getTag());
 				
-				
-				return redirect("/brust");
-				
+				switch(seite){
+				case "home" : return redirect("/home");
+				case "myGym" : return redirect("/myGym");
+				case "ourGym" : return redirect("/ourGym");
+				case "beine" : return redirect("/beine");
+				case "arme" : return redirect("/arme");
+				case "brust" : return redirect("/brust");
+				case "bauch" : return redirect("/bauch");
+				case "schultern" : return redirect("/schultern");
+				case "ruecken" : return redirect("/ruecken");
+				case "myAnalyse" : return redirect("/myAnalyse");
+				case "myPlans" : return redirect("/myPlans");
+				case "aboutMe" : return redirect("/aboutMe");
+				}
 			}
 		} else {
 			return redirect("/atGym");
 		}
-		
+		return redirect("/atGym");
 	}
-	
 
-	public static Result uebungLoeschenBeine(){
-		String email = session("email");
-		if(email != null){
-			
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/beine");
-			}else{
-				
-				
-				uebungLoeschen g = uebungLoeschen.get();
-				//User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				//	System.out.println(g.getPlan());
-				//	System.out.println(g.getUebung());
-				//	System.out.println(g.getTag());
-				
-				
-				return redirect("/beine");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
-	
-	
-	public static Result uebungLoeschenBauch(){
-		String email = session("email");
-		if(email != null){
-			
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/bauch");
-			}else{
-				
-				
-				uebungLoeschen g = uebungLoeschen.get();
-				//User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				
-				
-				return redirect("/bauch");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
-	
-	public static Result uebungLoeschenArme(){
-		String email = session("email");
-		if(email != null){
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/arme");
-			}else{
-				uebungLoeschen g = uebungLoeschen.get();
-				//User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				
-				return redirect("/arme");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
-	
-	public static Result uebungLoeschenSchultern(){
-		String email = session("email");
-		if(email != null){
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/schultern");
-			}else{
-				uebungLoeschen g = uebungLoeschen.get();
-				//User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				
-				return redirect("/schultern");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
-	
-	public static Result uebungLoeschenRuecken(){
-		String email = session("email");
-		if(email != null){
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/ruecken");
-			}else{
-				uebungLoeschen g = uebungLoeschen.get();
-				//	User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				
-				return redirect("/ruecken");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
-	
-	public static Result uebungLoeschenMyGym(){
-		String email = session("email");
-		if(email != null){
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/myGym");
-			}else{
-				uebungLoeschen g = uebungLoeschen.get();
-				//User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				
-				return redirect("/myGym");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
-	
-	public static Result uebungLoeschenAboutMe(){
-		String email = session("email");
-		if(email != null){
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/aboutMe");
-			}else{
-				
-				
-				uebungLoeschen g = uebungLoeschen.get();
-				//	User user = model.aktuellUser();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				return redirect("/aboutMe");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
-	
-	public static Result uebungLoeschenMyPlans(){
-		String email = session("email");
-		if(email != null){
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/myPlans");
-			}else{
-				
-				
-				uebungLoeschen g = uebungLoeschen.get();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				return redirect("/myPlans");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
 	
 	public static Result planLoeschen(){
 		String email = session("email");
@@ -910,26 +616,6 @@ public class Application extends Controller {
 		}
 	}
 	
-	public static Result uebungLoeschenMyRoutine(){
-		String email = session("email");
-		if(email != null){
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/myRoutine");
-			}else{
-				uebungLoeschen g = uebungLoeschen.get();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				
-				return redirect("/myRoutine");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
 	
 	public static Result satzSave(){
 		String email = session("email");
@@ -952,82 +638,17 @@ public class Application extends Controller {
 		}
 	}
 	
-	
-	public static Result uebungLoeschenAnalyse(){
-		String email = session("email");
-		if(email != null){
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/myAnalyse");
-			}else{
-				uebungLoeschen g = uebungLoeschen.get();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				
-				return redirect("/myAnalyse");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
-	
-	public static Result uebungLoeschenHome(){
-		String email = session("email");
-		if(email != null){
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			System.out.println("Home");
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/home");
-			}else{
-				uebungLoeschen g = uebungLoeschen.get();
-				
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				return redirect("/home");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
-	
-	public static Result uebungLoeschenOurGym(){
-		String email = session("email");
-		if(email != null){
-			Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class).bindFromRequest();
-			if(uebungLoeschen.hasErrors()){
-				
-				System.out.println("Errors gefunden!");
-				return redirect("/ourGym");
-			}else{
-				uebungLoeschen g = uebungLoeschen.get();
-				User user = model.aktuellUserList(email);
-				model.uebungLoeschen(user, g.getPlan(),g.getUebung(),g.getTag() );
-				return redirect("/ourGym");
-				
-			}
-		} else {
-			return redirect("/atGym");
-		}
-	}
-	private static List<WebSocket.Out<String>> uebungConnection = new ArrayList<WebSocket.Out<String>>(); 
-	
 	public static WebSocket<JsonNode> uebungWebSocket() {
 		return new WebSocket<JsonNode>() {
 			public void onReady(WebSocket.In<JsonNode> in,
-					final WebSocket.Out<JsonNode> out) {
+			final WebSocket.Out<JsonNode> out) {
 				System.out.println(": WebSocketArtikel ready...");
 				final GymObserver obs = new GymObserver();
 				obs.gym = out;
 				// final Integer id = new Integer(obs.hashCode());
 				// observer.put(id,obs);
 				System.out.println( ": Anzahl observer: "
-						+ Models.getInstance().countObservers());
+				+ Models.getInstance().countObservers());
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode obj) {
 
@@ -1050,79 +671,6 @@ public class Application extends Controller {
 		};
 		
 	}
-	
-	/*public static WebSocket<String> uebungWebSocket() {
-		final String email = session("email");
-		final String musklgruppe = session("muskelgruppe");
-		System.out.println("User WEBSOCKET: "+ email);
-		
-		WebSocket<String> ws = null;
-		final String r = session("muskelgruppe");
-		ws = new WebSocket<String>() {
-			public void onReady(WebSocket.In<String> in, final WebSocket.Out<String> out) {
-				
-			//	uebungConnection.add(out);
-				final UebungObserver uebungObserver = new UebungObserver(model.getAlleUebungen(), out);
-				
-				
-				in.onMessage(new Callback<String>() {
-					public void invoke(String g) {
-						
-						int uebungid = Integer.parseInt(g);
-						Uebung uebung = model.getUebung(uebungid);
-						model.setLike(uebung);
-						String res = Integer.toString(uebung.getLike());
-						
-						System.out.println("likes: " + res);
-						out.write(res);
-					}
-				});
-				in.onClose(new Callback0() {
-					public void invoke() {
-						System.out.println("Disconnected!");
-					}
-				});
-			}
-		};
-		return ws;
-	
-	//final Integer uebungId = new Integer(session("uebungId"));
-	//final Uebung uebung = model.getUebung(uebungId);
-	
-	/*	return new WebSocket<JsonNode>() {
-		
-			public void onReady(WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out) {
-					//Überprüfe ob GameObserver schon vorhanden ist
-					
-						if(uebungObservers.containsKey(uebungId) == false){
-						uebungObservers.put(uebungId, new UebungObserver(uebung));
-						
-					}
-					uebungObservers.get(uebungId).uebungen=out;	
-				
-					
-				in.onMessage(new Callback<JsonNode>() {
-					public void invoke(JsonNode event) throws Throwable {
-						String action = event.get("type").asText();
-						System.out.println(action);
-						
-						
-						if(action.equals("like")){
-						
-						}
-						
-						if(action.equals("dislike")) {
-						
-						}
-						
-					}
-					
-				});
-				
-			}
-		}; 
-	
-}*/
 
 
 }

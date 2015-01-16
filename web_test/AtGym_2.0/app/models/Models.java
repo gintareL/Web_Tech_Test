@@ -22,10 +22,6 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-//import org.json.JSONArray;
-//import org.json.JSONException;
-//import org.json.JSONObject;
-
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,10 +33,16 @@ public class Models extends Observable{
 	Statement stmt = null;
 	ResultSet rs = null;	
 	ResultSet rs1 = null;	
-	//static int index=100; 	
+	
 	private static Models instance = null;
 	private static Map<Integer, Uebung> alleUebungen = new HashMap<Integer, Uebung>();
 	private static Map<String, User>alleUser = new HashMap<String, User>();
+	
+	private Models() {
+		
+		conn = AtGymDatabase.dbConnector();
+		
+	}
 	public Map<String, User> getAlleUser(){
 		return alleUser;
 	}
@@ -49,11 +51,7 @@ public class Models extends Observable{
 		return alleUebungen;
 	}
 	
-	private Models() {
-		
-		conn = AtGymDatabase.dbConnector();
-		
-	}
+	
 	public void abmelden(String email){
 		alleUser.remove(email);
 	}
@@ -110,7 +108,7 @@ public class Models extends Observable{
 		}finally {
 			try { if (rs != null) rs.close(); } catch (Exception e) {};
 			try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception e) {};
-			}
+		}
 	}
 	
 	public void bilderList(User userp){
@@ -155,7 +153,7 @@ public class Models extends Observable{
 		}finally {
 			try { if (rs != null) rs.close(); } catch (Exception e) {};
 			try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception e) {};
-		
+			
 		}
 		return id;
 	}
@@ -178,12 +176,12 @@ public class Models extends Observable{
 			while ( rs.next() ) {
 				String email = rs.getString("email");
 				if(email.equals(em)==true){
-				
+					
 					return true;
 				}
 				
 			}
-		
+			
 			return false;  
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -192,7 +190,7 @@ public class Models extends Observable{
 		}finally {
 			try { if (rs != null) rs.close(); } catch (Exception e) {};
 			try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception e) {};
-			}
+		}
 	}
 
 	public boolean neuerUser(User userNeu){
@@ -322,7 +320,7 @@ public class Models extends Observable{
 			}finally {
 				try { if (rs != null) rs.close(); } catch (Exception e) {};
 				try { if (preparedStatement1 != null) preparedStatement1.close(); } catch (Exception e) {};
-				}
+			}
 		}
 	}
 
@@ -439,7 +437,7 @@ public class Models extends Observable{
 			while ( rs.next() ) {
 				u.getHueftenumfangList().put(rs.getInt("id"), new Hueftenumfang(rs.getDouble("umfang"), rs.getString("datum")));
 			}
-		
+			
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
@@ -787,7 +785,7 @@ public class Models extends Observable{
 					i++;
 				}
 				routine.add(new Routine(plan, tag, uebung, satz, datum));
-			//	u.setRoutineString(plan, tag, uebung, satz, datum);
+				//	u.setRoutineString(plan, tag, uebung, satz, datum);
 			}
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -806,75 +804,48 @@ public class Models extends Observable{
 	public void routineStep1(User userp, int plan, int uebung, String tag, int wh, int gewicht, int satz){
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 		Date datum = new Date();
-	/*	int anzahl=0;
-		for(Plan p : userp.getPlans().values()){
-			if(p.getId() == plan){
-				for(AusgewaehlteUebung a : p.getUebungen().get(Tag.valueOf(tag)).getUebungen()){
-					
-					if(a.getUebung().getId() == uebung){
-						anzahl=a.getWh();
-						break;
-					}
-				}
-			}
-		}
-		boolean exist = false;
-		for(Routine r : userp.getRoutine()){
-			if(r.getPlan()== plan && r.getUebung()==uebung && r.getTag().equals(tag) && r.getDatumString().equals(dateFormat.format(datum))){
-				r.setSaetze(satz, wh, gewicht);
-				exist = true;
-				break;
-			}
-		}
-		if(exist == false){
-			Routine newRoutine = new Routine(plan, tag, uebung, anzahl, wh, gewicht);
-			userp.getRoutine().add(newRoutine);
-		}*/
-		System.out.println(userp.getId() + " in routineNew");
+		
 		
 		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement1 = null;
 		PreparedStatement preparedStatement2 = null;
-	
+		
 		try {
-			//stmt = conn.createStatement();
+			
+			String sql = "INSERT INTO satz (id, wh, gewicht) " +
+			"VALUES (null,?,?);"; 
+			
+			preparedStatement =conn.prepareStatement(sql);
+
+			preparedStatement.setInt(1, wh);
+			preparedStatement.setDouble(2, gewicht);
+			
+			preparedStatement.executeUpdate();
+			
+			String sql2 =  "select max(id) as id from satz;"  ;
+			preparedStatement2 =conn.prepareStatement(sql2);
+			
+			rs = preparedStatement2.executeQuery();	
+			
+			while ( rs.next() ) {
+				int id = rs.getInt("id");  
+				
+				String sql1 = "INSERT INTO routine (datum, plan, uebung, tag, satz) " +
+				"VALUES (?,?,?,?,?);"; 
+				
+				preparedStatement1 =conn.prepareStatement(sql1);
+
+				preparedStatement1.setString(1, dateFormat.format(datum));
+				preparedStatement1.setInt(2, plan);
+				preparedStatement1.setInt(3, uebung);
+				preparedStatement1.setString(4, tag);
+				preparedStatement1.setInt(5, id);
+				
+				preparedStatement1.executeUpdate();
+				
+			}
 			
 			
-				String sql = "INSERT INTO satz (id, wh, gewicht) " +
-				"VALUES (null,?,?);"; 
-				
-				preparedStatement =conn.prepareStatement(sql);
-
-				preparedStatement.setInt(1, wh);
-				preparedStatement.setDouble(2, gewicht);
-				
-				preparedStatement.executeUpdate();
-				
-				String sql2 =  "select max(id) as id from satz;"  ;
-				preparedStatement2 =conn.prepareStatement(sql2);
-				
-				rs = preparedStatement2.executeQuery();	
-				
-				while ( rs.next() ) {
-					int id = rs.getInt("id");  
-					
-					String sql1 = "INSERT INTO routine (datum, plan, uebung, tag, satz) " +
-					"VALUES (?,?,?,?,?);"; 
-					
-					preparedStatement1 =conn.prepareStatement(sql1);
-
-					preparedStatement1.setString(1, dateFormat.format(datum));
-					preparedStatement1.setInt(2, plan);
-					preparedStatement1.setInt(3, uebung);
-					preparedStatement1.setString(4, tag);
-					preparedStatement1.setInt(5, id);
-					
-					preparedStatement1.executeUpdate();
-					
-				}
-				
-			//routineAuslesen(userp);
-			//userp.setRoutine(plan, tag, uebung, satz, datum);
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
@@ -888,101 +859,6 @@ public class Models extends Observable{
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	//private Satz[] satzFeld;
-
-
-
-/*	public boolean saetzeSpeichern(User userp, int plan, int uebung, String tag, int wh, int gewicht, int satz){
-		
-		for(Plan p : userp.getPlans().values()){
-			
-			if(p.getId() == plan){
-				for(AusgewaehlteUebung a : p.getUebungen().get(Tag.valueOf(tag)).getUebungen()){
-					
-					if(a.getUebung().getId() == uebung){
-						
-						a.setSaetze(satz,wh, gewicht);
-						if(satz < (a.getWh()-1)){
-							return false;
-						} else{
-							
-							satzFeld=a.getSaetze();
-							return true;
-						}
-					}
-				}
-				
-			}
-		}
-		return false;
-	}*/
-
-	/*public void routineNew(User userp, int plan, int uebung, String tag, Satz[] satz){
-		System.out.println(userp.getId() + " in routineNew");
-		
-		PreparedStatement preparedStatement = null;
-		PreparedStatement preparedStatement1 = null;
-		PreparedStatement preparedStatement2 = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
-		Date datum = new Date();
-		try {
-			//stmt = conn.createStatement();
-			
-			for(int i = 0; i < satz.length; i++){
-				String sql = "INSERT INTO satz (id, wh, gewicht) " +
-				"VALUES (null,?,?);"; 
-				
-				preparedStatement =conn.prepareStatement(sql);
-
-				preparedStatement.setInt(1, satz[i].getWh());
-				preparedStatement.setDouble(2, satz[i].getGewicht());
-				
-				preparedStatement.executeUpdate();
-				
-				String sql2 =  "select max(id) as id from satz;"  ;
-				preparedStatement2 =conn.prepareStatement(sql2);
-				
-				rs = preparedStatement2.executeQuery();	
-				
-				while ( rs.next() ) {
-					int id = rs.getInt("id");  
-					
-					String sql1 = "INSERT INTO routine (datum, plan, uebung, tag, satz) " +
-					"VALUES (?,?,?,?,?);"; 
-					
-					preparedStatement1 =conn.prepareStatement(sql1);
-
-					preparedStatement1.setString(1, dateFormat.format(datum));
-					preparedStatement1.setInt(2, plan);
-					preparedStatement1.setInt(3, uebung);
-					preparedStatement1.setString(4, tag);
-					preparedStatement1.setInt(5, id);
-					
-					preparedStatement1.executeUpdate();
-					
-				}
-				
-			}
-			userp.setRoutine(plan, tag, uebung, satz, datum);
-		} catch ( Exception e ) {
-			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-			System.exit(0);
-			
-		}finally {
-			try { if (rs != null) rs.close(); } catch (Exception e) {};
-			try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception e) {};
-			try { if (preparedStatement1 != null) preparedStatement1.close(); } catch (Exception e) {};
-			try { if (preparedStatement2 != null) preparedStatement2.close(); } catch (Exception e) {};
-			//	try { if (conn != null) conn.close(); } catch (Exception e) {};
-		}
-	}*/
 	
 	public void planHinzufuegen(User userp, int id, int satz, String tag, String plan){
 		PreparedStatement preparedStatement = null;
@@ -1140,7 +1016,7 @@ public class Models extends Observable{
 			
 			
 			preparedStatement4.executeUpdate();		
-		
+			
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
