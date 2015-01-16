@@ -149,7 +149,9 @@ width : 55%;
 		margin-top: 3%;
 		
 }
-
+.abstandTop{
+	margin-top : 5%;
+}
 #abstandr{
 	margin-left: 4.5%;
 }
@@ -252,7 +254,8 @@ width : 55%;
 	margin-right : 30px;
 }
 .uebung_gif{
-	margin-right : 30px;
+	margin-right : 5%;
+	
 }
 .left{
 	float : left;
@@ -391,6 +394,7 @@ float: right;
 .transparent{
 color : rgba(220,160,140,0);
 }
+
 
 
 

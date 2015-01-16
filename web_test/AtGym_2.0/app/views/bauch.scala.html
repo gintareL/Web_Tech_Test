@@ -2,6 +2,38 @@
 @import helper._
 @import helper.twitterBootstrap._
 @main("Bauch"){
+<script type="text/javascript" src=@routes.Assets.at("javascripts/jquery-1.11.1.js")></script>
+<script>
+
+		
+	
+		 var webSocket;
+		 $(function() {
+		 var WS = window["MozWebSocket"] ? MozWebSocket : WebSocket;
+		 webSocket = new WS("@routes.Application.uebungWebSocket().webSocketURL(request)");
+		 webSocket.onmessage = receiveEvent;
+		 })
+		 
+		 
+		 function sendLike(uebung){
+		var uebungid = uebung;	
+		
+			var JsonString = {
+					uebung:uebungid,
+					};
+					var JsonObj = JSON.stringify (JsonString);
+					webSocket.send(JsonObj);
+		};
+			
+		
+		function receiveEvent(event) {
+		var obj = JSON.parse(event.data);
+		 $("#likes"+obj.uebung).html(obj.likes);
+		// $("#"+ersetzen).html(event.data);
+		 };
+
+	</script>
+
 		<div class="display wrapper">
 				<nav class="navbar navbar-inverse" role="navigation">
 				  <div class="container-fluid">
@@ -61,7 +93,7 @@
 										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td>
 										
 										 <td>									
-										@form(routes.Application.uebungLoeschenBauch(),'class -> "form-horizontal", 'id -> "loeschen") {
+										@form(routes.Application.uebungLoeschen(),'class -> "form-horizontal", 'id -> "loeschen") {
 										  
 										   <div style="display:none;" class=" form-group @if(loeschen("plan").hasErrors || loeschen("uebung").hasErrors || loeschen("tag").hasErrors){has-error}">
 											<input style="display:none;" name="@loeschen("plan").name" value="@p.getId()" >
@@ -79,7 +111,7 @@
 									
 									} 
 								} else {
-								<tr><td>Du hast keine Pläne</td><td></td><td></td></tr>
+								<tr><td>Du hast keine Pläne</td><td></td><td></td><td></td><td></td></tr>
 								}
 								
 							</table>
@@ -106,26 +138,23 @@
 							@for(b <- bauch.keySet()){
 					
 					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
+						<div class="panel-heading" role="tab" id="heading@b">
 						  <h4 class="panel-title">
 							<div class="clearfix">
-							<a data-toggle="collapse" class="left breite8" data-parent="#accordion" href="#collapseOne@b" aria-expanded="true" aria-controls="collapseTwo">
+							<a data-toggle="collapse" class="left breite8" data-parent="#accordion" href="#collapse@b" aria-expanded="false" aria-controls="collapse@b">
 							  @bauch.get(b).getName()<span class=transparent> #@b </span></a>
 							  @form(routes.Application.like(),'class -> "form-horizontal", 'id -> "likes") {
 							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@bauch.get(b).getMuskelgruppe()" >
 							  <input style="display:none;" name="@likes("id").name" value="@b" >
-							  <button type="submit" class="close button2 left breite9 glyphicon glyphicon-thumbs-up"  aria-hidden="true"> @bauch.get(b).getLike()</button>
+							  <button type="submit"  onclick="sendLike('@b')"  class="close button2 left breite9 glyphicon glyphicon-thumbs-up" id="likeNeu@b" aria-hidden="true"><span id="likes@b">@bauch.get(b).getLike()</span></button>
+							 
 							  }
-							  @form(routes.Application.dislike(),'class -> "form-horizontal", 'id -> "likes") {
-							  <input style="display:none;" name="@likes("muskelgruppe").name" value="@bauch.get(b).getMuskelgruppe()" >
-							  <input style="display:none;" name="@likes("id").name" value="@b" >
-							  <button  type="submit" class="close button2 left breite9 glyphicon glyphicon-thumbs-down" aria-hidden="true"> @bauch.get(b).getDislike()</button>
-							}
+							
 							</div>
 						  </h4>
 						</div>
 					
-					<div id="collapseOne@b" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+					<div id="collapse@b" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading@b">
 						  <div class="panel-body">
 							  
 								<img class="rande left breite abstand uebung_gif" id="" src=@bauch.get(b).getBild()>
@@ -157,7 +186,7 @@
 											<h4 class="modal-title" id="myModalLabel">Gib den Plan und die gewünschte Anzahl von Sätzen ein: </h4>
 										  </div>
 										  <div class="modal-body clearfix">
-										   @form(routes.Application.auswaehlenBauch(),'class -> "form-horizontal", 'id -> "uebungForm") {
+										   @form(routes.Application.uebungAuswaehlen(),'class -> "form-horizontal", 'id -> "uebungForm") {
 										   
 										   <div class=" form-group @if(uebungForm("satz").hasErrors || uebungForm("tag").hasErrors || uebungForm("plan").hasErrors){has-error}">
 												

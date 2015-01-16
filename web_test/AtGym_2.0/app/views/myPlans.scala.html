@@ -49,7 +49,7 @@
 										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td>
 										
 										 <td>									
-										@form(routes.Application.uebungLoeschenMyPlans(),'class -> "form-horizontal", 'id -> "loeschen") {
+										@form(routes.Application.uebungLoeschen(),'class -> "form-horizontal", 'id -> "loeschen") {
 										  
 										   <div style="display:none;" class=" form-group @if(loeschen("plan").hasErrors || loeschen("uebung").hasErrors || loeschen("tag").hasErrors){has-error}">
 											<input style="display:none;" name="@loeschen("plan").name" value="@p.getId()" >
@@ -67,7 +67,7 @@
 									
 									} 
 								} else {
-								<tr><td>Du hast keine Pläne</td><td></td><td></td></tr>
+								<tr><td>Du hast keine Pläne</td><td></td><td></td><td></td><td></td></tr>
 								}
 								
 							</table>
@@ -94,7 +94,7 @@
 					@for(p <- user.getPlans().values()) {
 	
 					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
+						<div class="panel-heading" role="tab" id="headingOne@p.getId()">
 							<h4 class="panel-title">
 							<div class="clearfix">
 								<a class="left" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@p.getId()" aria-expanded="false" aria-controls="collapseOne_@p.getId()">
@@ -107,18 +107,14 @@
 											
 											
 												<button type="submit" class="float_r close button2">löschen</button>
-											
 											}
-								
-								
-								
-								</div>
+							</div>
 							</h4>
 						</div>
 						
 								
 						
-						<div id="collapseOne_@p.getId()" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div id="collapseOne_@p.getId()" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne@p.getId()">
 						<div class="panel-body">
 						
 							

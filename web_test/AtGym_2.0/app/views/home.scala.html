@@ -45,7 +45,7 @@
 										<tr><td>@p.getName()</td><td>@p.getUebungen().get(t).getTag()</td><td>@u.getUebung().getName()</td><td>@u.getWh()</td>
 										
 										 <td>									
-										@form(routes.Application.uebungLoeschenHome(),'class -> "form-horizontal", 'id -> "loeschen") {
+										@form(routes.Application.uebungLoeschen(),'class -> "form-horizontal", 'id -> "loeschen") {
 										  
 										   <div style="display:none;" class=" form-group @if(loeschen("plan").hasErrors || loeschen("uebung").hasErrors || loeschen("tag").hasErrors){has-error}">
 											<input style="display:none;" name="@loeschen("plan").name" value="@p.getId()" >
@@ -63,7 +63,7 @@
 									
 									} 
 								} else {
-								<tr><td>Du hast keine Pläne</td><td></td><td></td></tr>
+								<tr><td>Du hast keine Pläne</td><td></td><td></td><td></td><td></td></tr>
 								}
 								
 							</table>
@@ -109,21 +109,21 @@
 						image[1] = "@routes.Assets.at("images/spruch2.jpg")"; 
 						image[2] = "@routes.Assets.at("images/spruch.jpg")"; 
 						image[3] = "@routes.Assets.at("images/b4.jpg")"; 
-						image[4] = "@routes.Assets.at("images/h5.jpg")";						
-						image[7] = "@routes.Assets.at("images/b3_t.jpg")";
-						image[8] = "@routes.Assets.at("images/b5_t.jpg")";
-						image[9] = "@routes.Assets.at("images/1_t.jpg")";
-						image[10] = "@routes.Assets.at("images/2_t.jpg")";
-						image[11] = "@routes.Assets.at("images/3_t.jpg")";
-						image[12] = "@routes.Assets.at("images/4_t.jpg")";
+						image[4] = "@routes.Assets.at("images/h5.jpg")";
+						image[5] = "@routes.Assets.at("images/8_t.jpg")";
+						image[6] = "@routes.Assets.at("images/9_t.jpg")";
+						//image[5] = "@routes.Assets.at("images/10_t.jpg")";
+						//image[6] = "@routes.Assets.at("images/11_t.jpg")";
+						image[7] = "@routes.Assets.at("images/12_t.jpg")";						
+						image[8] = "@routes.Assets.at("images/b3_t.jpg")";
+						image[9] = "@routes.Assets.at("images/b5_t.jpg")";
+						image[10] = "@routes.Assets.at("images/1_t.jpg")";
+						image[11] = "@routes.Assets.at("images/2_t.jpg")";
+						image[12] = "@routes.Assets.at("images/3_t.jpg")"
 						image[13] = "@routes.Assets.at("images/5_t.jpg")";
 						image[14] = "@routes.Assets.at("images/6_t.jpg")";
 						image[15] = "@routes.Assets.at("images/7_t.jpg")";
-						image[16] = "@routes.Assets.at("images/8_t.jpg")";
-						image[17] = "@routes.Assets.at("images/9_t.jpg")";
-						image[18] = "@routes.Assets.at("images/10_t.jpg")";
-						image[19] = "@routes.Assets.at("images/11_t.jpg")";
-						image[20] = "@routes.Assets.at("images/12_t.jpg")";
+						
 
 						var num = Math.random(); 
 						var ran = Math.floor((image.length - 1) * num) + 1; 

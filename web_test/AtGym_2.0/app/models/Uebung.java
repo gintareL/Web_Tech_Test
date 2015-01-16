@@ -3,7 +3,7 @@ import java.util.*;
 import play.db.ebean.Model;
 import javax.persistence.Entity;
 
-public class Uebung {
+public class Uebung extends Observable{
 	private int id;
 	private String name;
 	private String equipment;
@@ -43,19 +43,19 @@ public class Uebung {
 	return name;
 	}
 	public String getMuskelgruppe(){
-		if(Muskel.arme == muskelgruppe){
+		if(Muskel.arme == this.muskelgruppe){
 			return "Arme";
 		}
-		if(Muskel.beine == muskelgruppe){
+		if(Muskel.beine == this.muskelgruppe){
 			return "Beine";
 		}
-		if(Muskel.brust == muskelgruppe){
+		if(Muskel.brust == this.muskelgruppe){
 			return "Brust";
 		}
-		if(Muskel.beine == muskelgruppe){
+		if(Muskel.beine == this.muskelgruppe){
 			return "Beine";
 		}
-		if(Muskel.schultern == muskelgruppe){
+		if(Muskel.schultern == this.muskelgruppe){
 			return "Schultern";
 		}
 		else{
@@ -86,12 +86,15 @@ public class Uebung {
 	}
 	public void setLike(int like){
 		this.like=like;
+		setChanged();
+		notifyObservers(Integer.toString(id));
 	}
 	public int getDislike(){
 	return dislike;
 	}
 	public void setDisike(int dislike){
 		this.dislike=dislike;
+		notifyObservers("dislike");
 	}
 	
 	public String getBild(){

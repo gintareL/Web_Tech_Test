@@ -29,17 +29,26 @@ public class Routine{
 	private int plan;
 	private String tag;
 	private int uebung;
-	private Satz[] satz;
+	private Satz[] satz = null;
 	
 	public Routine(){}
 	
-	public Routine(int plan, String tag, int uebung, int anzahl){
+	public Routine(int plan, String tag, int uebung, int anzahl, int wh, int gewicht){
 		this.plan=plan;
 		this.tag=tag;
 		this.uebung=uebung;
+		if(this.satz == null){
 		satz=new Satz[anzahl];
+		for(int i = 0; i<anzahl; i++){
+			if(i==0){
+				satz[i] = new Satz(wh,gewicht);
+			}else{
+				satz[i] = new Satz(0,0);
+			}
+		}
+		}
 		this.datum = new Date();
-	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	    this.datumString=dateFormat.format(datum);
 	}
 	
@@ -49,7 +58,7 @@ public class Routine{
 		this.uebung=uebung;
 		satz=new Satz[anzahl];
 	  this.datum = datum;
-	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	   this.datumString=dateFormat.format(datum);
 }
 
@@ -77,11 +86,16 @@ public Routine(int plan, String tag, int uebung, Satz[] satz, Date datum){
 		this.uebung=uebung;
 		this.satz=satz;
 		this.datum = datum;
-	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	   this.datumString=dateFormat.format(datum);
 	
 }
-	
+	public void setSaetze(int i, int wh, int gewicht){
+		if(i < satz.length && satz[i].getWh() == 0){
+		satz[i].setWh(wh);
+		satz[i].setGewicht(gewicht);
+		}
+	}
 	public int getPlan(){
 		return plan;
 	}
@@ -99,7 +113,7 @@ public Routine(int plan, String tag, int uebung, Satz[] satz, Date datum){
 	
 	public void setPlan(int plan){
 		this.datum = new Date();
-	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 		this.datumString=dateFormat.format(datum);
 		this.plan=plan;
 	}
