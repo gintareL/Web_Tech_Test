@@ -160,7 +160,102 @@ public class AtGymDatabase{
 							"INSERT INTO bild(bildid, bild, user) VALUES (1,'assets//images//cb1.jpg',1);"+
 							"INSERT INTO bild(bildid, bild, user) VALUES (2,'assets//images//cb2.jpg',1);"+
 							"INSERT INTO bild(bildid, bild, user) VALUES (3,'assets//images//cb3.jpg',1);"+
-							"INSERT INTO bild(bildid, bild, user) VALUES (4,'assets//images//cb4.jpg',1);"
+							"INSERT INTO bild(bildid, bild, user) VALUES (4,'assets//images//cb4.jpg',1);"+
+							"INSERT INTO plan(id, name, user) VALUES (1,'BatmanPlan',1);"+
+							"INSERT INTO ausgewaehlteuebung(plan, uebung, tag, satz) VALUES (1,24,'Montag', 3);"+
+							"INSERT INTO ausgewaehlteuebung(plan, uebung, tag, satz) VALUES (1,26,'Mittwoch', 3);"+
+							"INSERT INTO ausgewaehlteuebung(plan, uebung, tag, satz) VALUES (1,3,'Freitag', 3);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (1,12,10);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (2,12,10);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (3,12,10);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (4,12,15);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (5,12,15);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (6,12,15);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (7,12,25);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (8,12,25);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (9,12,25);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (10,12,32);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (11,12,32);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (12,12,32);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (13,12,40);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (14,12,40);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (15,12,40);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (16,12,8);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (17,12,9);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (18,12,10);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (19,12,14);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (20,12,14);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (21,12,14);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (22,12,23);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (23,12,24);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (24,12,24);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (25,12,36);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (26,12,36);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (27,12,36);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (28,12,44);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (29,12,44);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (30,12,43);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (31,12,13);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (32,12,12);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (33,12,11);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (34,12,17);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (35,12,16);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (36,12,15);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (37,12,25);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (38,12,26);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (39,12,27);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (40,12,36);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (41,12,36);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (42,12,35);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (43,12,43);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (44,12,43);"+
+							"INSERT INTO satz(id, wh, gewicht) VALUES (45,12,43);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-01-2007',1,24,'Montag',1);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-01-2007',1,24,'Montag',2);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-01-2007',1,24,'Montag',3);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-03-2007',1,24,'Montag',4);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-03-2007',1,24,'Montag',5);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-03-2007',1,24,'Montag',6);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-06-2007',1,24,'Montag',7);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-06-2007',1,24,'Montag',8);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-06-2007',1,24,'Montag',9);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-08-2007',1,24,'Montag',10);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-08-2007',1,24,'Montag',11);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-08-2007',1,24,'Montag',12);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-10-2007',1,24,'Montag',13);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-11-2007',1,24,'Montag',14);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-12-2007',1,24,'Montag',15);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-01-2007',1,26,'Mittwoch',16);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-01-2007',1,26,'Mittwoch',17);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-01-2007',1,26,'Mittwoch',18);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-03-2007',1,26,'Mittwoch',19);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-03-2007',1,26,'Mittwoch',20);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-03-2007',1,26,'Mittwoch',21);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-06-2007',1,26,'Mittwoch',22);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-06-2007',1,26,'Mittwoch',23);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-06-2007',1,26,'Mittwoch',24);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-08-2007',1,26,'Mittwoch',25);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-08-2007',1,26,'Mittwoch',26);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-08-2007',1,26,'Mittwoch',27);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-10-2007',1,26,'Mittwoch',28);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-11-2007',1,26,'Mittwoch',29);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-12-2007',1,26,'Mittwoch',30);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-01-2007',1,3,'Freitag',31);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-01-2007',1,3,'Freitag',32);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-01-2007',1,3,'Freitag',33);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-03-2007',1,3,'Freitag',34);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-03-2007',1,3,'Freitag',35);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-03-2007',1,3,'Freitag',36);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-06-2007',1,3,'Freitag',37);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-06-2007',1,3,'Freitag',38);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-06-2007',1,3,'Freitag',39);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-08-2007',1,3,'Freitag',40);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-08-2007',1,3,'Freitag',41);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-08-2007',1,3,'Freitag',42);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-10-2007',1,3,'Freitag',43);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-11-2007',1,3,'Freitag',44);"+
+							"INSERT INTO routine(datum, plan, uebung, tag, satz) VALUES ('01-12-2007',1,3,'Freitag',45);"
+							
 					);
 				
 				}				

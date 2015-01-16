@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class Models extends Observable{
+	
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet rs = null;	
@@ -257,7 +258,7 @@ public class Models extends Observable{
 	public void imageSave(User userp, String file){
 		PreparedStatement preparedStatement =null;
 		Date date = new Date();
-		DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd-hh-mm-ss");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY-hh-mm-ss");
 		String datum = dateFormat.format(date);
 		String bild = null;
 		String bildname = null; 
@@ -300,7 +301,7 @@ public class Models extends Observable{
 	public void gewichtCheck(User userp){
 		PreparedStatement preparedStatement1 =null;
 		if(userp.getGewicht() != null){
-			DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 			try {
 				
 				String sql = "INSERT INTO gewicht (id,umfang,datum, user) " +
@@ -351,7 +352,7 @@ public class Models extends Observable{
 	public void bauchumfangCheck(User userp){
 		PreparedStatement preparedStatement1 =null;
 		if(userp.getBauchumfang() != null){
-			DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 			try {
 				String sql = "INSERT INTO bauchumfang (id,umfang,datum, user) " +
 				"VALUES (null,?,?,?);";
@@ -402,7 +403,7 @@ public class Models extends Observable{
 	public void hueftenumfangCheck(User userp){
 		PreparedStatement preparedStatement1 =null;
 		if(userp.getHueftenumfang() != null){
-			DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 			try {
 				String sql = "INSERT INTO hueftenumfang (id,umfang,datum, user) " +
 				"VALUES (null,?,?,?);";
@@ -476,7 +477,7 @@ public class Models extends Observable{
 	public void armumfangCheck(User userp){
 		PreparedStatement preparedStatement1 =null;
 		if(userp.getArmumfang() != null){
-			DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 			try {
 				String sql = "INSERT INTO armumfang (id,umfang,datum, user) " +
 				"VALUES (null,?,?,?);";
@@ -526,7 +527,7 @@ public class Models extends Observable{
 	public void brustumfangCheck(User userp){
 		PreparedStatement preparedStatement1 =null;
 		if(userp.getBrustumfang() != null){
-			DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 			try {
 				
 				String sql = "INSERT INTO brustumfang (id,umfang,datum, user) " +
@@ -803,7 +804,7 @@ public class Models extends Observable{
 	}
 
 	public void routineStep1(User userp, int plan, int uebung, String tag, int wh, int gewicht, int satz){
-		DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 		Date datum = new Date();
 	/*	int anzahl=0;
 		for(Plan p : userp.getPlans().values()){
@@ -929,7 +930,7 @@ public class Models extends Observable{
 		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement1 = null;
 		PreparedStatement preparedStatement2 = null;
-		DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 		Date datum = new Date();
 		try {
 			//stmt = conn.createStatement();

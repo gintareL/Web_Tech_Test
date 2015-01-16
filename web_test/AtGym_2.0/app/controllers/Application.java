@@ -944,7 +944,7 @@ public class Application extends Controller {
 				
 				User user = model.aktuellUserList(email);
 				model.routineStep1(user, g.getPlan(), g.getUebung(), g.getTag(), g.getWh(), g.getGewicht(), g.getSatz());
-				
+				System.out.println(g.getPlan() +" "+g.getUebung()+" "+ g.getTag());
 			}
 			return redirect("/myRoutine");
 		} else {

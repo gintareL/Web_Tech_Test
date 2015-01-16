@@ -35,14 +35,14 @@ public class Armumfang{
 public Armumfang(double umfang){
 		this.umfang=umfang;
 	   this.datum = new Date();
-	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	   this.datumString=dateFormat.format(datum);
 }
 
 public Armumfang(double umfang, Date datum){
 	this.umfang=umfang;
 	  this.datum = datum;
-	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	   this.datumString=dateFormat.format(datum);
 }
 
@@ -70,7 +70,7 @@ public void setUmfang(double umfang){
 	 
 	   //get current date time with Date()
 	   this.datum = new Date();
-	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	   this.datumString=dateFormat.format(datum);
 	  
 }

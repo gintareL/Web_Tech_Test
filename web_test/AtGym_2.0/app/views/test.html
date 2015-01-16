@@ -1,0 +1,815 @@
+	
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					@for(p <- user.getPlans().values()) {
+	
+				<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="heading@p.getId()">
+							<h4 class="panel-title">
+							
+								<a  data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@p.getId()" aria-expanded="false" aria-controls="collapseOne_@p.getId()">
+								@p.getName() </span> <span class=" transparent" >#@p.getId()</span>
+								</a>
+								
+							
+							</h4>
+						</div>
+						
+								
+						
+						<div id="collapseOne_@p.getId()" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading@p.getId()">
+						<div class="panel-body">
+						
+							
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs" role="tablist">
+								  <li role="presentation" class="schrift active" ><a href="#montag@p.getId()" role="tab" data-toggle="tab">Montag</a></li>
+								  
+								  <li role="presentation"><a class="schrift" href="#dienstag@p.getId()" role="tab" data-toggle="tab">Dienstag</a></li>
+								  
+								  <li role="presentation" class="schrift" ><a href="#mittwoch@p.getId()" role="tab" data-toggle="tab">Mittwoch</a></li>
+								  
+								  <li role="presentation"><a class="schrift" href="#donnerstag@p.getId()" role="tab" data-toggle="tab">Donnerstag</a></li>
+								  
+								  <li role="presentation" class="schrift" ><a href="#freitag@p.getId()" role="tab" data-toggle="tab">Freitag</a></li>
+								  
+								  <li role="presentation"><a class="schrift" href="#samstag@p.getId()" role="tab" data-toggle="tab">Samstag</a></li>
+								  
+								  <li role="presentation"><a class="schrift" href="#sonntag@p.getId()" role="tab" data-toggle="tab">Sonntag</a></li>
+								  
+								</ul> 
+
+								<!-- Tab panes -->
+								<div class="tab-content">
+								@for(t <- p.getUebungen().values()){	
+									
+										@if(p.getUebungen().containsKey(Tag.Montag) == true){
+											@if(t.getTag().equals("Montag")){
+											<div role="tabpanel" class="tab-pane active" id="montag@p.getId()">										
+												<div >  
+												@for(u <- t.getUebungen()){
+												
+													<div class="rande abstand4 abstand3 clearfix">
+											
+
+														<img class="left rande breite abstand" id="uebung_gif" src=@u.getUebung.getBild()>
+														<div class="left breite abstand">
+																<script language="JavaScript" type="text/javascript"> 
+																	$(document).ready(function(){
+																	  $("#hist@p.getId()@u.getUebung().getId()@t.getTag()").click(function(){
+																		$(".hist@p.getId()@u.getUebung().getId()@t.getTag()").toggle();
+																	  });
+																	});
+																</script>
+																
+															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
+															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
+																<table class="table">
+																<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+																@if(user.getRoutine().isEmpty() == false){
+																	
+																
+																	@for(d <- user.getRoutine()){
+																		@if(d.getPlan() == p.getId() && d.getUebung() == u.getUebung().getId() && d.getTag.equals(t.getTag())){
+																		<tr><td>@d.getDatumString()</td>
+																			@for(s <- d.getSatz()){
+																				<td>@s.getWh()<span>/</span>@s.getGewicht()</td>
+																			}
+																		</tr>
+																		}
+																	}
+																}
+																</table>
+															</div>	
+															
+															
+															<div role="tabpanel">
+																  <!-- Nav tabs -->
+																  <ul class="nav nav-tabs" role="tablist">
+																	  @for(q <- 0 until u.getWh()){
+																			@if(q == 0){
+																				<li role="presentation" class="active"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="home" role="tab" data-toggle="tab">@(q+1). Satz </a></li>
+																			}
+																			@if(q > 0){
+																				<li role="presentation"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="profile" role="tab" data-toggle="tab">@(q+1). Satz  </a></li>
+																			}
+																		}
+																  </ul>
+
+																  <!-- Tab panes -->
+																<div class="tab-content">
+																	@for(z <- 0 until u.getWh()){
+																		@if(z == 0){
+																		
+																			<div role="tabpanel" class="tab-pane breite7 active" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																			
+																	
+																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																				
+																					<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="0" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																					<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
+																					}
+																					
+																			</div>	
+																		}
+																	
+																		@if(z != 0){
+																			<div role="tabpanel" class="tab-pane breite7" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																			
+																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																				
+																					<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
+																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<button class="buttonLog2 abstand6"  type="submit">save</button>
+																					}
+																				
+																			</div>
+																		}
+															
+																	}
+																</div>
+															</div>
+															
+														</div>
+													</div>
+													
+												}
+												
+												</div>	
+											</div>
+											}
+									}else{
+										<div role="tabpanel" class="tab-pane active" id="montag@p.getId()">	</div>
+									} 
+
+									
+									@if(p.getUebungen().containsKey(Tag.Dienstag) == true){
+										@if(t.getTag().equals("Dienstag")){
+										
+										<div role="tabpanel" class="tab-pane" id="dienstag@p.getId()">
+											<div > 
+											@for(u <- t.getUebungen()){	
+												<div class="rande abstand4 abstand3 clearfix">
+											
+													<img class="left rande breite abstand" id="uebung_gif" src=@u.getUebung.getBild()>
+													<div class="left breite abstand">
+																<script language="JavaScript" type="text/javascript"> 
+																	$(document).ready(function(){
+																	  $("#hist@p.getId()@u.getUebung().getId()@t.getTag()").click(function(){
+																		$(".hist@p.getId()@u.getUebung().getId()@t.getTag()").toggle();
+																	  });
+																	});
+																</script>
+																
+															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
+															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
+																<!--<table class="table">
+																	<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+																	@if(user.getRoutine().isEmpty() == false){
+																		
+																	
+																		@for(d <- user.getRoutine()){
+																			@if(d.getPlan() == p.getId() && d.getUebung() == u.getUebung().getId() && d.getTag.equals(t.getTag())){
+																				@for(s <- d.getSatz()){
+																					<tr><td>@d.getDatumString()</td><td></td><td>@s.getWh() WH</td><td></td><td>@s.getGewicht() kg</td></tr>
+																				}
+																			}
+																		}
+																	}
+																</table>-->
+															</div>
+															
+															
+															<div role="tabpanel">
+
+																  <!-- Nav tabs -->
+																  <ul class="nav nav-tabs" role="tablist">
+																	  @for(q <- 0 until u.getWh()){
+																			@if(q == 0){
+																				<li role="presentation" class="active"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="home" role="tab" data-toggle="tab">@(q+1). Satz </a></li>
+																			}
+																			@if(q > 0){
+																				<li role="presentation"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="profile" role="tab" data-toggle="tab">@(q+1). Satz  </a></li>
+																			}
+																		}
+																  </ul>
+
+																  <!-- Tab panes -->
+																	<div class="tab-content">
+																	@for(z <- 0 until u.getWh()){
+																		@if(z == 0){
+																		
+																		<div role="tabpanel" class="tab-pane breite7 active" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																		
+																
+																			@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																			
+																				<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																				<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																				<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																				<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																				<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="1" max="99" placeholder="Sätze">
+																				<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																				<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
+																				}
+																				
+																		</div>	
+																		}
+																	
+																		@if(z != 0){
+																			<div role="tabpanel" class="tab-pane breite7" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																				
+																			
+																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																				
+																					<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<button class="buttonLog2 abstand6" type="submit">save</button>
+																					}
+																				
+																			</div>
+																		}
+															
+																	}
+																	</div>
+															</div>
+															
+													</div>
+												</div>
+												}
+											</div>	
+										</div>
+										} 
+										} else{
+										<div role="tabpanel" class="tab-pane active" id="dienstag@p.getId()">	</div>
+									} 
+										
+										
+										
+										
+										@if(p.getUebungen().containsKey(Tag.Mittwoch) == true){								
+											@if(t.getTag().equals("Mittwoch")){
+											<div role="tabpanel" class="tab-pane" id="mittwoch@p.getId()">
+										
+											<div > 
+											@for(u <- t.getUebungen()){
+											<div class="rande abstand4 abstand3 clearfix">
+											
+														<img class="left rande breite abstand" id="uebung_gif" src=@u.getUebung.getBild()>
+														<div class="left breite abstand">
+																<script language="JavaScript" type="text/javascript"> 
+																	$(document).ready(function(){
+																	  $("#hist@p.getId()@u.getUebung().getId()@t.getTag()").click(function(){
+																		$(".hist@p.getId()@u.getUebung().getId()@t.getTag()").toggle();
+																	  });
+																	});
+																</script>
+																
+															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
+															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
+															<!--<table class="table">
+															<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+															@if(user.getRoutine().isEmpty() == false){
+																
+															
+																@for(d <- user.getRoutine()){
+																	@if(d.getPlan() == p.getId() && d.getUebung() == u.getUebung().getId() && d.getTag.equals(t.getTag())){
+																		@for(s <- d.getSatz()){
+																			<tr><td>@d.getDatumString()</td><td></td><td>@s.getWh() WH</td><td></td><td>@s.getGewicht() kg</td></tr>
+																		}
+																	}
+																}
+															}
+																</table>-->
+															</div>
+															
+															
+															<div role="tabpanel">
+															
+																
+																
+
+																  <!-- Nav tabs -->
+																  <ul class="nav nav-tabs" role="tablist">
+																  @for(q <- 0 until u.getWh()){
+																	@if(q == 0){
+																		<li role="presentation" class="active"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="home" role="tab" data-toggle="tab">@(q+1). Satz </a></li>
+																	}
+																	@if(q > 0){
+																		<li role="presentation"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="profile" role="tab" data-toggle="tab">@(q+1). Satz  </a></li>
+																	}
+																	}
+																  </ul>
+
+																  <!-- Tab panes -->
+																  <div class="tab-content">
+																	@for(z <- 0 until u.getWh()){
+																		@if(z == 0){
+																		
+																		<div role="tabpanel" class="tab-pane breite7 active" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																		
+																
+																			@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																			
+																				<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																				<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																				<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																				<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																				<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="1" max="99" placeholder="Sätze">
+																				<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																				<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
+																				}
+																				
+																		</div>	
+																		}
+																	
+																		@if(z != 0){
+																			<div role="tabpanel" class="tab-pane breite7" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																				
+																			
+																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																				
+																					<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<button class="buttonLog2 abstand6" type="submit">save</button>
+																					}
+																				
+																			</div>
+																		}
+															
+																	}
+																  </div>
+															</div>
+															
+														</div>
+											</div>
+												}
+										
+											
+											</div>	
+										</div>
+										}
+										} else{
+										<div role="tabpanel" class="tab-pane active" id="mittwoch@p.getId()">	</div>
+									} 										
+										@if(p.getUebungen().containsKey(Tag.Donnerstag) == true){								
+											@if(t.getTag().equals("Donnerstag")){
+											<div role="tabpanel" class="tab-pane" id="donnerstag@p.getId()">
+										
+											<div > 
+											@for(u <- t.getUebungen()){
+											<div class="rande abstand4 abstand3 clearfix">
+											
+														<img class="left rande breite abstand" id="uebung_gif" src=@u.getUebung.getBild()>
+														<div class="left breite abstand">
+																<script language="JavaScript" type="text/javascript"> 
+																	$(document).ready(function(){
+																	  $("#hist@p.getId()@u.getUebung().getId()@t.getTag()").click(function(){
+																		$(".hist@p.getId()@u.getUebung().getId()@t.getTag()").toggle();
+																	  });
+																	});
+																</script>
+																
+															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
+															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
+															<table class="table">
+															<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+															@if(user.getRoutine().isEmpty() == false){
+																
+															
+																@for(d <- user.getRoutine()){
+																	@if(d.getPlan() == p.getId() && d.getUebung() == u.getUebung().getId() && d.getTag.equals(t.getTag())){
+																		@for(s <- d.getSatz()){
+																			<tr><td>@d.getDatumString()</td><td></td><td>@s.getWh() WH</td><td></td><td>@s.getGewicht() kg</td></tr>
+																		}
+																	}
+																}
+															}
+																</table>
+															</div>
+															
+															
+															<div role="tabpanel">
+															
+																
+																
+
+																  <!-- Nav tabs -->
+																  <ul class="nav nav-tabs" role="tablist">
+																  @for(q <- 0 until u.getWh()){
+																	@if(q == 0){
+																		<li role="presentation" class="active"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="home" role="tab" data-toggle="tab">@(q+1). Satz </a></li>
+																	}
+																	@if(q > 0){
+																		<li role="presentation"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="profile" role="tab" data-toggle="tab">@(q+1). Satz  </a></li>
+																	}
+																	}
+																  </ul>
+
+																  <!-- Tab panes -->
+																  <div class="tab-content">
+																	@for(z <- 0 until u.getWh()){
+																		@if(z == 0){
+																		
+																		<div role="tabpanel" class="tab-pane breite7 active" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																		
+																
+																			@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																			
+																				<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																				<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																				<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																				<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																				<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="1" max="99" placeholder="Sätze">
+																				<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																				<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
+																				}
+																				
+																		</div>	
+																		}
+																	
+																		@if(z != 0){
+																			<div role="tabpanel" class="tab-pane breite7" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																				
+																			
+																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																				
+																					<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<button class="buttonLog2 abstand6" type="submit">save</button>
+																					}
+																				
+																			</div>
+																		}
+															
+																	}
+																  </div>
+															</div>
+															
+														</div>
+											</div>
+												}
+										
+											
+											</div>	
+										</div>
+										}
+										} else{
+										<div role="tabpanel" class="tab-pane active" id="donnerstag@p.getId()">	</div>
+									} 
+										
+										@if(p.getUebungen().containsKey(Tag.Freitag) == true){		
+											@if(t.getTag().equals("Freitag")){
+											<div role="tabpanel" class="tab-pane" id="freitag@p.getId()">
+										
+											<div>  
+												@for(u <- t.getUebungen()){
+												<div class="rande abstand4 abstand3 clearfix">
+											
+													<img class="left rande breite abstand" id="uebung_gif" src=@u.getUebung.getBild()>
+														<div class="left breite abstand">
+																<script language="JavaScript" type="text/javascript"> 
+																	$(document).ready(function(){
+																	  $("#hist@p.getId()@u.getUebung().getId()@t.getTag()").click(function(){
+																		$(".hist@p.getId()@u.getUebung().getId()@t.getTag()").toggle();
+																	  });
+																	});
+																</script>
+																
+															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
+															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
+															<table class="table">
+															<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+															@if(user.getRoutine().isEmpty() == false){
+																
+															
+																@for(d <- user.getRoutine()){
+																	@if(d.getPlan() == p.getId() && d.getUebung() == u.getUebung().getId() && d.getTag.equals(t.getTag())){
+																		@for(s <- d.getSatz()){
+																			<tr><td>@d.getDatumString()</td><td></td><td>@s.getWh() WH</td><td></td><td>@s.getGewicht() kg</td></tr>
+																		}
+																	}
+																}
+															}
+																</table>
+															</div>
+															
+															
+															<div role="tabpanel">
+															
+																
+																
+
+																  <!-- Nav tabs -->
+																  <ul class="nav nav-tabs" role="tablist">
+																  @for(q <- 0 until u.getWh()){
+																	@if(q == 0){
+																		<li role="presentation" class="active"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="home" role="tab" data-toggle="tab">@(q+1). Satz </a></li>
+																	}
+																	@if(q > 0){
+																		<li role="presentation"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="profile" role="tab" data-toggle="tab">@(q+1). Satz  </a></li>
+																	}
+																	}
+																  </ul>
+
+																  <!-- Tab panes -->
+																  <div class="tab-content">
+																	@for(z <- 0 until u.getWh()){
+																		@if(z == 0){
+																		
+																		<div role="tabpanel" class="tab-pane breite7 active" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																		
+																
+																			@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																			
+																				<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																				<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																				<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																				<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																				<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="1" max="99" placeholder="Sätze">
+																				<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																				<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
+																				}
+																				
+																		</div>	
+																		}
+																	
+																		@if(z != 0){
+																			<div role="tabpanel" class="tab-pane breite7" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																				
+																			
+																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																				
+																					<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<button class="buttonLog2 abstand6" type="submit">save</button>
+																					}
+																				
+																			</div>
+																		}
+															
+																	}
+																  </div>
+															</div>
+															
+														</div>
+											}
+										
+											</div>	
+										</div>
+										}
+										} else{
+										<div role="tabpanel" class="tab-pane active" id="freitag@p.getId()"></div>
+									} 
+											
+										
+									@if(p.getUebungen().containsKey(Tag.Samstag) == true){												
+										@if(t.getTag().equals("Samsatg")){
+										<div role="tabpanel" class="tab-pane" id="samstag@p.getId()">
+										
+											<div> 
+											@for(u <- t.getUebungen()){
+												<div class="rande abstand4 abstand3 clearfix">
+											
+														<img class="left rande breite abstand" id="uebung_gif" src=@u.getUebung.getBild()>
+														<div class="left breite abstand">
+																<script language="JavaScript" type="text/javascript"> 
+																	$(document).ready(function(){
+																	  $("#hist@p.getId()@u.getUebung().getId()@t.getTag()").click(function(){
+																		$(".hist@p.getId()@u.getUebung().getId()@t.getTag()").toggle();
+																	  });
+																	});
+																</script>
+																
+															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
+															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
+															<table class="table">
+															<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+															@if(user.getRoutine().isEmpty() == false){
+																
+															
+																@for(d <- user.getRoutine()){
+																	@if(d.getPlan() == p.getId() && d.getUebung() == u.getUebung().getId() && d.getTag.equals(t.getTag())){
+																		@for(s <- d.getSatz()){
+																			<tr><td>@d.getDatumString()</td><td></td><td>@s.getWh() WH</td><td></td><td>@s.getGewicht() kg</td></tr>
+																		}
+																	}
+																}
+															}
+																</table>
+															</div>
+															
+															
+															<div role="tabpanel">
+															
+																
+																
+
+																  <!-- Nav tabs -->
+																  <ul class="nav nav-tabs" role="tablist">
+																  @for(q <- 0 until u.getWh()){
+																	@if(q == 0){
+																		<li role="presentation" class="active"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="home" role="tab" data-toggle="tab">@(q+1). Satz </a></li>
+																	}
+																	@if(q > 0){
+																		<li role="presentation"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="profile" role="tab" data-toggle="tab">@(q+1). Satz  </a></li>
+																	}
+																	}
+																  </ul>
+
+																  <!-- Tab panes -->
+																  <div class="tab-content">
+																	@for(z <- 0 until u.getWh()){
+																		@if(z == 0){
+																		
+																		<div role="tabpanel" class="tab-pane breite7 active" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																		
+																
+																			@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																			
+																				<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																				<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																				<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																				<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																				<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="1" max="99" placeholder="Sätze">
+																				<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																				<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
+																				}
+																				
+																		</div>	
+																		}
+																	
+																		@if(z != 0){
+																			<div role="tabpanel" class="tab-pane breite7" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																				
+																			
+																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																				
+																					<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<button class="buttonLog2 abstand6" type="submit">save</button>
+																					}
+																				
+																			</div>
+																		}
+															
+																	}
+																  </div>
+															</div>
+															
+														</div>
+											</div>
+											}
+										
+											</div>	
+										</div>
+										}
+										} else{
+										<div role="tabpanel" class="tab-pane active" id="samstag@p.getId()">	</div>
+									} 
+										
+									@if(p.getUebungen().containsKey(Tag.Sonntag) == true){		
+										@if(t.getTag().equals("Sonntag")){
+										<div role="tabpanel" class="tab-pane " id="sonntag@p.getId()">
+										
+											<div > 
+													@for(u <- t.getUebungen()){
+												
+												<div class="rande abstand4 abstand3 clearfix">
+											
+														<img class="left rande breite abstand" id="uebung_gif" src=@u.getUebung.getBild()>
+														<div class="left breite abstand">
+																<script language="JavaScript" type="text/javascript"> 
+																	$(document).ready(function(){
+																	  $("#hist@p.getId()@u.getUebung().getId()@t.getTag()").click(function(){
+																		$(".hist@p.getId()@u.getUebung().getId()@t.getTag()").toggle();
+																	  });
+																	});
+																</script>
+																
+															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
+															
+															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
+															<table class="table">
+															
+															@if(user.getRoutine().isEmpty() == false){
+																
+															
+																@for(d <- user.getRoutine()){
+																	@if(d.getPlan() == p.getId() && d.getUebung() == u.getUebung().getId() && d.getTag.equals(t.getTag())){
+																		@for(s <- d.getSatz()){
+																			<tr><td>@d.getDatumString()</td><td></td><td>@s.getWh() WH</td><td></td><td>@s.getGewicht() kg</td></tr>
+																		}
+																	}
+																}
+															}
+																</table>
+															</div>
+															
+															<div role="tabpanel">
+															
+																
+																
+
+																  <!-- Nav tabs -->
+																  <ul class="nav nav-tabs" role="tablist">
+																  @for(q <- 0 until u.getWh()){
+																	@if(q == 0){
+																		<li role="presentation" class="active"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="home" role="tab" data-toggle="tab">@(q+1). Satz </a></li>
+																	}
+																	@if(q > 0){
+																		<li role="presentation"><a href="#id_@(q+1)@p.getId()@u.getUebung().getId()@t.getTag()" aria-controls="profile" role="tab" data-toggle="tab">@(q+1). Satz  </a></li>
+																	}
+																	}
+																  </ul>
+
+																  <!-- Tab panes -->
+																  <div class="tab-content">
+																	@for(z <- 0 until u.getWh()){
+																		@if(z == 0){
+																		
+																		<div role="tabpanel" class="tab-pane breite7 active" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																		
+																
+																			@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																			
+																				<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																				<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																				<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																				<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																				<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="1" max="99" placeholder="Sätze">
+																				<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																				<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
+																				}
+																				
+																		</div>	
+																		}
+																	
+																		@if(z != 0){
+																			<div role="tabpanel" class="tab-pane breite7" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																				
+																			
+																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
+																				
+																					<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
+																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
+																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
+																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
+																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<button class="buttonLog2 abstand6" type="submit">save</button>
+																					}
+																				
+																			</div>
+																		}
+															
+																	}
+																  </div>
+															</div>
+															
+														</div>
+											</div>
+													}
+													
+											</div>	
+										</div>
+									}
+									} else{
+										<div role="tabpanel" class="tab-pane active" id="sonntag@p.getId()">	</div>
+									} 
+									
+									}
+								<!--</div>--> 
+							</div> <!-- tab-content -->
+						</div><!-- body -->
+					</div>
+						} 
+				</div>		

@@ -94,7 +94,7 @@
 					@for(p <- user.getPlans().values()) {
 	
 					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
+						<div class="panel-heading" role="tab" id="headingOne@p.getId()">
 							<h4 class="panel-title">
 							<div class="clearfix">
 								<a class="left" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@p.getId()" aria-expanded="false" aria-controls="collapseOne_@p.getId()">
@@ -107,18 +107,14 @@
 											
 											
 												<button type="submit" class="float_r close button2">löschen</button>
-											
 											}
-								
-								
-								
-								</div>
+							</div>
 							</h4>
 						</div>
 						
 								
 						
-						<div id="collapseOne_@p.getId()" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div id="collapseOne_@p.getId()" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne@p.getId()">
 						<div class="panel-body">
 						
 							

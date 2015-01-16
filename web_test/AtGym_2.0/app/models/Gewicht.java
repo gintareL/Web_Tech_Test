@@ -35,14 +35,14 @@ public class Gewicht{
 public Gewicht(double gewicht){
 		this.gewicht=gewicht;
 	   this.datum = new Date();
-	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	   this.datumString=dateFormat.format(datum);
 }
 
 public Gewicht(double gewicht, Date datum){
 	this.gewicht=gewicht;
 	  this.datum = datum;
-	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	   this.datumString=dateFormat.format(datum);
 }
 
@@ -70,7 +70,7 @@ public void setGewicht(double gewicht){
 	 
 	   //get current date time with Date()
 	   this.datum = new Date();
-	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	   this.datumString=dateFormat.format(datum);
 	  
 }

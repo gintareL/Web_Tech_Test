@@ -48,7 +48,7 @@ public class Routine{
 		}
 		}
 		this.datum = new Date();
-	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	    this.datumString=dateFormat.format(datum);
 	}
 	
@@ -58,7 +58,7 @@ public class Routine{
 		this.uebung=uebung;
 		satz=new Satz[anzahl];
 	  this.datum = datum;
-	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	   this.datumString=dateFormat.format(datum);
 }
 
@@ -86,7 +86,7 @@ public Routine(int plan, String tag, int uebung, Satz[] satz, Date datum){
 		this.uebung=uebung;
 		this.satz=satz;
 		this.datum = datum;
-	   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 	   this.datumString=dateFormat.format(datum);
 	
 }
@@ -113,7 +113,7 @@ public Routine(int plan, String tag, int uebung, Satz[] satz, Date datum){
 	
 	public void setPlan(int plan){
 		this.datum = new Date();
-	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
 		this.datumString=dateFormat.format(datum);
 		this.plan=plan;
 	}
