@@ -162,7 +162,78 @@
 										   <div class=" form-group @if(uebungForm("satz").hasErrors || uebungForm("tag").hasErrors || uebungForm("plan").hasErrors){has-error}">
 												
 												<input style="display:none;" name="@uebungForm("id").name" value="@arme.get(b).getId()" >
-												<input class="left rande abstand7 abstand abstand_innen breite2" name="@uebungForm("plan").name" type="text" placeholder="Planname">
+												<input class="left rande abstand7 abstand abstand_innen breite2" id="eingabe" name="@uebungForm("plan").name" type="text" placeholder="Planname" onKeyUp="Ajax(this.value)">
+												<div id="auswahlfeld"> </div>
+																							
+												<script language="JavaScript" type="text/javascript">
+													var req = null;
+													var eingabe = "";
+													var url = "/plannameVervollstaendigung/?plan=" + escape(eingabe);
+													var auswahlarray = new Array();
+													
+														function Ajax(input) {
+														 try {
+															if( window.XMLHttpRequest ) {
+																req = new XMLHttpRequest();
+															} else if( window.ActiveXObject ) {
+																req = new ActiveXObject( "Microsoft.XMLHTTP" );
+															} else {
+																alert( "Ihr Webbrowser unterstuetzt leider kein Ajax!" );
+															}
+														} catch( e ) {
+															alert( "Fehler: " + e );
+														}
+														
+														if(req) {
+															eingabe = input;
+															document.plan.focus();
+															req.open( "GET", url, true);
+															req.onreadystatechange = callbackFct;
+															req.send( null );														
+															
+														}
+													
+													}
+													
+													function callbackFct(){
+														 if( 4 == req.readyState ) {
+															if( 200 != req.status ) {
+																alert( "Fehler " + req.status + ": " + req.statusText );
+															} else {
+																var auswahlinhalt = "";
+																var text != req.responseText;
+																if (text != "") {
+																	auswahlarray = text.split(";");
+																	for ( var i in auswahlarray){
+																		//auswahlinhalt += "<a href='javascript:meinMausklick(" + idx + ")' id='" + idx;
+																		//auswahlinhalt += "' style ='color:black; text-decoration: none;' class='auswahlzeile' onmouseover='meinMausover("+idx+")'>";
+																		auswahlinhalt += "<div style='border-bottom:solid 1px;'>";
+																		auswahlinhalt += auswahlarray[i] + "</div></a>";
+																	}
+																	document.getElementById( "auswahlfeld" ).innerHTML = auswahlinhalt;
+																}
+															}
+														}
+																
+													}
+												
+												</script>
+												
+													
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
 												
 														  <select class="left abstand_innen1 rande breite1 abstand" name="@uebungForm("tag").name">
 															<option>Montag</option>

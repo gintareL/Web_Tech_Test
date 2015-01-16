@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.File;
+import java.lang.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -527,6 +528,7 @@ public class Application extends Controller {
 			Form<Auswaehlen> uebungenForm = Form.form(Auswaehlen.class);
 			//User user = model.aktuellUser();
 			User user = model.aktuellUserList(email);
+			//String jsonarray = model.PlanJSON(email);
 			SortedMap<Integer, Uebung> armeUebungen = model.arme();
 			return ok(arme.render(user, armeUebungen, uebungenForm, uebungLoeschen, likes));
 		}else{
@@ -534,6 +536,12 @@ public class Application extends Controller {
 			}
 	}
 	
+	public static Result plannameVervollstaendigung(String input){
+		String username = session("User1");
+		String email = session("email");
+		User user = model.aktuellUserList(email);
+		return ok(model.Plannamen(user, input));
+	}
 	
 	
 	public static Result brust(){
@@ -997,6 +1005,8 @@ public class Application extends Controller {
 			return redirect("/atGym");
 		}
 	}
+	
+
 	
 	
 }

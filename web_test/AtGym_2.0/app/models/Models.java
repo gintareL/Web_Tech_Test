@@ -22,6 +22,9 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.lang.StringBuffer.*;
+
 
 public class Models extends Model{
 	Connection conn = null;
@@ -42,6 +45,7 @@ public class Models extends Model{
    
    public boolean checkUser(String em, String password){
 	   String p = getHash(password);
+	  
 	   try {
 		   String sql = "SELECT * FROM user where email =? and password=?;";
 		   PreparedStatement preparedStatement =conn.prepareStatement(sql);
@@ -50,6 +54,8 @@ public class Models extends Model{
 			rs = preparedStatement.executeQuery();
 	 //stmt = conn.createStatement();
 	 //rs = stmt.executeQuery(  );
+	
+	 
 	 while ( rs.next() ) {
 		 String email = rs.getString("email");
 		 String passwort = rs.getString("password");
@@ -69,6 +75,8 @@ public class Models extends Model{
 		 routineAuslesen(userToList);
 		 plaene(userToList);
 		 alleUser.put(em, userToList);
+		 
+		
 	
 		return true;
 	 }
@@ -1473,4 +1481,67 @@ public class Models extends Model{
  System.out.println(sb.toString());
     return sb.toString();
 }
-   }
+
+
+
+	public String Plannamen(User user, String input){
+		ArrayList<String> plannamen = new ArrayList<>();
+		String ergebnis = "";
+		//stmt = conn.createStatement();
+		PreparedStatement preparedStatement = null;
+		int id =  user.getId();
+		try {
+		
+			String sql = "select p.name from plan p where p.user=?;"  ;
+			preparedStatement =conn.prepareStatement(sql);
+							
+							
+			preparedStatement.setInt(1, id);				
+			rs = preparedStatement.executeQuery();
+				
+			
+			 
+			while ( rs.next() ) {
+					plannamen.add(rs.getString("p.name"));
+			}
+			boolean sorted = false;
+			String[] meinTextArray = plannamen.toArray(new String[plannamen.size()]);
+			String eingabe = input;
+			
+			StringBuffer auswahl = new StringBuffer();
+			boolean resultFound = false;
+			
+			for (int i = 0; i < meinTextArray.length; i++) {
+				if (meinTextArray[i].toUpperCase().startsWith(eingabe.toUpperCase())){
+					auswahl.append(meinTextArray[i]).append(";");
+					resultFound = true;
+				}else {
+					if (resultFound){
+						break;
+					}
+				}
+			}
+			
+			if (0 < auswahl.length()) {
+				auswahl.setLength(auswahl.length() -1);
+			}
+			ergebnis = auswahl.toString();
+		
+					
+				 
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+	  
+		} finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception e) {};
+		//	try { if (conn != null) conn.close(); } catch (Exception e) {};
+		}
+		
+		return ergebnis;	
+	
+	}
+
+
+}

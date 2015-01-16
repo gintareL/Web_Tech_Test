@@ -66,7 +66,7 @@
 													
 														<input type="email" class="rahmen log_eingabe"
 															   name="@loginForm("email").name"
-															   placeholder="e-mail" >
+															   placeholder="E-mail" >
 														<span class="help-block">@{loginForm("email").error.map { error => error.message }}</span>
 														<input type="password" class="rahmen log_eingabe"
 															   name="@loginForm("password").name"
@@ -74,15 +74,15 @@
 														<span class="help-block">@{loginForm("password").error.map { error => error.message }}</span>
 													<input type="text" class="rahmen log_eingabe"
 															   name="@loginForm("vorname").name"
-															   placeholder="vorname">
+															   placeholder="Vorname">
 														<span class="help-block">@{loginForm("vorname").error.map { error => error.message }}</span>
 													<input type="text" class="rahmen log_eingabe"
 															   name="@loginForm("nachname").name"
-															   placeholder="nachname">
+															   placeholder="Nachname">
 														<span class="help-block">@{loginForm("nachname").error.map { error => error.message }}</span>
 													<input type="number" class="rahmen log_eingabe"
 															   name="@loginForm("groesse").name"
-															   placeholder="groesse" min="0">
+															   placeholder="Koerpergroesse (cm)" min="100" max="320>
 														<span class="help-block">@{loginForm("groesse").error.map { error => error.message }}</span>
 													<!--<input type="number" class="rahmen log_eingabe"
 															   name="@loginForm("gewicht").name"
