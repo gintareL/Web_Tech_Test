@@ -1203,16 +1203,15 @@ public class Models extends Observable{
 		for (int i = 0; i < encodedPassword.length; i++) {
 			
 			if ((encodedPassword[i] & 0xff) < 0x10) {
-				
-<<<<<<< HEAD
-                sb.append("0");
-            }
- 
-            sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
-        }
- System.out.println(sb.toString());
-    return sb.toString();
-}
+
+              sb.append("0");
+			}
+
+			sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
+		}
+		System.out.println(sb.toString());
+		return sb.toString();
+	}
 
 
 
@@ -1275,15 +1274,4 @@ public class Models extends Observable{
 	
 	}
 
-
-=======
-				sb.append("0");
-			}
-
-			sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
-		}
-		System.out.println(sb.toString());
-		return sb.toString();
-	}
->>>>>>> f494b4d80376b57855c04b03132ed14f9db28f28
 }
