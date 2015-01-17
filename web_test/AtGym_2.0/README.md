@@ -5,6 +5,7 @@
 
 
 ##Mockups
+![GitHub login](mockups/logIn.jpg) | ![GitHub login](mockups/loginUmsetzung.jpg)
 ![GitHub login](mockups/logIn.jpg)
 ![GitHub home](mockups/home.jpg)
 ![GitHub ourgym](mockups/ourgym.jpg)
@@ -15,6 +16,7 @@
 ##Nicht-funktionale Anforderungen
 ##Architektur
 ###Klassendiagramm
+![GitHub klassendiagramm](Klassendiagramm.png)
 ###Observer
 ##Datenbank
 ![GitHub atGymDB](atGymDB.jpg)
