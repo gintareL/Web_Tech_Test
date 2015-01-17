@@ -5,7 +5,9 @@
 
 
 ##Die ersten Ideen und ihre Realisierung
-Mockups | Umsetzung
+Um Designe der Webapplication zu erstellen, wurden am Anfang von Projekt Mockups entwickelt. Einige von denen sind in der folgenden Tabelle zu sehen. 
+Während der Entwicklung mussten ein Paar Änderungen vorgenommen werden. Das Ergebnis weicht aber von der ersten Idee nur ganz wenig ab. 
+Mockups | Realisierung
 ------------ | -------------
 ![GitHub login](mockups/logIn.jpg) | ![GitHub loginUmsetzung](mockups/loginUmsetzung.jpg)
 ![GitHub home](mockups/home.jpg) | ![GitHub homeUmsetzung](mockups/homeUmsetzung.jpg)
@@ -20,6 +22,9 @@ Mockups | Umsetzung
 ![GitHub Klassendiagramm](Klassendiagramm.jpg)
 ###Observer
 ##Datenbank
+Damit die Datenbank leicht zu pflegen und zu erweitern ist, wurde sie in der 3. Normalform entwicklt. 
+Zugriff auf die Datenbank gelingt über JDBC. Um die Sicherheit der Webapplikation zu erhöhen, wurden die PreparedStatements benutzt.
+Passwörter von User sind ebenfalls geschützt und werden verschlüßelt in die Datenbank gespeichert. Für die Verschlüsserung wurde Secure Hash Algorithm benutzt.
 ![GitHub atGymDB](atGymDB.jpg)
 ##Technologien
 ###HTML 5
