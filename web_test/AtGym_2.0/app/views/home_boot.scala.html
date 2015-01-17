@@ -2,7 +2,7 @@
 @import helper._
 @import helper.twitterBootstrap._
 @main("Home"){
-		<div class="wrapper rande">
+<div class="wrapper rande">
 		
 <nav class="navbar navbar-inverse" role="navigation">
   <div class="container-fluid">
@@ -89,14 +89,15 @@
 				
 			
 				<div class="center">
-				<nav >
+				<nav>
 					<a title="Sehe Deine persoenliche Daten und Deine Sportplaene! / absolviere Dein Training!" 
 					href="/myGym">
-					<img class="bild_button rande left breite" id="mygy" src="@routes.Assets.at("images/my_gymText.jpg")"></a>
+					<img class="bild_button rande left breite" id="mygy" src="@routes.Assets.at("images/my_gymText.jpg")" alt="mygym">
+					</a>
 					
 					<a title="Erstelle Dein Trainigsplan! / Sehe alle Uebungen an!" 
 					href="/ourGym">
-					<img class="bild_button rande left breite" id="ourg" src="@routes.Assets.at("images/our_gymText.jpg")"></a>	
+					<img class="bild_button rande left breite" id="ourg" src="@routes.Assets.at("images/our_gymText.jpg")" alt="ourgym"></a>	
 				</nav>
 				
 				</div>
@@ -138,13 +139,13 @@
 						
 					</script> 
 				</div>
-				</div>
-			</section>
+			</div>
+		</section>
 			<footer class="rande">
 				<div class="fcenter">
 				&#169 2014 ALINA&GINTARE
 				</div>
 			</footer>
-		</div>	
+</div>	
 		<!--onLoad="sendMotivation()"-->
 	}

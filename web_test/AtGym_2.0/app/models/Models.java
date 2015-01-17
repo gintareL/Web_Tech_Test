@@ -1140,44 +1140,6 @@ public class Models extends Observable{
 			//	try { if (conn != null) conn.close(); } catch (Exception e) {};
 		}
 	}
-	
-	public void dislike(int uebung){
-		PreparedStatement preparedStatement =null;
-		PreparedStatement preparedStatement1 = null;
-		try {	
-			int dislikes=0;
-			stmt = conn.createStatement();
-			String sql1 = "select dislike from uebung where id=?;"  ;
-			preparedStatement =conn.prepareStatement(sql1);
-			preparedStatement.setInt(1, uebung);
-			
-			rs = preparedStatement.executeQuery();
-			while ( rs.next() ) {
-				
-				dislikes = rs.getInt("dislike");
-				dislikes = dislikes+1;
-				
-			}
-			String sql = "update uebung set dislike=? where id=?;";
-
-			preparedStatement1 =conn.prepareStatement(sql);
-
-			preparedStatement1.setInt(1, dislikes);
-			preparedStatement1.setInt(2, uebung);
-			preparedStatement1.executeUpdate();
-			
-		} catch ( Exception e ) {
-			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-			System.exit(0);
-			
-		} finally {
-			try { if (rs != null) rs.close(); } catch (Exception e) {};
-			try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception e) {};
-			try { if (preparedStatement1 != null) preparedStatement1.close(); } catch (Exception e) {};
-			//	try { if (conn != null) conn.close(); } catch (Exception e) {};
-		}
-	}
-
 
 
 	public static String getHash(String p) 
