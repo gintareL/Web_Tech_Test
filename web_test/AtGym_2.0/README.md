@@ -5,6 +5,11 @@
 
 
 ##Mockups
+![GitHub login](mockups/login.jpg)
+![GitHub home](mockups/home.jpg)
+![GitHub ourgym](mockups/ourgym.jpg)
+![GitHub mygym](mockups/mygym.jpg)
+![GitHub uebungen](mockups/uebungen.jpg)
 ##Use-Case-Diagramm
 ##Funktionale Anforderungen
 ##Nicht-funktionale Anforderungen
