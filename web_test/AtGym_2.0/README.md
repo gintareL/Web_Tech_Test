@@ -23,9 +23,9 @@ Mockups | Realisierung
 ![GitHub Klassendiagramm](Klassendiagramm.jpg)
 ###Observer
 ##Datenbank
-Damit die Datenbank leicht zu pflegen und zu erweitern ist, wurde sie in der 3. Normalform entwicklt. 
-Zugriff auf die Datenbank gelingt über JDBC. Um die Sicherheit der Webapplikation zu erhöhen, wurden die PreparedStatements benutzt.
-Passwörter von User sind ebenfalls geschützt und werden verschlüßelt in die Datenbank gespeichert. Für die Verschlüsserung wurde Secure Hash Algorithm benutzt.
+Damit die Datenbank leicht zu pflegen und zu erweitern ist, wurde sie in der 3. Normalform entwicklet. 
+Zugriff auf die Datenbank wird über JDBC realisiert. Um die Sicherheit der Webapplikation zu erhöhen, wurden PreparedStatements benutzt.
+Passwörter von User sind ebenfalls geschützt und werden verschlüßelt in der Datenbank gespeichert. Für die Verschlüsserung wurde der Secure Hash Algorithm benutzt.
 ![GitHub atGymDB](atGymDB.jpg)
 ##Technologien
 ###HTML 5
