@@ -5,7 +5,7 @@
 
 
 ##Mockups
-![GitHub login](mockups/login.jpg)
+![GitHub login](mockups/logIn.jpg)
 ![GitHub home](mockups/home.jpg)
 ![GitHub ourgym](mockups/ourgym.jpg)
 ![GitHub mygym](mockups/mygym.jpg)
