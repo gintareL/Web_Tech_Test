@@ -4,7 +4,7 @@
 
 
 
-##Mockups
+##Die ersten Ideen und ihre Realisierung
 Mockups | Umsetzung
 ------------ | -------------
 ![GitHub login](mockups/logIn.jpg) | ![GitHub loginUmsetzung](mockups/loginUmsetzung.jpg)
@@ -17,7 +17,7 @@ Mockups | Umsetzung
 ##Nicht-funktionale Anforderungen
 ##Architektur
 ###Klassendiagramm
-![GitHub klassendiagramm](Klassendiagramm.png)
+![GitHub Klassendiagramm](Klassendiagramm.jpg)
 ###Observer
 ##Datenbank
 ![GitHub atGymDB](atGymDB.jpg)
