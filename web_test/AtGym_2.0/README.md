@@ -5,8 +5,9 @@
 
 
 ##Die ersten Ideen und ihre Realisierung
-Um Designe der Webapplication zu erstellen, wurden am Anfang von Projekt Mockups entwickelt. Einige von denen sind in der folgenden Tabelle zu sehen. 
+Um das Design der Webapplication zu erstellen, wurden am Anfang vom Projekt Mockups entwickelt. Einige sind in der folgenden Tabelle zu sehen. 
 Während der Entwicklung mussten ein Paar Änderungen vorgenommen werden. Das Ergebnis weicht aber von der ersten Idee nur ganz wenig ab. 
+#
 Mockups | Realisierung
 ------------ | -------------
 ![GitHub login](mockups/logIn.jpg) | ![GitHub loginUmsetzung](mockups/loginUmsetzung.jpg)
