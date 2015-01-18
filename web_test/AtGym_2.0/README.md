@@ -38,7 +38,7 @@ Wenn die Daten aktualisiert wurden, oder wenn die Routine durchgeführt wurde, k
 ##Architektur
 ###Model View Controller
 Die Webapplikation ist nach dem Schema *Model View Controller* aufgebaut, das im folgen Bild grafisch dargestellt ist. 
-![GitHub mvc](mvc.png)
+![GitHub mvc](mvc.png)                   
 View beinhaltet alle html Seiten. In Model befindet sich Logik und Datenbank. 
 Model und View können direkt nicht kommunizieren. Dazu gibt es Controller. Er hat Zugriff sowohl auf Model als auch auf View. Durch ein Event bei View wird Controller benachricht, was in View geschähen 
 ist. Dann kann der Controller reagieren und das Benötige von Model holen.       
