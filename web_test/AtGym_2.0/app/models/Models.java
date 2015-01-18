@@ -895,10 +895,10 @@ public class Models extends Observable{
 				muskel2 = rs.getString("muskel2");
 				muskelgruppe=Muskel.valueOf(rs.getString("muskelgruppe"));
 				
-				
+				System.out.println("vor der Abfrage");
 				Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 				AusgewaehlteUebung ausgewaehlt = new AusgewaehlteUebung(uebung, satz);
-				if(userp.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().contains(ausgewaehlt) == false){
+				//if(userp.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().isEmpty()==false || userp.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().contains(ausgewaehlt) == false){
 				System.out.println("Diese Uebung ist nicht ausgewaehlt worden");
 				if(userp.getPlans().containsKey(plan) == true){
 					System.out.println("plan ist true");
@@ -1025,7 +1025,7 @@ public class Models extends Observable{
 					
 				}
 				}
-			}
+			//}
 			
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
