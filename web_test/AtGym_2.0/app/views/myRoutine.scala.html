@@ -172,7 +172,7 @@
 										<div role="tabpanel" class="tab-pane active" id="montag@p.getId()">										
 											<div >  
 												@for(u <- t.getUebungen()){
-												<div class="rande abstand4 abstand3 clearfix">
+												<div class="rande abstand444 abstand33 clearfix">
 														<img class="left rande breite abstand" id="uebung_gif" src=@u.getUebung.getBild()>
 														<div class="left breite abstand">
 															<!-- Saetze-->
@@ -187,7 +187,12 @@
 															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
 															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
 																<table class="table">
-																<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+																<tr><th>Datum</th>
+																 @for(wh <- 0 until u.getWh()){
+																<th>WH/kg</th>
+																}
+																</tr>
+																
 																@if(user.getRoutine().isEmpty() == false){
 																	
 																
@@ -218,24 +223,24 @@
 																  </ul>
 
 																  <!-- Tab panes -->
-																<div class="tab-content">
+																<div class="tab-content ">
 																	@for(z <- 0 until u.getWh()){
 																		@if(z == 0){
 																		
-																			<div role="tabpanel" class="tab-pane breite7 active" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
+																			<div role="tabpanel" class="tab-pane breite7 centertab active" id="id_@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()">
 																			
-																	
 																				@form(routes.Application.satzSave(),'class -> "form-horizontal", 'id -> "satzSave") {
-																				
+																					
 																					<input style="display:none;" name="@satzSave("plan").name" value="@p.getId()" >
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="0" max="99" placeholder="Sätze">
-																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																					<input type="number" name="@satzSave("wh").name" class=" rande inputtab"  min="0" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande inputtab"  min="0" max="99" placeholder="Gewicht">
 																					<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
-																					}
 																					
+																					}
+																				
 																			</div>	
 																		}
 																	
@@ -248,8 +253,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
-																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande inputtab" min="1" max="99" placeholder="Sätze">
+																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande inputtab" min="0" max="99" placeholder="Gewicht">
 																					<button class="buttonLog2 abstand6"  type="submit">save</button>
 																					}
 																				
@@ -295,7 +300,11 @@
 															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
 															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
 																<table class="table">
-																<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+																<tr><th>Datum</th>
+																 @for(wh <- 0 until u.getWh()){
+																<th>WH/kg</th>
+																}
+																</tr>
 																@if(user.getRoutine().isEmpty() == false){
 																	
 																
@@ -340,8 +349,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="0" max="99" placeholder="Sätze">
-																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																					<input type="number" name="@satzSave("wh").name" class=" rande inputtab"  min="0" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande inputtab"  min="0" max="99" placeholder="Gewicht">
 																					<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
 																					}
 																					
@@ -357,8 +366,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
-																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande inputtab" min="1" max="99" placeholder="Sätze">
+																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande inputtab" min="0" max="99" placeholder="Gewicht">
 																					<button class="buttonLog2 abstand6"  type="submit">save</button>
 																					}
 																				
@@ -406,7 +415,11 @@
 															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
 															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
 																<table class="table">
-																<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+																<tr><th>Datum</th>
+																 @for(wh <- 0 until u.getWh()){
+																<th>WH/kg</th>
+																}
+																</tr>
 																@if(user.getRoutine().isEmpty() == false){
 																	
 																
@@ -450,8 +463,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="0" max="99" placeholder="Sätze">
-																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																					<input type="number" name="@satzSave("wh").name" class=" rande inputtab"  min="0" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande inputtab"  min="0" max="99" placeholder="Gewicht">
 																					<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
 																					}
 																					
@@ -467,8 +480,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
-																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande inputtab" min="1" max="99" placeholder="Sätze">
+																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande inputtab" min="0" max="99" placeholder="Gewicht">
 																					<button class="buttonLog2 abstand6"  type="submit">save</button>
 																					}
 																				
@@ -515,7 +528,11 @@
 															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
 															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
 																<table class="table">
-																<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+																<tr><th>Datum</th>
+																 @for(wh <- 0 until u.getWh()){
+																<th>WH/kg</th>
+																}
+																</tr>
 																@if(user.getRoutine().isEmpty() == false){
 																	
 																
@@ -559,8 +576,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="0" max="99" placeholder="Sätze">
-																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																					<input type="number" name="@satzSave("wh").name" class=" rande inputtab"  min="0" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande inputtab"  min="0" max="99" placeholder="Gewicht">
 																					<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
 																					}
 																					
@@ -576,8 +593,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
-																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande inputtab" min="1" max="99" placeholder="Sätze">
+																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande inputtab" min="0" max="99" placeholder="Gewicht">
 																					<button class="buttonLog2 abstand6"  type="submit">save</button>
 																					}
 																				
@@ -623,7 +640,11 @@
 															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
 															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
 																<table class="table">
-																<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+																<tr><th>Datum</th>
+																 @for(wh <- 0 until u.getWh()){
+																<th>WH/kg</th>
+																}
+																</tr>
 																@if(user.getRoutine().isEmpty() == false){
 																	
 																
@@ -667,8 +688,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="0" max="99" placeholder="Sätze">
-																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																					<input type="number" name="@satzSave("wh").name" class=" rande inputtab"  min="0" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande inputtab"  min="0" max="99" placeholder="Gewicht">
 																					<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
 																					}
 																					
@@ -684,8 +705,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
-																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande inputtab" min="1" max="99" placeholder="Sätze">
+																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande inputtab" min="0" max="99" placeholder="Gewicht">
 																					<button class="buttonLog2 abstand6"  type="submit">save</button>
 																					}
 																				
@@ -731,7 +752,11 @@
 															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
 															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
 																<table class="table">
-																<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+																<tr><th>Datum</th>
+																 @for(wh <- 0 until u.getWh()){
+																<th>WH/kg</th>
+																}
+																</tr>
 																@if(user.getRoutine().isEmpty() == false){
 																	
 																
@@ -775,8 +800,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="0" max="99" placeholder="Sätze">
-																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																					<input type="number" name="@satzSave("wh").name" class=" rande inputtab"  min="0" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande inputtab"  min="0" max="99" placeholder="Gewicht">
 																					<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
 																					}
 																					
@@ -792,8 +817,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
-																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande inputtab" min="1" max="99" placeholder="Sätze">
+																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande inputtab" min="0" max="99" placeholder="Gewicht">
 																					<button class="buttonLog2 abstand6"  type="submit">save</button>
 																					}
 																				
@@ -840,7 +865,11 @@
 															<p class="close1" id="hist@p.getId()@u.getUebung().getId()@t.getTag()">@u.getUebung().getName() <span class="pfeilDown glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></p>
 															<div class="hist@p.getId()@u.getUebung().getId()@t.getTag()" style="display:none;">
 																<table class="table">
-																<tr><th>Datum</th><th>WH/kg</th><th>WH/kg</th><th>WH/kg</th></tr>
+																<tr><th>Datum</th>
+																 @for(wh <- 0 until u.getWh()){
+																<th>WH/kg</th>
+																}
+																</tr>
 																@if(user.getRoutine().isEmpty() == false){
 																	
 																
@@ -884,8 +913,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" name="@satzSave("wh").name" class=" rande abstand3 breite3"  min="0" max="99" placeholder="Sätze">
-																					<input type="number" name="@satzSave("gewicht").name" class="rande abstand3 breite3"  min="0" max="99" placeholder="Gewicht">
+																					<input type="number" name="@satzSave("wh").name" class=" rande inputtab"  min="0" max="99" placeholder="Sätze">
+																					<input type="number" name="@satzSave("gewicht").name" class="rande inputtab"  min="0" max="99" placeholder="Gewicht">
 																					<div><button class="buttonLog2 abstand6" type="submit">save</button></div>
 																					}
 																					
@@ -901,8 +930,8 @@
 																					<input style="display:none;" name="@satzSave("uebung").name" value="@u.getUebung().getId()" >
 																					<input style="display:none;" name="@satzSave("tag").name" value="@t.getTag()" >
 																					<input style="display:none;" name="@satzSave("satz").name" value="@z" >
-																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande abstand3 breite3" min="1" max="99" placeholder="Sätze">
-																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande abstand3 breite3" min="0" max="99" placeholder="Gewicht">
+																					<input type="number" id="wh@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("wh").name" class=" rande inputtab" min="1" max="99" placeholder="Sätze">
+																					<input type="number" id="g@(z+1)@p.getId()@u.getUebung().getId()@t.getTag()" name="@satzSave("gewicht").name" class="rande inputtab" min="0" max="99" placeholder="Gewicht">
 																					<button class="buttonLog2 abstand6"  type="submit">save</button>
 																					}
 																				

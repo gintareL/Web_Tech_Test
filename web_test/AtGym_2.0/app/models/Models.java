@@ -866,6 +866,7 @@ public class Models extends Observable{
 	
 	public void planHinzufuegen(User userp, int id, int satz, String tag, String plan){
 		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement2 = null;
 		PreparedStatement preparedStatement3 = null;
 		PreparedStatement preparedStatement4 = null;
 		String name;
@@ -897,11 +898,39 @@ public class Models extends Observable{
 				
 				Uebung uebung = new Uebung(id, name, equipment, grad, muskel1, muskel2, bild, muskelgruppe);
 				AusgewaehlteUebung ausgewaehlt = new AusgewaehlteUebung(uebung, satz);
-				
-				
+				if(userp.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().contains(ausgewaehlt) == false){
+				System.out.println("Diese Uebung ist nicht ausgewaehlt worden");
 				if(userp.getPlans().containsKey(plan) == true){
-					
+					System.out.println("plan ist true");
 					if(userp.getPlans().get(plan).getUebungen().containsKey(Tag.valueOf(tag)) == true){
+						System.out.println("Tag exists");
+						if(userp.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().contains(ausgewaehlt) == false){
+							boolean exist = false;
+						for(AusgewaehlteUebung a : userp.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen()){
+							System.out.println("Vergleich: " + a.getUebung().getId() + " " + uebung.getId());
+						if(a.getUebung().getId() == uebung.getId() && a.getWh() != satz){
+							int planId = userp.getPlans().get(plan).getId();
+								a.setWh(satz);
+								
+								String sql3 = "UPDATE ausgewaehlteuebung set satz=? where plan=? and uebung=? and tag=?;";
+								
+								preparedStatement2 =conn.prepareStatement(sql3);
+
+								preparedStatement2.setInt(1, satz);
+								preparedStatement2.setInt(2, planId);
+								preparedStatement2.setInt(3, id);
+								preparedStatement2.setString(4, tag);
+								
+								
+								preparedStatement2.executeUpdate();	
+							exist = true;
+							break;
+						} else if(a.getUebung().getId() == uebung.getId() && a.getWh() == satz){
+							exist = true;
+							break;
+						}
+						}
+						if(exist == false){
 						int planId = userp.getPlans().get(plan).getId();
 						userp.getPlans().get(plan).getUebungen().get(Tag.valueOf(tag)).getUebungen().add(ausgewaehlt);
 						
@@ -917,7 +946,8 @@ public class Models extends Observable{
 						
 						
 						preparedStatement3.executeUpdate();	
-						
+						}
+						}
 						
 					} else{
 						TagPlan tagPlan = new TagPlan();
@@ -994,6 +1024,7 @@ public class Models extends Observable{
 					}
 					
 				}
+				}
 			}
 			
 		} catch ( Exception e ) {
@@ -1003,6 +1034,7 @@ public class Models extends Observable{
 			try { if (rs != null) rs.close(); } catch (Exception e) {};
 			try { if (preparedStatement4 != null) preparedStatement4.close(); } catch (Exception e) {};
 			try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception e) {};
+			try { if (preparedStatement2 != null) preparedStatement2.close(); } catch (Exception e) {};
 			try { if (preparedStatement3 != null) preparedStatement3.close(); } catch (Exception e) {};
 			//	try { if (conn != null) conn.close(); } catch (Exception e) {};
 		}

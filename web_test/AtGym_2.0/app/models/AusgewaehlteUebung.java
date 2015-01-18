@@ -52,6 +52,10 @@ public class AusgewaehlteUebung{
 	public Satz[] getSaetze(){
 		return satz;
 	}
+	public void setWh(int wh){
+		this.wh = wh;
+		this.satz = new Satz[wh];
+	}
 	
 	public Uebung getUebung(){
 		return uebung;
