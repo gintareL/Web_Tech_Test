@@ -21,7 +21,7 @@ Mockups | Realisierung
 ![GitHub home](mockups/home.jpg) | ![GitHub homeUmsetzung](mockups/homeUmsetzung.jpg)
 ![GitHub ourgym](mockups/ourgym.jpg) | ![GitHub ourgymUmsetzung](mockups/ourgymUmsetzung.jpg)
 ![GitHub mygym](mockups/mygym.jpg) | ![GitHub mygymUmsetzung](mockups/mygymUmsetzung.jpg)
-![GitHub uebungen](mockups/uebungen.jpg) | ![GitHub uebungenUmsetzung](mockups/uebungenUmsetzung.jpg)
+![GitHub uebungen](mockups/uebungen.jpg) | ![GitHub uebungenUmsetzung](mockups/uebungenUmsetzung.jpg)          
 ##Funktionale Anforderungen
 Die funktionalen Anforderungen der Webapplikation *@Gym* werden im folgenden Use Cases Diagramm präsentiert:
 ![GitHub useCases](useCases.png)
@@ -33,8 +33,8 @@ Wenn die Daten aktualisiert wurden, oder wenn die Routine durchgeführt wurde, k
 * Ansprechendes und serioses Design
 * Kundenfreundlichkeit
 * Sicherheit
-* Performanz   
-#
+* Performanz          
+                  
 ##Architektur
 ###Model View Controller
 Die Webapplikation ist nach dem Schema *Model View Controller* aufgebaut, das im folgen Bild grafisch dargestellt ist. 
@@ -42,23 +42,23 @@ Die Webapplikation ist nach dem Schema *Model View Controller* aufgebaut, das im
 View beinhaltet alle html Seiten. In Model befindet sich Logik und Datenbank. 
 Model und View können direkt nicht kommunizieren. Dazu gibt es Controller. Er hat Zugriff sowohl auf Model als auch auf View. Durch ein Event bei View wird Controller benachricht, was in View geschähen 
 ist. Dann kann der Controller reagieren und das Benötige von Model holen.       
-#
+                  
 Die Klassen *Application* und *GymObserver* sind Controllers. Die anderen Klassen gehören zu Model. Zugriff von *Application* auf Model geschiet über die Klasse *Models*. Die Klassen der Webapplikation 
-werden im folgenden Kapitel ausführlicheer erklärt.      
+werden im folgenden Kapitel ausführlicheer erklärt.               
 ###Klassendiagramm
 Wie es schon erwähnt wurde, zu Controllers gehören zwei Klassen: *Application* und *GymObserver*. Model enthält 23 Klassen. *Models*, *User* und *Uebungen* sind die Wichtigsten. Diese Klassen sind in der 
 folgenden Klassendiagramm präsentiert.
 ![GitHub Klassendiagramm](Klassendiagramm.jpg)
-*Application* kommuniziert mit Model über die Klasse *Models*. Diese Klasse verwaltet alle anderen Klassen des Models und greift auf die Datenbank zu.      
+*Application* kommuniziert mit Model über die Klasse *Models*. Diese Klasse verwaltet alle anderen Klassen des Models und greift auf die Datenbank zu.                
 ###Observer und Observable
 Um die Websockets zu realisieren wurden Observer und Observable verwendet. Wie man in der Klassendiagramm erkennen kann, ist die Klasse *GymObserver* Observer und *Models* Observable. 
 Wenn die Methode *like(int uebung)* in *Models* aufgerufen wird, werden die Observers über den Aufruf der Methode notifyObservers() über die Änderungen informiert. Wegen den Websockets können die angemeldeten User immer die 
 aktuelle Anzahl von Likes sehen.       
-##Datenbank
+##Datenbank      
 Für die Webapplikation wurde die SQLite Datenbank benutzt. Damit die Datenbank leicht zu pflegen und zu erweitern ist, wurde sie in der 3. Normalform entwicklet. 
 Zugriff auf die Datenbank wird über JDBC realisiert. Um die Sicherheit der Webapplikation zu erhöhen, wurden PreparedStatements benutzt.
 Passwörter von User sind ebenfalls geschützt und werden verschlüßelt in der Datenbank gespeichert. Für die Verschlüsserung wurde der Secure Hash Algorithm benutzt.
-![GitHub atGymDB](atGymDB.jpg)
+![GitHub atGymDB](atGymDB.jpg)                                 
 ##Technologien
 ###HTML 5
 ###CSS3
