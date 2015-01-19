@@ -323,16 +323,37 @@ public class Application extends Controller {
 		session("seite", "myAnalyse");
 		Form<uebungLoeschen> uebungLoeschen = Form.form(uebungLoeschen.class);
 		//User user = model.aktuellUser();
+		
 		String username = session("User1");
 		String email = session("email");
 		if(username != null && email != null) {
 			User user = model.aktuellUserList(email);
+			
+			if(user.getGewichtList().isEmpty() == false){
+			
+				Gewicht[] gewichtArray = new Gewicht[user.getGewichtList().size()];
+				int j = 0;
+				gewichtArray = new Gewicht[user.getGewichtList().size()];
+		
+				for (int index : user.getGewichtList().keySet()){
+					gewichtArray[j] = user.getGewichtList().get(index);
+					j++;
+		
+				}
+			
+			}
+			
+			//System.out.println("User " + user.getVorname());
+			//System.out.println("User " + user.getGewichtList().get(9).getDatumString());
 			return ok(myAnalyse.render(user, uebungLoeschen));
 		}else{
 			return redirect("/atGym");
 		}
 	}
-
+	
+	
+	
+	
 	public static Result uebungAuswaehlen(){
 		String muskelgruppe = session("muskelgruppe");
 		String email = session("email");
@@ -444,10 +465,15 @@ public class Application extends Controller {
 	public static Result plannameVervollstaendigung(String input){
 		String username = session("User1");
 		String email = session("email");
-		User user = model.aktuellUserList(email);
-		return ok(model.Plannamen(user, input));
+		System.out.println("ich bin vor app if abfrage");
+		if(username != null && email != null){
+			User user = model.aktuellUserList(email);
+			System.out.println("ich bin hier vor methode");
+			return ok(model.Plannamen(user, input));
+		} else{
+			return redirect("/atGym");
+		}
 	}
-	
 	
 	public static Result brust(){
 		session("seite","brust");

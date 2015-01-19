@@ -29,7 +29,8 @@ public class User extends Model{
 	public String defaultBild=null;
 
 	private Map<String,Plan> plaene = new HashMap<String, Plan>();
-	private SortedMap<Integer, Gewicht> gewichtList = new TreeMap<Integer, Gewicht>();
+	private SortedMap<Integer,Gewicht> gewichtList = new TreeMap<Integer, Gewicht>();
+	
 	private SortedMap<Integer,Bauchumfang> bauchumfangList = new TreeMap<Integer,Bauchumfang>();
 	private SortedMap<Integer,Armumfang> armumfangList = new TreeMap<Integer,Armumfang>();
 	private SortedMap<Integer,Hueftenumfang> hueftenumfangList = new TreeMap<Integer,Hueftenumfang>();
@@ -119,11 +120,11 @@ public class User extends Model{
 	}
 
 	public Gewicht getGewicht(){
-		return gewicht;
+		return this.gewicht;
 	}
 
 	public void setGewicht(Gewicht g){
-		gewicht=g;
+		this.gewicht=g;
 		gewichtList.put(0, g);
 	}
 
@@ -283,6 +284,13 @@ public class User extends Model{
 		return brustumfangList;
 	}
 
+	/*public Gewicht[] getGewichtArray(){
+		return gewichtArray;
+	}
+	
+	public void setGewichtArray(Gewicht[] g){
+		gewichtArray = g;
+	}*/
 
 	public List<ValidationError> validate() {
 		List<ValidationError> error = new ArrayList<>();

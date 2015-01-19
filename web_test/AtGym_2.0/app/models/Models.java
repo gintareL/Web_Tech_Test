@@ -340,7 +340,19 @@ public class Models extends Observable{
 			while ( rs.next() ) {
 				u.getGewichtList().put(rs.getInt("id"), new Gewicht(rs.getDouble("umfang"), rs.getString("datum")));
 			}
+		/*	if(u.getGewichtList().isEmpty() == false){
 			
+			Gewicht[] gewichtArray = new Gewicht[u.getGewichtList().size()];
+		int j = 0;
+		gewichtArray = new Gewicht[u.getGewichtList().size()];
+		
+		for (int index : u.getGewichtList().keySet()){
+			gewichtArray[j] = u.getGewichtList().get(index);
+			j++;
+		
+		}
+		u.setGewichtArray(gewichtArray);
+		}	*/
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
@@ -349,6 +361,8 @@ public class Models extends Observable{
 			try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception e) {};
 			//	try { if (conn != null) conn.close(); } catch (Exception e) {};
 		}
+		
+		
 	}
 
 	public void bauchumfangCheck(User userp){
@@ -1230,7 +1244,7 @@ public class Models extends Observable{
 			preparedStatement.setInt(1, id);				
 			rs = preparedStatement.executeQuery();
 				
-			
+			System.out.println("Test sql:" + sql);
 			 
 			while ( rs.next() ) {
 					plannamen.add(rs.getString("p.name"));
@@ -1239,6 +1253,13 @@ public class Models extends Observable{
 			String[] meinTextArray = plannamen.toArray(new String[plannamen.size()]);
 			String eingabe = input;
 			
+			if (null != eingabe && 0 < eingabe.trim().length()) {
+				if (!sorted) {
+					java.util.Arrays.sort(meinTextArray);
+					sorted = true;
+				}
+			}
+				
 			StringBuffer auswahl = new StringBuffer();
 			boolean resultFound = false;
 			
@@ -1256,6 +1277,7 @@ public class Models extends Observable{
 			if (0 < auswahl.length()) {
 				auswahl.setLength(auswahl.length() -1);
 			}
+			System.out.println(auswahl.toString());
 			ergebnis = auswahl.toString();
 		
 					

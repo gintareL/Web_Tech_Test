@@ -31,6 +31,7 @@ POST	/planLoeschen			controllers.Application.planLoeschen()
 GET 	/myPlans				controllers.Application.myPlans()
 GET 	/myRoutine				controllers.Application.myRoutine()
 GET 	/myAnalyse				controllers.Application.myAnalyse()
+GET		/plannameVervollstaendigung/		controllers.Application.plannameVervollstaendigung(input)
 #POST	/upload/save			controllers.Application.upload()
 
 

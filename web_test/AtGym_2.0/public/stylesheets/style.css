@@ -183,6 +183,7 @@ width : 55%;
 	
 }
 
+
 #b1{ 
 	position:absolute; 
 	top: 254px; 
@@ -395,7 +396,9 @@ float: right;
 color : rgba(220,160,140,0);
 }
 
-
+#auswahlfeld{
+	
+}
 
 
 
@@ -421,7 +424,7 @@ color : rgba(220,160,140,0);
 }
 
 .sp-content {
-    background: #7d7f72 url(../images/grid.png) repeat scroll 0 0;
+    background: #7d7f72 url(../images/weiss.png) repeat scroll 0 0;
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -623,12 +626,7 @@ input.sp-selector-5:checked ~ .sp-content .sp-parallax-bg {
 	padding: 0 60px;
     float: left;
 	text-align: center;
-	opacity: 0.4;
-    -webkit-transition: opacity ease-in 0.4s 0.8s;
-    -moz-transition: opacity ease-in 0.4s 0.8s;
-    -o-transition: opacity ease-in 0.4s 0.8s;
-    -ms-transition: opacity ease-in 0.4s 0.8s;
-    transition: opacity ease-in 0.4s 0.8s; 
+	
 }
 .sp-slider > li img{
 	-webkit-box-sizing: border-box;
