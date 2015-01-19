@@ -3,7 +3,7 @@ import java.util.*;
 import play.db.ebean.Model;
 import javax.persistence.Entity;
 
-public class Uebung extends Observable{
+public class Uebung{
 	private int id;
 	private String name;
 	private String equipment;
@@ -86,15 +86,14 @@ public class Uebung extends Observable{
 	}
 	public void setLike(int like){
 		this.like=like;
-		setChanged();
-		notifyObservers(Integer.toString(id));
+		
 	}
 	public int getDislike(){
 	return dislike;
 	}
 	public void setDisike(int dislike){
 		this.dislike=dislike;
-		notifyObservers("dislike");
+		
 	}
 	
 	public String getBild(){

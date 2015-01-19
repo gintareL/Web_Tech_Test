@@ -1,0 +1,237 @@
+<Project>
+  <Name>atGym</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>User</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>User</Name>
+        <Access>Public</Access>
+        <Location left="500" top="66" />
+        <Size width="326" height="502" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private SortedMap&lt;Integer, Gewicht&gt; gewichtList</Member>
+        <Member type="Field">private String email</Member>
+        <Member type="Field">private String nachname</Member>
+        <Member type="Field">private String vorname</Member>
+        <Member type="Field">private String password</Member>
+        <Member type="Field">private int id</Member>
+        <Member type="Field">private int groesse</Member>
+        <Member type="Field">private Geschlecht geschlecht</Member>
+        <Member type="Field">private SortedMap&lt;Integer, String&gt; bild</Member>
+        <Member type="Field">Map&lt;String,Plan&gt; plaene</Member>
+        <Member type="Field">private SortedMap&lt;Integer,Bauchumfang&gt; bauchumfangList</Member>
+        <Member type="Field">private SortedMap&lt;Integer,Armumfang&gt; armumfangList</Member>
+        <Member type="Field">private SortedMap&lt;Integer,Hueftenumfang&gt; hueftenumfangList</Member>
+        <Member type="Field">private SortedMap&lt;Integer,Brustumfang&gt; brustumfangList</Member>
+        <Member type="Field">private Set&lt;Routine&gt; routine</Member>
+        <Member type="Method">public void setter(Object o)</Member>
+        <Member type="Method">public Object getter()</Member>
+        <Member type="Method">public void uebungLoeschen(String plan, Tag tag, int uebung)</Member>
+        <Member type="Constructor">public User()</Member>
+        <Member type="Constructor">public User(String email, String password)</Member>
+        <Member type="Constructor">public User(String vorname, String nachname, String email, String password, int groesse, int geschlecht)</Member>
+        <Member type="Constructor">public User(String vorname, String nachname, String email, String password, int groesse, int geschlecht, String bild)</Member>
+        <Member type="Constructor">public User(String vorname, String nachname, String email, String password, int groesse, Geschlecht geschlecht)</Member>
+        <Member type="Constructor">public User(String vorname, String nachname, String email, String password, int groesse, Geschlecht geschlecht, String bild)</Member>
+        <Member type="Method">public List&lt;ValidationError&gt; validate()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Models</Name>
+        <Access>Public</Access>
+        <Location left="895" top="66" />
+        <Size width="325" height="760" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static Models instance</Member>
+        <Member type="Field">private static Map&lt;Integer, Uebung&gt; alleUebungen</Member>
+        <Member type="Field">private static Map&lt;String, User&gt; alleUser</Member>
+        <Member type="Field">Connection conn</Member>
+        <Member type="Field">ResultSet rs</Member>
+        <Member type="Field">ResultSet rs1</Member>
+        <Member type="Constructor">private Models()</Member>
+        <Member type="Method">public void abmelden(String email)</Member>
+        <Member type="Method">public boolean checkUser(String em, String password)</Member>
+        <Member type="Method">public void bilderList(User userp)</Member>
+        <Member type="Method">public int selectId(String email)</Member>
+        <Member type="Method">public static Models getInstance()</Member>
+        <Member type="Method">public boolean emailCheck(String em)</Member>
+        <Member type="Method">public boolean neuerUser(User userNeu)</Member>
+        <Member type="Method">public void imageSave(User userp, String file)</Member>
+        <Member type="Method">public void gewichtCheck(User userp)</Member>
+        <Member type="Method">public void gewichtCheck(User userp)</Member>
+        <Member type="Method">public void gewichtList(User user)</Member>
+        <Member type="Method">public void bauchumfangCheck(User userp)</Member>
+        <Member type="Method">public void bauchumfangList(User u)</Member>
+        <Member type="Method">public void hueftenumfangCheck(User userp)</Member>
+        <Member type="Method">public void hueftenList(User u)</Member>
+        <Member type="Method">public void armumfangList(User u)</Member>
+        <Member type="Method">public void armumfangCheck(User userp)</Member>
+        <Member type="Method">public void brustumfangList(User u)</Member>
+        <Member type="Method">public void brustumfangCheck(User userp)</Member>
+        <Member type="Method">public SortedMap&lt;Integer, Uebung&gt; uebungenListeMuskelgruppe(String muskelgruppe)</Member>
+        <Member type="Method">public void setLike(Uebung task)</Member>
+        <Member type="Method">public JsonNode getLikesAktuell(JsonNode obj)</Member>
+        <Member type="Method">public User aktuellUserList(String email)</Member>
+        <Member type="Method">public void plaene(User u)</Member>
+        <Member type="Method">public Set&lt;Routine&gt; routineAuslesen(User u)</Member>
+        <Member type="Method">public void routineStep1(User userp, int plan, int uebung, String tag, int wh, int gewicht, int satz)</Member>
+        <Member type="Method">public void planHinzufuegen(User userp, int id, int satz, String tag, String plan)</Member>
+        <Member type="Method">public void planLoeschen(User userp)</Member>
+        <Member type="Method">public void planLoeschenKomplett(User userp, int plan)</Member>
+        <Member type="Method">public void uebungLoeschen(User userp, int plan, int uebung, String t)</Member>
+        <Member type="Method">public void like(int uebung)</Member>
+        <Member type="Method">public static String getHash(String p)</Member>
+        <Member type="Method">public String Plannamen(User user, String input)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Uebung</Name>
+        <Access>Public</Access>
+        <Location left="500" top="625" />
+        <Size width="326" height="315" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private int id</Member>
+        <Member type="Field">private String name</Member>
+        <Member type="Field">private String equipment</Member>
+        <Member type="Field">private String grad</Member>
+        <Member type="Field">private String muskel1</Member>
+        <Member type="Field">private String muskel2</Member>
+        <Member type="Field">private String bild</Member>
+        <Member type="Field">private Muskel muskelgruppe</Member>
+        <Member type="Field">private int like</Member>
+        <Member type="Field">private int dislike</Member>
+        <Member type="Constructor">public Uebung(int id, String n, String e, String g, String m1, String m2, String b, Muskel m)</Member>
+        <Member type="Constructor">public Uebung(int id, String n, String e, String g, String m1, String m2, String b, Muskel m, int like, int dislike)</Member>
+        <Member type="Method">public Object getter()</Member>
+        <Member type="Method">public void setter(Object o)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Application</Name>
+        <Access>Public</Access>
+        <Location left="1276" top="66" />
+        <Size width="289" height="604" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">static Form&lt;User&gt; loginForm</Member>
+        <Member type="Field">static Models model</Member>
+        <Member type="Field">static Form&lt;Gewicht&gt; gewichtForm</Member>
+        <Member type="Method">static Result login()</Member>
+        <Member type="Method">public static Result home1()</Member>
+        <Member type="Method">public static Result home()</Member>
+        <Member type="Method">public static Result ourGym()</Member>
+        <Member type="Method">public static Result myGym()</Member>
+        <Member type="Method">public static Result aboutMeg()</Member>
+        <Member type="Method">public static Result aboutMeb()</Member>
+        <Member type="Method">public static Result aboutMeh()</Member>
+        <Member type="Method">public static Result aboutMea()</Member>
+        <Member type="Method">public static Result aboutMebr()</Member>
+        <Member type="Method">public static Result upload()</Member>
+        <Member type="Method">public static Result aboutMe()</Member>
+        <Member type="Method">public static Result myPlans()</Member>
+        <Member type="Method">public static Result myRoutine()</Member>
+        <Member type="Method">public static Result myAnalyse()</Member>
+        <Member type="Method">public static Result uebungAuswaehlen()</Member>
+        <Member type="Method">public static Result beine()</Member>
+        <Member type="Method">public static Result bauch()</Member>
+        <Member type="Method">public static Result arme()</Member>
+        <Member type="Method">public static Result plannameVervollstaendigung(String input)</Member>
+        <Member type="Method">public static Result brust()</Member>
+        <Member type="Method">public static Result like()</Member>
+        <Member type="Method">public static Result ruecken()</Member>
+        <Member type="Method">public static Result schultern()</Member>
+        <Member type="Method">public static Result uebungLoeschen()</Member>
+        <Member type="Method">public static Result planLoeschen()</Member>
+        <Member type="Method">public static Result satzSave()</Member>
+        <Member type="Method">public static WebSocket&lt;JsonNode&gt; uebungWebSocket()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>GymObserver</Name>
+        <Access>Public</Access>
+        <Location left="1408" top="726" />
+        <Size width="162" height="161" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public WebSocket.Out&lt;JsonNode&gt; gym</Member>
+        <Member type="Field">public WebSocket.Out&lt;String&gt; uebung</Member>
+        <Member type="Method">public void update(Observable arg0, Object uebungId)</Member>
+        <Member type="Constructor">public GymObserver()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>Observable</Name>
+        <Access>Public</Access>
+        <Location left="895" top="878" />
+        <Size width="162" height="130" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">void notifyObservers()</Member>
+        <Member type="Method">void addObserver(Observer o)</Member>
+        <Member type="Method">void removeObserver(Observer o)</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>Observer</Name>
+        <Access>Public</Access>
+        <Location left="1177" top="892" />
+        <Size width="162" height="112" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">void update()</Member>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="1" second="0">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="1" second="3">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Realization" first="1" second="5">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="4" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="1" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartRole>observers</StartRole>
+        <EndMultiplicity>0..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="4" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartMultiplicity>*</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="1" second="2">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>*</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Unbenannt</Name>
+    <Language>Java</Language>
+    <Entities />
+    <Relationships />
+  </ProjectItem>
+</Project>

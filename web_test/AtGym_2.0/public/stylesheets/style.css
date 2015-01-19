@@ -182,6 +182,13 @@ width : 55%;
     width: 100%;
 	
 }
+.centertab {
+	margin-left: auto;
+    margin-right: auto;
+	margin-bottom: 10%;
+    width: 100%;
+	
+}
 
 
 #b1{ 
@@ -284,6 +291,18 @@ width:20%;
 	width: 30%;
 	padding: 1%;
 }
+.inputtab{
+	width: 30%;
+	padding: 1%;
+	margin-left: 10%;
+	margin-top:10%;
+}
+.inputtabr{
+	width: 30%;
+	padding: 1%;
+	margin: 7%;
+}
+
 .breite8{
 	width: 80%;
 }
@@ -312,18 +331,24 @@ margin-right : 5%;
 .abstand3{
 	margin:3%;
 }
-
+.abstand33{
+	margin:2%;
+}
 .abstand4{
 	padding-top:5%;
 	padding-bottom :1%;
 	padding-left:5%
 }
-
+.abstand444{
+	padding-top:5%;
+	padding-bottom :1%;
+	padding-left:2%
+}
 .abstand5{
 	margin:1%;
 }
 .abstand6{
-	margin-left: 5%;
+	margin-left: 15%;
 }
 
 .abstand7{

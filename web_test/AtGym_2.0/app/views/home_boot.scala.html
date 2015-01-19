@@ -2,7 +2,13 @@
 @import helper._
 @import helper.twitterBootstrap._
 @main("Home"){
-		<div class="wrapper rande">
+<script  language="JavaScript" type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+</script>
+<div class="wrapper rande">
 		
 <nav class="navbar navbar-inverse" role="navigation">
   <div class="container-fluid">
@@ -27,7 +33,7 @@
 	  
 		<ul class="nav navbar-nav navbar-right">
 	<ul class="nav navbar-nav navbar-right">
-						<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#myModal_list">Deinen Übungen</a></li>
 													<!-- Modal -->
 									<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
 					  <div class="modal-dialog">
@@ -89,20 +95,16 @@
 				
 			
 				<div class="center">
-				<nav >
-					<a title="Sehe Deine persoenliche Daten und Deine Sportplaene! / absolviere Dein Training!" 
-					href="/myGym">
-					<img class="bild_button rande left breite" id="mygy" src="@routes.Assets.at("images/my_gymText.jpg")"></a>
+				<nav>
+					<a href="/myGym">
+					<img data-toggle="tooltip" data-placement="right" title="In deinen privaten Bereich findest du deine persönliche Daten und Bilder. Hier kannst du deine Routine durchführen und deine Entwicklung sehen" class="bild_button rande left breite" id="mygy" src="@routes.Assets.at("images/my_gymText.jpg")" alt="mygym">
+					</a>
 					
-					<a title="Erstelle Dein Trainigsplan! / Sehe alle Uebungen an!" 
-					href="/ourGym">
-					<img class="bild_button rande left breite" id="ourg" src="@routes.Assets.at("images/our_gymText.jpg")"></a>	
+					<a href="/ourGym">
+					<img data-toggle="tooltip" data-placement="right" title="In dem öffentlichen Bereich findest du alle Übungen. Du kannst deine Pläne erstellen, indem du die Übungen auswählst." class="bild_button rande left breite" id="ourg" src="@routes.Assets.at("images/our_gymText.jpg")" alt="ourgym"></a>	
 				</nav>
 				
 				</div>
-				
-			
-				
 				
 				<div id="ajax_motivation">
 				
@@ -138,13 +140,13 @@
 						
 					</script> 
 				</div>
-				</div>
-			</section>
+			</div>
+		</section>
 			<footer class="rande">
 				<div class="fcenter">
 				&#169 2014 ALINA&GINTARE
 				</div>
 			</footer>
-		</div>	
+</div>	
 		<!--onLoad="sendMotivation()"-->
 	}

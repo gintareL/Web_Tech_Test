@@ -34,7 +34,7 @@
       </ul>
 	  
 		<ul class="nav navbar-nav navbar-right">
-						<li><a href="#" data-toggle="modal" data-target="#myModal_list">Liste</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#myModal_list">Deinen Übungen</a></li>
 													<!-- Modal -->
 									<div class="modal fade" id="myModal_list" tabindex="-1" role="dialog" aria-labelledby="myModal_listLabel" aria-hidden="true">
 					  <div class="modal-dialog">
@@ -274,7 +274,7 @@
 							</script>
 							
 							
-							<tr><th><a title="anzeigen" href="#" id="hdown">Hüftenumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal_hueften" aria-hidden="true"></a></th></tr>
+							<tr><th><a title="anzeigen" href="#" id="hdown">Hüftumfang </a> </th><th><a href="#" title="ändern" class="button1 float_r glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal_hueften" aria-hidden="true"></a></th></tr>
 							
 							<div class="modal fade" id="myModal_hueften" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<div class="modal-dialog1">
@@ -290,7 +290,7 @@
 										   @form(routes.Application.aboutMeh(),'class -> "form-horizontal", 'id -> "hueftenForm") {
 										   
 										   <div class=" form-group @if(hueftenForm("umfang").hasErrors){has-error}">
-										    Dein aktueller Hüftenumfang:
+										    Dein aktueller Hüftumfang:
 												<input  class="rande float_r abstanda abstand_innen rseite1"  name="@hueftenForm("umfang").name" type="number" min="20" max="300"	placeholder="Hüftenumfang">
 												
 										</div>
